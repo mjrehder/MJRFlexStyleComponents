@@ -7,13 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		196EEBA11171CF39C9A3DA13 /* Pods_MJRFlexStyleComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77B0444028789DB3E4592282 /* Pods_MJRFlexStyleComponents.framework */; };
+		5B9F2C5E1D31616200B096B5 /* SnappingThumbBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F2C5D1D31616200B096B5 /* SnappingThumbBehaviour.swift */; };
+		5B9F2C601D32352600B096B5 /* StyledSliderThumb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */; };
 		5BF7020C1D3113D50011555A /* MJRFlexStyleComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BF7020B1D3113D50011555A /* MJRFlexStyleComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5BF702151D3116AC0011555A /* GenericStyleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF702141D3116AC0011555A /* GenericStyleSlider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4EC07D419337E6A0F6F6AB74 /* Pods-MJRFlexStyleComponents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJRFlexStyleComponents.release.xcconfig"; path = "Pods/Target Support Files/Pods-MJRFlexStyleComponents/Pods-MJRFlexStyleComponents.release.xcconfig"; sourceTree = "<group>"; };
+		5300EC2FC567953C422F4037 /* Pods-MJRFlexStyleComponents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJRFlexStyleComponents.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MJRFlexStyleComponents/Pods-MJRFlexStyleComponents.debug.xcconfig"; sourceTree = "<group>"; };
+		5B9F2C5D1D31616200B096B5 /* SnappingThumbBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnappingThumbBehaviour.swift; sourceTree = "<group>"; };
+		5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledSliderThumb.swift; sourceTree = "<group>"; };
 		5BF702081D3113D50011555A /* MJRFlexStyleComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MJRFlexStyleComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF7020B1D3113D50011555A /* MJRFlexStyleComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MJRFlexStyleComponents.h; sourceTree = "<group>"; };
 		5BF7020D1D3113D50011555A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5BF702141D3116AC0011555A /* GenericStyleSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericStyleSlider.swift; sourceTree = "<group>"; };
+		77B0444028789DB3E4592282 /* Pods_MJRFlexStyleComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MJRFlexStyleComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -21,17 +31,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				196EEBA11171CF39C9A3DA13 /* Pods_MJRFlexStyleComponents.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B8701C671920E55DE42A7D7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5300EC2FC567953C422F4037 /* Pods-MJRFlexStyleComponents.debug.xcconfig */,
+				4EC07D419337E6A0F6F6AB74 /* Pods-MJRFlexStyleComponents.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		5BF701FE1D3113D50011555A = {
 			isa = PBXGroup;
 			children = (
 				5BF7020A1D3113D50011555A /* MJRFlexStyleComponents */,
 				5BF702091D3113D50011555A /* Products */,
+				4B8701C671920E55DE42A7D7 /* Pods */,
+				D8855200A5B92F8BD525571D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -46,10 +68,29 @@
 		5BF7020A1D3113D50011555A /* MJRFlexStyleComponents */ = {
 			isa = PBXGroup;
 			children = (
+				5BF702131D3114CB0011555A /* GenericStyleSlider */,
 				5BF7020B1D3113D50011555A /* MJRFlexStyleComponents.h */,
 				5BF7020D1D3113D50011555A /* Info.plist */,
 			);
 			path = MJRFlexStyleComponents;
+			sourceTree = "<group>";
+		};
+		5BF702131D3114CB0011555A /* GenericStyleSlider */ = {
+			isa = PBXGroup;
+			children = (
+				5BF702141D3116AC0011555A /* GenericStyleSlider.swift */,
+				5B9F2C5D1D31616200B096B5 /* SnappingThumbBehaviour.swift */,
+				5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */,
+			);
+			name = GenericStyleSlider;
+			sourceTree = "<group>";
+		};
+		D8855200A5B92F8BD525571D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				77B0444028789DB3E4592282 /* Pods_MJRFlexStyleComponents.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -70,10 +111,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5BF702101D3113D50011555A /* Build configuration list for PBXNativeTarget "MJRFlexStyleComponents" */;
 			buildPhases = (
+				33680A81109BAEF453225207 /* Check Pods Manifest.lock */,
 				5BF702031D3113D50011555A /* Sources */,
 				5BF702041D3113D50011555A /* Frameworks */,
 				5BF702051D3113D50011555A /* Headers */,
 				5BF702061D3113D50011555A /* Resources */,
+				3DB9673AE543F80C14900D08 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -95,6 +138,7 @@
 				TargetAttributes = {
 					5BF702071D3113D50011555A = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = V7Y9TF9C7U;
 					};
 				};
 			};
@@ -125,11 +169,47 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		33680A81109BAEF453225207 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		3DB9673AE543F80C14900D08 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MJRFlexStyleComponents/Pods-MJRFlexStyleComponents-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5BF702031D3113D50011555A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B9F2C5E1D31616200B096B5 /* SnappingThumbBehaviour.swift in Sources */,
+				5BF702151D3116AC0011555A /* GenericStyleSlider.swift in Sources */,
+				5B9F2C601D32352600B096B5 /* StyledSliderThumb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,7 +309,10 @@
 		};
 		5BF702111D3113D50011555A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5300EC2FC567953C422F4037 /* Pods-MJRFlexStyleComponents.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -240,12 +323,16 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rehsco.MJRFlexStyleComponents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		5BF702121D3113D50011555A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4EC07D419337E6A0F6F6AB74 /* Pods-MJRFlexStyleComponents.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -278,6 +365,7 @@
 				5BF702121D3113D50011555A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
