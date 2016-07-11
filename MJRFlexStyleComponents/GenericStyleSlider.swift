@@ -18,8 +18,8 @@ public protocol GenericStyleSliderDelegate {
 // TODO: enum dimension (1-Dim, 2-Dim), layout (Horiz, Vert)
 
 @IBDesignable public final class GenericStyleSlider: UIControl {
+    var thumbs: [StyledSliderThumb] = []
     // TODO (private lists)
-    // list of thumbs
     // list of seperator labels
     
     // delegate decl: GenericStyleSliderDelegate
@@ -82,7 +82,7 @@ public protocol GenericStyleSliderDelegate {
      
      The default value for this property is 0. This property is clamped at its lower extreme to minimumValue and is clamped at its upper extreme to maximumValue.
      */
-    @IBInspectable public var value: Double {
+    var value: Double {
         get {
             return _value
         }
@@ -103,10 +103,22 @@ public protocol GenericStyleSliderDelegate {
     
     // MARK: - Private
     
+    // Call this after swiping the control or when behaviour changes
+    func applyThumbsBehaviour() {
+        for thumb in self.thumbs {
+            switch thumb.behaviour {
+            case .Freeform:
+                return
+            case .SnapToLower:
+                break
+            }
+        }
+    }
+
+    
     // TODO: Most of this goes into the Thumb classes, which must be children of this control
     
     let dynamicButtonAnimator = UIDynamicAnimator()
-    var snappingBehavior      = SnappingThumbBehaviour(item: nil, snapToPoint: CGPointZero)
     
     var styleLayer = CAShapeLayer()
     var styleColor: UIColor? = .clearColor()
