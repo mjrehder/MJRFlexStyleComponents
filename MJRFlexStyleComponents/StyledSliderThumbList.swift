@@ -88,6 +88,10 @@ public class StyledSliderThumbList {
         return maxControlPos
     }
     
+    func getControlSize() -> CGFloat {
+        return self.getPrincipalSizeValue(self.bounds.size)
+    }
+    
     func thumbSizeSum(startIndex: Int, endIndex: Int) -> CGFloat {
         var sum: CGFloat = 0
         if startIndex <= endIndex && startIndex >= 0 && endIndex < self.thumbs.count {
@@ -195,8 +199,8 @@ public class StyledSliderThumbList {
         let vd = CGFloat(self.getValueDelta(value))
         let totalThumbSum = self.thumbSizeSum(0, endIndex: self.thumbs.count-1)
         let lowerThumbSum = self.thumbSizeSum(0, endIndex: thumbIndex-1)
-        let uT = self.getPositionMax() - self.getPositionMin()
-        let u = self.getPositionMin() + ((uT - totalThumbSum) * vd + lowerThumbSum + thS)
+        let uT = self.getControlSize()
+        let u = (uT - totalThumbSum) * vd + lowerThumbSum + thS
         if self.direction == .Horizontal {
             return CGPointMake(u, thumb.center.y)
         }
@@ -211,9 +215,9 @@ public class StyledSliderThumbList {
         let thS = tS * 0.5
         let totalThumbSum = self.thumbSizeSum(0, endIndex: self.thumbs.count-1)
         let lowerThumbSum = self.thumbSizeSum(0, endIndex: thumbIndex-1)
-        let uT = self.getPositionMax() - self.getPositionMin()
+        let uT = self.getControlSize()
 
-        let pos = self.getPrincipalPositionValue(thumb.center) - self.getPositionMin()
+        let pos = self.getPrincipalPositionValue(thumb.center)
         let vT = Double((pos - (lowerThumbSum + thS)) / (uT - totalThumbSum))
         let val = vT * (maximumValue - minimumValue) + minimumValue
         return val

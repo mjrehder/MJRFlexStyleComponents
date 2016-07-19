@@ -33,20 +33,22 @@ public protocol GenericStyleSliderDelegate {
         
         self.layoutComponents()
         
-        // Test
-        let p1 = self.thumbList.getThumbPosForValue(0, thumbIndex: 0)
-        NSLog("value for 0 is \(p1.x),\(p1.y)")
-        let p2 = self.thumbList.getThumbPosForValue(0.5, thumbIndex: 0)
-        NSLog("value for 0.5 is \(p2.x),\(p2.y)")
-        let p3 = self.thumbList.getThumbPosForValue(1, thumbIndex: 0)
-        NSLog("value for 1 is \(p3.x),\(p3.y)")
-        
-        let p1n = self.thumbList.getThumbPosForValueOpti(0, thumbIndex: 0)
-        NSLog("value for 0 is \(p1n.x),\(p1n.y)")
-        let p2n = self.thumbList.getThumbPosForValueOpti(0.5, thumbIndex: 0)
-        NSLog("value for 0.5 is \(p2n.x),\(p2n.y)")
-        let p3n = self.thumbList.getThumbPosForValueOpti(1, thumbIndex: 0)
-        NSLog("value for 1 is \(p3n.x),\(p3n.y)")
+        if self.thumbList.thumbs.count > 0 {
+            // Test
+            let p1 = self.thumbList.getThumbPosForValue(0, thumbIndex: 0)
+            NSLog("value for 0 is \(p1.x),\(p1.y)")
+            let p2 = self.thumbList.getThumbPosForValue(0.5, thumbIndex: 0)
+            NSLog("value for 0.5 is \(p2.x),\(p2.y)")
+            let p3 = self.thumbList.getThumbPosForValue(1, thumbIndex: 0)
+            NSLog("value for 1 is \(p3.x),\(p3.y)")
+            
+            let p1n = self.thumbList.getThumbPosForValueOpti(0, thumbIndex: 0)
+            NSLog("value for 0 is \(p1n.x),\(p1n.y)")
+            let p2n = self.thumbList.getThumbPosForValueOpti(0.5, thumbIndex: 0)
+            NSLog("value for 0.5 is \(p2n.x),\(p2n.y)")
+            let p3n = self.thumbList.getThumbPosForValueOpti(1, thumbIndex: 0)
+            NSLog("value for 1 is \(p3n.x),\(p3n.y)")
+        }
     }
     
     /**
@@ -174,6 +176,7 @@ public protocol GenericStyleSliderDelegate {
         let thumbWidth  = bounds.width * thumbWidthRatio
         let symbolWidth = (bounds.width - thumbWidth) / 2
         
+        NSLog("bounds: \(self.bounds.origin.x),\(self.bounds.origin.y),\(self.bounds.size.width),\(self.bounds.size.height)")
         self.thumbList.bounds = self.bounds
         for thumb in self.thumbList.thumbs {
             thumb.frame = CGRect(x: symbolWidth, y: 0, width: thumbWidth, height: bounds.height)

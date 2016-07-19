@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -19,10 +18,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eq7-nC-D0K" customClass="GenericStyleSlider" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="38" y="105" width="514" height="68"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <rect key="frame" x="50" y="109" width="500" height="68"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="68" id="e9a-WB-UZW"/>
+                                    <constraint firstAttribute="height" constant="68" id="DEf-vw-xRE"/>
+                                    <constraint firstAttribute="width" constant="500" id="LAT-8p-jA6"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
@@ -36,9 +36,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="eq7-nC-D0K" secondAttribute="trailing" constant="28" id="SaT-3O-nc5"/>
-                            <constraint firstItem="eq7-nC-D0K" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="85" id="WBM-fa-798"/>
-                            <constraint firstItem="eq7-nC-D0K" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="18" id="qjm-UB-MQo"/>
+                            <constraint firstItem="eq7-nC-D0K" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="89" id="DXs-o5-9L7"/>
+                            <constraint firstItem="eq7-nC-D0K" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vc8-UR-ae9"/>
                         </constraints>
                     </view>
                     <connections>
