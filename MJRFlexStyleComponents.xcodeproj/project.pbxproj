@@ -8,15 +8,41 @@
 
 /* Begin PBXBuildFile section */
 		196EEBA11171CF39C9A3DA13 /* Pods_MJRFlexStyleComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77B0444028789DB3E4592282 /* Pods_MJRFlexStyleComponents.framework */; };
+		5B9936D71D3A57620043E573 /* StyledSliderThumbList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9936D61D3A57620043E573 /* StyledSliderThumbList.swift */; };
+		5B9936D91D3A578B0043E573 /* StyledSliderDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9936D81D3A578B0043E573 /* StyledSliderDirection.swift */; };
+		5B9936FF1D3A9E210043E573 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9936FE1D3A9E210043E573 /* AppDelegate.swift */; };
+		5B9937011D3A9E210043E573 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9937001D3A9E210043E573 /* ViewController.swift */; };
+		5B9937041D3A9E210043E573 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B9937021D3A9E210043E573 /* Main.storyboard */; };
+		5B9937061D3A9E210043E573 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9937051D3A9E210043E573 /* Assets.xcassets */; };
+		5B9937091D3A9E220043E573 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B9937071D3A9E210043E573 /* LaunchScreen.storyboard */; };
+		5B99370E1D3A9E5B0043E573 /* GenericStyleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF702141D3116AC0011555A /* GenericStyleSlider.swift */; };
+		5B99370F1D3A9E5B0043E573 /* SnappingThumbBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F2C5D1D31616200B096B5 /* SnappingThumbBehaviour.swift */; };
+		5B9937101D3A9E5B0043E573 /* StyledSliderThumb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */; };
+		5B9937111D3A9E5B0043E573 /* StyledSliderThumbList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9936D61D3A57620043E573 /* StyledSliderThumbList.swift */; };
+		5B9937121D3A9E5B0043E573 /* StyledSliderDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9936D81D3A578B0043E573 /* StyledSliderDirection.swift */; };
+		5B9937141D3B58AC0043E573 /* UITouchGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9937131D3B58AC0043E573 /* UITouchGestureRecognizer.swift */; };
+		5B9937151D3B58AC0043E573 /* UITouchGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9937131D3B58AC0043E573 /* UITouchGestureRecognizer.swift */; };
 		5B9F2C5E1D31616200B096B5 /* SnappingThumbBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F2C5D1D31616200B096B5 /* SnappingThumbBehaviour.swift */; };
 		5B9F2C601D32352600B096B5 /* StyledSliderThumb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */; };
 		5BF7020C1D3113D50011555A /* MJRFlexStyleComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BF7020B1D3113D50011555A /* MJRFlexStyleComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BF702151D3116AC0011555A /* GenericStyleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF702141D3116AC0011555A /* GenericStyleSlider.swift */; };
+		D1B71397BAD77EE05A56CB41 /* Pods_MJRFlexStyleExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD1A1E3588F9931082B7FB22 /* Pods_MJRFlexStyleExamples.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3BF4E671A7E1DFDF866C6CB0 /* Pods-MJRFlexStyleExamples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJRFlexStyleExamples.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MJRFlexStyleExamples/Pods-MJRFlexStyleExamples.debug.xcconfig"; sourceTree = "<group>"; };
 		4EC07D419337E6A0F6F6AB74 /* Pods-MJRFlexStyleComponents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJRFlexStyleComponents.release.xcconfig"; path = "Pods/Target Support Files/Pods-MJRFlexStyleComponents/Pods-MJRFlexStyleComponents.release.xcconfig"; sourceTree = "<group>"; };
 		5300EC2FC567953C422F4037 /* Pods-MJRFlexStyleComponents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJRFlexStyleComponents.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MJRFlexStyleComponents/Pods-MJRFlexStyleComponents.debug.xcconfig"; sourceTree = "<group>"; };
+		5B9936D61D3A57620043E573 /* StyledSliderThumbList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledSliderThumbList.swift; sourceTree = "<group>"; };
+		5B9936D81D3A578B0043E573 /* StyledSliderDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledSliderDirection.swift; sourceTree = "<group>"; };
+		5B9936FC1D3A9E210043E573 /* MJRFlexStyleExamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MJRFlexStyleExamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B9936FE1D3A9E210043E573 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5B9937001D3A9E210043E573 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5B9937031D3A9E210043E573 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5B9937051D3A9E210043E573 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5B9937081D3A9E210043E573 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5B99370A1D3A9E220043E573 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5B9937131D3B58AC0043E573 /* UITouchGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITouchGestureRecognizer.swift; sourceTree = "<group>"; };
 		5B9F2C5D1D31616200B096B5 /* SnappingThumbBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnappingThumbBehaviour.swift; sourceTree = "<group>"; };
 		5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledSliderThumb.swift; sourceTree = "<group>"; };
 		5BF702081D3113D50011555A /* MJRFlexStyleComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MJRFlexStyleComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,9 +50,19 @@
 		5BF7020D1D3113D50011555A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BF702141D3116AC0011555A /* GenericStyleSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericStyleSlider.swift; sourceTree = "<group>"; };
 		77B0444028789DB3E4592282 /* Pods_MJRFlexStyleComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MJRFlexStyleComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADC9196F8B2544B9A163C5BF /* Pods-MJRFlexStyleExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJRFlexStyleExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-MJRFlexStyleExamples/Pods-MJRFlexStyleExamples.release.xcconfig"; sourceTree = "<group>"; };
+		CD1A1E3588F9931082B7FB22 /* Pods_MJRFlexStyleExamples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MJRFlexStyleExamples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5B9936F91D3A9E210043E573 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1B71397BAD77EE05A56CB41 /* Pods_MJRFlexStyleExamples.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5BF702041D3113D50011555A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -43,14 +79,30 @@
 			children = (
 				5300EC2FC567953C422F4037 /* Pods-MJRFlexStyleComponents.debug.xcconfig */,
 				4EC07D419337E6A0F6F6AB74 /* Pods-MJRFlexStyleComponents.release.xcconfig */,
+				3BF4E671A7E1DFDF866C6CB0 /* Pods-MJRFlexStyleExamples.debug.xcconfig */,
+				ADC9196F8B2544B9A163C5BF /* Pods-MJRFlexStyleExamples.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		5B9936FD1D3A9E210043E573 /* MJRFlexStyleExamples */ = {
+			isa = PBXGroup;
+			children = (
+				5B9936FE1D3A9E210043E573 /* AppDelegate.swift */,
+				5B9937001D3A9E210043E573 /* ViewController.swift */,
+				5B9937021D3A9E210043E573 /* Main.storyboard */,
+				5B9937051D3A9E210043E573 /* Assets.xcassets */,
+				5B9937071D3A9E210043E573 /* LaunchScreen.storyboard */,
+				5B99370A1D3A9E220043E573 /* Info.plist */,
+			);
+			path = MJRFlexStyleExamples;
 			sourceTree = "<group>";
 		};
 		5BF701FE1D3113D50011555A = {
 			isa = PBXGroup;
 			children = (
 				5BF7020A1D3113D50011555A /* MJRFlexStyleComponents */,
+				5B9936FD1D3A9E210043E573 /* MJRFlexStyleExamples */,
 				5BF702091D3113D50011555A /* Products */,
 				4B8701C671920E55DE42A7D7 /* Pods */,
 				D8855200A5B92F8BD525571D /* Frameworks */,
@@ -61,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				5BF702081D3113D50011555A /* MJRFlexStyleComponents.framework */,
+				5B9936FC1D3A9E210043E573 /* MJRFlexStyleExamples.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -78,9 +131,12 @@
 		5BF702131D3114CB0011555A /* GenericStyleSlider */ = {
 			isa = PBXGroup;
 			children = (
-				5BF702141D3116AC0011555A /* GenericStyleSlider.swift */,
+				5B9937131D3B58AC0043E573 /* UITouchGestureRecognizer.swift */,
 				5B9F2C5D1D31616200B096B5 /* SnappingThumbBehaviour.swift */,
 				5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */,
+				5B9936D61D3A57620043E573 /* StyledSliderThumbList.swift */,
+				5B9936D81D3A578B0043E573 /* StyledSliderDirection.swift */,
+				5BF702141D3116AC0011555A /* GenericStyleSlider.swift */,
 			);
 			name = GenericStyleSlider;
 			sourceTree = "<group>";
@@ -89,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				77B0444028789DB3E4592282 /* Pods_MJRFlexStyleComponents.framework */,
+				CD1A1E3588F9931082B7FB22 /* Pods_MJRFlexStyleExamples.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -107,6 +164,26 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		5B9936FB1D3A9E210043E573 /* MJRFlexStyleExamples */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B99370B1D3A9E220043E573 /* Build configuration list for PBXNativeTarget "MJRFlexStyleExamples" */;
+			buildPhases = (
+				9E9C4A0CD69DD8ED16FAD570 /* Check Pods Manifest.lock */,
+				5B9936F81D3A9E210043E573 /* Sources */,
+				5B9936F91D3A9E210043E573 /* Frameworks */,
+				5B9936FA1D3A9E210043E573 /* Resources */,
+				19F5829F4EAECA2DC4C05C53 /* Embed Pods Frameworks */,
+				258826FD1CA4B862A99A8E32 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MJRFlexStyleExamples;
+			productName = MJRFlexStyleExamples;
+			productReference = 5B9936FC1D3A9E210043E573 /* MJRFlexStyleExamples.app */;
+			productType = "com.apple.product-type.application";
+		};
 		5BF702071D3113D50011555A /* MJRFlexStyleComponents */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5BF702101D3113D50011555A /* Build configuration list for PBXNativeTarget "MJRFlexStyleComponents" */;
@@ -133,9 +210,13 @@
 		5BF701FF1D3113D50011555A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Martin Rehder";
 				TargetAttributes = {
+					5B9936FB1D3A9E210043E573 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
 					5BF702071D3113D50011555A = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = V7Y9TF9C7U;
@@ -148,6 +229,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 5BF701FE1D3113D50011555A;
 			productRefGroup = 5BF702091D3113D50011555A /* Products */;
@@ -155,11 +237,22 @@
 			projectRoot = "";
 			targets = (
 				5BF702071D3113D50011555A /* MJRFlexStyleComponents */,
+				5B9936FB1D3A9E210043E573 /* MJRFlexStyleExamples */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5B9936FA1D3A9E210043E573 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B9937091D3A9E220043E573 /* LaunchScreen.storyboard in Resources */,
+				5B9937061D3A9E210043E573 /* Assets.xcassets in Resources */,
+				5B9937041D3A9E210043E573 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5BF702061D3113D50011555A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -170,6 +263,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		19F5829F4EAECA2DC4C05C53 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MJRFlexStyleExamples/Pods-MJRFlexStyleExamples-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		258826FD1CA4B862A99A8E32 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MJRFlexStyleExamples/Pods-MJRFlexStyleExamples-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		33680A81109BAEF453225207 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -200,22 +323,98 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MJRFlexStyleComponents/Pods-MJRFlexStyleComponents-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9E9C4A0CD69DD8ED16FAD570 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5B9936F81D3A9E210043E573 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B99370F1D3A9E5B0043E573 /* SnappingThumbBehaviour.swift in Sources */,
+				5B9937151D3B58AC0043E573 /* UITouchGestureRecognizer.swift in Sources */,
+				5B99370E1D3A9E5B0043E573 /* GenericStyleSlider.swift in Sources */,
+				5B9937111D3A9E5B0043E573 /* StyledSliderThumbList.swift in Sources */,
+				5B9937121D3A9E5B0043E573 /* StyledSliderDirection.swift in Sources */,
+				5B9937101D3A9E5B0043E573 /* StyledSliderThumb.swift in Sources */,
+				5B9937011D3A9E210043E573 /* ViewController.swift in Sources */,
+				5B9936FF1D3A9E210043E573 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5BF702031D3113D50011555A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				5B9F2C5E1D31616200B096B5 /* SnappingThumbBehaviour.swift in Sources */,
+				5B9936D91D3A578B0043E573 /* StyledSliderDirection.swift in Sources */,
 				5BF702151D3116AC0011555A /* GenericStyleSlider.swift in Sources */,
+				5B9937141D3B58AC0043E573 /* UITouchGestureRecognizer.swift in Sources */,
+				5B9936D71D3A57620043E573 /* StyledSliderThumbList.swift in Sources */,
 				5B9F2C601D32352600B096B5 /* StyledSliderThumb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		5B9937021D3A9E210043E573 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5B9937031D3A9E210043E573 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5B9937071D3A9E210043E573 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5B9937081D3A9E210043E573 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		5B99370C1D3A9E220043E573 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3BF4E671A7E1DFDF866C6CB0 /* Pods-MJRFlexStyleExamples.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = MJRFlexStyleExamples/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rehsco.MJRFlexStyleExamples;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5B99370D1D3A9E220043E573 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADC9196F8B2544B9A163C5BF /* Pods-MJRFlexStyleExamples.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = MJRFlexStyleExamples/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rehsco.MJRFlexStyleExamples;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		5BF7020E1D3113D50011555A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -349,6 +548,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5B99370B1D3A9E220043E573 /* Build configuration list for PBXNativeTarget "MJRFlexStyleExamples" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B99370C1D3A9E220043E573 /* Debug */,
+				5B99370D1D3A9E220043E573 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5BF702021D3113D50011555A /* Build configuration list for PBXProject "MJRFlexStyleComponents" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

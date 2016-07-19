@@ -9,7 +9,7 @@
 import UIKit
 import SnappingStepper
 
-enum StyledSliderThumbBehaviour {
+public enum StyledSliderThumbBehaviour {
     case Freeform
     case SnapToLower
     case SnapToHigher
@@ -20,7 +20,7 @@ enum StyledSliderThumbBehaviour {
     case FixateToCenter
 }
 
-class StyledSliderThumb: StyledLabel {
+public class StyledSliderThumb: StyledLabel {
     var snappingBehavior = SnappingThumbBehaviour(item: nil, snapToPoint: CGPointZero)
     var behaviour: StyledSliderThumbBehaviour = .Freeform    
 }

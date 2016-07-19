@@ -6,3 +6,9 @@ target 'MJRFlexStyleComponents' do
     pod 'SnappingStepper', :git => 'https://github.com/yannickl/SnappingStepper.git', :branch => 'master'
 
 end
+
+target 'MJRFlexStyleExamples' do
+    #    pod 'SnappingStepper', '~> 2.3.0'
+    pod 'SnappingStepper', :git => 'https://github.com/yannickl/SnappingStepper.git', :branch => 'master'
+    
+end

@@ -9,9 +9,19 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>MJRFlexStyleExamples.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>5B9936FB1D3A9E210043E573</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5BF702071D3113D50011555A</key>
 		<dict>
 			<key>primary</key>
