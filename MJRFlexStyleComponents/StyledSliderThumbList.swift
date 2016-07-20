@@ -152,12 +152,12 @@ public class StyledSliderThumbList {
         }
         let thumb = self.thumbs[index]
         let thumbSize = self.getPrincipalSizeValue(thumb.bounds.size)
-        return self.getPrincipalPositionValue(self.bounds.origin) + prevThumbSize + prevPos + thumbSize * 0.5
+        return self.getPrincipalPositionValue(self.bounds.origin) + prevPos + (prevThumbSize + thumbSize) * 0.5
     }
     
     func higherPosForThumb(index: Int) -> CGFloat {
         var nextThumbSize: CGFloat = 0
-        var nextPos: CGFloat = 0
+        var nextPos: CGFloat = self.getPrincipalSizeValue(self.bounds.size)
         if let nextThumb = self.getNextThumb(index) {
             nextThumbSize = self.getPrincipalSizeValue(nextThumb.bounds.size)
             nextPos = self.getPrincipalPositionValue(nextThumb.center)
@@ -167,32 +167,26 @@ public class StyledSliderThumbList {
         return (self.getPrincipalPositionValue(self.bounds.origin) + nextPos) - (nextThumbSize + thumbSize) * 0.5
     }
     
-    func getThumbPosForValue(value: Double, thumbIndex: Int) -> CGPoint {
+    func updateThumbPosition(pos: CGFloat, thumbIndex: Int) {
         let thumb = self.thumbs[thumbIndex]
-        let vd = CGFloat(self.getValueDelta(value))
-        var lowerSum = self.thumbDistanceSum(0, endIndex: thumbIndex-1)
-        var higherSum = self.thumbDistanceSum(thumbIndex+1, endIndex: self.thumbs.count-1)
-        if let prevThumb = self.getPrevThumb(thumbIndex) {
-            lowerSum += self.getPrincipalSizeValue(prevThumb.bounds.size) * 0.5
-            lowerSum += self.getPrincipalSizeValue(thumb.bounds.size) * 0.5
+        var pPos = pos
+        let hp = self.higherPosForThumb(thumbIndex)
+        let lp = self.lowerPosForThumb(thumbIndex)
+        if pPos > hp {
+            pPos = hp
         }
-        if let nextThumb = self.getNextThumb(thumbIndex) {
-            higherSum += self.getPrincipalSizeValue(nextThumb.bounds.size) * 0.5
-            higherSum += self.getPrincipalSizeValue(thumb.bounds.size) * 0.5
+        if pPos < lp {
+            pPos = lp
         }
-        let uT = self.getPositionMax() - self.getPositionMin()
-        let ud = (uT - (lowerSum + higherSum)) / uT
-        let vT = (vd * ud) * uT
-        let u = self.lowerPosForThumb(thumbIndex) + vT
         if self.direction == .Horizontal {
-            return CGPointMake(u, thumb.center.y)
+            thumb.center = CGPointMake(pPos, thumb.center.y)
         }
         else {
-            return CGPointMake(thumb.center.x, u)
+            thumb.center = CGPointMake(thumb.center.x, pPos)
         }
     }
     
-    func getThumbPosForValueOpti(value: Double, thumbIndex: Int) -> CGPoint {
+    func getThumbPosForValue(value: Double, thumbIndex: Int) -> CGPoint {
         let thumb = self.thumbs[thumbIndex]
         let tS = self.getPrincipalSizeValue(thumb.bounds.size)
         let thS = tS * 0.5

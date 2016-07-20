@@ -22,5 +22,6 @@ public enum StyledSliderThumbBehaviour {
 
 public class StyledSliderThumb: StyledLabel {
     var snappingBehavior = SnappingThumbBehaviour(item: nil, snapToPoint: CGPointZero)
-    var behaviour: StyledSliderThumbBehaviour = .Freeform    
+    var behaviour: StyledSliderThumbBehaviour = .Freeform
+    var index = 0
 }

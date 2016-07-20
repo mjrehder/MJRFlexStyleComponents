@@ -29,26 +29,8 @@ public protocol GenericStyleSliderDelegate {
     
     /// Lays out subviews
     public override func layoutSubviews() {
-        super.layoutSubviews()
-        
+        super.layoutSubviews()        
         self.layoutComponents()
-        
-        if self.thumbList.thumbs.count > 0 {
-            // Test
-            let p1 = self.thumbList.getThumbPosForValue(0, thumbIndex: 0)
-            NSLog("value for 0 is \(p1.x),\(p1.y)")
-            let p2 = self.thumbList.getThumbPosForValue(0.5, thumbIndex: 0)
-            NSLog("value for 0.5 is \(p2.x),\(p2.y)")
-            let p3 = self.thumbList.getThumbPosForValue(1, thumbIndex: 0)
-            NSLog("value for 1 is \(p3.x),\(p3.y)")
-            
-            let p1n = self.thumbList.getThumbPosForValueOpti(0, thumbIndex: 0)
-            NSLog("value for 0 is \(p1n.x),\(p1n.y)")
-            let p2n = self.thumbList.getThumbPosForValueOpti(0.5, thumbIndex: 0)
-            NSLog("value for 0.5 is \(p2n.x),\(p2n.y)")
-            let p3n = self.thumbList.getThumbPosForValueOpti(1, thumbIndex: 0)
-            NSLog("value for 1 is \(p3n.x),\(p3n.y)")
-        }
     }
     
     /**
@@ -125,21 +107,17 @@ public protocol GenericStyleSliderDelegate {
     /// The thumb's background color. If nil the thumb color will be lighter than the background color. Defaults to nil.
     @IBInspectable public var thumbBackgroundColor: UIColor? {
         didSet {
-            // TODO
-//            thumbLabel.backgroundColor = thumbBackgroundColor
+            for thumb in self.thumbList.thumbs {
+                thumb.backgroundColor = thumbBackgroundColor
+            }
         }
     }
-
-    public func addThumb(value: Double) {
-        let thumb = StyledSliderThumb()
-        self.thumbList.thumbs.append(thumb)
-        thumb.backgroundColor = self.thumbBackgroundColor
-        self.addSubview(thumb)
-        // TODO: There must be more to this
-        
-        self.setupThumbGesture(thumb)
-        self.setNeedsLayout()
-
+    
+    /// The thumb text to display. If the text is nil it will display the current value of the stepper. Defaults with empty string.
+    @IBInspectable public var thumbText: String? = "" {
+        didSet {
+            self.assignThumbTexts()
+        }
     }
     
     /**
@@ -160,26 +138,25 @@ public protocol GenericStyleSliderDelegate {
     
     var _values: [Double] = [] {
         didSet {
-/*            if thumbText == nil {
-                thumbLabel.text = valueAsText()
-            }
-            
-            hintLabel.text = valueAsText()*/
+            self.assignThumbTexts()
+/*            hintLabel.text = valueAsText()*/
         }
     }
     
     // MARK: - Private
 
     func layoutComponents() {
-        // TODO: Need to calculate value => position
-        
-        let thumbWidth  = bounds.width * thumbWidthRatio
-        let symbolWidth = (bounds.width - thumbWidth) / 2
-        
-        NSLog("bounds: \(self.bounds.origin.x),\(self.bounds.origin.y),\(self.bounds.size.width),\(self.bounds.size.height)")
         self.thumbList.bounds = self.bounds
         for thumb in self.thumbList.thumbs {
-            thumb.frame = CGRect(x: symbolWidth, y: 0, width: thumbWidth, height: bounds.height)
+            let pos = self.thumbList.getThumbPosForValue(_values[thumb.index], thumbIndex: thumb.index)
+            if self.direction == .Horizontal {
+                let thumbWidth  = bounds.width * thumbWidthRatio
+                thumb.frame = CGRect(x: pos.x - thumbWidth / 2.0, y: 0, width: thumbWidth, height: bounds.height)
+            }
+            else {
+                let thumbWidth  = bounds.height * thumbWidthRatio
+                thumb.frame = CGRect(x: 0, y: pos.y - thumbWidth / 2.0, width: bounds.width, height: thumbWidth)
+            }
         }
         
 //        snappingBehavior = SnappingStepperBehavior(item: thumbLabel, snapToPoint: CGPoint(x: bounds.size.width * 0.5, y: bounds.size.height * 0.5))
@@ -190,6 +167,7 @@ public protocol GenericStyleSliderDelegate {
         applyStyle(style)
         applyHintStyle(hintStyle)
  */
+        self.assignThumbTexts()
     }
     
     // TODO: Most of this goes into the Thumb classes, which must be children of this control
@@ -247,17 +225,13 @@ public protocol GenericStyleSliderDelegate {
             case .Changed:
                 let translationInView = sender.translationInView(thumb)
                 
-                var centerX = (touchesBeganPoint.x + translationInView.x)
-                centerX     = max(thumb.bounds.width / 2, min(centerX, bounds.width - thumb.bounds.width / 2))
+                let tiv = self.thumbList.getPrincipalPositionValue(translationInView)
+                let tb = self.thumbList.getPrincipalPositionValue(touchesBeganPoint)
+                self.thumbList.updateThumbPosition(tiv+tb, thumbIndex: thumb.index)
                 
-                thumb.center = CGPoint(x: centerX, y: thumb.center.y)
-                
-                let v = self.thumbList.getValueFromThumbPos(0)
-                NSLog("value is now \(v)")
-                
-                // TODO
-//                _value = initialValue + stepValue * factorValue
-//                updateValue(_value, finished: true)
+                let v = self.thumbList.getValueFromThumbPos(thumb.index)
+                self.updateValue(thumb.index, value: v)
+
             case .Ended, .Failed, .Cancelled:
                 // TODO
 /*                if case .None = hintStyle {} else {
@@ -279,6 +253,40 @@ public protocol GenericStyleSliderDelegate {
         }
     }
 
+    func addThumb(value: Double) {
+        let thumb = StyledSliderThumb()
+        thumb.backgroundColor = self.thumbBackgroundColor
+        thumb.index = self.thumbList.thumbs.count
+        self.thumbList.thumbs.append(thumb)
+        self.addSubview(thumb)
+        
+        // TODO: There must be more to this
+        
+        self.setupThumbGesture(thumb)
+        self.setNeedsLayout()
+    }
+
+    func assignThumbText(index: Int) {
+        let thumb = self.thumbList.thumbs[index]
+        if thumbText == nil {
+            thumb.text = valueAsText(_values[thumb.index])
+        }
+        else {
+            thumb.text = thumbText
+        }
+    }
+    
+    func assignThumbTexts() {
+        for idx in 0..<self.thumbList.thumbs.count {
+            self.assignThumbText(idx)
+        }
+    }
+
+    func updateValue(index: Int, value: Double) {
+        _values[index] = value
+        self.assignThumbText(index)
+    }
+    
     func updateValues(values: [Double], finished: Bool = true) {
         var newVals: [Double] = []
         for value in values {
@@ -301,7 +309,10 @@ public protocol GenericStyleSliderDelegate {
             }*/
             newVals.append(nVal)
         }
-        _values = newVals
+        _values = newVals.sort()
+        for value in _values {
+            self.addThumb(value)
+        }
     }
     
     func valueAsText(value: Double) -> String {

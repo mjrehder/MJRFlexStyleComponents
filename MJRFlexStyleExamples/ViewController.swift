@@ -23,8 +23,9 @@ class ViewController: UIViewController {
 
     func setupSimpleSlider() {
         self.simpleSlider.thumbBackgroundColor = UIColor.greenColor()
-        self.simpleSlider.thumbWidthRatio = 0.06
-        self.simpleSlider.addThumb(0.0)
+        self.simpleSlider.thumbWidthRatio = 0.1
+        self.simpleSlider.thumbText = nil
+        self.simpleSlider.values = [0.0, 0.5, 0.75]
     }
 }
 
