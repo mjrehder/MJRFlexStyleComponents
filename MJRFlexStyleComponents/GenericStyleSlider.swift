@@ -56,7 +56,8 @@ public protocol GenericStyleSliderDelegate {
      */
     @IBInspectable public var direction: StyleSliderDirection = .Horizontal {
         didSet {
-            // TODO
+            self.thumbList.direction = direction
+            self.layoutComponents()
         }
     }
 

@@ -10,7 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var simpleSlider: GenericStyleSlider!
-
+    @IBOutlet weak var verticalSimpleSlider: GenericStyleSlider!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,6 +27,13 @@ class ViewController: UIViewController {
         self.simpleSlider.thumbWidthRatio = 0.1
         self.simpleSlider.thumbText = nil
         self.simpleSlider.values = [0.0, 0.5, 0.75]
+        
+        self.verticalSimpleSlider.thumbBackgroundColor = UIColor.greenColor()
+        self.verticalSimpleSlider.direction = .Vertical
+        self.verticalSimpleSlider.thumbWidthRatio = 0.1
+        self.verticalSimpleSlider.thumbText = nil
+        self.verticalSimpleSlider.values = [0.0, 0.5, 0.75]
+        
     }
 }
 
