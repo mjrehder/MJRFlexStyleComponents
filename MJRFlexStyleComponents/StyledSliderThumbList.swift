@@ -11,13 +11,13 @@ import UIKit
 public class StyledSliderThumbList {
     var thumbs: [StyledSliderThumb] = []
     
-    public var maximumValue: Double = 1.0 {
+    public var maximumValue: Double = 100 {
         didSet {
             // TODO
         }
     }
     
-    public var minimumValue: Double = 0.0 {
+    public var minimumValue: Double = 0 {
         didSet {
             // TODO
         }
@@ -57,6 +57,15 @@ public class StyledSliderThumbList {
                 break
             }
         }
+    }
+    
+    // MARK: - Thumb List maintainance
+    
+    func removeAllThumbs() {
+        for thumb in self.thumbs {
+            thumb.removeFromSuperview()
+        }
+        self.thumbs.removeAll()
     }
     
     // MARK: - Thumb List functions

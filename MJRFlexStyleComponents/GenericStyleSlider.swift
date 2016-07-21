@@ -10,20 +10,19 @@ import UIKit
 import SnappingStepper
 
 public protocol GenericStyleSliderDelegate {
-    func numberOfThumbs() -> Int
     func textOfThumb(index: Int) -> String?
+    func colorOfThumb(index: Int) -> UIColor?
     func textOfSeperatorLabel(index: Int) -> String?
+    func colorOfSeperatorLabel(index: Int) -> UIColor?
 }
 
-// TODO: enum dimension (1-Dim, 2-Dim), layout (Horiz, Vert)
+// TODO: enum dimension (1-Dim, 2-Dim)
 
 @IBDesignable public final class GenericStyleSlider: UIControl {
     var thumbList = StyledSliderThumbList()
+    var separatorLabels: Array<StyledLabel> = []
     
-    // TODO (private lists)
-    // list of seperator labels
-    
-    // delegate decl: GenericStyleSliderDelegate
+    public var sliderDelegate: GenericStyleSliderDelegate?
     
     // MARK: - Laying out Subviews
     
@@ -58,6 +57,30 @@ public protocol GenericStyleSliderDelegate {
         didSet {
             self.thumbList.direction = direction
             self.layoutComponents()
+        }
+    }
+
+    /**
+     The numeric values.
+     
+     When the values change, the control sends the UIControlEventValueChanged flag to its target (see addTarget:action:forControlEvents:). Refer to the description of the continuous property for information about whether value change events are sent continuously or when user interaction ends.
+     
+     This property is clamped at its lower extreme to minimumValue and is clamped at its upper extreme to maximumValue.
+     */
+    var values: [Double] {
+        get {
+            return _values
+        }
+        set (newValue) {
+            initValues(newValue, finished: true)
+            self.layoutComponents()
+        }
+    }
+    
+    var _values: [Double] = [] {
+        didSet {
+            self.assignThumbTexts()
+            /*            hintLabel.text = valueAsText()*/
         }
     }
 
@@ -97,15 +120,18 @@ public protocol GenericStyleSliderDelegate {
             //updateValues(min(_values, maximumValue), finished: true)
         }
     }
+
+    // MARK: - Thumbs
     
-    /// The thumb width represented as a ratio of the component width. For example if the width of the control is 30px and the ratio is 0.5, the thumb width will be equal to 15px. Defaults to 0.1.
-    @IBInspectable public var thumbWidthRatio: CGFloat = 0.1 {
+    /// The thumb represented as a ratio of the component. For example if the width of the control is 30px and the ratio is 0.5, the thumb width will be equal to 15px when in horizontal layout. Defaults to 0.1.
+    @IBInspectable public var thumbRatio: CGFloat = 0.1 {
         didSet {
             layoutComponents()
         }
     }
     
-    /// The thumb's background color. If nil the thumb color will be lighter than the background color. Defaults to nil.
+    /// The thumb's background colors. If nil the thumb color will be lighter than the background color. Defaults to nil.
+    /// Use the delegate to get fine grained control over each thumb
     @IBInspectable public var thumbBackgroundColor: UIColor? {
         didSet {
             for thumb in self.thumbList.thumbs {
@@ -115,50 +141,53 @@ public protocol GenericStyleSliderDelegate {
     }
     
     /// The thumb text to display. If the text is nil it will display the current value of the stepper. Defaults with empty string.
+    /// Use the delegate to get fine grained control over each thumb
     @IBInspectable public var thumbText: String? = "" {
         didSet {
             self.assignThumbTexts()
         }
     }
     
-    /**
-     The numeric values.
-     
-     When the values change, the control sends the UIControlEventValueChanged flag to its target (see addTarget:action:forControlEvents:). Refer to the description of the continuous property for information about whether value change events are sent continuously or when user interaction ends.
-     
-     The default value for this property is 0. This property is clamped at its lower extreme to minimumValue and is clamped at its upper extreme to maximumValue.
-     */
-    var values: [Double] {
-        get {
-            return _values
-        }
-        set (newValue) {
-            updateValues(newValue, finished: true)
-        }
-    }
+    // MARK: - Separators
     
-    var _values: [Double] = [] {
+    /// The separator represented as a ratio of the component. Defaults to 1.
+    @IBInspectable public var separatorRatio: CGFloat = 1.0 {
         didSet {
-            self.assignThumbTexts()
-/*            hintLabel.text = valueAsText()*/
+            layoutComponents()
         }
     }
-    
+
+    /// The separator's background colors. If nil the separator color will be clear color. Defaults to nil.
+    /// Use the delegate to get fine grained control over each separator
+    @IBInspectable public var separatorBackgroundColor: UIColor? {
+        didSet {
+            for sep in self.separatorLabels {
+                sep.backgroundColor = separatorBackgroundColor
+            }
+        }
+    }
+
     // MARK: - Private
 
+    func separatorForThumb(thumbIndex: Int) -> StyledLabel {
+        return self.separatorLabels[thumbIndex+1]
+    }
+    
     func layoutComponents() {
         self.thumbList.bounds = self.bounds
         for thumb in self.thumbList.thumbs {
             let pos = self.thumbList.getThumbPosForValue(_values[thumb.index], thumbIndex: thumb.index)
             if self.direction == .Horizontal {
-                let thumbWidth  = bounds.width * thumbWidthRatio
+                let thumbWidth  = bounds.width * thumbRatio
                 thumb.frame = CGRect(x: pos.x - thumbWidth / 2.0, y: 0, width: thumbWidth, height: bounds.height)
             }
             else {
-                let thumbWidth  = bounds.height * thumbWidthRatio
+                let thumbWidth  = bounds.height * thumbRatio
                 thumb.frame = CGRect(x: 0, y: pos.y - thumbWidth / 2.0, width: bounds.width, height: thumbWidth)
             }
         }
+
+        self.layoutSeparators()
         
 //        snappingBehavior = SnappingStepperBehavior(item: thumbLabel, snapToPoint: CGPoint(x: bounds.size.width * 0.5, y: bounds.size.height * 0.5))
 /*
@@ -170,7 +199,49 @@ public protocol GenericStyleSliderDelegate {
  */
         self.assignThumbTexts()
     }
-    
+
+    func layoutSeparators() {
+        for thumb in self.thumbList.thumbs {
+            let pos = self.thumbList.getThumbPosForValue(_values[thumb.index], thumbIndex: thumb.index)
+            let sep = self.separatorForThumb(thumb.index)
+            let hp: CGFloat
+            if thumb.index+1 < self.thumbList.thumbs.count {
+                hp = self.thumbList.getPrincipalPositionValue(self.thumbList.getThumbPosForValue(_values[thumb.index+1], thumbIndex: thumb.index+1))
+            }
+            else {
+                hp = self.thumbList.getPrincipalSizeValue(self.bounds.size) + self.thumbList.getPrincipalPositionValue(self.bounds.origin)
+            }
+            if self.direction == .Horizontal {
+                let sepHeight  = bounds.height * separatorRatio
+                sep.frame = CGRect(x: pos.x, y: (bounds.height - sepHeight) * 0.5 , width: hp - pos.x, height: sepHeight)
+            }
+            else {
+                let sepHeight  = bounds.width * separatorRatio
+                sep.frame = CGRect(x: (bounds.width - sepHeight) * 0.5, y: pos.y, width: sepHeight, height: hp - pos.y)
+            }
+        }
+        // Handle first separator
+        if self.separatorLabels.count > 0 {
+            let sep = self.separatorLabels[0]
+            let hp: CGFloat
+            if self.thumbList.thumbs.count > 0 {
+                hp = self.thumbList.getPrincipalPositionValue(self.thumbList.getThumbPosForValue(_values[0], thumbIndex: 0))
+            }
+            else {
+                hp = self.thumbList.getPrincipalSizeValue(self.bounds.size) + self.thumbList.getPrincipalPositionValue(self.bounds.origin)
+            }
+            let pos = self.bounds.origin
+            if self.direction == .Horizontal {
+                let sepHeight  = bounds.height * separatorRatio
+                sep.frame = CGRect(x: pos.x, y: (bounds.height - sepHeight) * 0.5 , width: hp - pos.x, height: sepHeight)
+            }
+            else {
+                let sepHeight  = bounds.width * separatorRatio
+                sep.frame = CGRect(x: (bounds.width - sepHeight) * 0.5, y: pos.y, width: sepHeight, height: hp - pos.y)
+            }
+        }
+    }
+
     // TODO: Most of this goes into the Thumb classes, which must be children of this control
     
     let dynamicButtonAnimator = UIDynamicAnimator()
@@ -232,6 +303,8 @@ public protocol GenericStyleSliderDelegate {
                 
                 let v = self.thumbList.getValueFromThumbPos(thumb.index)
                 self.updateValue(thumb.index, value: v)
+                
+                self.layoutSeparators()
 
             case .Ended, .Failed, .Cancelled:
                 // TODO
@@ -254,6 +327,21 @@ public protocol GenericStyleSliderDelegate {
         }
     }
 
+    func removeAllSeparators() {
+        for sep in self.separatorLabels {
+            sep.removeFromSuperview()
+        }
+        self.separatorLabels.removeAll()
+    }
+    
+    func addSeparator() {
+        let sep = StyledLabel()
+        sep.backgroundColor = self.separatorBackgroundColor
+        self.separatorLabels.append(sep)
+        self.addSubview(sep)
+        // TODO: There must be more to this
+    }
+    
     func addThumb(value: Double) {
         let thumb = StyledSliderThumb()
         thumb.backgroundColor = self.thumbBackgroundColor
@@ -286,9 +374,22 @@ public protocol GenericStyleSliderDelegate {
     func updateValue(index: Int, value: Double) {
         _values[index] = value
         self.assignThumbText(index)
+        /* TODO
+         if (continuous || finished) && oldValue != _value {
+         oldValue = _value
+         
+         sendActionsForControlEvents(.ValueChanged)
+         
+         if let _valueChangedBlock = valueChangedBlock {
+         _valueChangedBlock(value: _value)
+         }
+         }*/
     }
     
-    func updateValues(values: [Double], finished: Bool = true) {
+    func initValues(values: [Double], finished: Bool = true) {
+        self.thumbList.removeAllThumbs()
+        self.removeAllSeparators()
+        
         var newVals: [Double] = []
         for value in values {
             var nVal = value
@@ -298,19 +399,12 @@ public protocol GenericStyleSliderDelegate {
             else if nVal > maximumValue {
                 nVal = minimumValue
             }
-            /* TODO
-            if (continuous || finished) && oldValue != _value {
-                oldValue = _value
-                
-                sendActionsForControlEvents(.ValueChanged)
-                
-                if let _valueChangedBlock = valueChangedBlock {
-                    _valueChangedBlock(value: _value)
-                }
-            }*/
             newVals.append(nVal)
         }
         _values = newVals.sort()
+        for _ in 0..._values.count {
+            self.addSeparator()
+        }
         for value in _values {
             self.addThumb(value)
         }

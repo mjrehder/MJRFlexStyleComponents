@@ -24,13 +24,21 @@ class ViewController: UIViewController {
 
     func setupSimpleSlider() {
         self.simpleSlider.thumbBackgroundColor = UIColor.greenColor()
-        self.simpleSlider.thumbWidthRatio = 0.1
+        self.simpleSlider.minimumValue = 0
+        self.simpleSlider.maximumValue = 1
+        self.simpleSlider.thumbRatio = 0.1
         self.simpleSlider.thumbText = nil
+        self.simpleSlider.separatorBackgroundColor = UIColor.blueColor()
+        self.simpleSlider.separatorRatio = 0.5
         self.simpleSlider.values = [0.0, 0.5, 0.75]
         
         self.verticalSimpleSlider.thumbBackgroundColor = UIColor.greenColor()
         self.verticalSimpleSlider.direction = .Vertical
-        self.verticalSimpleSlider.thumbWidthRatio = 0.1
+        self.verticalSimpleSlider.minimumValue = 0
+        self.verticalSimpleSlider.maximumValue = 1
+        self.verticalSimpleSlider.thumbRatio = 0.1
+        self.verticalSimpleSlider.separatorBackgroundColor = UIColor.blueColor()
+        self.verticalSimpleSlider.separatorRatio = 0.2
         self.verticalSimpleSlider.thumbText = nil
         self.verticalSimpleSlider.values = [0.0, 0.5, 0.75]
         
