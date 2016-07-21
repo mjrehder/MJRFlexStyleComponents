@@ -30,7 +30,11 @@ class ViewController: UIViewController {
         self.simpleSlider.thumbText = nil
         self.simpleSlider.separatorBackgroundColor = UIColor.blueColor()
         self.simpleSlider.separatorRatio = 0.5
+        self.simpleSlider.separatorStyle = .Tube
         self.simpleSlider.values = [0.0, 0.5, 0.75]
+        self.simpleSlider.style = .Tube
+        self.simpleSlider.styleColor = UIColor.grayColor()
+        self.simpleSlider.backgroundColor = UIColor.clearColor()
         
         self.verticalSimpleSlider.thumbBackgroundColor = UIColor.greenColor()
         self.verticalSimpleSlider.direction = .Vertical

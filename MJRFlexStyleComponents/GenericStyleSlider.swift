@@ -22,6 +22,8 @@ public protocol GenericStyleSliderDelegate {
     var thumbList = StyledSliderThumbList()
     var separatorLabels: Array<StyledLabel> = []
     
+    var styleLayer = CAShapeLayer()
+    
     public var sliderDelegate: GenericStyleSliderDelegate?
     
     // MARK: - Laying out Subviews
@@ -148,6 +150,27 @@ public protocol GenericStyleSliderDelegate {
         }
     }
     
+    /// The thumb's style. Default's to box
+    @IBInspectable public var thumbStyle: ShapeStyle = .Box {
+        didSet {
+            self.applyThumbStyle(thumbStyle)
+        }
+    }
+    
+    /// The thumbs's border color.
+    @IBInspectable public var thumbBorderColor: UIColor? {
+        didSet {
+            self.applyThumbStyle(thumbStyle)
+        }
+    }
+    
+    /// The thumbs's border width. Default's to 1.0
+    @IBInspectable public var thumbBorderWidth: CGFloat = 1.0 {
+        didSet {
+            self.applyThumbStyle(thumbStyle)
+        }
+    }
+
     // MARK: - Separators
     
     /// The separator represented as a ratio of the component. Defaults to 1.
@@ -161,13 +184,128 @@ public protocol GenericStyleSliderDelegate {
     /// Use the delegate to get fine grained control over each separator
     @IBInspectable public var separatorBackgroundColor: UIColor? {
         didSet {
-            for sep in self.separatorLabels {
-                sep.backgroundColor = separatorBackgroundColor
+            self.applySeparatorStyle(separatorStyle)
+        }
+    }
+
+    @IBInspectable public var separatorStyle: ShapeStyle = .Box {
+        didSet {
+            self.applySeparatorStyle(separatorStyle)
+        }
+    }
+
+    /// The separators border color.
+    @IBInspectable public var separatorBorderColor: UIColor? {
+        didSet {
+            self.applySeparatorStyle(separatorStyle)
+        }
+    }
+    
+    /// The thumbs's border width. Default's to 1.0
+    @IBInspectable public var separatorBorderWidth: CGFloat = 1.0 {
+        didSet {
+            self.applySeparatorStyle(separatorStyle)
+        }
+    }
+    
+    // MARK: - Control Style
+    
+    /// The view's style. Default's to box.
+    @IBInspectable public var style: ShapeStyle = .Box {
+        didSet {
+            self.applyStyle(style)
+        }
+    }
+    
+    /// The view’s background color.
+    @IBInspectable public var styleColor: UIColor? {
+        didSet {
+            self.applyStyle(self.style)
+            
+            if thumbBackgroundColor == nil {
+                for thumb in self.thumbList.thumbs {
+                    thumb.backgroundColor = backgroundColor?.lighterColor()
+                }
             }
         }
     }
 
-    // MARK: - Private
+    /// The hint's style. Default's to none, so no hint will be displayed.
+    @IBInspectable public var hintStyle: ShapeStyle = .None {
+        didSet {
+            self.applyHintStyle(hintStyle)
+        }
+    }
+    
+    /// The view's border color.
+    @IBInspectable public var borderColor: UIColor? {
+        didSet {
+            self.applyStyle(style)
+        }
+    }
+    
+    /// The view's border width. Default's to 1.0
+    @IBInspectable public var borderWidth: CGFloat = 1.0 {
+        didSet {
+            self.applyStyle(style)
+        }
+    }
+    
+    /// The view’s background color.
+    override public var backgroundColor: UIColor? {
+        didSet {
+            self.applyStyle(self.style)
+            
+            if thumbBackgroundColor == nil {
+                for thumb in self.thumbList.thumbs {
+                    thumb.backgroundColor = backgroundColor?.lighterColor()
+                }
+            }
+        }
+    }
+    
+    // MARK: - Private Style
+
+    func applyThumbStyle(style: ShapeStyle) {
+        for thumb in self.thumbList.thumbs {
+            thumb.style       = style
+            thumb.borderColor = thumbBorderColor
+            thumb.borderWidth = thumbBorderWidth
+        }
+    }
+
+    func applySeparatorStyle(style: ShapeStyle) {
+        for sep in self.separatorLabels {
+            sep.style = style
+            sep.backgroundColor = separatorBackgroundColor
+            sep.borderColor = separatorBorderColor
+            sep.borderWidth = separatorBorderWidth
+        }
+    }
+
+    func applyHintStyle(style: ShapeStyle) {
+//        hintLabel.style = style
+    }
+    
+    func applyStyle(style: ShapeStyle) {
+        let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clearColor()
+        let sLayer: CAShapeLayer
+        
+        if let borderColor = borderColor {
+            sLayer = StyledShapeLayer.createShape(style, bounds: bounds, color: bgColor, borderColor: borderColor, borderWidth: borderWidth)
+        }
+        else {
+            sLayer = StyledShapeLayer.createShape(style, bounds: bounds, color: bgColor)
+        }
+        
+        if styleLayer.superlayer != nil {
+            layer.replaceSublayer(styleLayer, with: sLayer)
+        }
+        
+        styleLayer = sLayer
+    }
+    
+    // MARK: - Private View
 
     func separatorForThumb(thumbIndex: Int) -> StyledLabel {
         return self.separatorLabels[thumbIndex+1]
@@ -192,11 +330,12 @@ public protocol GenericStyleSliderDelegate {
 //        snappingBehavior = SnappingStepperBehavior(item: thumbLabel, snapToPoint: CGPoint(x: bounds.size.width * 0.5, y: bounds.size.height * 0.5))
 /*
         CustomShapeLayer.createHintShapeLayer(hintLabel, fillColor: thumbBackgroundColor?.lighterColor().CGColor)
-        
+    */
         applyThumbStyle(thumbStyle)
+        applySeparatorStyle(separatorStyle)
         applyStyle(style)
         applyHintStyle(hintStyle)
- */
+
         self.assignThumbTexts()
     }
 
@@ -246,8 +385,6 @@ public protocol GenericStyleSliderDelegate {
     
     let dynamicButtonAnimator = UIDynamicAnimator()
     
-    var styleLayer = CAShapeLayer()
-    var styleColor: UIColor? = .clearColor()
     
     var touchesBeganPoint    = CGPointZero
     var initialValue: Double = -1
@@ -387,6 +524,9 @@ public protocol GenericStyleSliderDelegate {
     }
     
     func initValues(values: [Double], finished: Bool = true) {
+        if self.styleLayer.superlayer == nil {
+            self.layer.addSublayer(styleLayer)
+        }
         self.thumbList.removeAllThumbs()
         self.removeAllSeparators()
         
