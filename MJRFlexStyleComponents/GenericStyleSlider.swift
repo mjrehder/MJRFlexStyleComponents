@@ -340,6 +340,12 @@ public protocol GenericStyleSliderDelegate {
         }
     }
     
+    @IBInspectable public var numberFormatString: String? {
+        didSet {
+            self.assignThumbTexts()
+        }
+    }
+    
     // MARK: - Private Style
 
     func applyThumbStyle(style: ShapeStyle) {
@@ -536,7 +542,8 @@ public protocol GenericStyleSliderDelegate {
                 
                 let v = self.thumbList.getValueFromThumbPos(thumb.index)
                 self.updateValue(thumb.index, value: v)
-                
+                hintLabel.text = valueAsText(v)
+
                 self.layoutSeparators()
 
             case .Ended, .Failed, .Cancelled:
@@ -590,10 +597,10 @@ public protocol GenericStyleSliderDelegate {
     func assignThumbText(index: Int) {
         let thumb = self.thumbList.thumbs[index]
         if thumbText == nil {
-            thumb.text = valueAsText(_values[thumb.index])
+            thumb.text = self.valueAsText(_values[thumb.index])
         }
         else {
-            thumb.text = thumbText
+            thumb.text = self.thumbText
         }
     }
     
@@ -607,7 +614,6 @@ public protocol GenericStyleSliderDelegate {
         let oldVal = _values[index]
         _values[index] = value
         self.assignThumbText(index)
-        hintLabel.text = valueAsText(value)
         
         if (continuous || finished) && oldVal != value {
             sendActionsForControlEvents(.ValueChanged)
@@ -657,6 +663,9 @@ public protocol GenericStyleSliderDelegate {
     }
     
     func valueAsText(value: Double) -> String {
+        if let formatStr = self.numberFormatString {
+            return String(format: formatStr, value)
+        }
         return value % 1 == 0 ? "\(Int(value))" : "\(value)"
     }
 }
