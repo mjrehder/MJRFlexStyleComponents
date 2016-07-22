@@ -94,7 +94,7 @@ final class StyledShapeLayer {
     return UIBezierPath(CGPath: scaledPath)
   }
 
-  static func createHintShapeLayer(label: StyledLabel, fillColor: CGColor?) {
+  static func createHintShapeLayer(label: StyledLabel, fillColor: CGColor?) -> CAShapeLayer {
     let shape = CAShapeLayer()
     let cp1   = CGPoint(x: label.bounds.width * 0.35, y: label.bounds.height)
     let cp2   = CGPoint(x: label.bounds.width * 0.65, y: label.bounds.height)
@@ -111,6 +111,6 @@ final class StyledShapeLayer {
     shape.path      = myBezier.CGPath
     shape.fillColor = fillColor
 
-    label.layer.addSublayer(shape)
+    return shape
   }
 }

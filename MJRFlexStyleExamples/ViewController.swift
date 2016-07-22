@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnappingStepper
 
 class ViewController: UIViewController {
     @IBOutlet weak var simpleSlider: GenericStyleSlider!
@@ -36,6 +37,7 @@ class ViewController: UIViewController {
         self.simpleSlider.styleColor = UIColor.grayColor()
         self.simpleSlider.backgroundColor = UIColor.clearColor()
         self.simpleSlider.thumbSnappingBehaviour = .SnapToLowerAndHigher
+        self.simpleSlider.hintStyle = .Rounded
         
         self.simpleSlider.valueChangedBlock = {
             (value, index) in
@@ -51,6 +53,7 @@ class ViewController: UIViewController {
         self.verticalSimpleSlider.separatorRatio = 0.2
         self.verticalSimpleSlider.thumbText = nil
         self.verticalSimpleSlider.values = [0.0, 0.5, 0.75]
+        self.verticalSimpleSlider.hintStyle = .Rounded
         
     }
 }

@@ -27,7 +27,11 @@ public protocol GenericStyleSliderDelegate {
     let dynamicButtonAnimator = UIDynamicAnimator()
     let posUpdateTimer = PositionUpdateTimer()
     
+    /// The hint label
+    lazy var hintLabel: StyledLabel = LabelFactory.defaultStyledLabel()
+
     var styleLayer = CAShapeLayer()
+    var hintShapeLayer = CAShapeLayer()
     
     public var sliderDelegate: GenericStyleSliderDelegate?
     
@@ -109,7 +113,6 @@ public protocol GenericStyleSliderDelegate {
     var _values: [Double] = [] {
         didSet {
             self.assignThumbTexts()
-            /*            hintLabel.text = valueAsText()*/
         }
     }
 
@@ -150,6 +153,15 @@ public protocol GenericStyleSliderDelegate {
         }
     }
 
+    // MARK: - Hints
+
+    /// The hint's style. Default's to none, so no hint will be displayed.
+    @IBInspectable public var hintStyle: ShapeStyle = .None {
+        didSet {
+            self.applyHintStyle(hintStyle)
+        }
+    }
+    
     // MARK: - Thumbs
     
     /// The thumb represented as a ratio of the component. For example if the width of the control is 30px and the ratio is 0.5, the thumb width will be equal to 15px when in horizontal layout. Defaults to 0.1.
@@ -181,6 +193,24 @@ public protocol GenericStyleSliderDelegate {
     @IBInspectable public var thumbStyle: ShapeStyle = .Box {
         didSet {
             self.applyThumbStyle(thumbStyle)
+        }
+    }
+    
+    /// The font of the thumb labels
+    @IBInspectable public var thumbFont = UIFont(name: "TrebuchetMS-Bold", size: 20) {
+        didSet {
+            for thumb in self.thumbList.thumbs {
+                thumb.font = thumbFont
+            }
+        }
+    }
+
+    /// The thumb's text colors. Default's to black
+    @IBInspectable public var thumbTextColor: UIColor = .blackColor() {
+        didSet {
+            for thumb in self.thumbList.thumbs {
+                thumb.textColor = thumbTextColor
+            }
         }
     }
     
@@ -220,6 +250,24 @@ public protocol GenericStyleSliderDelegate {
     @IBInspectable public var separatorBackgroundColor: UIColor? {
         didSet {
             self.applySeparatorStyle(separatorStyle)
+        }
+    }
+    
+    /// The font of the separators labels
+    @IBInspectable public var separatorFont = UIFont(name: "TrebuchetMS-Bold", size: 20) {
+        didSet {
+            for sep in self.separatorLabels {
+                sep.font = separatorFont
+            }
+        }
+    }
+    
+    /// The separators's text colors. Default's to black
+    @IBInspectable public var separatorTextColor: UIColor = .blackColor() {
+        didSet {
+            for sep in self.separatorLabels {
+                sep.textColor = separatorTextColor
+            }
         }
     }
 
@@ -265,13 +313,6 @@ public protocol GenericStyleSliderDelegate {
         }
     }
 
-    /// The hint's style. Default's to none, so no hint will be displayed.
-    @IBInspectable public var hintStyle: ShapeStyle = .None {
-        didSet {
-            self.applyHintStyle(hintStyle)
-        }
-    }
-    
     /// The view's border color.
     @IBInspectable public var borderColor: UIColor? {
         didSet {
@@ -319,7 +360,18 @@ public protocol GenericStyleSliderDelegate {
     }
 
     func applyHintStyle(style: ShapeStyle) {
-//        hintLabel.style = style
+        hintLabel.style = style
+        
+        let sLayer = StyledShapeLayer.createHintShapeLayer(hintLabel, fillColor: thumbBackgroundColor?.lighterColor().CGColor)
+
+        if self.hintShapeLayer.superlayer != nil {
+            self.hintLabel.layer.replaceSublayer(self.hintShapeLayer, with: sLayer)
+        }
+        else {
+            self.hintLabel.layer.addSublayer(sLayer)
+        }
+        
+        self.hintShapeLayer = sLayer
     }
     
     func applyStyle(style: ShapeStyle) {
@@ -353,18 +405,26 @@ public protocol GenericStyleSliderDelegate {
             if self.direction == .Horizontal {
                 let thumbWidth  = bounds.width * thumbRatio
                 thumb.frame = CGRect(x: pos.x - thumbWidth / 2.0, y: 0, width: thumbWidth, height: bounds.height)
+                hintLabel.frame = CGRect(x: hintLabel.frame.origin.x, y: hintLabel.frame.origin.y, width: thumbWidth, height: bounds.height)
             }
             else {
                 let thumbWidth  = bounds.height * thumbRatio
                 thumb.frame = CGRect(x: 0, y: pos.y - thumbWidth / 2.0, width: bounds.width, height: thumbWidth)
+                hintLabel.frame = CGRect(x: hintLabel.frame.origin.x, y: hintLabel.frame.origin.y, width: bounds.width, height: thumbWidth)
             }
         }
 
+        if self.direction == .Horizontal {
+            let thumbWidth  = bounds.width * thumbRatio
+            hintLabel.frame = CGRect(x: hintLabel.frame.origin.x, y: hintLabel.frame.origin.y, width: thumbWidth, height: bounds.height)
+        }
+        else {
+            let thumbWidth  = bounds.height * thumbRatio
+            hintLabel.frame = CGRect(x: hintLabel.frame.origin.x, y: hintLabel.frame.origin.y, width: bounds.width, height: thumbWidth)
+        }
+
         self.layoutSeparators()
-        
-/*
-        CustomShapeLayer.createHintShapeLayer(hintLabel, fillColor: thumbBackgroundColor?.lighterColor().CGColor)
-    */
+
         applyThumbStyle(thumbStyle)
         applySeparatorStyle(separatorStyle)
         applyStyle(style)
@@ -446,25 +506,21 @@ public protocol GenericStyleSliderDelegate {
         if let thumb = sender.view as? StyledSliderThumb {
             switch sender.state {
             case .Began:
-                // TODO
-                /*            if case .None = hintStyle {} else {
-                 hintLabel.alpha  = 0
-                 hintLabel.center = CGPoint(x: center.x, y: center.y - bounds.height - hintLabel.bounds.height / 2)
-                 
-                 superview?.addSubview(hintLabel)
-                 
-                 UIView.animateWithDuration(0.2) {
-                 self.hintLabel.alpha = 1.0
-                 }
-                 }
-                 */
+                if case .None = hintStyle {} else {
+                    hintLabel.alpha  = 0
+                    
+                    superview?.addSubview(hintLabel)
+                    
+                    UIView.animateWithDuration(0.2) {
+                        self.hintLabel.alpha = 1.0
+                    }
+                }
                 touchesBeganPoint = sender.locationInView(self)
 
                 self.dynamicButtonAnimator.removeBehavior(thumb.snappingBehavior)
                 
                 thumb.backgroundColor = thumbBackgroundColor?.lighterColor()
-                // TODO
-//                hintLabel.backgroundColor  = thumbBackgroundColor?.lighterColor()
+                hintLabel.backgroundColor = thumbBackgroundColor?.lighterColor()
                 
             case .Changed:
                 let translationInView = sender.translationInView(thumb)
@@ -472,6 +528,11 @@ public protocol GenericStyleSliderDelegate {
                 let tiv = self.thumbList.getPrincipalPositionValue(translationInView)
                 let tb = self.thumbList.getPrincipalPositionValue(touchesBeganPoint)
                 self.thumbList.updateThumbPosition(tiv+tb, thumbIndex: thumb.index)
+
+                if case .None = hintStyle {} else {
+                    let cp = CGPoint(x: frame.origin.x + thumb.center.x, y: (frame.origin.y - thumb.bounds.height - hintLabel.bounds.height / 2) + thumb.center.y)
+                    hintLabel.center = cp
+                }
                 
                 let v = self.thumbList.getValueFromThumbPos(thumb.index)
                 self.updateValue(thumb.index, value: v)
@@ -479,15 +540,13 @@ public protocol GenericStyleSliderDelegate {
                 self.layoutSeparators()
 
             case .Ended, .Failed, .Cancelled:
-                // TODO
-/*                if case .None = hintStyle {} else {
+                if case .None = hintStyle {} else {
                     UIView.animateWithDuration(0.2, animations: {
                         self.hintLabel.alpha = 0.0
                     }) { _ in
                         self.hintLabel.removeFromSuperview()
                     }
                 }
-  */
                 self.thumbList.applyThumbBehaviour(thumb)
                 self.dynamicButtonAnimator.addBehavior(thumb.snappingBehavior)
                 
@@ -507,21 +566,22 @@ public protocol GenericStyleSliderDelegate {
     }
     
     func addSeparator() {
-        let sep = StyledLabel()
+        let sep = LabelFactory.defaultStyledLabel()
         sep.backgroundColor = self.separatorBackgroundColor
+        sep.font = self.separatorFont
+        sep.textColor = self.separatorTextColor
         self.separatorLabels.append(sep)
         self.addSubview(sep)
-        // TODO: There must be more to this
     }
     
     func addThumb(value: Double) {
-        let thumb = StyledSliderThumb()
+        let thumb = LabelFactory.defaultStyledThumb()
         thumb.backgroundColor = self.thumbBackgroundColor
         thumb.index = self.thumbList.thumbs.count
+        thumb.font = self.thumbFont
+        thumb.textColor = self.thumbTextColor
         self.thumbList.thumbs.append(thumb)
         self.addSubview(thumb)
-        
-        // TODO: There must be more to this
         
         self.setupThumbGesture(thumb)
         self.setNeedsLayout()
@@ -547,7 +607,8 @@ public protocol GenericStyleSliderDelegate {
         let oldVal = _values[index]
         _values[index] = value
         self.assignThumbText(index)
-
+        hintLabel.text = valueAsText(value)
+        
         if (continuous || finished) && oldVal != value {
             sendActionsForControlEvents(.ValueChanged)
             
@@ -562,6 +623,9 @@ public protocol GenericStyleSliderDelegate {
         if self.continuous {
             self.startPositionUpdateNotification()
         }
+        
+        self.hintLabel.font      = thumbFont
+        self.hintLabel.textColor = thumbTextColor
     }
     
     func initValues(values: [Double]) {
