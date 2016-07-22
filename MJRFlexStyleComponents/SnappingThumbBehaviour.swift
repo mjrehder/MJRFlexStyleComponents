@@ -9,15 +9,15 @@
 import UIKit
 
 final internal class SnappingThumbBehaviour: UIDynamicBehavior {
-    init(item: UIDynamicItem?, snapToPoint point: CGPoint) {
+    init(item: UIDynamicItem?, snapToPoint point: CGPoint, damping: CGFloat = 0.25) {
         super.init()
         
         if let _item = item {
-            let dynamicItemBehavior            = UIDynamicItemBehavior(items: [_item])
+            let dynamicItemBehavior = UIDynamicItemBehavior(items: [_item])
             dynamicItemBehavior.allowsRotation = false
             
             let snapBehavior     = UISnapBehavior(item: _item, snapToPoint: point)
-            snapBehavior.damping = 0.25
+            snapBehavior.damping = damping
             
             addChildBehavior(dynamicItemBehavior)
             addChildBehavior(snapBehavior)

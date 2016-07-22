@@ -35,6 +35,12 @@ class ViewController: UIViewController {
         self.simpleSlider.style = .Tube
         self.simpleSlider.styleColor = UIColor.grayColor()
         self.simpleSlider.backgroundColor = UIColor.clearColor()
+        self.simpleSlider.thumbSnappingBehaviour = .SnapToLowerAndHigher
+        
+        self.simpleSlider.valueChangedBlock = {
+            (value, index) in
+            NSLog("Value of index \(index) changed to \(value)")
+        }
         
         self.verticalSimpleSlider.thumbBackgroundColor = UIColor.greenColor()
         self.verticalSimpleSlider.direction = .Vertical

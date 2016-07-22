@@ -19,12 +19,23 @@ public protocol GenericStyleSliderDelegate {
 // TODO: enum dimension (1-Dim, 2-Dim)
 
 @IBDesignable public final class GenericStyleSlider: UIControl {
+    var touchesBeganPoint = CGPointZero
+
     var thumbList = StyledSliderThumbList()
     var separatorLabels: Array<StyledLabel> = []
+    
+    let dynamicButtonAnimator = UIDynamicAnimator()
+    let posUpdateTimer = PositionUpdateTimer()
     
     var styleLayer = CAShapeLayer()
     
     public var sliderDelegate: GenericStyleSliderDelegate?
+    
+    // MARK: - Deallocating position update timer
+    
+    deinit {
+        self.posUpdateTimer.stop()
+    }
     
     // MARK: - Laying out Subviews
     
@@ -39,17 +50,33 @@ public protocol GenericStyleSliderDelegate {
      
      This is a convenient alternative to the `addTarget:Action:forControlEvents:` method of the `UIControl`.
      */
-    public var valueChangedBlock: ((value: Double) -> Void)?
+    public var valueChangedBlock: ((value: Double, index: Int) -> Void)?
 
     /**
      The continuous vs. noncontinuous state of the slider.
      
      If true, value change events are sent immediately when the value changes during user interaction. If false, a value change event is sent when user interaction ends.
+     When a snapping behaviour is chosen for the thumbs, then the continuous property will trigger a notification in certain intervals
      
      The default value for this property is true.
      */
-    @IBInspectable public var continuous: Bool = true
+    @IBInspectable public var continuous: Bool = true {
+        didSet {
+            self.initComponent()
+        }
+    }
 
+    /**
+     The notification delay is the delay between each notification, if the continuous property is true
+     
+     Default value is 0.1s
+     */
+    @IBInspectable public var notificationDelay: NSTimeInterval = 0.1  {
+        didSet {
+            self.initComponent()
+        }
+    }
+    
     /**
      The direction of the control
      
@@ -74,7 +101,7 @@ public protocol GenericStyleSliderDelegate {
             return _values
         }
         set (newValue) {
-            initValues(newValue, finished: true)
+            initValues(newValue)
             self.layoutComponents()
         }
     }
@@ -171,6 +198,14 @@ public protocol GenericStyleSliderDelegate {
         }
     }
 
+    @IBInspectable public var thumbSnappingBehaviour: StyledSliderThumbBehaviour = .Freeform {
+        didSet {
+            for thumb in self.thumbList.thumbs {
+                thumb.behaviour = thumbSnappingBehaviour
+            }
+        }
+    }
+    
     // MARK: - Separators
     
     /// The separator represented as a ratio of the component. Defaults to 1.
@@ -327,7 +362,6 @@ public protocol GenericStyleSliderDelegate {
 
         self.layoutSeparators()
         
-//        snappingBehavior = SnappingStepperBehavior(item: thumbLabel, snapToPoint: CGPoint(x: bounds.size.width * 0.5, y: bounds.size.height * 0.5))
 /*
         CustomShapeLayer.createHintShapeLayer(hintLabel, fillColor: thumbBackgroundColor?.lighterColor().CGColor)
     */
@@ -381,19 +415,20 @@ public protocol GenericStyleSliderDelegate {
         }
     }
 
-    // TODO: Most of this goes into the Thumb classes, which must be children of this control
-    
-    let dynamicButtonAnimator = UIDynamicAnimator()
-    
-    
-    var touchesBeganPoint    = CGPointZero
-    var initialValue: Double = -1
-    var factorValue: Double  = 0
-    // TODO
-//    var oldValue = Double.infinity * -1
-        
     // MARK: - Internal
 
+    func startPositionUpdateNotification() {
+        self.posUpdateTimer.start(self.notificationDelay) { [weak self] in
+            if let weakSelf = self {
+                for thumb in weakSelf.thumbList.thumbs {
+                    let v = weakSelf.thumbList.getValueFromThumbPos(thumb.index)
+                    weakSelf.updateValue(thumb.index, value: v, finished: false)
+                }
+                weakSelf.layoutSeparators()
+            }
+        }
+    }
+    
     // MARK: - Responding to Gesture Events
     
     func setupGestures() {
@@ -424,8 +459,8 @@ public protocol GenericStyleSliderDelegate {
                  }
                  */
                 touchesBeganPoint = sender.locationInView(self)
-                // TODO
-//                dynamicButtonAnimator.removeBehavior(snappingBehavior)
+
+                self.dynamicButtonAnimator.removeBehavior(thumb.snappingBehavior)
                 
                 thumb.backgroundColor = thumbBackgroundColor?.lighterColor()
                 // TODO
@@ -453,8 +488,8 @@ public protocol GenericStyleSliderDelegate {
                     }
                 }
   */
-                // TODO
-//            dynamicButtonAnimator.addBehavior(snappingBehavior)
+                self.thumbList.applyThumbBehaviour(thumb)
+                self.dynamicButtonAnimator.addBehavior(thumb.snappingBehavior)
                 
                 thumb.backgroundColor = thumbBackgroundColor ?? backgroundColor?.lighterColor()
                 
@@ -508,28 +543,35 @@ public protocol GenericStyleSliderDelegate {
         }
     }
 
-    func updateValue(index: Int, value: Double) {
+    func updateValue(index: Int, value: Double, finished: Bool = true) {
+        let oldVal = _values[index]
         _values[index] = value
         self.assignThumbText(index)
-        /* TODO
-         if (continuous || finished) && oldValue != _value {
-         oldValue = _value
-         
-         sendActionsForControlEvents(.ValueChanged)
-         
-         if let _valueChangedBlock = valueChangedBlock {
-         _valueChangedBlock(value: _value)
-         }
-         }*/
+
+        if (continuous || finished) && oldVal != value {
+            sendActionsForControlEvents(.ValueChanged)
+            
+            if let _valueChangedBlock = valueChangedBlock {
+                _valueChangedBlock(value: value, index: index)
+            }
+        }
     }
     
-    func initValues(values: [Double], finished: Bool = true) {
+    func initComponent() {
+        self.posUpdateTimer.stop()
+        if self.continuous {
+            self.startPositionUpdateNotification()
+        }
+    }
+    
+    func initValues(values: [Double]) {
+        self.initComponent()
+        
         if self.styleLayer.superlayer == nil {
             self.layer.addSublayer(styleLayer)
         }
         self.thumbList.removeAllThumbs()
         self.removeAllSeparators()
-        
         var newVals: [Double] = []
         for value in values {
             var nVal = value

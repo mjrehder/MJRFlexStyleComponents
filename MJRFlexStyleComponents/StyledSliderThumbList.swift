@@ -36,26 +36,34 @@ public class StyledSliderThumbList {
     }
     
     // Call this after swiping the control or when behaviour changes
-    func applyThumbsBehaviour() {
-        for thumb in self.thumbs {
-            switch thumb.behaviour {
-            case .Freeform:
-                return
-            case .SnapToLower:
-                break
-            case .SnapToCenter:
-                break
-            case .SnapToHigher:
-                break
-            case .SnapToLowerAndHigher:
-                break
-            case .FixateToCenter:
-                break
-            case .FixateToHigher:
-                break
-            case .FixateToLower:
-                break
+    func applyThumbBehaviour(thumb: StyledSliderThumb) {
+        let lp = self.lowerPosForThumb(thumb.index)
+        let hp = self.higherPosForThumb(thumb.index)
+        let cp = lp + (hp - lp) * 0.5
+        thumb.snappingBehavior = SnappingThumbBehaviour(item: nil, snapToPoint: CGPointZero)
+        switch thumb.behaviour {
+        case .Freeform:
+            return
+        case .SnapToLower:
+            thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosFromPrincipalPos(lp, thumbIndex: thumb.index))
+        case .SnapToCenter:
+            thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosFromPrincipalPos(cp, thumbIndex: thumb.index))
+        case .SnapToHigher:
+            thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosFromPrincipalPos(hp, thumbIndex: thumb.index))
+        case .SnapToLowerAndHigher:
+            let pos = self.getPrincipalPositionValue(thumb.center)
+            if pos < cp {
+                thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosFromPrincipalPos(lp, thumbIndex: thumb.index))
             }
+            else {
+                thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosFromPrincipalPos(hp, thumbIndex: thumb.index))
+            }
+        case .FixateToCenter:
+            self.updateThumbPosition(cp, thumbIndex: thumb.index)
+        case .FixateToHigher:
+            self.updateThumbPosition(hp, thumbIndex: thumb.index)
+        case .FixateToLower:
+            self.updateThumbPosition(lp, thumbIndex: thumb.index)
         }
     }
     
@@ -195,6 +203,16 @@ public class StyledSliderThumbList {
         }
     }
     
+    func getThumbPosFromPrincipalPos(pos: CGFloat, thumbIndex: Int) -> CGPoint {
+        let thumb = self.thumbs[thumbIndex]
+        if self.direction == .Horizontal {
+            return CGPointMake(pos, thumb.center.y)
+        }
+        else {
+            return CGPointMake(thumb.center.x, pos)
+        }
+    }
+    
     func getThumbPosForValue(value: Double, thumbIndex: Int) -> CGPoint {
         let thumb = self.thumbs[thumbIndex]
         let tS = self.getPrincipalSizeValue(thumb.bounds.size)
@@ -204,12 +222,7 @@ public class StyledSliderThumbList {
         let lowerThumbSum = self.thumbSizeSum(0, endIndex: thumbIndex-1)
         let uT = self.getControlSize()
         let u = (uT - totalThumbSum) * vd + lowerThumbSum + thS
-        if self.direction == .Horizontal {
-            return CGPointMake(u, thumb.center.y)
-        }
-        else {
-            return CGPointMake(thumb.center.x, u)
-        }
+        return self.getThumbPosFromPrincipalPos(u, thumbIndex: thumbIndex)
     }
     
     func getValueFromThumbPos(thumbIndex: Int) -> Double {
