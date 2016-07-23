@@ -12,11 +12,11 @@ import SnappingStepper
 public protocol GenericStyleSliderDelegate {
     func textOfThumb(index: Int) -> String?
     func colorOfThumb(index: Int) -> UIColor?
-    func textOfSeperatorLabel(index: Int) -> String?
-    func colorOfSeperatorLabel(index: Int) -> UIColor?
+    func textOfSeparatorLabel(index: Int) -> String?
+    func colorOfSeparatorLabel(index: Int) -> UIColor?
+    
+    // TODO: Maybe support NSAttributedString?
 }
-
-// TODO: enum dimension (1-Dim, 2-Dim)
 
 @IBDesignable public final class GenericStyleSlider: UIControl {
     var touchesBeganPoint = CGPointZero
@@ -24,6 +24,7 @@ public protocol GenericStyleSliderDelegate {
     var thumbList = StyledSliderThumbList()
     var separatorLabels: Array<StyledLabel> = []
     
+    // Animations
     let dynamicButtonAnimator = UIDynamicAnimator()
     let posUpdateTimer = PositionUpdateTimer()
     
@@ -43,7 +44,6 @@ public protocol GenericStyleSliderDelegate {
     
     // MARK: - Laying out Subviews
     
-    /// Lays out subviews
     public override func layoutSubviews() {
         super.layoutSubviews()        
         self.layoutComponents()
@@ -113,6 +113,7 @@ public protocol GenericStyleSliderDelegate {
     var _values: [Double] = [] {
         didSet {
             self.assignThumbTexts()
+            self.assignSeparatorTexts()
         }
     }
 
@@ -350,6 +351,7 @@ public protocol GenericStyleSliderDelegate {
 
     func applyThumbStyle(style: ShapeStyle) {
         for thumb in self.thumbList.thumbs {
+            thumb.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index) ?? thumbBackgroundColor ?? backgroundColor?.lighterColor()
             thumb.style       = style
             thumb.borderColor = thumbBorderColor
             thumb.borderWidth = thumbBorderWidth
@@ -357,11 +359,13 @@ public protocol GenericStyleSliderDelegate {
     }
 
     func applySeparatorStyle(style: ShapeStyle) {
+        var idx = 0
         for sep in self.separatorLabels {
             sep.style = style
-            sep.backgroundColor = separatorBackgroundColor
+            sep.backgroundColor = self.sliderDelegate?.colorOfSeparatorLabel(idx) ?? separatorBackgroundColor
             sep.borderColor = separatorBorderColor
             sep.borderWidth = separatorBorderWidth
+            idx += 1
         }
     }
 
@@ -400,6 +404,39 @@ public protocol GenericStyleSliderDelegate {
     
     // MARK: - Private View
 
+    func sizeOfTextLabel(label: StyledLabel) -> CGSize? {
+        if let font = label.font, text = label.text {
+            let textString = text as NSString
+            let textAttributes = [NSFontAttributeName: font]
+            return textString.boundingRectWithSize(self.bounds.size, options: .UsesLineFragmentOrigin, attributes: textAttributes, context: nil).size
+        }
+        return nil
+    }
+    
+    func assignSeparatorOpacity(idx: Int) {
+        if idx > 0 {
+            let sep = self.separatorLabels[idx]
+            if let tSize = self.sizeOfTextLabel(sep) {
+                let lp = self.thumbList.getPrincipalPositionValue(self.thumbList.thumbs[idx-1].center)
+                let hp = self.thumbList.higherPosForThumb(idx-1)
+                let xp = self.thumbList.getPrincipalSizeValue(tSize) / (hp - lp)
+                let opa = xp <= 0 ? 1.0 : xp
+                let sepColor = self.separatorTextColor
+                sep.textColor = UIColor(red: sepColor.redComponent, green: sepColor.greenComponent, blue: sepColor.blueComponent, alpha: 1.0 - opa)
+                if idx == 1 {
+                    let psep = self.separatorLabels[idx-1]
+                    psep.textColor = UIColor(red: sepColor.redComponent, green: sepColor.greenComponent, blue: sepColor.blueComponent, alpha: opa)
+                }
+            }
+        }
+    }
+    
+    func assignSeparatorTextOpacities() {
+        for idx in 0..<self.separatorLabels.count {
+            self.assignSeparatorOpacity(idx)
+        }
+    }
+    
     func separatorForThumb(thumbIndex: Int) -> StyledLabel {
         return self.separatorLabels[thumbIndex+1]
     }
@@ -437,6 +474,8 @@ public protocol GenericStyleSliderDelegate {
         applyHintStyle(hintStyle)
 
         self.assignThumbTexts()
+        self.assignSeparatorTexts()
+        self.assignSeparatorTextOpacities()
     }
 
     func layoutSeparators() {
@@ -491,6 +530,7 @@ public protocol GenericStyleSliderDelegate {
                     weakSelf.updateValue(thumb.index, value: v, finished: false)
                 }
                 weakSelf.layoutSeparators()
+                weakSelf.assignSeparatorTextOpacities()
             }
         }
     }
@@ -525,8 +565,8 @@ public protocol GenericStyleSliderDelegate {
 
                 self.dynamicButtonAnimator.removeBehavior(thumb.snappingBehavior)
                 
-                thumb.backgroundColor = thumbBackgroundColor?.lighterColor()
-                hintLabel.backgroundColor = thumbBackgroundColor?.lighterColor()
+                thumb.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index)?.lighterColor() ?? thumbBackgroundColor?.lighterColor()
+                hintLabel.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index)?.lighterColor() ?? thumbBackgroundColor?.lighterColor()
                 
             case .Changed:
                 let translationInView = sender.translationInView(thumb)
@@ -545,6 +585,7 @@ public protocol GenericStyleSliderDelegate {
                 hintLabel.text = valueAsText(v)
 
                 self.layoutSeparators()
+                self.assignSeparatorTextOpacities()
 
             case .Ended, .Failed, .Cancelled:
                 if case .None = hintStyle {} else {
@@ -557,7 +598,7 @@ public protocol GenericStyleSliderDelegate {
                 self.thumbList.applyThumbBehaviour(thumb)
                 self.dynamicButtonAnimator.addBehavior(thumb.snappingBehavior)
                 
-                thumb.backgroundColor = thumbBackgroundColor ?? backgroundColor?.lighterColor()
+                thumb.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index) ?? thumbBackgroundColor ?? backgroundColor?.lighterColor()
                 
             case .Possible:
                 break
@@ -574,17 +615,24 @@ public protocol GenericStyleSliderDelegate {
     
     func addSeparator() {
         let sep = LabelFactory.defaultStyledLabel()
-        sep.backgroundColor = self.separatorBackgroundColor
+        sep.backgroundColor = self.sliderDelegate?.colorOfSeparatorLabel(self.separatorLabels.count) ?? self.separatorBackgroundColor
         sep.font = self.separatorFont
         sep.textColor = self.separatorTextColor
         self.separatorLabels.append(sep)
         self.addSubview(sep)
     }
     
+    func assignSeparatorTexts() {
+        for idx in 0..<self.separatorLabels.count {
+            let sep = self.separatorLabels[idx]
+            sep.text = self.sliderDelegate?.textOfSeparatorLabel(idx)
+        }
+    }
+
     func addThumb(value: Double) {
         let thumb = LabelFactory.defaultStyledThumb()
-        thumb.backgroundColor = self.thumbBackgroundColor
         thumb.index = self.thumbList.thumbs.count
+        thumb.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index) ?? self.thumbBackgroundColor
         thumb.font = self.thumbFont
         thumb.textColor = self.thumbTextColor
         self.thumbList.thumbs.append(thumb)
@@ -596,7 +644,10 @@ public protocol GenericStyleSliderDelegate {
 
     func assignThumbText(index: Int) {
         let thumb = self.thumbList.thumbs[index]
-        if thumbText == nil {
+        if let delTT = self.sliderDelegate?.textOfThumb(index) {
+            thumb.text = delTT
+        }
+        else if thumbText == nil {
             thumb.text = self.valueAsText(_values[thumb.index])
         }
         else {

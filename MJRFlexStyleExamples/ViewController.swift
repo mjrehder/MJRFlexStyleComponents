@@ -8,14 +8,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, GenericStyleSliderDelegate {
     @IBOutlet weak var simpleSlider: GenericStyleSlider!
     @IBOutlet weak var verticalSimpleSlider: GenericStyleSlider!
+    @IBOutlet weak var menuSelectionSlider: GenericStyleSlider!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.setupSimpleSlider()
+        self.setupMenuSelectionSlider()
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,7 +57,41 @@ class ViewController: UIViewController {
         self.verticalSimpleSlider.values = [0.0, 0.5, 0.75]
         self.verticalSimpleSlider.hintStyle = .Rounded
         self.verticalSimpleSlider.numberFormatString = "%.1f"
+    }
+    
+    func setupMenuSelectionSlider() {
+        self.menuSelectionSlider.minimumValue = 0
+        self.menuSelectionSlider.maximumValue = 1
+        self.menuSelectionSlider.thumbRatio = 0.1
+        self.menuSelectionSlider.separatorStyle = .Box
+        self.menuSelectionSlider.values = [0.0, 0.0, 0.0]
+        self.menuSelectionSlider.style = .Rounded
+        self.menuSelectionSlider.styleColor = UIColor.grayColor()
+        self.menuSelectionSlider.backgroundColor = UIColor.clearColor()
+        self.menuSelectionSlider.thumbSnappingBehaviour = .SnapToLowerAndHigher
         
+        self.menuSelectionSlider.valueChangedBlock = {
+            (value, index) in
+            NSLog("Value of index \(index) changed to \(value)")
+        }
+        
+        self.menuSelectionSlider.sliderDelegate = self
+    }
+    
+    func textOfThumb(index: Int) -> String? {
+        return ["S","M","L"][index]
+    }
+    
+    func textOfSeparatorLabel(index: Int) -> String? {
+        return ["Test", "Small","Medium","Large"][index]
+    }
+    
+    func colorOfThumb(index: Int) -> UIColor? {
+        return UIColor.brownColor()
+    }
+    
+    func colorOfSeparatorLabel(index: Int) -> UIColor? {
+        return UIColor.yellowColor()
     }
 }
 

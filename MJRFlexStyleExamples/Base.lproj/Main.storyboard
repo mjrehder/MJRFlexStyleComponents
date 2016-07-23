@@ -47,16 +47,27 @@
                                     <constraint firstAttribute="width" constant="46" id="tCw-19-5KD"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iCJ-fK-fQD" customClass="GenericStyleSlider" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <rect key="frame" x="50" y="220" width="432" height="42"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="288-mS-mt6"/>
+                                    <constraint firstAttribute="width" constant="432" id="i0Z-6o-hXC"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="H9G-8o-bMM" firstAttribute="top" secondItem="eq7-nC-D0K" secondAttribute="bottom" constant="43" id="8gG-1G-0Fu"/>
                             <constraint firstItem="eq7-nC-D0K" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="89" id="DXs-o5-9L7"/>
                             <constraint firstItem="H9G-8o-bMM" firstAttribute="trailing" secondItem="eq7-nC-D0K" secondAttribute="trailing" id="IRS-cV-V5G"/>
+                            <constraint firstItem="iCJ-fK-fQD" firstAttribute="top" secondItem="H9G-8o-bMM" secondAttribute="top" id="LYA-lq-Ywj"/>
                             <constraint firstItem="eq7-nC-D0K" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vc8-UR-ae9"/>
+                            <constraint firstItem="iCJ-fK-fQD" firstAttribute="leading" secondItem="eq7-nC-D0K" secondAttribute="leading" id="zbc-ug-NDs"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="menuSelectionSlider" destination="iCJ-fK-fQD" id="9zG-je-cvg"/>
                         <outlet property="simpleSlider" destination="eq7-nC-D0K" id="Qc2-5f-Z13"/>
                         <outlet property="verticalSimpleSlider" destination="H9G-8o-bMM" id="0LC-do-ivu"/>
                     </connections>
