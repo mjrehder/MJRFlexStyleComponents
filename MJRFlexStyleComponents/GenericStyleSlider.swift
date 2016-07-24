@@ -18,7 +18,24 @@ public protocol GenericStyleSliderDelegate {
     // TODO: Maybe support NSAttributedString?
 }
 
-@IBDesignable public final class GenericStyleSlider: UIControl {
+public protocol GenericStyleSliderTouchDelegate {
+    func onThumbTouchBegan(index: Int)
+    func onThumbTouchEnded(index: Int)
+}
+
+/**
+ The Generic Style Slider is a base class intended to be extended by specialized view controls
+ 
+ About the content layering:
+ The slider has a style layer which is constructed by the style shape
+ On top of the style layer is the separator label background
+ On top of the separator label background is the border of the slider
+ 
+ On top of the layers are the separator text labels
+ 
+ On top of the separator text labels are the thumbs
+ */
+@IBDesignable public class GenericStyleSlider: UIControl {
     var touchesBeganPoint = CGPointZero
 
     var thumbList = StyledSliderThumbList()
@@ -35,6 +52,7 @@ public protocol GenericStyleSliderDelegate {
     var hintShapeLayer = CAShapeLayer()
     
     public var sliderDelegate: GenericStyleSliderDelegate?
+    public var thumbTouchDelegate: GenericStyleSliderTouchDelegate?
     
     // MARK: - Deallocating position update timer
     
@@ -362,7 +380,7 @@ public protocol GenericStyleSliderDelegate {
         var idx = 0
         for sep in self.separatorLabels {
             sep.style = style
-            sep.backgroundColor = self.sliderDelegate?.colorOfSeparatorLabel(idx) ?? separatorBackgroundColor
+            sep.backgroundColor = .clearColor()
             sep.borderColor = separatorBorderColor
             sep.borderWidth = separatorBorderWidth
             idx += 1
@@ -386,20 +404,30 @@ public protocol GenericStyleSliderDelegate {
     
     func applyStyle(style: ShapeStyle) {
         let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clearColor()
-        let sLayer: CAShapeLayer
+        let bgsLayer = StyledShapeLayer.createShape(style, bounds: bounds, color: bgColor)
         
-        if let borderColor = borderColor {
-            sLayer = StyledShapeLayer.createShape(style, bounds: bounds, color: bgColor, borderColor: borderColor, borderWidth: borderWidth)
+        // Add layer with separator background colors
+        var rectColors: [(CGRect, UIColor)] = []
+        var idx = 0
+        for sep in self.separatorLabels {
+            let bgColor = self.sliderDelegate?.colorOfSeparatorLabel(idx) ?? separatorBackgroundColor
+            rectColors.append((sep.frame, bgColor ?? .clearColor()))
+            idx += 1
         }
-        else {
-            sLayer = StyledShapeLayer.createShape(style, bounds: bounds, color: bgColor)
+        let sepLayer = StyledShapeLayer.createShape(style, bounds: bounds, colorRects: rectColors)
+        bgsLayer.addSublayer(sepLayer)
+        
+        // Add layer with border, if required
+        if let borderColor = borderColor {
+            let bLayer = StyledShapeLayer.createShape(style, bounds: bounds, color: .clearColor(), borderColor: borderColor, borderWidth: borderWidth)
+            bgsLayer.addSublayer(bLayer)
         }
         
         if styleLayer.superlayer != nil {
-            layer.replaceSublayer(styleLayer, with: sLayer)
+            layer.replaceSublayer(styleLayer, with: bgsLayer)
         }
         
-        styleLayer = sLayer
+        styleLayer = bgsLayer
     }
     
     // MARK: - Private View
@@ -546,8 +574,26 @@ public protocol GenericStyleSliderDelegate {
     func setupThumbGesture(thumb: StyledSliderThumb) {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(GenericStyleSlider.sliderPanned))
         thumb.addGestureRecognizer(panGesture)
+
+        let touchGesture = UITapGestureRecognizer(target: self, action: #selector(GenericStyleSlider.thumbTouched))
+        touchGesture.requireGestureRecognizerToFail(panGesture)
+        thumb.addGestureRecognizer(touchGesture)
     }
     
+    func thumbTouched(sender: UITapGestureRecognizer) {
+        if let thumb = sender.view as? StyledSliderThumb {
+            switch sender.state {
+            case .Began:
+                touchesBeganPoint = sender.locationInView(self)
+                self.thumbTouchDelegate?.onThumbTouchBegan(thumb.index)
+            case .Ended:
+                self.thumbTouchDelegate?.onThumbTouchEnded(thumb.index)
+            default:
+                break
+            }
+        }
+    }
+
     func sliderPanned(sender: UIPanGestureRecognizer) {
         if let thumb = sender.view as? StyledSliderThumb {
             switch sender.state {
@@ -596,6 +642,16 @@ public protocol GenericStyleSliderDelegate {
                     }
                 }
                 self.thumbList.applyThumbBehaviour(thumb)
+                thumb.snappingBehavior.action = { [weak self] in
+                    if let weakSelf = self {
+                        for thumb in weakSelf.thumbList.thumbs {
+                            let v = weakSelf.thumbList.getValueFromThumbPos(thumb.index)
+                            weakSelf.updateValue(thumb.index, value: v, finished: false)
+                        }
+                        weakSelf.layoutSeparators()
+                        weakSelf.assignSeparatorTextOpacities()
+                    }
+                }
                 self.dynamicButtonAnimator.addBehavior(thumb.snappingBehavior)
                 
                 thumb.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index) ?? thumbBackgroundColor ?? backgroundColor?.lighterColor()
@@ -635,11 +691,11 @@ public protocol GenericStyleSliderDelegate {
         thumb.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index) ?? self.thumbBackgroundColor
         thumb.font = self.thumbFont
         thumb.textColor = self.thumbTextColor
+        thumb.behaviour = self.thumbSnappingBehaviour
         self.thumbList.thumbs.append(thumb)
         self.addSubview(thumb)
         
         self.setupThumbGesture(thumb)
-        self.setNeedsLayout()
     }
 
     func assignThumbText(index: Int) {
@@ -711,6 +767,7 @@ public protocol GenericStyleSliderDelegate {
         for value in _values {
             self.addThumb(value)
         }
+        self.layoutComponents()
     }
     
     func valueAsText(value: Double) -> String {
@@ -719,4 +776,5 @@ public protocol GenericStyleSliderDelegate {
         }
         return value % 1 == 0 ? "\(Int(value))" : "\(value)"
     }
+
 }

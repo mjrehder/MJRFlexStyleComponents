@@ -20,8 +20,6 @@
 		5B9937101D3A9E5B0043E573 /* StyledSliderThumb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */; };
 		5B9937111D3A9E5B0043E573 /* StyledSliderThumbList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9936D61D3A57620043E573 /* StyledSliderThumbList.swift */; };
 		5B9937121D3A9E5B0043E573 /* StyledSliderDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9936D81D3A578B0043E573 /* StyledSliderDirection.swift */; };
-		5B9937141D3B58AC0043E573 /* UITouchGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9937131D3B58AC0043E573 /* UITouchGestureRecognizer.swift */; };
-		5B9937151D3B58AC0043E573 /* UITouchGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9937131D3B58AC0043E573 /* UITouchGestureRecognizer.swift */; };
 		5B9F2C5E1D31616200B096B5 /* SnappingThumbBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F2C5D1D31616200B096B5 /* SnappingThumbBehaviour.swift */; };
 		5B9F2C601D32352600B096B5 /* StyledSliderThumb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */; };
 		5BE448461D412AC60011E5AE /* StyledShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE448451D412AC60011E5AE /* StyledShapeLayer.swift */; };
@@ -32,6 +30,8 @@
 		5BE4484E1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE4484C1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift */; };
 		5BE448501D4220830011E5AE /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE4484F1D4220830011E5AE /* LabelFactory.swift */; };
 		5BE448511D4220830011E5AE /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE4484F1D4220830011E5AE /* LabelFactory.swift */; };
+		5BE448531D4381C90011E5AE /* FlexSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE448521D4381C90011E5AE /* FlexSwitch.swift */; };
+		5BE448541D4381C90011E5AE /* FlexSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE448521D4381C90011E5AE /* FlexSwitch.swift */; };
 		5BF7020C1D3113D50011555A /* MJRFlexStyleComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BF7020B1D3113D50011555A /* MJRFlexStyleComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BF702151D3116AC0011555A /* GenericStyleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF702141D3116AC0011555A /* GenericStyleSlider.swift */; };
 		D1B71397BAD77EE05A56CB41 /* Pods_MJRFlexStyleExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD1A1E3588F9931082B7FB22 /* Pods_MJRFlexStyleExamples.framework */; };
@@ -50,13 +50,13 @@
 		5B9937051D3A9E210043E573 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5B9937081D3A9E210043E573 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B99370A1D3A9E220043E573 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5B9937131D3B58AC0043E573 /* UITouchGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITouchGestureRecognizer.swift; sourceTree = "<group>"; };
 		5B9F2C5D1D31616200B096B5 /* SnappingThumbBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnappingThumbBehaviour.swift; sourceTree = "<group>"; };
 		5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledSliderThumb.swift; sourceTree = "<group>"; };
 		5BE448451D412AC60011E5AE /* StyledShapeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledShapeLayer.swift; sourceTree = "<group>"; };
 		5BE448481D41F6DB0011E5AE /* PositionUpdateTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionUpdateTimer.swift; sourceTree = "<group>"; };
 		5BE4484C1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledSliderThumbBehaviour.swift; sourceTree = "<group>"; };
 		5BE4484F1D4220830011E5AE /* LabelFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
+		5BE448521D4381C90011E5AE /* FlexSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSwitch.swift; sourceTree = "<group>"; };
 		5BF702081D3113D50011555A /* MJRFlexStyleComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MJRFlexStyleComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF7020B1D3113D50011555A /* MJRFlexStyleComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MJRFlexStyleComponents.h; sourceTree = "<group>"; };
 		5BF7020D1D3113D50011555A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -115,10 +115,21 @@
 			children = (
 				5B9F2C5D1D31616200B096B5 /* SnappingThumbBehaviour.swift */,
 				5BE448481D41F6DB0011E5AE /* PositionUpdateTimer.swift */,
-				5B9937131D3B58AC0043E573 /* UITouchGestureRecognizer.swift */,
 				5BE4484F1D4220830011E5AE /* LabelFactory.swift */,
 			);
 			name = Helper;
+			sourceTree = "<group>";
+		};
+		5BE448551D44A7900011E5AE /* StyledComponents */ = {
+			isa = PBXGroup;
+			children = (
+				5BE4484C1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift */,
+				5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */,
+				5B9936D61D3A57620043E573 /* StyledSliderThumbList.swift */,
+				5B9936D81D3A578B0043E573 /* StyledSliderDirection.swift */,
+				5BE448451D412AC60011E5AE /* StyledShapeLayer.swift */,
+			);
+			name = StyledComponents;
 			sourceTree = "<group>";
 		};
 		5BF701FE1D3113D50011555A = {
@@ -144,6 +155,7 @@
 		5BF7020A1D3113D50011555A /* MJRFlexStyleComponents */ = {
 			isa = PBXGroup;
 			children = (
+				5BE448521D4381C90011E5AE /* FlexSwitch.swift */,
 				5BF702131D3114CB0011555A /* GenericStyleSlider */,
 				5BF7020B1D3113D50011555A /* MJRFlexStyleComponents.h */,
 				5BF7020D1D3113D50011555A /* Info.plist */,
@@ -154,12 +166,8 @@
 		5BF702131D3114CB0011555A /* GenericStyleSlider */ = {
 			isa = PBXGroup;
 			children = (
+				5BE448551D44A7900011E5AE /* StyledComponents */,
 				5BE4484B1D41F8080011E5AE /* Helper */,
-				5BE4484C1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift */,
-				5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */,
-				5B9936D61D3A57620043E573 /* StyledSliderThumbList.swift */,
-				5B9936D81D3A578B0043E573 /* StyledSliderDirection.swift */,
-				5BE448451D412AC60011E5AE /* StyledShapeLayer.swift */,
 				5BF702141D3116AC0011555A /* GenericStyleSlider.swift */,
 			);
 			name = GenericStyleSlider;
@@ -372,7 +380,6 @@
 				5B99370F1D3A9E5B0043E573 /* SnappingThumbBehaviour.swift in Sources */,
 				5BE4484E1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift in Sources */,
 				5BE448471D412AC60011E5AE /* StyledShapeLayer.swift in Sources */,
-				5B9937151D3B58AC0043E573 /* UITouchGestureRecognizer.swift in Sources */,
 				5B99370E1D3A9E5B0043E573 /* GenericStyleSlider.swift in Sources */,
 				5B9937111D3A9E5B0043E573 /* StyledSliderThumbList.swift in Sources */,
 				5B9937121D3A9E5B0043E573 /* StyledSliderDirection.swift in Sources */,
@@ -381,6 +388,7 @@
 				5BE448511D4220830011E5AE /* LabelFactory.swift in Sources */,
 				5B9937011D3A9E210043E573 /* ViewController.swift in Sources */,
 				5B9936FF1D3A9E210043E573 /* AppDelegate.swift in Sources */,
+				5BE448541D4381C90011E5AE /* FlexSwitch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,11 +396,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BE448531D4381C90011E5AE /* FlexSwitch.swift in Sources */,
 				5B9F2C5E1D31616200B096B5 /* SnappingThumbBehaviour.swift in Sources */,
 				5B9936D91D3A578B0043E573 /* StyledSliderDirection.swift in Sources */,
 				5BF702151D3116AC0011555A /* GenericStyleSlider.swift in Sources */,
 				5BE448501D4220830011E5AE /* LabelFactory.swift in Sources */,
-				5B9937141D3B58AC0043E573 /* UITouchGestureRecognizer.swift in Sources */,
 				5BE448461D412AC60011E5AE /* StyledShapeLayer.swift in Sources */,
 				5BE448491D41F6DB0011E5AE /* PositionUpdateTimer.swift in Sources */,
 				5BE4484D1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift in Sources */,

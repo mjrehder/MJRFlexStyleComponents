@@ -55,6 +55,26 @@
                                     <constraint firstAttribute="width" constant="432" id="i0Z-6o-hXC"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hiq-M2-tME" customClass="FlexSwitch" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <rect key="frame" x="50" y="270" width="73" height="39"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="73" id="m1R-SC-llp"/>
+                                    <constraint firstAttribute="height" constant="39" id="n6Q-3b-RbH"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="onTintColor">
+                                        <color key="value" red="0.53735902260000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="thumbTintColor">
+                                        <color key="value" red="0.77549677309999998" green="0.77549677309999998" blue="0.77549677309999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="thumbBackgroundColor">
+                                        <color key="value" red="0.77549677309999998" green="0.77549677309999998" blue="0.77549677309999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="continuous" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -62,6 +82,8 @@
                             <constraint firstItem="eq7-nC-D0K" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="89" id="DXs-o5-9L7"/>
                             <constraint firstItem="H9G-8o-bMM" firstAttribute="trailing" secondItem="eq7-nC-D0K" secondAttribute="trailing" id="IRS-cV-V5G"/>
                             <constraint firstItem="iCJ-fK-fQD" firstAttribute="top" secondItem="H9G-8o-bMM" secondAttribute="top" id="LYA-lq-Ywj"/>
+                            <constraint firstItem="Hiq-M2-tME" firstAttribute="top" secondItem="iCJ-fK-fQD" secondAttribute="bottom" constant="8" symbolic="YES" id="LYX-Gg-Mg4"/>
+                            <constraint firstItem="Hiq-M2-tME" firstAttribute="leading" secondItem="iCJ-fK-fQD" secondAttribute="leading" id="m2J-0l-Kdn"/>
                             <constraint firstItem="eq7-nC-D0K" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vc8-UR-ae9"/>
                             <constraint firstItem="iCJ-fK-fQD" firstAttribute="leading" secondItem="eq7-nC-D0K" secondAttribute="leading" id="zbc-ug-NDs"/>
                         </constraints>

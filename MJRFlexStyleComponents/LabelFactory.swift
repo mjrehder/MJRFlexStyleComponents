@@ -25,7 +25,7 @@ final class LabelFactory {
         
         return label
     }
-
+    
     static func defaultStyledThumb() -> StyledSliderThumb {
         let label           = StyledSliderThumb()
         label.textAlignment = .Center
