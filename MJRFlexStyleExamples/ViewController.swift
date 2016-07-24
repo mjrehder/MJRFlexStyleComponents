@@ -8,16 +8,21 @@
 
 import UIKit
 
-class ViewController: UIViewController, GenericStyleSliderDelegate {
+class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuDataSource {
+    var colorMenuItems: [FlexMenuItem] = []
+    
     @IBOutlet weak var simpleSlider: GenericStyleSlider!
     @IBOutlet weak var verticalSimpleSlider: GenericStyleSlider!
     @IBOutlet weak var menuSelectionSlider: GenericStyleSlider!
+    
+    @IBOutlet weak var colorMenuSelectionSlider: FlexMenu!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.setupSimpleSlider()
         self.setupMenuSelectionSlider()
+        self.setupColorSelectionMenuSlider()
     }
 
     override func didReceiveMemoryWarning() {
@@ -78,6 +83,19 @@ class ViewController: UIViewController, GenericStyleSliderDelegate {
         self.menuSelectionSlider.sliderDelegate = self
     }
     
+    func setupColorSelectionMenuSlider() {
+        let col1 = FlexMenuItem(title: "Grey", titleShortcut: "Gr", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.MKColor.Grey.P500)
+        let col2 = FlexMenuItem(title: "Amber", titleShortcut: "Am", color: UIColor.MKColor.Amber.P200, thumbColor: UIColor.MKColor.Amber.P500)
+        let col3 = FlexMenuItem(title: "Lime", titleShortcut: "Li", color: UIColor.MKColor.Lime.P200, thumbColor: UIColor.MKColor.Lime.P500)
+        let col4 = FlexMenuItem(title: "Light Blue", titleShortcut: "LB", color: UIColor.MKColor.LightBlue.P200, thumbColor: UIColor.MKColor.LightBlue.P500)
+        self.colorMenuItems.append(col1)
+        self.colorMenuItems.append(col2)
+        self.colorMenuItems.append(col3)
+        self.colorMenuItems.append(col4)
+        
+        self.colorMenuSelectionSlider.menuDataSource = self
+    }
+    
     func textOfThumb(index: Int) -> String? {
         return ["S","M","L"][index]
     }
@@ -92,6 +110,26 @@ class ViewController: UIViewController, GenericStyleSliderDelegate {
     
     func colorOfSeparatorLabel(index: Int) -> UIColor? {
         return UIColor.yellowColor()
+    }
+    
+    // MARK: - FlexMenuDataSource
+    
+    func numberOfMenuItems(menu: FlexMenu) -> Int {
+        if menu == self.colorMenuSelectionSlider {
+            return 4
+        }
+        return 0
+    }
+    
+    func menuItemForIndex(menu: FlexMenu, index: Int) -> FlexMenuItem {
+//        if menu == self.colorMenuSelectionSlider {
+        return self.colorMenuItems[index]
+//        }
+//        return 0
+    }
+    
+    func menuItemSelected(menu: FlexMenu, index: Int) {
+        NSLog("Menu item selected: \(index)")
     }
 }
 

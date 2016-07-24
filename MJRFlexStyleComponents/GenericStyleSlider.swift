@@ -627,7 +627,7 @@ public protocol GenericStyleSliderTouchDelegate {
                 }
                 
                 let v = self.thumbList.getValueFromThumbPos(thumb.index)
-                self.updateValue(thumb.index, value: v)
+                self.updateValue(thumb.index, value: v, finished: false)
                 hintLabel.text = valueAsText(v)
 
                 self.layoutSeparators()
@@ -655,6 +655,9 @@ public protocol GenericStyleSliderTouchDelegate {
                 self.dynamicButtonAnimator.addBehavior(thumb.snappingBehavior)
                 
                 thumb.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index) ?? thumbBackgroundColor ?? backgroundColor?.lighterColor()
+
+                let v = self.values[thumb.index]
+                self.notifyOfValueChanged(v, index: thumb.index)
                 
             case .Possible:
                 break
@@ -718,16 +721,27 @@ public protocol GenericStyleSliderTouchDelegate {
     }
 
     func updateValue(index: Int, value: Double, finished: Bool = true) {
+        var newVal = value
+        if newVal > maximumValue {
+            newVal = maximumValue
+        }
+        if newVal < minimumValue {
+            newVal = minimumValue
+        }
         let oldVal = _values[index]
-        _values[index] = value
+        _values[index] = newVal
         self.assignThumbText(index)
         
-        if (continuous || finished) && oldVal != value {
-            sendActionsForControlEvents(.ValueChanged)
-            
-            if let _valueChangedBlock = valueChangedBlock {
-                _valueChangedBlock(value: value, index: index)
-            }
+        if (continuous || finished) && oldVal != newVal {
+            self.notifyOfValueChanged(newVal, index: index)
+        }
+    }
+
+    func notifyOfValueChanged(value: Double, index: Int) {
+        sendActionsForControlEvents(.ValueChanged)
+        
+        if let _valueChangedBlock = valueChangedBlock {
+            _valueChangedBlock(value: value, index: index)
         }
     }
     

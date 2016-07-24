@@ -10,7 +10,6 @@ import UIKit
 
 // The FlexSwitch is only supporting horizontal layout
 @IBDesignable public class FlexSwitch: GenericStyleSlider, GenericStyleSliderDelegate, GenericStyleSliderTouchDelegate {
-    var snappingBehavior: SnappingThumbBehaviour?
 
     public override init(frame: CGRect) {
         var targetFrame = frame

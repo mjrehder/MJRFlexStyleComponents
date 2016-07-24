@@ -75,20 +75,29 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="continuous" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xok-IF-OGA" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <rect key="frame" x="131" y="270" width="351" height="39"/>
+                                <color key="backgroundColor" red="0.78039215689999997" green="0.63921568630000003" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Xok-IF-OGA" firstAttribute="bottom" secondItem="Hiq-M2-tME" secondAttribute="bottom" id="2kZ-n7-wdI"/>
+                            <constraint firstItem="Xok-IF-OGA" firstAttribute="trailing" secondItem="iCJ-fK-fQD" secondAttribute="trailing" id="37I-Tk-SRF"/>
                             <constraint firstItem="H9G-8o-bMM" firstAttribute="top" secondItem="eq7-nC-D0K" secondAttribute="bottom" constant="43" id="8gG-1G-0Fu"/>
                             <constraint firstItem="eq7-nC-D0K" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="89" id="DXs-o5-9L7"/>
                             <constraint firstItem="H9G-8o-bMM" firstAttribute="trailing" secondItem="eq7-nC-D0K" secondAttribute="trailing" id="IRS-cV-V5G"/>
                             <constraint firstItem="iCJ-fK-fQD" firstAttribute="top" secondItem="H9G-8o-bMM" secondAttribute="top" id="LYA-lq-Ywj"/>
                             <constraint firstItem="Hiq-M2-tME" firstAttribute="top" secondItem="iCJ-fK-fQD" secondAttribute="bottom" constant="8" symbolic="YES" id="LYX-Gg-Mg4"/>
+                            <constraint firstItem="Xok-IF-OGA" firstAttribute="top" secondItem="Hiq-M2-tME" secondAttribute="top" id="U3y-dm-SZd"/>
+                            <constraint firstItem="Xok-IF-OGA" firstAttribute="leading" secondItem="Hiq-M2-tME" secondAttribute="trailing" constant="8" symbolic="YES" id="ZlS-Pj-UFc"/>
                             <constraint firstItem="Hiq-M2-tME" firstAttribute="leading" secondItem="iCJ-fK-fQD" secondAttribute="leading" id="m2J-0l-Kdn"/>
                             <constraint firstItem="eq7-nC-D0K" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vc8-UR-ae9"/>
                             <constraint firstItem="iCJ-fK-fQD" firstAttribute="leading" secondItem="eq7-nC-D0K" secondAttribute="leading" id="zbc-ug-NDs"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="colorMenuSelectionSlider" destination="Xok-IF-OGA" id="0qU-3Z-SAO"/>
                         <outlet property="menuSelectionSlider" destination="iCJ-fK-fQD" id="9zG-je-cvg"/>
                         <outlet property="simpleSlider" destination="eq7-nC-D0K" id="Qc2-5f-Z13"/>
                         <outlet property="verticalSimpleSlider" destination="H9G-8o-bMM" id="0LC-do-ivu"/>
