@@ -14,6 +14,7 @@ public protocol FlexMenuDataSource {
     func menuItemSelected(menu: FlexMenu, index: Int)
 }
 
+@IBDesignable
 public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, GenericStyleSliderDelegate {
 
     public var menuDataSource: FlexMenuDataSource? {

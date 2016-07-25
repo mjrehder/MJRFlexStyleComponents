@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuDataSource {
+class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuDataSource, FlexSeriesViewDataSource {
     var colorMenuItems: [FlexMenuItem] = []
     
     @IBOutlet weak var simpleSlider: GenericStyleSlider!
@@ -17,12 +17,15 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
     
     @IBOutlet weak var colorMenuSelectionSlider: FlexMenu!
     
+    @IBOutlet weak var sliderGraphView: FlexSeriesView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.setupSimpleSlider()
         self.setupMenuSelectionSlider()
         self.setupColorSelectionMenuSlider()
+        self.setupSliderGraphView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -96,6 +99,14 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
         self.colorMenuSelectionSlider.menuDataSource = self
     }
     
+    func setupSliderGraphView() {
+        self.sliderGraphView.dataSource = self
+        self.sliderGraphView.spacing = self.sliderGraphView.bounds.size.height / 3 * 0.75
+        self.sliderGraphView.reloadData()
+    }
+    
+    // MARK: - FlexMenuDataSource
+    
     func textOfThumb(index: Int) -> String? {
         return ["S","M","L"][index]
     }
@@ -130,6 +141,23 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
     
     func menuItemSelected(menu: FlexMenu, index: Int) {
         NSLog("Menu item selected: \(index)")
+    }
+    
+    // MARK: - FlexSeriesViewDataSource
+    
+    func dataOfSeriesAtPoint(flexSeries: FlexSeriesView, series: Int, point: Int) -> Double {
+        return 0
+    }
+    
+    func dataChangedOfSeriesAtPoint(flexSeries: FlexSeriesView, series: Int, point: Int, data: Double) {
+    }
+    
+    func numberOfSeries(flexSeries: FlexSeriesView) -> Int {
+        return 2
+    }
+    
+    func numberOfDataPoints(flexSeries: FlexSeriesView) -> Int {
+        return 3
     }
 }
 

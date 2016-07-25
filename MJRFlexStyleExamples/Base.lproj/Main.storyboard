@@ -79,13 +79,19 @@
                                 <rect key="frame" x="131" y="270" width="351" height="39"/>
                                 <color key="backgroundColor" red="0.78039215689999997" green="0.63921568630000003" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ojO-t0-c7G" customClass="FlexSeriesView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <rect key="frame" x="50" y="317" width="432" height="253"/>
+                                <color key="backgroundColor" red="1" green="0.763660432" blue="0.32489238860000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Xok-IF-OGA" firstAttribute="bottom" secondItem="Hiq-M2-tME" secondAttribute="bottom" id="2kZ-n7-wdI"/>
                             <constraint firstItem="Xok-IF-OGA" firstAttribute="trailing" secondItem="iCJ-fK-fQD" secondAttribute="trailing" id="37I-Tk-SRF"/>
                             <constraint firstItem="H9G-8o-bMM" firstAttribute="top" secondItem="eq7-nC-D0K" secondAttribute="bottom" constant="43" id="8gG-1G-0Fu"/>
+                            <constraint firstItem="ojO-t0-c7G" firstAttribute="leading" secondItem="Hiq-M2-tME" secondAttribute="leading" id="Cyz-VB-0qC"/>
                             <constraint firstItem="eq7-nC-D0K" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="89" id="DXs-o5-9L7"/>
+                            <constraint firstItem="ojO-t0-c7G" firstAttribute="top" secondItem="Hiq-M2-tME" secondAttribute="bottom" constant="8" symbolic="YES" id="Ebe-N0-17T"/>
                             <constraint firstItem="H9G-8o-bMM" firstAttribute="trailing" secondItem="eq7-nC-D0K" secondAttribute="trailing" id="IRS-cV-V5G"/>
                             <constraint firstItem="iCJ-fK-fQD" firstAttribute="top" secondItem="H9G-8o-bMM" secondAttribute="top" id="LYA-lq-Ywj"/>
                             <constraint firstItem="Hiq-M2-tME" firstAttribute="top" secondItem="iCJ-fK-fQD" secondAttribute="bottom" constant="8" symbolic="YES" id="LYX-Gg-Mg4"/>
@@ -93,6 +99,8 @@
                             <constraint firstItem="Xok-IF-OGA" firstAttribute="leading" secondItem="Hiq-M2-tME" secondAttribute="trailing" constant="8" symbolic="YES" id="ZlS-Pj-UFc"/>
                             <constraint firstItem="Hiq-M2-tME" firstAttribute="leading" secondItem="iCJ-fK-fQD" secondAttribute="leading" id="m2J-0l-Kdn"/>
                             <constraint firstItem="eq7-nC-D0K" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vc8-UR-ae9"/>
+                            <constraint firstItem="ojO-t0-c7G" firstAttribute="bottom" secondItem="H9G-8o-bMM" secondAttribute="bottom" id="wE0-CW-stJ"/>
+                            <constraint firstItem="ojO-t0-c7G" firstAttribute="trailing" secondItem="Xok-IF-OGA" secondAttribute="trailing" id="yXZ-Zz-R1Q"/>
                             <constraint firstItem="iCJ-fK-fQD" firstAttribute="leading" secondItem="eq7-nC-D0K" secondAttribute="leading" id="zbc-ug-NDs"/>
                         </constraints>
                     </view>
@@ -100,6 +108,7 @@
                         <outlet property="colorMenuSelectionSlider" destination="Xok-IF-OGA" id="0qU-3Z-SAO"/>
                         <outlet property="menuSelectionSlider" destination="iCJ-fK-fQD" id="9zG-je-cvg"/>
                         <outlet property="simpleSlider" destination="eq7-nC-D0K" id="Qc2-5f-Z13"/>
+                        <outlet property="sliderGraphView" destination="ojO-t0-c7G" id="Ocr-uh-qwn"/>
                         <outlet property="verticalSimpleSlider" destination="H9G-8o-bMM" id="0LC-do-ivu"/>
                     </connections>
                 </viewController>
