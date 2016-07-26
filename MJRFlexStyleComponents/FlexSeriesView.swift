@@ -132,6 +132,7 @@ public class FlexSeriesView: UIControl {
             for n in 0..<nod {
                 let rect = CGRectMake(0,0,20,20)
                 let slider = GenericStyleSlider(frame: rect)
+                slider.direction = self.direction
                 self.sliders.append(slider)
                 self.addSubview(slider)
                 self.initSlider(slider)

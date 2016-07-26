@@ -24,6 +24,9 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
     
     @IBOutlet weak var vhSwitch: FlexSwitch!
     
+    @IBOutlet weak var dataPointSelector: FlexSlider!
+    @IBOutlet weak var numSeriesSelector: FlexSlider!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,6 +35,7 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
         self.setupColorSelectionMenuSlider()
         self.setupSliderGraphView()
         self.setupVHSwitch()
+        self.setupDataPointAndSeriesSelectors()
     }
 
     override func didReceiveMemoryWarning() {
@@ -107,7 +111,7 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
     
     func setupSliderGraphView() {
         self.sliderGraphView.dataSource = self
-        self.sliderGraphView.spacing = self.sliderGraphView.bounds.size.height / 3 * 0.75
+        self.sliderGraphView.spacing = self.sliderGraphView.bounds.size.height * 0.1
         self.sliderGraphView.reloadData()
     }
     
@@ -115,11 +119,54 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
         self.vhSwitch.switchDelegate = self
     }
     
+    func setupDataPointAndSeriesSelectors() {
+        self.numSeriesSelector.minimumTrackTintColor = UIColor.redColor().darkerColor()
+        self.numSeriesSelector.maximumTrackTintColor = UIColor.clearColor()
+        self.numSeriesSelector.thumbTintColor = UIColor.grayColor()
+        self.numSeriesSelector.minimumValue = 1
+        self.numSeriesSelector.maximumValue = 4
+        self.numSeriesSelector.value = Double(numSeries)
+        self.numSeriesSelector.valueChangedBlock = {
+            (value, index) in
+            self.numSeries = Int(round(value))
+            self.createDemoDataForGraph()
+            self.sliderGraphView.reloadData()
+        }
+        
+        self.dataPointSelector.minimumTrackTintColor = UIColor.redColor().darkerColor()
+        self.dataPointSelector.maximumTrackTintColor = UIColor.clearColor()
+        self.dataPointSelector.thumbTintColor = UIColor.grayColor()
+        self.dataPointSelector.minimumValue = 2
+        self.dataPointSelector.maximumValue = 7
+        self.dataPointSelector.value = Double(numDataPoints)
+        self.dataPointSelector.valueChangedBlock = {
+            (value, index) in
+            self.numDataPoints = Int(round(value))
+            self.createDemoDataForGraph()
+            self.sliderGraphView.reloadData()
+        }
+    }
+    
+    // MARK: - Internal
+    
+    func createDemoDataForGraph() {
+        var newDemoData: [[Double]] = []
+        for s in 0..<self.numSeries {
+            var dataPoints: [Double] = []
+            for _ in 0..<self.numDataPoints {
+                let r = Double(random() % 100) / 10.0
+                dataPoints.append(Double(s)*10.0 + r)
+            }
+            newDemoData.append(dataPoints)
+        }
+        self.dataSeries = newDemoData
+    }
+    
     // MARK: - FlexSwitchDelegate
     
     func switchStateChanged(flexSwitch: FlexSwitch, on: Bool) {
         let on = self.vhSwitch.on
-        self.sliderGraphView.spacing = on ? self.sliderGraphView.bounds.size.width / 3 * 1.0 : self.sliderGraphView.bounds.size.height / 3 * 0.75
+        self.sliderGraphView.spacing = on ? self.sliderGraphView.bounds.size.width * 0.1 : self.sliderGraphView.bounds.size.height * 0.1
         self.sliderGraphView.direction = on ? .Vertical : .Horizontal
     }
     
