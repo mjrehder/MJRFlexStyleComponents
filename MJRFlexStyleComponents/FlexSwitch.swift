@@ -8,9 +8,15 @@
 
 import UIKit
 
+public protocol FlexSwitchDelegate {
+    func switchStateChanged(flexSwitch: FlexSwitch, on: Bool)
+}
+
 // The FlexSwitch is only supporting horizontal layout
 @IBDesignable public class FlexSwitch: GenericStyleSlider, GenericStyleSliderDelegate, GenericStyleSliderTouchDelegate {
 
+    public var switchDelegate: FlexSwitchDelegate?
+    
     public override init(frame: CGRect) {
         var targetFrame = frame
         if CGRectIsNull(frame) {
@@ -38,6 +44,8 @@ import UIKit
         self.values = [0]
         self.sliderDelegate = self
         self.thumbTouchDelegate = self
+
+        self.addTarget(self, action: #selector(FlexSwitch.switchChanged), forControlEvents: .ValueChanged)
     }
 
     override func initComponent() {
@@ -61,13 +69,17 @@ import UIKit
     
     public var on: Bool {
         get {
-            return self.values[0] > 0
+            return self.values[0] > 0.5
         }
     }
     
     public func setOn(isOn: Bool) {
         let targetValue = isOn ? 1.0 : 0.0
         self.values = [targetValue]
+    }
+    
+    func switchChanged() {
+        self.switchDelegate?.switchStateChanged(self, on: self.on)
     }
     
     // MARK: - GenericStyleSliderDelegate
@@ -95,5 +107,6 @@ import UIKit
     
     public func onThumbTouchEnded(index: Int) {
         self.setOn(!self.on)
+        self.switchChanged()
     }
 }

@@ -110,6 +110,7 @@
                         <outlet property="simpleSlider" destination="eq7-nC-D0K" id="Qc2-5f-Z13"/>
                         <outlet property="sliderGraphView" destination="ojO-t0-c7G" id="Ocr-uh-qwn"/>
                         <outlet property="verticalSimpleSlider" destination="H9G-8o-bMM" id="0LC-do-ivu"/>
+                        <outlet property="vhSwitch" destination="Hiq-M2-tME" id="44I-D6-VxW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

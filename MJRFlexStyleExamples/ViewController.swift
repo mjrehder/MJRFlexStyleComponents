@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuDataSource, FlexSeriesViewDataSource {
+class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuDataSource, FlexSeriesViewDataSource, FlexSwitchDelegate {
     var colorMenuItems: [FlexMenuItem] = []
     var numSeries = 2
     var numDataPoints = 3
@@ -22,6 +22,8 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
     
     @IBOutlet weak var sliderGraphView: FlexSeriesView!
     
+    @IBOutlet weak var vhSwitch: FlexSwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,6 +31,7 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
         self.setupMenuSelectionSlider()
         self.setupColorSelectionMenuSlider()
         self.setupSliderGraphView()
+        self.setupVHSwitch()
     }
 
     override func didReceiveMemoryWarning() {
@@ -106,6 +109,17 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
         self.sliderGraphView.dataSource = self
         self.sliderGraphView.spacing = self.sliderGraphView.bounds.size.height / 3 * 0.75
         self.sliderGraphView.reloadData()
+    }
+    
+    func setupVHSwitch() {
+        self.vhSwitch.switchDelegate = self
+    }
+    
+    // MARK: - FlexSwitchDelegate
+    
+    func switchStateChanged(flexSwitch: FlexSwitch, on: Bool) {
+        let on = self.vhSwitch.on
+        self.sliderGraphView.direction = on ? .Vertical : .Horizontal
     }
     
     // MARK: - FlexMenuDataSource
