@@ -63,6 +63,9 @@ public class FlexSeriesView: UIControl {
      */
     @IBInspectable public var direction: StyleSliderDirection = .Horizontal {
         didSet {
+            for slider in self.sliders {
+                slider.direction = direction
+            }
             self.layoutSliders()
         }
     }
@@ -163,7 +166,7 @@ public class FlexSeriesView: UIControl {
                     rect = CGRectMake(sliderOffset * CGFloat(n), 0, sliderSize, self.bounds.size.height)
                 }
                 slider.frame = rect
-                slider.thumbRatio = rect.size.height / rect.size.width
+                slider.thumbRatio = self.direction == .Horizontal ? rect.size.height / rect.size.width : rect.size.width / rect.size.height
                 slider.layoutComponents()
             }
         }
@@ -171,15 +174,15 @@ public class FlexSeriesView: UIControl {
     
     func updateDataInSliders() {
         if let nos = self.dataSource?.numberOfSeries(self), nod = self.dataSource?.numberOfDataPoints(self) {
-        for n in 0..<nod {
-            let slider = self.sliders[n]
-            var values: [Double] = []
-            for s in 0..<nos {
-                let data = self.dataSource?.dataOfSeriesAtPoint(self, series: s, point: n) ?? 0
-                values.append(data)
+            for n in 0..<nod {
+                let slider = self.sliders[n]
+                var values: [Double] = []
+                for s in 0..<nos {
+                    let data = self.dataSource?.dataOfSeriesAtPoint(self, series: s, point: n) ?? 0
+                    values.append(data)
+                }
+                slider.values = values
             }
-            slider.values = values
-        }
         }
     }
     
@@ -232,11 +235,21 @@ public class FlexSeriesView: UIControl {
             let tSpacing = CGFloat(nod - 1) * self.spacing
             let sliderSize = (tSize - tSpacing) / CGFloat(nod)
             
-            for n in 0..<nod {
-                let slider = self.sliders[n]
-                let sliderOffset = (sliderSize + self.spacing)*CGFloat(n)
-                let p = slider.thumbList.thumbs[series].center
-                points.append(self.addValueToCalculationPoint(p, val: sliderOffset))
+            if self.direction == .Vertical {
+                for n in (0..<nod).reverse() {
+                    let slider = self.sliders[n]
+                    let sliderOffset = (sliderSize + self.spacing)*CGFloat(n)
+                    let p = slider.thumbList.thumbs[series].center
+                    points.append(self.addValueToCalculationPoint(p, val: sliderOffset))
+                }
+            }
+            else {
+                for n in 0..<nod {
+                    let slider = self.sliders[n]
+                    let sliderOffset = (sliderSize + self.spacing)*CGFloat(n)
+                    let p = slider.thumbList.thumbs[series].center
+                    points.append(self.addValueToCalculationPoint(p, val: sliderOffset))
+                }
             }
         }
         let sp: CGPoint

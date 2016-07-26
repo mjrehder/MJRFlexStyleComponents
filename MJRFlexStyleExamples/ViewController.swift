@@ -119,6 +119,7 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
     
     func switchStateChanged(flexSwitch: FlexSwitch, on: Bool) {
         let on = self.vhSwitch.on
+        self.sliderGraphView.spacing = on ? self.sliderGraphView.bounds.size.width / 3 * 1.0 : self.sliderGraphView.bounds.size.height / 3 * 0.75
         self.sliderGraphView.direction = on ? .Vertical : .Horizontal
     }
     
