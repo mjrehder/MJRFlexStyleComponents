@@ -43,6 +43,8 @@
 		5BE448681D474DFD0011E5AE /* BezierPathHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE448661D474DFD0011E5AE /* BezierPathHelper.swift */; };
 		5BE4486A1D4760EE0011E5AE /* FlexSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE448691D4760EE0011E5AE /* FlexSlider.swift */; };
 		5BE4486B1D4760EE0011E5AE /* FlexSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE448691D4760EE0011E5AE /* FlexSlider.swift */; };
+		5BE4486D1D478E9A0011E5AE /* FlexDoubleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE4486C1D478E9A0011E5AE /* FlexDoubleSlider.swift */; };
+		5BE4486E1D478E9A0011E5AE /* FlexDoubleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE4486C1D478E9A0011E5AE /* FlexDoubleSlider.swift */; };
 		5BF7020C1D3113D50011555A /* MJRFlexStyleComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BF7020B1D3113D50011555A /* MJRFlexStyleComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BF702151D3116AC0011555A /* GenericStyleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF702141D3116AC0011555A /* GenericStyleSlider.swift */; };
 		D1B71397BAD77EE05A56CB41 /* Pods_MJRFlexStyleExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD1A1E3588F9931082B7FB22 /* Pods_MJRFlexStyleExamples.framework */; };
@@ -74,6 +76,7 @@
 		5BE448621D450DC20011E5AE /* FlexSeriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSeriesView.swift; sourceTree = "<group>"; };
 		5BE448661D474DFD0011E5AE /* BezierPathHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BezierPathHelper.swift; sourceTree = "<group>"; };
 		5BE448691D4760EE0011E5AE /* FlexSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSlider.swift; sourceTree = "<group>"; };
+		5BE4486C1D478E9A0011E5AE /* FlexDoubleSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexDoubleSlider.swift; sourceTree = "<group>"; };
 		5BF702081D3113D50011555A /* MJRFlexStyleComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MJRFlexStyleComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF7020B1D3113D50011555A /* MJRFlexStyleComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MJRFlexStyleComponents.h; sourceTree = "<group>"; };
 		5BF7020D1D3113D50011555A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -188,6 +191,7 @@
 				5BE448591D44C71D0011E5AE /* FlexMenu.swift */,
 				5BE448621D450DC20011E5AE /* FlexSeriesView.swift */,
 				5BE448691D4760EE0011E5AE /* FlexSlider.swift */,
+				5BE4486C1D478E9A0011E5AE /* FlexDoubleSlider.swift */,
 				5BF7020B1D3113D50011555A /* MJRFlexStyleComponents.h */,
 				5BF7020D1D3113D50011555A /* Info.plist */,
 			);
@@ -421,6 +425,7 @@
 				5B9937101D3A9E5B0043E573 /* StyledSliderThumb.swift in Sources */,
 				5BE4485E1D44C8D80011E5AE /* FlexMenuItem.swift in Sources */,
 				5BE4484A1D41F6DB0011E5AE /* PositionUpdateTimer.swift in Sources */,
+				5BE4486E1D478E9A0011E5AE /* FlexDoubleSlider.swift in Sources */,
 				5BE448511D4220830011E5AE /* LabelFactory.swift in Sources */,
 				5B9937011D3A9E210043E573 /* ViewController.swift in Sources */,
 				5BE4486B1D4760EE0011E5AE /* FlexSlider.swift in Sources */,
@@ -447,6 +452,7 @@
 				5BE4484D1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift in Sources */,
 				5B9936D71D3A57620043E573 /* StyledSliderThumbList.swift in Sources */,
 				5BE448631D450DC20011E5AE /* FlexSeriesView.swift in Sources */,
+				5BE4486D1D478E9A0011E5AE /* FlexDoubleSlider.swift in Sources */,
 				5B9F2C601D32352600B096B5 /* StyledSliderThumb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

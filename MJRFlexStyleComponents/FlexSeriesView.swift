@@ -38,7 +38,7 @@ public class FlexSeriesView: UIControl {
             if minimumValue > maximumValue {
                 maximumValue = minimumValue
             }
-            // TODO
+            self.assignMaxMinToSliders()
         }
     }
     
@@ -52,7 +52,7 @@ public class FlexSeriesView: UIControl {
             if maximumValue < minimumValue {
                 minimumValue = maximumValue
             }
-            // TODO
+            self.assignMaxMinToSliders()
         }
     }
 
@@ -215,6 +215,11 @@ public class FlexSeriesView: UIControl {
      * Option to have lines only
      * Option to have straight connections instead of bezier curves
      */
+    
+    func valueOffsetRatio() -> CGFloat {
+        let d = self.maximumValue / (self.maximumValue - self.minimumValue)
+        return CGFloat(d)
+    }
     
     func addValueToCalculationPoint(p: CGPoint, val: CGFloat) -> CGPoint {
         return self.direction == .Horizontal ? CGPointMake(p.x, p.y + val) : CGPointMake(p.x + val, p.y)

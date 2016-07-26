@@ -13,7 +13,7 @@ public class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
 
     public override init(frame: CGRect) {
         var targetFrame = frame
-        if CGRectIsNull(frame) {
+        if CGRectIsNull(frame) || frame.size.height == 0 || frame.size.width == 0 {
             targetFrame = CGRectMake(0,0,90,30)
         }
         super.init(frame: targetFrame)
@@ -30,7 +30,7 @@ public class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
             return self.values[0]
         }
         set(newValue) {
-            self.values = [newValue]
+            self.values[0] = newValue
         }
     }
     

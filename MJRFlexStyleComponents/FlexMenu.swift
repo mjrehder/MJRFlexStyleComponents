@@ -25,7 +25,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
     
     public override init(frame: CGRect) {
         var targetFrame = frame
-        if CGRectIsNull(frame) {
+        if CGRectIsNull(frame) || frame.size.height == 0 || frame.size.width == 0 {
             targetFrame = CGRectMake(0,0,90,30)
         }
         super.init(frame: targetFrame)

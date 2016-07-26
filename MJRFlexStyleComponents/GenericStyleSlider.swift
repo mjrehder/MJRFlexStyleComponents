@@ -725,7 +725,7 @@ public protocol GenericStyleSliderTouchDelegate {
         if newVal < minimumValue {
             newVal = minimumValue
         }
-        return value
+        return newVal
     }
     
     func updateValue(index: Int, value: Double, finished: Bool = true) {
@@ -774,13 +774,7 @@ public protocol GenericStyleSliderTouchDelegate {
         self.removeAllSeparators()
         var newVals: [Double] = []
         for value in values {
-            var nVal = value
-            if nVal < minimumValue {
-                nVal = minimumValue
-            }
-            else if nVal > maximumValue {
-                nVal = maximumValue
-            }
+            let nVal = self.clampValue(value)
             newVals.append(nVal)
         }
         _values = newVals.sort()

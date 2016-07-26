@@ -15,7 +15,6 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
     var dataSeries: [[Double]] = [[0,0,0],[0,0,0]]
     
     @IBOutlet weak var simpleSlider: GenericStyleSlider!
-    @IBOutlet weak var verticalSimpleSlider: GenericStyleSlider!
     @IBOutlet weak var menuSelectionSlider: GenericStyleSlider!
     
     @IBOutlet weak var colorMenuSelectionSlider: FlexMenu!
@@ -27,6 +26,8 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
     @IBOutlet weak var dataPointSelector: FlexSlider!
     @IBOutlet weak var numSeriesSelector: FlexSlider!
     
+    @IBOutlet weak var maxMinDataSlider: FlexDoubleSlider!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,6 +37,7 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
         self.setupSliderGraphView()
         self.setupVHSwitch()
         self.setupDataPointAndSeriesSelectors()
+        self.setupMaxMinDataSlider()
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,18 +65,36 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
             (value, index) in
             NSLog("Value of index \(index) changed to \(value)")
         }
-        
-        self.verticalSimpleSlider.thumbBackgroundColor = UIColor.greenColor()
-        self.verticalSimpleSlider.direction = .Vertical
-        self.verticalSimpleSlider.minimumValue = 0
-        self.verticalSimpleSlider.maximumValue = 1
-        self.verticalSimpleSlider.thumbRatio = 0.1
-        self.verticalSimpleSlider.separatorBackgroundColor = UIColor.blueColor()
-        self.verticalSimpleSlider.separatorRatio = 0.2
-        self.verticalSimpleSlider.thumbText = nil
-        self.verticalSimpleSlider.values = [0.0, 0.5, 0.75]
-        self.verticalSimpleSlider.hintStyle = .Rounded
-        self.verticalSimpleSlider.numberFormatString = "%.1f"
+    }
+    
+    func setupMaxMinDataSlider() {
+        self.maxMinDataSlider.backgroundColor = UIColor.clearColor()
+        self.maxMinDataSlider.direction = .Vertical
+        self.maxMinDataSlider.minimumValue = 0
+        self.maxMinDataSlider.maximumValue = 100
+        self.maxMinDataSlider.thumbRatio = 0.1
+        self.maxMinDataSlider.hintStyle = .Rounded
+        self.maxMinDataSlider.numberFormatString = "%.1f"
+        self.maxMinDataSlider.value = 0
+        self.maxMinDataSlider.value2 = 100
+        self.maxMinDataSlider.minimumTrackTintColor = UIColor.redColor().darkerColor()
+        self.maxMinDataSlider.middleTrackTintColor = UIColor.redColor()
+        self.maxMinDataSlider.maximumTrackTintColor = UIColor.clearColor()
+        self.maxMinDataSlider.thumbTintColor = UIColor.grayColor()
+
+        self.maxMinDataSlider.valueChangedBlock = {
+            (value, index) in
+            if index == 0 {
+                if value != self.sliderGraphView.maximumValue {
+                    self.sliderGraphView.minimumValue = value
+                }
+            }
+            else {
+                if value != self.sliderGraphView.minimumValue {
+                    self.sliderGraphView.maximumValue = value
+                }
+            }
+        }
     }
     
     func setupMenuSelectionSlider() {
@@ -120,6 +140,7 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
     }
     
     func setupDataPointAndSeriesSelectors() {
+        self.numSeriesSelector.backgroundColor = .clearColor()
         self.numSeriesSelector.minimumTrackTintColor = UIColor.redColor().darkerColor()
         self.numSeriesSelector.maximumTrackTintColor = UIColor.clearColor()
         self.numSeriesSelector.thumbTintColor = UIColor.grayColor()
@@ -133,6 +154,7 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
             self.sliderGraphView.reloadData()
         }
         
+        self.dataPointSelector.backgroundColor = .clearColor()
         self.dataPointSelector.minimumTrackTintColor = UIColor.redColor().darkerColor()
         self.dataPointSelector.maximumTrackTintColor = UIColor.clearColor()
         self.dataPointSelector.thumbTintColor = UIColor.grayColor()
