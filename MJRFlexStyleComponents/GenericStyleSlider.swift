@@ -148,8 +148,7 @@ public protocol GenericStyleSliderTouchDelegate {
                 maximumValue = minimumValue
             }
             self.thumbList.minimumValue = minimumValue
-            // TODO
-//            updateValue(max(_value, minimumValue), finished: true)
+            self.updateValues()
         }
     }
     
@@ -166,9 +165,7 @@ public protocol GenericStyleSliderTouchDelegate {
                 minimumValue = maximumValue
             }
             self.thumbList.maximumValue = maximumValue
-            
-            // TODO
-            //updateValues(min(_values, maximumValue), finished: true)
+            self.updateValues()
         }
     }
 
@@ -720,7 +717,7 @@ public protocol GenericStyleSliderTouchDelegate {
         }
     }
 
-    func updateValue(index: Int, value: Double, finished: Bool = true) {
+    func clampValue(value: Double) -> Double {
         var newVal = value
         if newVal > maximumValue {
             newVal = maximumValue
@@ -728,12 +725,24 @@ public protocol GenericStyleSliderTouchDelegate {
         if newVal < minimumValue {
             newVal = minimumValue
         }
+        return value
+    }
+    
+    func updateValue(index: Int, value: Double, finished: Bool = true) {
+        let newVal = self.clampValue(value)
         let oldVal = _values[index]
         _values[index] = newVal
         self.assignThumbText(index)
         
         if (continuous || finished) && oldVal != newVal {
             self.notifyOfValueChanged(newVal, index: index)
+        }
+    }
+    
+    func updateValues() {
+        for i in 0..<self._values.count {
+            let val = self._values[i]
+            self.updateValue(i, value: val)
         }
     }
 
@@ -767,10 +776,10 @@ public protocol GenericStyleSliderTouchDelegate {
         for value in values {
             var nVal = value
             if nVal < minimumValue {
-                nVal = maximumValue
+                nVal = minimumValue
             }
             else if nVal > maximumValue {
-                nVal = minimumValue
+                nVal = maximumValue
             }
             newVals.append(nVal)
         }

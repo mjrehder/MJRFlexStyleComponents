@@ -12,12 +12,15 @@ public protocol FlexSeriesViewDataSource {
     func numberOfSeries(flexSeries: FlexSeriesView) -> Int
     func numberOfDataPoints(flexSeries: FlexSeriesView) -> Int
     func dataOfSeriesAtPoint(flexSeries: FlexSeriesView, series: Int, point: Int) -> Double
+    func colorOfSeries(flexSeries: FlexSeriesView, series: Int) -> UIColor
     func dataChangedOfSeriesAtPoint(flexSeries: FlexSeriesView, series: Int, point: Int, data: Double)
 }
 
 @IBDesignable
 public class FlexSeriesView: UIControl {
     var sliders: [GenericStyleSlider] = []
+    
+    var bgShape = CAShapeLayer()
     
     public var dataSource: FlexSeriesViewDataSource? {
         didSet {
@@ -96,13 +99,23 @@ public class FlexSeriesView: UIControl {
     public override func layoutSubviews() {
         super.layoutSubviews()
         self.layoutSliders()
+        self.applyBackgroundLayer()
     }
     
     func initComponent() {
-        // TODO
+        self.layer.addSublayer(self.bgShape)
     }
     
     // MARK: - Slider management
+    
+    func assignMaxMinToSliders() {
+        for slider in self.sliders {
+            slider.maximumValue = self.maximumValue
+            slider.minimumValue = self.minimumValue
+        }
+        self.layoutSliders()
+        self.applyBackgroundLayer()
+    }
     
     func getCalculationSizeValue(s: CGSize) -> CGFloat {
         return self.direction == .Vertical ? s.width: s.height
@@ -110,8 +123,7 @@ public class FlexSeriesView: UIControl {
     
     func initFlexSeries() {
         self.removeAllSliders()
-        if let nos = self.dataSource?.numberOfSeries(self), nod = self.dataSource?.numberOfDataPoints(self) {
-            assert(nos > 0, "Number of series must be larger than 0")
+        if let nod = self.dataSource?.numberOfDataPoints(self) {
             assert(nod > 1, "Number of data points must be larger than 1")
             
             for n in 0..<nod {
@@ -122,10 +134,12 @@ public class FlexSeriesView: UIControl {
                 self.initSlider(slider)
                 slider.valueChangedBlock = {
                     (value, index) in
-                    NSLog("Value of index \(index) changed to \(value) in data point \(n)")
+                    self.dataSource?.dataChangedOfSeriesAtPoint(self, series: index, point: n, data: value)
+                    self.applyBackgroundLayer()
                 }
             }
             self.layoutSliders()
+            self.updateDataInSliders()
         }
     }
     
@@ -140,13 +154,6 @@ public class FlexSeriesView: UIControl {
             
             for n in 0..<nod {
                 let slider = self.sliders[n]
-                var values: [Double] = []
-                for s in 0..<nos {
-                    let data = self.dataSource?.dataOfSeriesAtPoint(self, series: s, point: n) ?? 0
-                    values.append(data)
-                }
-                slider.values = values
-
                 let sliderOffset = sliderSize + self.spacing
                 let rect: CGRect
                 if self.direction == .Horizontal {
@@ -159,6 +166,20 @@ public class FlexSeriesView: UIControl {
                 slider.thumbRatio = rect.size.height / rect.size.width
                 slider.layoutComponents()
             }
+        }
+    }
+    
+    func updateDataInSliders() {
+        if let nos = self.dataSource?.numberOfSeries(self), nod = self.dataSource?.numberOfDataPoints(self) {
+        for n in 0..<nod {
+            let slider = self.sliders[n]
+            var values: [Double] = []
+            for s in 0..<nos {
+                let data = self.dataSource?.dataOfSeriesAtPoint(self, series: s, point: n) ?? 0
+                values.append(data)
+            }
+            slider.values = values
+        }
         }
     }
     
@@ -181,4 +202,103 @@ public class FlexSeriesView: UIControl {
         self.sliders.removeAll()
     }
     
+    // MARK: - Background layer
+
+    /**
+     The series are always drawn as full layers from the zero line to the curve formed by the data points.
+     
+     TODO:
+     * Option to have lines only
+     * Option to have straight connections instead of bezier curves
+     */
+    
+    func addValueToCalculationPoint(p: CGPoint, val: CGFloat) -> CGPoint {
+        return self.direction == .Horizontal ? CGPointMake(p.x, p.y + val) : CGPointMake(p.x + val, p.y)
+    }
+    
+    func prevBezierPathLine(series: Int, path: UIBezierPath) {
+        if self.direction == .Horizontal {
+            path.addLineToPoint(CGPointZero)
+        }
+        else {
+            path.addLineToPoint(CGPointMake(self.bounds.size.width, 0))
+        }
+    }
+
+    func currentBezierPathLine(series: Int, path: UIBezierPath) {
+        var points: [CGPoint] = []
+        if let nod = self.dataSource?.numberOfDataPoints(self) {
+            let tSize = self.getCalculationSizeValue(self.bounds.size)
+            let tSpacing = CGFloat(nod - 1) * self.spacing
+            let sliderSize = (tSize - tSpacing) / CGFloat(nod)
+            
+            for n in 0..<nod {
+                let slider = self.sliders[n]
+                let sliderOffset = (sliderSize + self.spacing)*CGFloat(n)
+                let p = slider.thumbList.thumbs[series].center
+                points.append(self.addValueToCalculationPoint(p, val: sliderOffset))
+            }
+        }
+        let sp: CGPoint
+        if self.direction == .Horizontal {
+            sp = CGPointMake(points[0].x, 0)
+        }
+        else {
+            sp = CGPointMake(self.bounds.size.width, points[0].y)
+        }
+        path.addLineToPoint(sp)
+        BezierPathHelper.addBezierCurveWithPoints(path, points: points)
+        let ep: CGPoint
+        if self.direction == .Horizontal {
+            ep = CGPointMake(points[points.count-1].x, self.bounds.size.height)
+        }
+        else {
+            ep = CGPointMake(0, points[points.count-1].y)
+        }
+        path.addLineToPoint(ep)
+    }
+    
+    func prevBezierPathStart(series: Int) -> CGPoint {
+        if self.direction == .Horizontal {
+            return CGPointMake(0, self.bounds.size.height)
+        }
+        else {
+            return CGPointZero
+        }
+    }
+    
+    func createBezierPath(series: Int) -> UIBezierPath {
+        let path = UIBezierPath()
+        
+        let sp = self.prevBezierPathStart(series)
+        path.moveToPoint(sp)
+        self.prevBezierPathLine(series, path: path)
+        self.currentBezierPathLine(series, path: path)
+        path.addLineToPoint(sp)
+        return path
+    }
+    
+    func createShapeLayer() -> CAShapeLayer {
+        let shape = CAShapeLayer()
+        if let nos = self.dataSource?.numberOfSeries(self) {
+            for s in (0..<nos).reverse() {
+                let subShape = CAShapeLayer()
+                let path = self.createBezierPath(s)
+                subShape.path = path.CGPath
+                subShape.fillColor = self.dataSource?.colorOfSeries(self, series: s).CGColor ?? UIColor.clearColor().CGColor
+                shape.addSublayer(subShape)
+            }
+        }
+        return shape
+    }
+    
+    func applyBackgroundLayer() {
+        let bgsLayer = self.createShapeLayer()
+        
+        if self.bgShape.superlayer != nil {
+            layer.replaceSublayer(self.bgShape, with: bgsLayer)
+        }
+        
+        self.bgShape = bgsLayer
+    }
 }

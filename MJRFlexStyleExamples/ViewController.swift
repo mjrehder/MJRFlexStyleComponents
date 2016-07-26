@@ -10,6 +10,9 @@ import UIKit
 
 class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuDataSource, FlexSeriesViewDataSource {
     var colorMenuItems: [FlexMenuItem] = []
+    var numSeries = 2
+    var numDataPoints = 3
+    var dataSeries: [[Double]] = [[0,0,0],[0,0,0]]
     
     @IBOutlet weak var simpleSlider: GenericStyleSlider!
     @IBOutlet weak var verticalSimpleSlider: GenericStyleSlider!
@@ -146,18 +149,27 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
     // MARK: - FlexSeriesViewDataSource
     
     func dataOfSeriesAtPoint(flexSeries: FlexSeriesView, series: Int, point: Int) -> Double {
-        return 0
+        return self.dataSeries[series][point]
     }
     
     func dataChangedOfSeriesAtPoint(flexSeries: FlexSeriesView, series: Int, point: Int, data: Double) {
+        self.dataSeries[series][point] = data
     }
     
     func numberOfSeries(flexSeries: FlexSeriesView) -> Int {
-        return 2
+        return self.numSeries
     }
     
     func numberOfDataPoints(flexSeries: FlexSeriesView) -> Int {
-        return 3
+        return self.numDataPoints
+    }
+    
+    func colorOfSeries(flexSeries: FlexSeriesView, series: Int) -> UIColor {
+        var color = UIColor.redColor()
+        for _ in 0..<series {
+            color = color.lighterColor()
+        }
+        return color
     }
 }
 
