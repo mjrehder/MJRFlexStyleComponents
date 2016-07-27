@@ -100,6 +100,10 @@ public protocol FlexSwitchDelegate {
         return index == 0 ? self.onTintColor : self.backgroundColor
     }
     
+    public func behaviourOfThumb(index: Int) -> StyledSliderThumbBehaviour? {
+        return nil
+    }
+    
     // MARK: - GenericStyleSliderTouchDelegate
     
     public func onThumbTouchBegan(index: Int) {

@@ -84,4 +84,8 @@ public class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
         return index == 0 ? self.minimumTrackTintColor : self.maximumTrackTintColor
     }
 
+    public func behaviourOfThumb(index: Int) -> StyledSliderThumbBehaviour? {
+        return nil
+    }
+
 }

@@ -12,6 +12,7 @@ import SnappingStepper
 public protocol GenericStyleSliderDelegate {
     func textOfThumb(index: Int) -> String?
     func colorOfThumb(index: Int) -> UIColor?
+    func behaviourOfThumb(index: Int) -> StyledSliderThumbBehaviour?
     func textOfSeparatorLabel(index: Int) -> String?
     func colorOfSeparatorLabel(index: Int) -> UIColor?
     
@@ -247,7 +248,7 @@ public protocol GenericStyleSliderTouchDelegate {
     @IBInspectable public var thumbSnappingBehaviour: StyledSliderThumbBehaviour = .Freeform {
         didSet {
             for thumb in self.thumbList.thumbs {
-                thumb.behaviour = thumbSnappingBehaviour
+                thumb.behaviour = self.sliderDelegate?.behaviourOfThumb(thumb.index) ?? thumbSnappingBehaviour
             }
         }
     }
@@ -691,7 +692,7 @@ public protocol GenericStyleSliderTouchDelegate {
         thumb.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index) ?? self.thumbBackgroundColor
         thumb.font = self.thumbFont
         thumb.textColor = self.thumbTextColor
-        thumb.behaviour = self.thumbSnappingBehaviour
+        thumb.behaviour = self.sliderDelegate?.behaviourOfThumb(thumb.index) ?? self.thumbSnappingBehaviour
         self.thumbList.thumbs.append(thumb)
         self.addSubview(thumb)
         

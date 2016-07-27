@@ -122,4 +122,9 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         }
         return nil
     }
+    
+    public func behaviourOfThumb(index: Int) -> StyledSliderThumbBehaviour? {
+        return index == 0 ? .FixateToLower : .SnapToLowerAndHigher
+    }
+
 }

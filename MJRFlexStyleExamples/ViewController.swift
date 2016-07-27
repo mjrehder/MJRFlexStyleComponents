@@ -193,6 +193,7 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
     }
     
     // MARK: - FlexMenuDataSource
+    // TODO: This is the old way... create a style selector example 
     
     func textOfThumb(index: Int) -> String? {
         return ["S","M","L"][index]
@@ -208,6 +209,10 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
     
     func colorOfSeparatorLabel(index: Int) -> UIColor? {
         return UIColor.yellowColor()
+    }
+    
+    func behaviourOfThumb(index: Int) -> StyledSliderThumbBehaviour? {
+        return nil
     }
     
     // MARK: - FlexMenuDataSource
