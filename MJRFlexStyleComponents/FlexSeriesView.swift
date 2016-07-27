@@ -81,6 +81,14 @@ public class FlexSeriesView: UIControl {
         }
     }
     
+    @IBInspectable public var thumbTintColor: UIColor? = UIColor.grayColor() {
+        didSet {
+            for slider in self.sliders {
+                slider.thumbBackgroundColor = self.thumbTintColor
+            }
+        }
+    }
+    
     public override init(frame: CGRect) {
         var targetFrame = frame
         if CGRectIsNull(frame) {
@@ -196,7 +204,7 @@ public class FlexSeriesView: UIControl {
         slider.minimumValue = self.minimumValue
         slider.maximumValue = self.maximumValue
         slider.thumbSnappingBehaviour = .Freeform
-        slider.thumbBackgroundColor = UIColor.grayColor()
+        slider.thumbBackgroundColor = self.thumbTintColor
     }
     
     func removeAllSliders() {

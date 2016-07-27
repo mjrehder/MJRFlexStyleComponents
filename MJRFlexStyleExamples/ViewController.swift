@@ -7,17 +7,19 @@
 //
 
 import UIKit
+import SnappingStepper
 
-class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuDataSource, FlexSeriesViewDataSource, FlexSwitchDelegate {
+class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSource, FlexSwitchDelegate {
     var colorMenuItems: [FlexMenuItem] = []
+    var styleMenuItems: [FlexMenuItem] = []
     var numSeries = 2
     var numDataPoints = 3
     var dataSeries: [[Double]] = [[0,0,0],[0,0,0]]
-    
-    @IBOutlet weak var simpleSlider: GenericStyleSlider!
-    @IBOutlet weak var menuSelectionSlider: GenericStyleSlider!
+    var selectedColor = UIColor.MKColor.LightBlue.P500
+    var selectedThumbColor = UIColor.MKColor.Amber.P500
     
     @IBOutlet weak var colorMenuSelectionSlider: FlexMenu!
+    @IBOutlet weak var styleMenuSelector: FlexMenu!
     
     @IBOutlet weak var sliderGraphView: FlexSeriesView!
     
@@ -31,40 +33,17 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.setupSimpleSlider()
-        self.setupMenuSelectionSlider()
+        self.setupStyleMenuSelectionSlider()
         self.setupColorSelectionMenuSlider()
         self.setupSliderGraphView()
         self.setupVHSwitch()
         self.setupDataPointAndSeriesSelectors()
         self.setupMaxMinDataSlider()
+        self.applyColorToDemoControls()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-
-    func setupSimpleSlider() {
-        self.simpleSlider.thumbBackgroundColor = UIColor.greenColor()
-        self.simpleSlider.minimumValue = 0
-        self.simpleSlider.maximumValue = 1
-        self.simpleSlider.thumbRatio = 0.1
-        self.simpleSlider.thumbText = nil
-        self.simpleSlider.separatorBackgroundColor = UIColor.blueColor()
-        self.simpleSlider.separatorRatio = 0.5
-        self.simpleSlider.separatorStyle = .Tube
-        self.simpleSlider.values = [0.0, 0.5, 0.75]
-        self.simpleSlider.style = .Tube
-        self.simpleSlider.styleColor = UIColor.grayColor()
-        self.simpleSlider.backgroundColor = UIColor.clearColor()
-        self.simpleSlider.thumbSnappingBehaviour = .SnapToLowerAndHigher
-        self.simpleSlider.hintStyle = .Rounded
-        self.simpleSlider.numberFormatString = "%.1f"
-        
-        self.simpleSlider.valueChangedBlock = {
-            (value, index) in
-            NSLog("Value of index \(index) changed to \(value)")
-        }
     }
     
     func setupMaxMinDataSlider() {
@@ -77,10 +56,6 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
         self.maxMinDataSlider.numberFormatString = "%.1f"
         self.maxMinDataSlider.value = 0
         self.maxMinDataSlider.value2 = 100
-        self.maxMinDataSlider.minimumTrackTintColor = UIColor.redColor().darkerColor()
-        self.maxMinDataSlider.middleTrackTintColor = UIColor.redColor()
-        self.maxMinDataSlider.maximumTrackTintColor = UIColor.clearColor()
-        self.maxMinDataSlider.thumbTintColor = UIColor.grayColor()
 
         self.maxMinDataSlider.valueChangedBlock = {
             (value, index) in
@@ -97,23 +72,15 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
         }
     }
     
-    func setupMenuSelectionSlider() {
-        self.menuSelectionSlider.minimumValue = 0
-        self.menuSelectionSlider.maximumValue = 1
-        self.menuSelectionSlider.thumbRatio = 0.1
-        self.menuSelectionSlider.separatorStyle = .Box
-        self.menuSelectionSlider.values = [0.0, 0.0, 0.0]
-        self.menuSelectionSlider.style = .Rounded
-        self.menuSelectionSlider.styleColor = UIColor.grayColor()
-        self.menuSelectionSlider.backgroundColor = UIColor.clearColor()
-        self.menuSelectionSlider.thumbSnappingBehaviour = .SnapToLowerAndHigher
+    func setupStyleMenuSelectionSlider() {
+        let col1 = FlexMenuItem(title: "Box", titleShortcut: "B", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.MKColor.Grey.P500)
+        let col2 = FlexMenuItem(title: "Rounded", titleShortcut: "R", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.MKColor.Grey.P500)
+        let col3 = FlexMenuItem(title: "Tube", titleShortcut: "T", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.MKColor.Grey.P500)
+        self.styleMenuItems.append(col1)
+        self.styleMenuItems.append(col2)
+        self.styleMenuItems.append(col3)
         
-        self.menuSelectionSlider.valueChangedBlock = {
-            (value, index) in
-            NSLog("Value of index \(index) changed to \(value)")
-        }
-        
-        self.menuSelectionSlider.sliderDelegate = self
+        self.styleMenuSelector.menuDataSource = self
     }
     
     func setupColorSelectionMenuSlider() {
@@ -130,6 +97,7 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
     }
     
     func setupSliderGraphView() {
+        self.sliderGraphView.backgroundColor = UIColor.clearColor()
         self.sliderGraphView.dataSource = self
         self.sliderGraphView.spacing = self.sliderGraphView.bounds.size.height * 0.1
         self.sliderGraphView.reloadData()
@@ -141,9 +109,6 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
     
     func setupDataPointAndSeriesSelectors() {
         self.numSeriesSelector.backgroundColor = .clearColor()
-        self.numSeriesSelector.minimumTrackTintColor = UIColor.redColor().darkerColor()
-        self.numSeriesSelector.maximumTrackTintColor = UIColor.clearColor()
-        self.numSeriesSelector.thumbTintColor = UIColor.grayColor()
         self.numSeriesSelector.minimumValue = 1
         self.numSeriesSelector.maximumValue = 4
         self.numSeriesSelector.value = Double(numSeries)
@@ -155,9 +120,6 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
         }
         
         self.dataPointSelector.backgroundColor = .clearColor()
-        self.dataPointSelector.minimumTrackTintColor = UIColor.redColor().darkerColor()
-        self.dataPointSelector.maximumTrackTintColor = UIColor.clearColor()
-        self.dataPointSelector.thumbTintColor = UIColor.grayColor()
         self.dataPointSelector.minimumValue = 2
         self.dataPointSelector.maximumValue = 7
         self.dataPointSelector.value = Double(numDataPoints)
@@ -184,6 +146,34 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
         self.dataSeries = newDemoData
     }
     
+    func setStyleOfDemoControls(style: ShapeStyle) {
+        self.numSeriesSelector.thumbStyle = style
+        self.dataPointSelector.thumbStyle = style
+        self.maxMinDataSlider.thumbStyle = style
+        self.vhSwitch.thumbStyle = style
+        self.numSeriesSelector.style = style
+        self.dataPointSelector.style = style
+        self.maxMinDataSlider.style = style
+        self.vhSwitch.style = style
+    }
+    
+    func applyColorToDemoControls() {
+        self.dataPointSelector.minimumTrackTintColor = self.selectedColor.darkerColor()
+        self.dataPointSelector.maximumTrackTintColor = UIColor.clearColor()
+        self.dataPointSelector.thumbTintColor = self.selectedThumbColor
+        self.numSeriesSelector.minimumTrackTintColor = self.selectedColor.darkerColor()
+        self.numSeriesSelector.maximumTrackTintColor = UIColor.clearColor()
+        self.numSeriesSelector.thumbTintColor = self.selectedThumbColor
+        self.vhSwitch.thumbTintColor = self.selectedThumbColor
+        self.vhSwitch.onTintColor = self.selectedColor
+        self.maxMinDataSlider.minimumTrackTintColor = self.selectedColor.darkerColor()
+        self.maxMinDataSlider.middleTrackTintColor = self.selectedColor
+        self.maxMinDataSlider.maximumTrackTintColor = UIColor.clearColor()
+        self.maxMinDataSlider.thumbTintColor = self.selectedThumbColor
+        self.sliderGraphView.thumbTintColor = self.selectedThumbColor
+        self.sliderGraphView.setNeedsLayout()
+    }
+    
     // MARK: - FlexSwitchDelegate
     
     func switchStateChanged(flexSwitch: FlexSwitch, on: Bool) {
@@ -191,48 +181,60 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
         self.sliderGraphView.spacing = on ? self.sliderGraphView.bounds.size.width * 0.1 : self.sliderGraphView.bounds.size.height * 0.1
         self.sliderGraphView.direction = on ? .Vertical : .Horizontal
     }
-    
-    // MARK: - FlexMenuDataSource
-    // TODO: This is the old way... create a style selector example 
-    
-    func textOfThumb(index: Int) -> String? {
-        return ["S","M","L"][index]
-    }
-    
-    func textOfSeparatorLabel(index: Int) -> String? {
-        return ["Test", "Small","Medium","Large"][index]
-    }
-    
-    func colorOfThumb(index: Int) -> UIColor? {
-        return UIColor.brownColor()
-    }
-    
-    func colorOfSeparatorLabel(index: Int) -> UIColor? {
-        return UIColor.yellowColor()
-    }
-    
-    func behaviourOfThumb(index: Int) -> StyledSliderThumbBehaviour? {
-        return nil
-    }
-    
+
     // MARK: - FlexMenuDataSource
     
     func numberOfMenuItems(menu: FlexMenu) -> Int {
         if menu == self.colorMenuSelectionSlider {
-            return 4
+            return self.colorMenuItems.count
+        }
+        else if menu == self.styleMenuSelector {
+            return self.styleMenuItems.count
         }
         return 0
     }
     
     func menuItemForIndex(menu: FlexMenu, index: Int) -> FlexMenuItem {
-//        if menu == self.colorMenuSelectionSlider {
-        return self.colorMenuItems[index]
-//        }
-//        return 0
+        if menu == self.colorMenuSelectionSlider {
+            return self.colorMenuItems[index]
+        }
+        else {
+            return self.styleMenuItems[index]
+        }
     }
     
     func menuItemSelected(menu: FlexMenu, index: Int) {
-        NSLog("Menu item selected: \(index)")
+        if menu == self.colorMenuSelectionSlider {
+            switch index {
+            case 0:
+                self.selectedColor = UIColor.MKColor.Grey.P500
+                self.selectedThumbColor = UIColor.MKColor.Amber.P500
+            case 1:
+                self.selectedColor = UIColor.MKColor.Amber.P500
+                self.selectedThumbColor = UIColor.MKColor.LightBlue.P500
+            case 2:
+                self.selectedColor = UIColor.MKColor.Lime.P500
+                self.selectedThumbColor = UIColor.MKColor.Amber.P500
+            case 3:
+                self.selectedColor = UIColor.MKColor.LightBlue.P500
+                self.selectedThumbColor = UIColor.MKColor.Amber.P500
+            default:
+                break
+            }
+            self.applyColorToDemoControls()
+        }
+        else {
+            switch index {
+            case 0:
+                self.setStyleOfDemoControls(.Box)
+            case 1:
+                self.setStyleOfDemoControls(.Rounded)
+            case 2:
+                self.setStyleOfDemoControls(.Tube)
+            default:
+                break
+            }
+        }
     }
     
     // MARK: - FlexSeriesViewDataSource
@@ -254,9 +256,9 @@ class ViewController: UIViewController, GenericStyleSliderDelegate, FlexMenuData
     }
     
     func colorOfSeries(flexSeries: FlexSeriesView, series: Int) -> UIColor {
-        var color = UIColor.redColor()
+        var color = self.selectedColor
         for _ in 0..<series {
-            color = color.lighterColor()
+            color = color.lightenColor(0.1)
         }
         return color
     }

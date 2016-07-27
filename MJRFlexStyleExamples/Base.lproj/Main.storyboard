@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,125 +18,97 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eq7-nC-D0K" customClass="GenericStyleSlider" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="50" y="57" width="500" height="68"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="la0-9i-uk0">
+                                <rect key="frame" x="82" y="108" width="436" height="383"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iCJ-fK-fQD" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                        <rect key="frame" x="11" y="12" width="345" height="42"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hiq-M2-tME" customClass="FlexSwitch" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                        <rect key="frame" x="364" y="62" width="60" height="39"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="onTintColor">
+                                                <color key="value" red="0.53735902260000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="thumbTintColor">
+                                                <color key="value" red="0.77549677309999998" green="0.77549677309999998" blue="0.77549677309999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="thumbBackgroundColor">
+                                                <color key="value" red="0.77549677309999998" green="0.77549677309999998" blue="0.77549677309999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="continuous" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xok-IF-OGA" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                        <rect key="frame" x="11" y="62" width="345" height="39"/>
+                                        <color key="backgroundColor" red="0.78039215689999997" green="0.63921568630000003" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h8F-Ah-pft" customClass="FlexDoubleSlider" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                        <rect key="frame" x="364" y="109" width="60" height="262"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ojO-t0-c7G" customClass="FlexSeriesView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                        <rect key="frame" x="11" y="109" width="345" height="190"/>
+                                        <color key="backgroundColor" red="1" green="0.763660432" blue="0.32489238860000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fB0-zX-wEQ" customClass="FlexSlider" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                        <rect key="frame" x="11" y="307" width="345" height="28"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0n-l8-vtC" customClass="FlexSlider" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                        <rect key="frame" x="11" y="343" width="345" height="28"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    </view>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="500" id="GU7-f8-tNH"/>
-                                    <constraint firstAttribute="height" constant="68" id="jca-RK-Dli"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iCJ-fK-fQD" customClass="GenericStyleSlider" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="50" y="168" width="432" height="42"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="OwM-vE-S0W"/>
-                                    <constraint firstAttribute="width" constant="432" id="nRd-zM-c5l"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hiq-M2-tME" customClass="FlexSwitch" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="50" y="218" width="73" height="39"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="73" id="sal-1x-XYF"/>
-                                    <constraint firstAttribute="height" constant="39" id="zwg-kx-kJm"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="onTintColor">
-                                        <color key="value" red="0.53735902260000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="thumbTintColor">
-                                        <color key="value" red="0.77549677309999998" green="0.77549677309999998" blue="0.77549677309999998" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="thumbBackgroundColor">
-                                        <color key="value" red="0.77549677309999998" green="0.77549677309999998" blue="0.77549677309999998" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="continuous" value="NO"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xok-IF-OGA" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="131" y="218" width="351" height="39"/>
-                                <color key="backgroundColor" red="0.78039215689999997" green="0.63921568630000003" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="39" id="lzD-z1-aca"/>
-                                    <constraint firstAttribute="width" constant="351" id="xVa-VW-4QG"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ojO-t0-c7G" customClass="FlexSeriesView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="50" y="265" width="432" height="253"/>
-                                <color key="backgroundColor" red="1" green="0.763660432" blue="0.32489238860000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="253" id="J08-zj-cCn"/>
-                                    <constraint firstAttribute="width" constant="432" id="zVa-t1-tol"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fB0-zX-wEQ" customClass="FlexSlider" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="50" y="526" width="432" height="28"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="432" id="1O3-9V-i7m"/>
-                                    <constraint firstAttribute="height" constant="28" id="uyU-tY-U0p"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0n-l8-vtC" customClass="FlexSlider" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="50" y="562" width="432" height="28"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="432" id="9Bq-xh-hf8"/>
-                                    <constraint firstAttribute="height" constant="28" id="CdW-tj-7KZ"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h8F-Ah-pft" customClass="FlexDoubleSlider" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="490" y="265" width="60" height="325"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="ANQ-W3-sRw"/>
-                                    <constraint firstAttribute="height" constant="325" id="lLG-5i-kIc"/>
+                                    <constraint firstItem="ojO-t0-c7G" firstAttribute="top" secondItem="Xok-IF-OGA" secondAttribute="bottom" constant="8" symbolic="YES" id="7CG-Gn-fyL"/>
+                                    <constraint firstItem="Hiq-M2-tME" firstAttribute="leading" secondItem="h8F-Ah-pft" secondAttribute="leading" id="8Mu-Nb-i4M"/>
+                                    <constraint firstItem="Hiq-M2-tME" firstAttribute="trailing" secondItem="la0-9i-uk0" secondAttribute="trailingMargin" constant="-4" id="AGP-hS-rl1"/>
+                                    <constraint firstItem="ojO-t0-c7G" firstAttribute="leading" secondItem="fB0-zX-wEQ" secondAttribute="leading" id="AhI-Nf-56k"/>
+                                    <constraint firstItem="fB0-zX-wEQ" firstAttribute="top" secondItem="ojO-t0-c7G" secondAttribute="bottom" constant="8" symbolic="YES" id="BDN-go-YFX"/>
+                                    <constraint firstItem="h8F-Ah-pft" firstAttribute="leading" secondItem="fB0-zX-wEQ" secondAttribute="trailing" constant="8" symbolic="YES" id="BZD-xH-mlS"/>
+                                    <constraint firstItem="iCJ-fK-fQD" firstAttribute="top" secondItem="la0-9i-uk0" secondAttribute="top" constant="12" id="Ckd-GS-gf8"/>
+                                    <constraint firstItem="ojO-t0-c7G" firstAttribute="top" secondItem="h8F-Ah-pft" secondAttribute="top" id="HUM-iK-q75"/>
+                                    <constraint firstItem="d0n-l8-vtC" firstAttribute="top" secondItem="la0-9i-uk0" secondAttribute="top" constant="343" id="Hfm-R5-ukV"/>
+                                    <constraint firstItem="d0n-l8-vtC" firstAttribute="bottom" secondItem="la0-9i-uk0" secondAttribute="bottomMargin" constant="-4" id="IXC-uP-VXy"/>
+                                    <constraint firstItem="ojO-t0-c7G" firstAttribute="top" secondItem="la0-9i-uk0" secondAttribute="top" constant="109" id="IwH-ax-rFK"/>
+                                    <constraint firstItem="iCJ-fK-fQD" firstAttribute="leading" secondItem="Xok-IF-OGA" secondAttribute="leading" id="Kgr-Se-osz"/>
+                                    <constraint firstItem="d0n-l8-vtC" firstAttribute="bottom" secondItem="h8F-Ah-pft" secondAttribute="bottom" id="L46-8f-xQt"/>
+                                    <constraint firstItem="h8F-Ah-pft" firstAttribute="leading" secondItem="d0n-l8-vtC" secondAttribute="trailing" constant="8" symbolic="YES" id="ORb-Q7-R67"/>
+                                    <constraint firstItem="iCJ-fK-fQD" firstAttribute="leading" secondItem="la0-9i-uk0" secondAttribute="leading" constant="11" id="Pxo-LD-Pd7"/>
+                                    <constraint firstAttribute="width" constant="436" id="ROh-vg-hOn"/>
+                                    <constraint firstItem="fB0-zX-wEQ" firstAttribute="leading" secondItem="d0n-l8-vtC" secondAttribute="leading" id="Rce-Bn-Hb2"/>
+                                    <constraint firstItem="Hiq-M2-tME" firstAttribute="leading" secondItem="Xok-IF-OGA" secondAttribute="trailing" constant="8" symbolic="YES" id="Udr-IQ-hfh"/>
+                                    <constraint firstItem="h8F-Ah-pft" firstAttribute="leading" secondItem="ojO-t0-c7G" secondAttribute="trailing" constant="8" symbolic="YES" id="VEH-vb-7Wl"/>
+                                    <constraint firstItem="h8F-Ah-pft" firstAttribute="top" secondItem="Hiq-M2-tME" secondAttribute="bottom" constant="8" symbolic="YES" id="YuD-A1-6as"/>
+                                    <constraint firstItem="Xok-IF-OGA" firstAttribute="top" secondItem="iCJ-fK-fQD" secondAttribute="bottom" constant="8" symbolic="YES" id="eBs-K3-glE"/>
+                                    <constraint firstItem="iCJ-fK-fQD" firstAttribute="trailing" secondItem="Xok-IF-OGA" secondAttribute="trailing" id="g2d-ot-jm1"/>
+                                    <constraint firstAttribute="trailing" secondItem="iCJ-fK-fQD" secondAttribute="trailing" constant="80" id="gcO-jK-VmZ"/>
+                                    <constraint firstItem="Xok-IF-OGA" firstAttribute="leading" secondItem="ojO-t0-c7G" secondAttribute="leading" id="hs6-wq-aSI"/>
+                                    <constraint firstItem="fB0-zX-wEQ" firstAttribute="top" secondItem="la0-9i-uk0" secondAttribute="top" constant="307" id="mSA-rM-BM0"/>
+                                    <constraint firstItem="Xok-IF-OGA" firstAttribute="top" secondItem="Hiq-M2-tME" secondAttribute="top" id="nCH-Pm-dE4"/>
+                                    <constraint firstItem="d0n-l8-vtC" firstAttribute="top" secondItem="fB0-zX-wEQ" secondAttribute="bottom" constant="8" symbolic="YES" id="nbq-vd-LIR"/>
+                                    <constraint firstItem="Hiq-M2-tME" firstAttribute="trailing" secondItem="h8F-Ah-pft" secondAttribute="trailing" id="neO-MH-WoL"/>
+                                    <constraint firstItem="Hiq-M2-tME" firstAttribute="top" secondItem="la0-9i-uk0" secondAttribute="top" constant="62" id="pwy-50-swd"/>
+                                    <constraint firstAttribute="height" constant="383" id="qM2-Wm-jK1"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ojO-t0-c7G" firstAttribute="leading" secondItem="fB0-zX-wEQ" secondAttribute="leading" id="6ed-Ue-9U2"/>
-                            <constraint firstItem="iCJ-fK-fQD" firstAttribute="leading" secondItem="Hiq-M2-tME" secondAttribute="leading" id="CMH-7F-NWi"/>
-                            <constraint firstItem="fB0-zX-wEQ" firstAttribute="top" secondItem="ojO-t0-c7G" secondAttribute="bottom" constant="8" symbolic="YES" id="Gqb-Ti-KxV"/>
-                            <constraint firstItem="Xok-IF-OGA" firstAttribute="leading" secondItem="Hiq-M2-tME" secondAttribute="trailing" constant="8" symbolic="YES" id="KeZ-Xh-OGI"/>
-                            <constraint firstItem="eq7-nC-D0K" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="37" id="P4l-iD-AK5"/>
-                            <constraint firstItem="fB0-zX-wEQ" firstAttribute="leading" secondItem="d0n-l8-vtC" secondAttribute="leading" id="TpL-Da-84n"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="d0n-l8-vtC" secondAttribute="bottom" constant="10" id="eAd-aT-1GV"/>
-                            <constraint firstItem="ojO-t0-c7G" firstAttribute="top" secondItem="h8F-Ah-pft" secondAttribute="top" id="fUz-JO-lit"/>
-                            <constraint firstItem="eq7-nC-D0K" firstAttribute="leading" secondItem="iCJ-fK-fQD" secondAttribute="leading" id="g6q-FW-WRF"/>
-                            <constraint firstItem="Hiq-M2-tME" firstAttribute="top" secondItem="Xok-IF-OGA" secondAttribute="top" id="lip-q6-ewf"/>
-                            <constraint firstItem="d0n-l8-vtC" firstAttribute="top" secondItem="fB0-zX-wEQ" secondAttribute="bottom" constant="8" symbolic="YES" id="sqg-zx-nc3"/>
-                            <constraint firstItem="h8F-Ah-pft" firstAttribute="leading" secondItem="ojO-t0-c7G" secondAttribute="trailing" constant="8" symbolic="YES" id="t4d-OX-XN5"/>
-                            <constraint firstItem="Hiq-M2-tME" firstAttribute="top" secondItem="iCJ-fK-fQD" secondAttribute="bottom" constant="8" symbolic="YES" id="tHs-ft-K0a"/>
-                            <constraint firstItem="ojO-t0-c7G" firstAttribute="top" secondItem="Hiq-M2-tME" secondAttribute="bottom" constant="8" symbolic="YES" id="wSD-73-EzL"/>
-                            <constraint firstItem="Hiq-M2-tME" firstAttribute="leading" secondItem="ojO-t0-c7G" secondAttribute="leading" id="xG2-W2-Jpu"/>
-                            <constraint firstItem="eq7-nC-D0K" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zU1-s8-0s2"/>
+                            <constraint firstItem="la0-9i-uk0" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ds8-qA-bDd"/>
+                            <constraint firstItem="la0-9i-uk0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hrC-55-gay"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="colorMenuSelectionSlider" destination="Xok-IF-OGA" id="0qU-3Z-SAO"/>
                         <outlet property="dataPointSelector" destination="fB0-zX-wEQ" id="Y0V-m7-E6y"/>
                         <outlet property="maxMinDataSlider" destination="h8F-Ah-pft" id="d9W-Ml-OMX"/>
-                        <outlet property="menuSelectionSlider" destination="iCJ-fK-fQD" id="9zG-je-cvg"/>
                         <outlet property="numSeriesSelector" destination="d0n-l8-vtC" id="MOk-I7-I1h"/>
-                        <outlet property="simpleSlider" destination="eq7-nC-D0K" id="Qc2-5f-Z13"/>
                         <outlet property="sliderGraphView" destination="ojO-t0-c7G" id="Ocr-uh-qwn"/>
+                        <outlet property="styleMenuSelector" destination="iCJ-fK-fQD" id="7CG-Hc-2Ac"/>
                         <outlet property="vhSwitch" destination="Hiq-M2-tME" id="44I-D6-VxW"/>
                     </connections>
                 </viewController>

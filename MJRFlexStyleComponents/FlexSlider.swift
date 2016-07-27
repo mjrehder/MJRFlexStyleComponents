@@ -42,13 +42,13 @@ public class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
     
     @IBInspectable public var minimumTrackTintColor: UIColor? = UISlider.appearance().minimumTrackTintColor {
         didSet {
-            self.applyThumbStyle(self.thumbStyle)
+            self.applyStyle(self.style)
         }
     }
     
     @IBInspectable public var maximumTrackTintColor: UIColor? = UISlider.appearance().maximumTrackTintColor {
         didSet {
-            self.applyThumbStyle(self.thumbStyle)
+            self.applyStyle(self.style)
         }
     }
     
