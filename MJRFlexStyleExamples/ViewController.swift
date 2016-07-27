@@ -53,6 +53,7 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
         self.maxMinDataSlider.maximumValue = 100
         self.maxMinDataSlider.thumbRatio = 0.1
         self.maxMinDataSlider.hintStyle = .Rounded
+        self.maxMinDataSlider.thumbText = nil
         self.maxMinDataSlider.numberFormatString = "%.1f"
         self.maxMinDataSlider.value = 0
         self.maxMinDataSlider.value2 = 100
@@ -101,9 +102,9 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
         self.sliderGraphView.layer.borderColor = UIColor.blackColor().CGColor
         self.sliderGraphView.layer.masksToBounds = true
         self.sliderGraphView.layer.cornerRadius = 10
+        self.sliderGraphView.itemSize = 24
         self.sliderGraphView.backgroundColor = UIColor.clearColor()
         self.sliderGraphView.dataSource = self
-        self.sliderGraphView.spacing = self.sliderGraphView.bounds.size.height * 0.1
         self.sliderGraphView.reloadData()
     }
     
@@ -188,7 +189,6 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
     
     func switchStateChanged(flexSwitch: FlexSwitch, on: Bool) {
         let on = self.vhSwitch.on
-        self.sliderGraphView.spacing = on ? self.sliderGraphView.bounds.size.width * 0.1 : self.sliderGraphView.bounds.size.height * 0.1
         self.sliderGraphView.direction = on ? .Vertical : .Horizontal
     }
 

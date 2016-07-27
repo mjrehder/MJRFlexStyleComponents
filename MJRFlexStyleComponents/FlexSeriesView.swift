@@ -92,11 +92,12 @@ public class FlexSeriesView: UIControl {
     }
     
     /**
-     Space between the value sliders
+     Size of the sliders
+     This is the height or the width, depending on the direction
      
-     The default value of this property is 10px
+     The default value of this property is 32pt
      */
-    @IBInspectable public var spacing: CGFloat = 10 {
+    @IBInspectable public var itemSize: CGFloat = 32 {
         didSet {
             self.layoutSliders()
         }
@@ -182,18 +183,17 @@ public class FlexSeriesView: UIControl {
             assert(nod > 1, "Number of data points must be larger than 1")
 
             let tSize = self.getCalculationSizeValue(self.bounds.size)
-            let tSpacing = CGFloat(nod - 1) * self.spacing
-            let sliderSize = (tSize - tSpacing) / CGFloat(nod)
+            let tSpacing = (tSize - (self.itemSize * CGFloat(nod))) / CGFloat(nod-1)
             
             for n in 0..<nod {
                 let slider = self.sliders[n]
-                let sliderOffset = sliderSize + self.spacing
+                let sliderOffset = self.itemSize + tSpacing
                 let rect: CGRect
                 if self.direction == .Horizontal {
-                    rect = CGRectMake(0, sliderOffset * CGFloat(n), self.bounds.size.width, sliderSize)
+                    rect = CGRectMake(0, sliderOffset * CGFloat(n), self.bounds.size.width, self.itemSize)
                 }
                 else {
-                    rect = CGRectMake(sliderOffset * CGFloat(n), 0, sliderSize, self.bounds.size.height)
+                    rect = CGRectMake(sliderOffset * CGFloat(n), 0, self.itemSize, self.bounds.size.height)
                 }
                 slider.frame = rect
                 slider.thumbRatio = self.direction == .Horizontal ? rect.size.height / rect.size.width : rect.size.width / rect.size.height
@@ -267,13 +267,12 @@ public class FlexSeriesView: UIControl {
         var points: [CGPoint] = []
         if let nod = self.dataSource?.numberOfDataPoints(self) {
             let tSize = self.getCalculationSizeValue(self.bounds.size)
-            let tSpacing = CGFloat(nod - 1) * self.spacing
-            let sliderSize = (tSize - tSpacing) / CGFloat(nod)
+            let tSpacing = (tSize - (self.itemSize * CGFloat(nod))) / CGFloat(nod-1)
             
             if self.direction == .Vertical {
                 for n in (0..<nod).reverse() {
                     let slider = self.sliders[n]
-                    let sliderOffset = (sliderSize + self.spacing)*CGFloat(n)
+                    let sliderOffset = (self.itemSize + tSpacing)*CGFloat(n)
                     let p = slider.thumbList.thumbs[series].center
                     points.append(self.addValueToCalculationPoint(p, val: sliderOffset))
                 }
@@ -281,7 +280,7 @@ public class FlexSeriesView: UIControl {
             else {
                 for n in 0..<nod {
                     let slider = self.sliders[n]
-                    let sliderOffset = (sliderSize + self.spacing)*CGFloat(n)
+                    let sliderOffset = (self.itemSize + tSpacing)*CGFloat(n)
                     let p = slider.thumbList.thumbs[series].center
                     points.append(self.addValueToCalculationPoint(p, val: sliderOffset))
                 }

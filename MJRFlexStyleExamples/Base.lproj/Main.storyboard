@@ -22,7 +22,7 @@
                                 <rect key="frame" x="82" y="108" width="436" height="383"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iCJ-fK-fQD" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                        <rect key="frame" x="11" y="12" width="345" height="42"/>
+                                        <rect key="frame" x="11" y="12" width="413" height="42"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hiq-M2-tME" customClass="FlexSwitch" customModule="MJRFlexStyleExamples" customModuleProvider="target">
@@ -84,8 +84,8 @@
                                     <constraint firstItem="h8F-Ah-pft" firstAttribute="leading" secondItem="ojO-t0-c7G" secondAttribute="trailing" constant="8" symbolic="YES" id="VEH-vb-7Wl"/>
                                     <constraint firstItem="h8F-Ah-pft" firstAttribute="top" secondItem="Hiq-M2-tME" secondAttribute="bottom" constant="8" symbolic="YES" id="YuD-A1-6as"/>
                                     <constraint firstItem="Xok-IF-OGA" firstAttribute="top" secondItem="iCJ-fK-fQD" secondAttribute="bottom" constant="8" symbolic="YES" id="eBs-K3-glE"/>
-                                    <constraint firstItem="iCJ-fK-fQD" firstAttribute="trailing" secondItem="Xok-IF-OGA" secondAttribute="trailing" id="g2d-ot-jm1"/>
-                                    <constraint firstAttribute="trailing" secondItem="iCJ-fK-fQD" secondAttribute="trailing" constant="80" id="gcO-jK-VmZ"/>
+                                    <constraint firstItem="iCJ-fK-fQD" firstAttribute="trailing" secondItem="Xok-IF-OGA" secondAttribute="trailing" constant="68" id="g2d-ot-jm1"/>
+                                    <constraint firstAttribute="trailing" secondItem="iCJ-fK-fQD" secondAttribute="trailing" constant="12" id="gcO-jK-VmZ"/>
                                     <constraint firstItem="Xok-IF-OGA" firstAttribute="leading" secondItem="ojO-t0-c7G" secondAttribute="leading" id="hs6-wq-aSI"/>
                                     <constraint firstItem="fB0-zX-wEQ" firstAttribute="top" secondItem="la0-9i-uk0" secondAttribute="top" constant="307" id="mSA-rM-BM0"/>
                                     <constraint firstItem="Xok-IF-OGA" firstAttribute="top" secondItem="Hiq-M2-tME" secondAttribute="top" id="nCH-Pm-dE4"/>
