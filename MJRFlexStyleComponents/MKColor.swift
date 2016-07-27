@@ -1,10 +1,11 @@
 //
 //  MKColor.swift
-//  MJRFlexStyleComponents
+//  MaterialKit
 //
-//  Created by Martin Rehder on 03.04.16.
-//  Copyright © 2016 Martin Rehder. All rights reserved.
+//  Created by LeVan Nghia on 11/14/14.
+//  Copyright (c) 2014 Le Van Nghia. All rights reserved.
 //
+//  Copied from MaterialKit Project (MIT License)
 
 import UIKit
 
