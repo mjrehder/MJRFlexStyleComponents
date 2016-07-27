@@ -112,6 +112,9 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
         self.numSeriesSelector.minimumValue = 1
         self.numSeriesSelector.maximumValue = 4
         self.numSeriesSelector.value = Double(numSeries)
+        self.numSeriesSelector.thumbText = nil
+        self.numSeriesSelector.numberFormatString = "%.0f"
+        self.numSeriesSelector.maximumTrackText = "Series"
         self.numSeriesSelector.valueChangedBlock = {
             (value, index) in
             self.numSeries = Int(round(value))
@@ -122,7 +125,10 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
         self.dataPointSelector.backgroundColor = .clearColor()
         self.dataPointSelector.minimumValue = 2
         self.dataPointSelector.maximumValue = 7
+        self.dataPointSelector.thumbText = nil
+        self.dataPointSelector.numberFormatString = "%.0f"
         self.dataPointSelector.value = Double(numDataPoints)
+        self.dataPointSelector.maximumTrackText = "Data Points"
         self.dataPointSelector.valueChangedBlock = {
             (value, index) in
             self.numDataPoints = Int(round(value))

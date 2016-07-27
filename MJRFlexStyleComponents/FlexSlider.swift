@@ -51,7 +51,13 @@ public class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
             self.applyStyle(self.style)
         }
     }
-    
+
+    @IBInspectable public var maximumTrackText: String? = nil {
+        didSet {
+            self.applyStyle(self.style)
+        }
+    }
+
     func setupSlider() {
         self.continuous = true
         self.style = .Tube
@@ -73,6 +79,9 @@ public class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
     }
     
     public func textOfSeparatorLabel(index: Int) -> String? {
+        if index == self.values.count {
+            return self.maximumTrackText
+        }
         return nil
     }
     
