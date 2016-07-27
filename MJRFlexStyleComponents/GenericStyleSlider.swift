@@ -29,6 +29,7 @@
 
 import UIKit
 import SnappingStepper
+import DynamicColor
 
 public protocol GenericStyleSliderDelegate {
     func textOfThumb(index: Int) -> String?
