@@ -97,6 +97,10 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
     }
     
     func setupSliderGraphView() {
+        self.sliderGraphView.layer.borderWidth = 1.0
+        self.sliderGraphView.layer.borderColor = UIColor.blackColor().CGColor
+        self.sliderGraphView.layer.masksToBounds = true
+        self.sliderGraphView.layer.cornerRadius = 10
         self.sliderGraphView.backgroundColor = UIColor.clearColor()
         self.sliderGraphView.dataSource = self
         self.sliderGraphView.spacing = self.sliderGraphView.bounds.size.height * 0.1

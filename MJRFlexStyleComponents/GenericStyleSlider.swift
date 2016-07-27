@@ -181,8 +181,8 @@ public protocol GenericStyleSliderTouchDelegate {
     
     // MARK: - Thumbs
     
-    /// The thumb represented as a ratio of the component. For example if the width of the control is 30px and the ratio is 0.5, the thumb width will be equal to 15px when in horizontal layout. Defaults to 0.1.
-    @IBInspectable public var thumbRatio: CGFloat = 0.1 {
+    /// The thumb represented as a ratio of the component. For example if the width of the control is 30px and the ratio is 0.5, the thumb width will be equal to 15px when in horizontal layout. When this is not set then the thumb size will be a square using the minimum size of the control. Defaults to nil.
+    @IBInspectable public var thumbRatio: CGFloat? = nil {
         didSet {
             layoutComponents()
         }
@@ -467,30 +467,33 @@ public protocol GenericStyleSliderTouchDelegate {
         return self.separatorLabels[thumbIndex+1]
     }
     
+    func getThumbSize() -> CGSize {
+        if let ratio = self.thumbRatio {
+            if self.direction == .Horizontal {
+                return CGSizeMake(bounds.width * ratio, bounds.height)
+            }
+            else {
+                return CGSizeMake(bounds.width, bounds.height * ratio)
+            }
+        }
+        let s = min(self.bounds.width, self.bounds.height)
+        return CGSizeMake(s, s)
+    }
+    
     func layoutComponents() {
         self.thumbList.bounds = self.bounds
+        let thumbSize = self.getThumbSize()
         for thumb in self.thumbList.thumbs {
             let pos = self.thumbList.getThumbPosForValue(_values[thumb.index], thumbIndex: thumb.index)
             if self.direction == .Horizontal {
-                let thumbWidth  = bounds.width * thumbRatio
-                thumb.frame = CGRect(x: pos.x - thumbWidth / 2.0, y: 0, width: thumbWidth, height: bounds.height)
-                hintLabel.frame = CGRect(x: hintLabel.frame.origin.x, y: hintLabel.frame.origin.y, width: thumbWidth, height: bounds.height)
+                thumb.frame = CGRect(x: pos.x - thumbSize.width / 2.0, y: (bounds.height - thumbSize.height) / 2.0, width: thumbSize.width, height: thumbSize.height)
             }
             else {
-                let thumbWidth  = bounds.height * thumbRatio
-                thumb.frame = CGRect(x: 0, y: pos.y - thumbWidth / 2.0, width: bounds.width, height: thumbWidth)
-                hintLabel.frame = CGRect(x: hintLabel.frame.origin.x, y: hintLabel.frame.origin.y, width: bounds.width, height: thumbWidth)
+                thumb.frame = CGRect(x: (bounds.width - thumbSize.width) / 2.0, y: pos.y - thumbSize.height / 2.0, width: thumbSize.width, height: thumbSize.height)
             }
         }
 
-        if self.direction == .Horizontal {
-            let thumbWidth  = bounds.width * thumbRatio
-            hintLabel.frame = CGRect(x: hintLabel.frame.origin.x, y: hintLabel.frame.origin.y, width: thumbWidth, height: bounds.height)
-        }
-        else {
-            let thumbWidth  = bounds.height * thumbRatio
-            hintLabel.frame = CGRect(x: hintLabel.frame.origin.x, y: hintLabel.frame.origin.y, width: bounds.width, height: thumbWidth)
-        }
+        hintLabel.frame = CGRect(x: hintLabel.frame.origin.x, y: hintLabel.frame.origin.y, width: thumbSize.width, height: thumbSize.height)
 
         self.layoutSeparators()
 
