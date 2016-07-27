@@ -445,13 +445,21 @@ public protocol GenericStyleSliderTouchDelegate {
             if let tSize = self.sizeOfTextLabel(sep) {
                 let lp = self.thumbList.getPrincipalPositionValue(self.thumbList.thumbs[idx-1].center)
                 let hp = self.thumbList.higherPosForThumb(idx-1)
-                let xp = self.thumbList.getPrincipalSizeValue(tSize) / (hp - lp)
-                let opa = xp <= 0 ? 1.0 : xp
+                let tS = self.thumbList.getPrincipalSizeValue(tSize) * 1.5
+                let xp = tS  / (hp - lp)
+                let opa: CGFloat
+                if xp < 0.0 {
+                    opa = 0.0
+                }
+                else {
+                    let xt = (hp - lp) / tS
+                    opa = xt >= 1.0 ? 1.0 : xt * xt * xt
+                }
                 let sepColor = self.separatorTextColor
-                sep.textColor = UIColor(red: sepColor.redComponent, green: sepColor.greenComponent, blue: sepColor.blueComponent, alpha: 1.0 - opa)
+                sep.textColor = UIColor(red: sepColor.redComponent, green: sepColor.greenComponent, blue: sepColor.blueComponent, alpha: opa)
                 if idx == 1 {
                     let psep = self.separatorLabels[idx-1]
-                    psep.textColor = UIColor(red: sepColor.redComponent, green: sepColor.greenComponent, blue: sepColor.blueComponent, alpha: opa)
+                    psep.textColor = UIColor(red: sepColor.redComponent, green: sepColor.greenComponent, blue: sepColor.blueComponent, alpha: 1.0 - opa)
                 }
             }
         }
