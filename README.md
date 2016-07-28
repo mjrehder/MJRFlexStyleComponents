@@ -26,7 +26,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, ‘9.0’
 
 use_frameworks!
-pod 'SnappingStepper', :git => 'https://github.com/yannickl/SnappingStepper.git', :branch => 'master'
+pod 'SnappingStepper', '~> 2.3.1’
 pod ‘MJRFlexStyleComponents’, '~> 1.0.0’
 ```
 
@@ -44,8 +44,7 @@ $ open MyProject.xcworkspace
 
 You can now `import MJRFlexStyleComponents` framework into your files.
 
-Note 1: The flex components currently need the SnappingStepper ‘master’ branch
-Note 2: If you need to use the ShapeStyle class in your project, then remember to ‘import SnappingStepper’ as well
+Note: If you need to use the ShapeStyle class in your project, then remember to ‘import SnappingStepper’ as well
 
 ## The Components
 
