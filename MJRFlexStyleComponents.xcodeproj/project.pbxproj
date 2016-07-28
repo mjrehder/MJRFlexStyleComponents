@@ -486,7 +486,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MJRFlexStyleExamples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rehsco.MJRFlexStyleExamples;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.MJRFlexStyleExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -498,7 +498,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MJRFlexStyleExamples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rehsco.MJRFlexStyleExamples;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.MJRFlexStyleExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
