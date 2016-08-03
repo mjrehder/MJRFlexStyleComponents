@@ -92,6 +92,10 @@ public class MJRFlexBaseControl: UIControl {
     }
     
     func applyStyle(style: ShapeStyle) {
+        if self.styleLayer.superlayer == nil {
+            self.layer.addSublayer(styleLayer)
+        }
+        
         let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clearColor()
         let bgsLayer = StyledShapeLayer.createShape(style, bounds: bounds, color: bgColor)
         
