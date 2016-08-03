@@ -58,7 +58,7 @@ public protocol GenericStyleSliderTouchDelegate {
  
  On top of the separator text labels are the thumbs
  */
-@IBDesignable public class GenericStyleSlider: UIControl {
+@IBDesignable public class GenericStyleSlider: MJRFlexBaseControl {
     var touchesBeganPoint = CGPointZero
 
     var thumbList = StyledSliderThumbList()
@@ -71,7 +71,6 @@ public protocol GenericStyleSliderTouchDelegate {
     /// The hint label
     lazy var hintLabel: StyledLabel = LabelFactory.defaultStyledLabel()
 
-    var styleLayer = CAShapeLayer()
     var hintShapeLayer = CAShapeLayer()
     
     public var sliderDelegate: GenericStyleSliderDelegate?
@@ -332,15 +331,8 @@ public protocol GenericStyleSliderTouchDelegate {
     
     // MARK: - Control Style
     
-    /// The view's style. Default's to box.
-    @IBInspectable public var style: ShapeStyle = .Box {
-        didSet {
-            self.applyStyle(style)
-        }
-    }
-    
     /// The view’s background color.
-    @IBInspectable public var styleColor: UIColor? {
+    @IBInspectable override public var styleColor: UIColor? {
         didSet {
             self.applyStyle(self.style)
             
@@ -349,20 +341,6 @@ public protocol GenericStyleSliderTouchDelegate {
                     thumb.backgroundColor = backgroundColor?.lighterColor()
                 }
             }
-        }
-    }
-
-    /// The view's border color.
-    @IBInspectable public var borderColor: UIColor? {
-        didSet {
-            self.applyStyle(style)
-        }
-    }
-    
-    /// The view's border width. Default's to 1.0
-    @IBInspectable public var borderWidth: CGFloat = 1.0 {
-        didSet {
-            self.applyStyle(style)
         }
     }
     
@@ -422,7 +400,7 @@ public protocol GenericStyleSliderTouchDelegate {
         self.hintShapeLayer = sLayer
     }
     
-    func applyStyle(style: ShapeStyle) {
+    override func applyStyle(style: ShapeStyle) {
         let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clearColor()
         let bgsLayer = StyledShapeLayer.createShape(style, bounds: bounds, color: bgColor)
         
@@ -510,7 +488,7 @@ public protocol GenericStyleSliderTouchDelegate {
         return CGSizeMake(s, s)
     }
     
-    func layoutComponents() {
+    override func layoutComponents() {
         self.thumbList.bounds = self.bounds
         let thumbSize = self.getThumbSize()
         for thumb in self.thumbList.thumbs {
