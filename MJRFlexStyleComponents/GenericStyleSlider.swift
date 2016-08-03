@@ -646,6 +646,10 @@ public protocol GenericStyleSliderTouchDelegate {
                 hintLabel.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index)?.lighterColor() ?? thumbBackgroundColor?.lighterColor()
                 
             case .Changed:
+                if thumb.behaviour == .FixateToLower || thumb.behaviour == .FixateToHigher || thumb.behaviour == .FixateToCenter {
+                    self.thumbList.applyThumbBehaviour(thumb)
+                    break
+                }
                 let translationInView = sender.translationInView(thumb)
                 
                 let tiv = self.thumbList.getPrincipalPositionValue(translationInView)
@@ -728,7 +732,7 @@ public protocol GenericStyleSliderTouchDelegate {
         thumb.behaviour = self.sliderDelegate?.behaviourOfThumb(thumb.index) ?? self.thumbSnappingBehaviour
         self.thumbList.thumbs.append(thumb)
         self.addSubview(thumb)
-        
+        self.thumbList.applyThumbBehaviour(thumb)
         self.setupThumbGesture(thumb)
     }
 
