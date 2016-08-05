@@ -204,7 +204,7 @@ Example (from the example project):
 ### FlexStyleView
 
 <p align="center">
-  <img src="http://www.rehsco.com/resources/FlexViewDemo.png” alt="screenshot" />
+  <img src="http://www.rehsco.com/resources/FlexViewDemo.png” alt="Screenshot FlexView" />
 </p>
 
 This view is similar to a UIView, but has support for header and footer labels. You can use the same styling for the view, the header and the footer as for all the other components and the header/footer can also appear on the left or right side.
