@@ -58,6 +58,24 @@ final class StyledShapeLayer {
         return shape
     }
     
+    static func createShape(style: ShapeStyle, bounds: CGRect, shapeStyle: ShapeStyle, shapeBounds: CGRect, shapeColor: UIColor, maskToBounds: Bool = true) -> CAShapeLayer {
+        var maskShape: CAShapeLayer?
+        if maskToBounds {
+            maskShape = CAShapeLayer()
+            let path = StyledShapeLayer.shapePathForStyle(style, bounds: bounds)
+            maskShape?.path = path.CGPath
+        }
+        
+        let shape = CAShapeLayer()
+        let subShape = CAShapeLayer()
+        let path = StyledShapeLayer.shapePathForStyle(shapeStyle, bounds: shapeBounds)
+        subShape.path = path.CGPath
+        subShape.fillColor = shapeColor.CGColor
+        shape.addSublayer(subShape)
+        shape.mask = maskShape
+        return shape
+    }
+
     static func createShape(style: ShapeStyle, bounds: CGRect, color: UIColor, borderColor: UIColor, borderWidth: CGFloat) -> CAShapeLayer {
         let shape = CAShapeLayer()
         

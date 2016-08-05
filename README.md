@@ -1,6 +1,6 @@
 # MJRFlexStyleComponents
 
-Sliding components with easy layout options written in Swift.
+Sliding components and containers with easy layout options written in Swift.
 
 <p align="center">
   <img src="http://www.rehsco.com/resources/MJRFlexStyleComponentsDemo.gif" alt="screenshot" />
@@ -201,20 +201,49 @@ Example (from the example project):
     }
 ```
 
+### FlexStyleView
+
+<p align="center">
+  <img src="http://www.rehsco.com/resources/FlexViewDemo.png” alt="screenshot" />
+</p>
+
+This view is similar to a UIView, but has support for header and footer labels. You can use the same styling for the view, the header and the footer as for all the other components and the header/footer can also appear on the left or right side.
+Margins allow the header and footer to be detached of the background, if that is desired.
+
+Example (from the example project):
+```swift
+        rightFlexView.headerPosition = .Right
+        rightFlexView.backgroundMargins = UIEdgeInsetsMake(0, 15, 0, 20)
+        rightFlexView.headerText = "Right"
+        rightFlexView.footerText = "Right Footer"
+        rightFlexView.styleColor = UIColor.MKColor.Amber.P100
+        rightFlexView.headerBackgroundColor = UIColor.MKColor.Amber.P500
+        rightFlexView.headerSize = 16
+        rightFlexView.headerStyle = .Tube
+        rightFlexView.headerClipToBackgroundShape = false
+        rightFlexView.headerFont = UIFont.boldSystemFontOfSize(10)
+        rightFlexView.footerFont = UIFont.systemFontOfSize(10)
+        rightFlexView.footerClipToBackgroundShape = false
+        rightFlexView.headerTextColor = UIColor.whiteColor()
+        rightFlexView.style = .Custom(path: UIBezierPath(roundedRect: rightFlexView.bounds, cornerRadius: 10))
+```
+
+This example also shows the custom style option, where an arbitrary UIBezierPath is used to define the background style.
+
 ### GenericStyleSlider
 
-This is the class used by all other classes, either as superclass or in the case of the FlexSeriesView as sub components.
+This is the class used by all other slider classes, either as superclass or in the case of the FlexSeriesView as sub components.
 You can use the generic slider directly or make other subclasses from it.
+
+### MJRFlexBaseControl
+
+This is the base class for all flex style controls. Extend this control, if you want to create a control based on the same styles and principles as the other components in this library.
 
 ## TODO
 Here are some item, which could improve the components. Any contribution is welcome and this list might be an inspiration.
 
 ### Discrete/Step Values
 Right now the sliders are continous. It would be nice to have stepping values, which allow the slider to snap to these.
-
-### Insets for the background
-Some styles do not match correctly with the control background, for example a tube style of the control with a rounded thumb style.
-In order to avoid artifacts, an inset could help to have a matching background layout.
 
 ### Inverse Direction
 Currently only left-to-right (horizontal) and top-down (vertical) layout is supported. Especially for the FlexSeriesView it would make sense to have bottom-up also.

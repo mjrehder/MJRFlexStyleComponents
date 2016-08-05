@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kfd-7Y-fCm">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Sliders-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MJRFlexStyleExamples" customModuleProvider="target" sceneMemberID="viewController">
@@ -102,6 +102,13 @@
                             <constraint firstItem="la0-9i-uk0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hrC-55-gay"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Sliders" id="7KO-AZ-bxh">
+                        <barButtonItem key="rightBarButtonItem" title="Views" id="7e8-ew-NBu">
+                            <connections>
+                                <segue destination="H1x-Pn-gE6" kind="show" id="vph-VD-BjB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="colorMenuSelectionSlider" destination="Xok-IF-OGA" id="0qU-3Z-SAO"/>
                         <outlet property="dataPointSelector" destination="fB0-zX-wEQ" id="Y0V-m7-E6y"/>
@@ -113,6 +120,80 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1108" y="429"/>
+        </scene>
+        <!--Views Demo View Controller-->
+        <scene sceneID="ckO-uJ-FeZ">
+            <objects>
+                <viewController id="H1x-Pn-gE6" customClass="ViewsDemoViewController" customModule="MJRFlexStyleExamples" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="h4f-1e-FKJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="MRv-Qm-NfF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PtC-1S-Mnb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3NP-MV-OYk" customClass="FlexView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <rect key="frame" x="105" y="193" width="390" height="213"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvk-XL-7UG" customClass="FlexView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                        <rect key="frame" x="212" y="43" width="170" height="128"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r0N-gF-Xdk" customClass="FlexView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="43" width="180" height="128"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="fvk-XL-7UG" firstAttribute="leading" secondItem="r0N-gF-Xdk" secondAttribute="trailing" constant="24" id="2oN-7X-PMk"/>
+                                    <constraint firstItem="fvk-XL-7UG" firstAttribute="leading" secondItem="3NP-MV-OYk" secondAttribute="leading" constant="212" id="4P0-k7-cCU"/>
+                                    <constraint firstItem="r0N-gF-Xdk" firstAttribute="leading" secondItem="3NP-MV-OYk" secondAttribute="leadingMargin" id="7cT-TJ-5Kh"/>
+                                    <constraint firstItem="r0N-gF-Xdk" firstAttribute="top" secondItem="3NP-MV-OYk" secondAttribute="top" constant="43" id="8kz-1E-Qxh"/>
+                                    <constraint firstItem="fvk-XL-7UG" firstAttribute="trailing" secondItem="3NP-MV-OYk" secondAttribute="trailingMargin" id="GTu-Nt-a7j"/>
+                                    <constraint firstItem="r0N-gF-Xdk" firstAttribute="bottom" secondItem="fvk-XL-7UG" secondAttribute="bottom" id="J2g-5p-HQZ"/>
+                                    <constraint firstItem="r0N-gF-Xdk" firstAttribute="top" secondItem="fvk-XL-7UG" secondAttribute="top" id="LKi-Pi-ilv"/>
+                                    <constraint firstAttribute="height" constant="213" id="RBd-xV-MRf"/>
+                                    <constraint firstItem="r0N-gF-Xdk" firstAttribute="centerY" secondItem="3NP-MV-OYk" secondAttribute="centerY" id="bm5-KA-Rf1"/>
+                                    <constraint firstAttribute="width" constant="390" id="eBe-d0-mJM"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="headerText" value="Header"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="footerText" value="Footer"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="3NP-MV-OYk" firstAttribute="centerX" secondItem="PtC-1S-Mnb" secondAttribute="centerX" id="5oh-rG-oGS"/>
+                            <constraint firstItem="3NP-MV-OYk" firstAttribute="centerY" secondItem="PtC-1S-Mnb" secondAttribute="centerY" id="HaO-5n-SQW"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="leftFlexView" destination="r0N-gF-Xdk" id="gDQ-0x-dw3"/>
+                        <outlet property="outerFlexView" destination="3NP-MV-OYk" id="cKB-Vc-jzE"/>
+                        <outlet property="rightFlexView" destination="fvk-XL-7UG" id="pOK-ik-8Jm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="faw-2h-lui" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1802" y="429"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="fKv-qm-XHe">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kfd-7Y-fCm" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rfe-ie-o9z">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="joy-uN-4qs"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oda-nO-jcl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="296" y="429"/>
         </scene>

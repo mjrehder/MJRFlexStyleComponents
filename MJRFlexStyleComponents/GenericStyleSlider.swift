@@ -329,6 +329,13 @@ public protocol GenericStyleSliderTouchDelegate {
         }
     }
     
+    /// The thumb and hint numeric representation. Defaults to nil, which means no formatting.
+    @IBInspectable public var numberFormatString: String? {
+        didSet {
+            self.assignThumbTexts()
+        }
+    }
+    
     // MARK: - Control Style
     
     /// The view’s background color.
@@ -354,12 +361,6 @@ public protocol GenericStyleSliderTouchDelegate {
                     thumb.backgroundColor = backgroundColor?.lighterColor()
                 }
             }
-        }
-    }
-    
-    @IBInspectable public var numberFormatString: String? {
-        didSet {
-            self.assignThumbTexts()
         }
     }
     
@@ -402,7 +403,8 @@ public protocol GenericStyleSliderTouchDelegate {
     
     override func applyStyle(style: ShapeStyle) {
         let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clearColor()
-        let bgsLayer = StyledShapeLayer.createShape(style, bounds: bounds, color: bgColor)
+        let layerRect = self.marginsForRect(bounds, margins: backgroundMargins)
+        let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
         
         // Add layer with separator background colors
         var rectColors: [(CGRect, UIColor)] = []
@@ -412,12 +414,12 @@ public protocol GenericStyleSliderTouchDelegate {
             rectColors.append((sep.frame, bgColor ?? .clearColor()))
             idx += 1
         }
-        let sepLayer = StyledShapeLayer.createShape(style, bounds: bounds, colorRects: rectColors)
+        let sepLayer = StyledShapeLayer.createShape(style, bounds: layerRect, colorRects: rectColors)
         bgsLayer.addSublayer(sepLayer)
         
         // Add layer with border, if required
         if let borderColor = borderColor {
-            let bLayer = StyledShapeLayer.createShape(style, bounds: bounds, color: .clearColor(), borderColor: borderColor, borderWidth: borderWidth)
+            let bLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: .clearColor(), borderColor: borderColor, borderWidth: borderWidth)
             bgsLayer.addSublayer(bLayer)
         }
         
@@ -426,6 +428,7 @@ public protocol GenericStyleSliderTouchDelegate {
         }
         
         styleLayer = bgsLayer
+        styleLayer.frame = layerRect
     }
     
     // MARK: - Private View
@@ -434,7 +437,7 @@ public protocol GenericStyleSliderTouchDelegate {
         if let font = label.font, text = label.text {
             let textString = text as NSString
             let textAttributes = [NSFontAttributeName: font]
-            return textString.boundingRectWithSize(self.bounds.size, options: .UsesLineFragmentOrigin, attributes: textAttributes, context: nil).size
+            return textString.boundingRectWithSize(self.marginsForRect(bounds, margins: backgroundMargins).size, options: .UsesLineFragmentOrigin, attributes: textAttributes, context: nil).size
         }
         return nil
     }
