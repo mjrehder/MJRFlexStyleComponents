@@ -84,9 +84,20 @@ public class MJRFlexBaseControl: UIControl {
             self.applyStyle(self.style)
         }
     }
+
+    /// The controls background insets, also known as border margins. Defaults to UIEdgeInsetsZero
+    @IBInspectable public var backgroundMargins: UIEdgeInsets = UIEdgeInsetsZero {
+        didSet {
+            self.layoutComponents()
+        }
+    }
     
     // MARK: - Internal View
     
+    func marginsForRect(rect: CGRect, margins: UIEdgeInsets) -> CGRect {
+        return CGRectMake(rect.origin.x + margins.left, rect.origin.y + margins.top, rect.size.width - (margins.left + margins.right), rect.size.height - (margins.top + margins.bottom))
+    }
+
     func layoutComponents() {
         self.applyStyle(self.style)
     }
@@ -96,19 +107,20 @@ public class MJRFlexBaseControl: UIControl {
             self.layer.addSublayer(styleLayer)
         }
         
+        let layerRect = self.marginsForRect(bounds, margins: backgroundMargins)
         let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clearColor()
-        let bgsLayer = StyledShapeLayer.createShape(style, bounds: bounds, color: bgColor)
+        let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
         
         // Add layer with border, if required
         if let borderColor = borderColor {
-            let bLayer = StyledShapeLayer.createShape(style, bounds: bounds, color: .clearColor(), borderColor: borderColor, borderWidth: borderWidth)
+            let bLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: .clearColor(), borderColor: borderColor, borderWidth: borderWidth)
             bgsLayer.addSublayer(bLayer)
         }
         
         if styleLayer.superlayer != nil {
             layer.replaceSublayer(styleLayer, with: bgsLayer)
         }
-        
         styleLayer = bgsLayer
+        styleLayer.frame = layerRect
     }
 }
