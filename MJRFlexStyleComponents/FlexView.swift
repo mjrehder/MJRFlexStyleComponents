@@ -272,12 +272,12 @@ public class FlexView: MJRFlexBaseControl {
         if let headerText = self.headerText {
             if self.headerLabel == nil {
                 self.headerLabel = LabelFactory.defaultStyledLabel()
-                self.headerLabel?.frame = self.rectForHeader()
-                self.headerLabel?.transform = self.getHeaderFooterRotation()
-                self.headerLabel?.frame = self.rectForHeader()
-                self.headerLabel?.text = headerText
                 self.addSubview(self.headerLabel!)
             }
+            self.headerLabel?.frame = self.rectForHeader()
+            self.headerLabel?.transform = self.getHeaderFooterRotation()
+            self.headerLabel?.frame = self.rectForHeader()
+            self.headerLabel?.text = headerText
             applyHeaderStyle(headerStyle)
         }
         else {
@@ -288,12 +288,12 @@ public class FlexView: MJRFlexBaseControl {
         if let footerText = self.footerText {
             if self.footerLabel == nil {
                 self.footerLabel = LabelFactory.defaultStyledLabel()
-                self.footerLabel?.frame = self.rectForFooter()
-                self.footerLabel?.transform = self.getHeaderFooterRotation()
-                self.footerLabel?.frame = self.rectForFooter()
-                self.footerLabel?.text = footerText
                 self.addSubview(self.footerLabel!)
             }
+            self.footerLabel?.frame = self.rectForFooter()
+            self.footerLabel?.transform = self.getHeaderFooterRotation()
+            self.footerLabel?.frame = self.rectForFooter()
+            self.footerLabel?.text = footerText
             applyFooterStyle(footerStyle)
         }
         else {
