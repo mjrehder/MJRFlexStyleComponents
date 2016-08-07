@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MJRFlexStyleComponents'
-  s.version          = '1.1.0'
+  s.version          = '1.1.1'
   s.license          = 'MIT'
   s.summary          = 'Sliding components with style'
   s.homepage         = 'https://github.com/mjrehder/MJRFlexStyleComponents.git'
@@ -8,6 +8,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/mjrehder/MJRFlexStyleComponents.git', :tag => s.version }
   s.ios.deployment_target = '9.0'
 
+  s.dependency 'DynamicColor'
   s.dependency 'SnappingStepper', '~> 2.3.1'
 
   s.framework    = 'UIKit'
