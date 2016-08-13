@@ -157,15 +157,15 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
         self.dataSeries = newDemoData
     }
     
-    func setStyleOfDemoControls(style: ShapeStyle) {
+    func setStyleOfDemoControls(flexStyle: FlexShapeStyle, style: ShapeStyle) {
         self.numSeriesSelector.thumbStyle = style
         self.dataPointSelector.thumbStyle = style
         self.maxMinDataSlider.thumbStyle = style
         self.vhSwitch.thumbStyle = style
-        self.numSeriesSelector.style = style
-        self.dataPointSelector.style = style
-        self.maxMinDataSlider.style = style
-        self.vhSwitch.style = style
+        self.numSeriesSelector.style = flexStyle
+        self.dataPointSelector.style = flexStyle
+        self.maxMinDataSlider.style = flexStyle
+        self.vhSwitch.style = flexStyle
     }
     
     func applyColorToDemoControls() {
@@ -236,11 +236,11 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
         else {
             switch index {
             case 0:
-                self.setStyleOfDemoControls(.Box)
+                self.setStyleOfDemoControls(.Box, style: .Box)
             case 1:
-                self.setStyleOfDemoControls(.Rounded)
+                self.setStyleOfDemoControls(.Rounded, style: .Rounded)
             case 2:
-                self.setStyleOfDemoControls(.Tube)
+                self.setStyleOfDemoControls(.Tube, style: .Tube)
             default:
                 break
             }

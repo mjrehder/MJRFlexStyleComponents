@@ -28,7 +28,6 @@
  */
 
 import UIKit
-import SnappingStepper
 
 public class MJRFlexBaseControl: UIControl {
     var styleLayer = CAShapeLayer()
@@ -51,7 +50,7 @@ public class MJRFlexBaseControl: UIControl {
     // MARK: - Control Style
     
     /// The view's style. Default's to box.
-    @IBInspectable public var style: ShapeStyle = .Box {
+    @IBInspectable public var style: FlexShapeStyle = .Box {
         didSet {
             self.applyStyle(self.style)
         }
@@ -102,7 +101,7 @@ public class MJRFlexBaseControl: UIControl {
         self.applyStyle(self.style)
     }
     
-    func applyStyle(style: ShapeStyle) {
+    func applyStyle(style: FlexShapeStyle) {
         if self.styleLayer.superlayer == nil {
             self.layer.addSublayer(styleLayer)
         }

@@ -23,7 +23,7 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iCJ-fK-fQD" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
                                         <rect key="frame" x="11" y="12" width="413" height="42"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hiq-M2-tME" customClass="FlexSwitch" customModule="MJRFlexStyleExamples" customModuleProvider="target">
                                         <rect key="frame" x="364" y="62" width="60" height="39"/>
@@ -47,7 +47,7 @@
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h8F-Ah-pft" customClass="FlexDoubleSlider" customModule="MJRFlexStyleExamples" customModuleProvider="target">
                                         <rect key="frame" x="364" y="109" width="60" height="262"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ojO-t0-c7G" customClass="FlexSeriesView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
                                         <rect key="frame" x="11" y="109" width="345" height="190"/>
@@ -55,11 +55,11 @@
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fB0-zX-wEQ" customClass="FlexSlider" customModule="MJRFlexStyleExamples" customModuleProvider="target">
                                         <rect key="frame" x="11" y="307" width="345" height="28"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0n-l8-vtC" customClass="FlexSlider" customModule="MJRFlexStyleExamples" customModuleProvider="target">
                                         <rect key="frame" x="11" y="343" width="345" height="28"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                 </subviews>
                                 <constraints>
