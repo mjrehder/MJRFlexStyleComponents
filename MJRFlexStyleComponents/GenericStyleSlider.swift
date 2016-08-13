@@ -401,7 +401,7 @@ public protocol GenericStyleSliderTouchDelegate {
         self.hintShapeLayer = sLayer
     }
     
-    override func applyStyle(style: ShapeStyle) {
+    override func applyStyle(style: FlexShapeStyle) {
         let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clearColor()
         let layerRect = self.marginsForRect(bounds, margins: backgroundMargins)
         let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)

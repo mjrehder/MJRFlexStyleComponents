@@ -2,6 +2,9 @@
 
 Sliding components and containers with easy layout options written in Swift.
 
+The example shows the sliding components, where the components themselves are used to manipulate the others in order to see many of the features.
+Any component can of course be used separately.
+
 <p align="center">
   <img src="http://www.rehsco.com/resources/MJRFlexStyleComponentsDemo.gif" alt="screenshot" />
 </p>
@@ -201,7 +204,7 @@ Example (from the example project):
     }
 ```
 
-### FlexStyleView
+### FlexView
 
 
 ![flexviewdemo](https://cloud.githubusercontent.com/assets/476994/17434897/6638ad5e-5b0d-11e6-8082-903326f31c28.png)

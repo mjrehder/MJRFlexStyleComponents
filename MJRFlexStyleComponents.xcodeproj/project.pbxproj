@@ -12,6 +12,8 @@
 		5B53D0F41D5372010068BF04 /* FlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B53D0F21D5372010068BF04 /* FlexView.swift */; };
 		5B53D0F71D5393520068BF04 /* ViewsDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B53D0F51D5393520068BF04 /* ViewsDemoViewController.swift */; };
 		5B6CF1591D48E8DD00291D8B /* MKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6CF1581D48E8DD00291D8B /* MKColor.swift */; };
+		5B8181351D5F1DD300BFEB49 /* FlexShapeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8181341D5F1DD300BFEB49 /* FlexShapeStyle.swift */; };
+		5B8181361D5F1DD300BFEB49 /* FlexShapeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8181341D5F1DD300BFEB49 /* FlexShapeStyle.swift */; };
 		5B9936D71D3A57620043E573 /* StyledSliderThumbList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9936D61D3A57620043E573 /* StyledSliderThumbList.swift */; };
 		5B9936D91D3A578B0043E573 /* StyledSliderDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9936D81D3A578B0043E573 /* StyledSliderDirection.swift */; };
 		5B9936FF1D3A9E210043E573 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9936FE1D3A9E210043E573 /* AppDelegate.swift */; };
@@ -62,6 +64,7 @@
 		5B53D0F21D5372010068BF04 /* FlexView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexView.swift; sourceTree = "<group>"; };
 		5B53D0F51D5393520068BF04 /* ViewsDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewsDemoViewController.swift; sourceTree = "<group>"; };
 		5B6CF1581D48E8DD00291D8B /* MKColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKColor.swift; sourceTree = "<group>"; };
+		5B8181341D5F1DD300BFEB49 /* FlexShapeStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexShapeStyle.swift; sourceTree = "<group>"; };
 		5B9936D61D3A57620043E573 /* StyledSliderThumbList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledSliderThumbList.swift; sourceTree = "<group>"; };
 		5B9936D81D3A578B0043E573 /* StyledSliderDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledSliderDirection.swift; sourceTree = "<group>"; };
 		5B9936FC1D3A9E210043E573 /* MJRFlexStyleExamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MJRFlexStyleExamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -158,6 +161,7 @@
 				5B9936D61D3A57620043E573 /* StyledSliderThumbList.swift */,
 				5B9936D81D3A578B0043E573 /* StyledSliderDirection.swift */,
 				5BE448451D412AC60011E5AE /* StyledShapeLayer.swift */,
+				5B8181341D5F1DD300BFEB49 /* FlexShapeStyle.swift */,
 			);
 			name = StyledComponents;
 			sourceTree = "<group>";
@@ -442,6 +446,7 @@
 				5BE448511D4220830011E5AE /* LabelFactory.swift in Sources */,
 				5B9937011D3A9E210043E573 /* ViewController.swift in Sources */,
 				5B53D0F71D5393520068BF04 /* ViewsDemoViewController.swift in Sources */,
+				5B8181361D5F1DD300BFEB49 /* FlexShapeStyle.swift in Sources */,
 				5BE4486B1D4760EE0011E5AE /* FlexSlider.swift in Sources */,
 				5B9936FF1D3A9E210043E573 /* AppDelegate.swift in Sources */,
 				5BE448541D4381C90011E5AE /* FlexSwitch.swift in Sources */,
@@ -466,6 +471,7 @@
 				5B53D0F31D5372010068BF04 /* FlexView.swift in Sources */,
 				5BE448671D474DFD0011E5AE /* BezierPathHelper.swift in Sources */,
 				5BE4484D1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift in Sources */,
+				5B8181351D5F1DD300BFEB49 /* FlexShapeStyle.swift in Sources */,
 				5B9936D71D3A57620043E573 /* StyledSliderThumbList.swift in Sources */,
 				5BE448631D450DC20011E5AE /* FlexSeriesView.swift in Sources */,
 				5BE4486D1D478E9A0011E5AE /* FlexDoubleSlider.swift in Sources */,

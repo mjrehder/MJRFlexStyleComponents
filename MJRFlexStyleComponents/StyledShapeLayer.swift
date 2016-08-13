@@ -31,7 +31,7 @@ import UIKit
 import SnappingStepper
 
 final class StyledShapeLayer {
-    static func createShape(style: ShapeStyle, bounds: CGRect, color: UIColor) -> CAShapeLayer {
+    static func createShape(style: FlexShapeStyle, bounds: CGRect, color: UIColor) -> CAShapeLayer {
         let shape = CAShapeLayer()
         
         let path        = StyledShapeLayer.shapePathForStyle(style, bounds: bounds)
@@ -41,7 +41,7 @@ final class StyledShapeLayer {
         return shape
     }
     
-    static func createShape(style: ShapeStyle, bounds: CGRect, colorRects: [(CGRect, UIColor)]) -> CAShapeLayer {
+    static func createShape(style: FlexShapeStyle, bounds: CGRect, colorRects: [(CGRect, UIColor)]) -> CAShapeLayer {
         let maskShape = CAShapeLayer()
         let path = StyledShapeLayer.shapePathForStyle(style, bounds: bounds)
         maskShape.path = path.CGPath
@@ -49,7 +49,7 @@ final class StyledShapeLayer {
         let shape = CAShapeLayer()
         for (rect, color) in colorRects {
             let subShape = CAShapeLayer()
-            let path = StyledShapeLayer.shapePathForStyle(.Box, bounds: rect)
+            let path = StyledShapeLayer.shapePathForStyle(ShapeStyle.Box, bounds: rect)
             subShape.path = path.CGPath
             subShape.fillColor = color.CGColor
             shape.addSublayer(subShape)
@@ -58,7 +58,7 @@ final class StyledShapeLayer {
         return shape
     }
     
-    static func createShape(style: ShapeStyle, bounds: CGRect, shapeStyle: ShapeStyle, shapeBounds: CGRect, shapeColor: UIColor, maskToBounds: Bool = true) -> CAShapeLayer {
+    static func createShape(style: FlexShapeStyle, bounds: CGRect, shapeStyle: FlexShapeStyle, shapeBounds: CGRect, shapeColor: UIColor, maskToBounds: Bool = true) -> CAShapeLayer {
         var maskShape: CAShapeLayer?
         if maskToBounds {
             maskShape = CAShapeLayer()
@@ -66,9 +66,25 @@ final class StyledShapeLayer {
             maskShape?.path = path.CGPath
         }
         
+        let path = StyledShapeLayer.shapePathForStyle(shapeStyle, bounds: shapeBounds)
+        return StyledShapeLayer.createShapeLayer(path, maskShape: maskShape, shapeColor: shapeColor)
+    }
+
+    static func createShape(style: FlexShapeStyle, bounds: CGRect, shapeStyle: ShapeStyle, shapeBounds: CGRect, shapeColor: UIColor, maskToBounds: Bool = true) -> CAShapeLayer {
+        var maskShape: CAShapeLayer?
+        if maskToBounds {
+            maskShape = CAShapeLayer()
+            let path = StyledShapeLayer.shapePathForStyle(style, bounds: bounds)
+            maskShape?.path = path.CGPath
+        }
+        
+        let path = StyledShapeLayer.shapePathForStyle(shapeStyle, bounds: shapeBounds)
+        return StyledShapeLayer.createShapeLayer(path, maskShape: maskShape, shapeColor: shapeColor)
+    }
+    
+    static func createShapeLayer(path: UIBezierPath, maskShape: CAShapeLayer?, shapeColor: UIColor) -> CAShapeLayer {
         let shape = CAShapeLayer()
         let subShape = CAShapeLayer()
-        let path = StyledShapeLayer.shapePathForStyle(shapeStyle, bounds: shapeBounds)
         subShape.path = path.CGPath
         subShape.fillColor = shapeColor.CGColor
         shape.addSublayer(subShape)
@@ -76,7 +92,7 @@ final class StyledShapeLayer {
         return shape
     }
 
-    static func createShape(style: ShapeStyle, bounds: CGRect, color: UIColor, borderColor: UIColor, borderWidth: CGFloat) -> CAShapeLayer {
+    static func createShape(style: FlexShapeStyle, bounds: CGRect, color: UIColor, borderColor: UIColor, borderWidth: CGFloat) -> CAShapeLayer {
         let shape = CAShapeLayer()
         
         let path          = StyledShapeLayer.shapePathForStyle(style, bounds: bounds)
@@ -86,6 +102,29 @@ final class StyledShapeLayer {
         shape.lineWidth   = borderWidth
         
         return shape
+    }
+    
+    static func shapePathForStyle(style: FlexShapeStyle, bounds: CGRect) -> UIBezierPath {
+        var path = UIBezierPath()
+        
+        switch style {
+        case .Box, .None:
+            path = UIBezierPath(rect: bounds)
+        case .RoundedFixed(let cornerRadius):
+            path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+        case .Rounded:
+            path = UIBezierPath(roundedRect: bounds, cornerRadius: max(1.0, min(bounds.size.width, bounds.size.height) * 0.2))
+        case .Thumb:
+            let s    = min(bounds.size.width, bounds.size.height)
+            let xOff = (bounds.size.width - s) * 0.5
+            path     = UIBezierPath(ovalInRect: CGRect(x: bounds.origin.x + xOff, y: bounds.origin.y, width: s, height: s))
+        case .Tube:
+            path = UIBezierPath(roundedRect: bounds, cornerRadius: max(1.0, min(bounds.size.width, bounds.size.height) * 0.5))
+        case .Custom(let cpath):
+            path = StyledShapeLayer.getScaledPath(cpath.CGPath, size: bounds.size)
+        }
+        
+        return path
     }
     
     static func shapePathForStyle(style: ShapeStyle, bounds: CGRect) -> UIBezierPath {
@@ -108,7 +147,6 @@ final class StyledShapeLayer {
         
         return path
     }
-    
     static func getScaledPath(path: CGPathRef, size: CGSize) -> UIBezierPath {
         let rect        = CGRect(origin:CGPoint(x:0, y:0), size:CGSize(width: size.width, height: size.height))
         let boundingBox = CGPathGetBoundingBox(path)
