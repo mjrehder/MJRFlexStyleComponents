@@ -34,6 +34,7 @@ import DynamicColor
 public protocol GenericStyleSliderDelegate {
     func textOfThumb(index: Int) -> String?
     func colorOfThumb(index: Int) -> UIColor?
+    func iconOfThumb(index: Int) -> UIImage?
     func behaviourOfThumb(index: Int) -> StyledSliderThumbBehaviour?
     func textOfSeparatorLabel(index: Int) -> String?
     func colorOfSeparatorLabel(index: Int) -> UIColor?
@@ -45,6 +46,12 @@ public protocol GenericStyleSliderTouchDelegate {
     func onThumbTouchBegan(index: Int)
     func onThumbTouchEnded(index: Int)
 }
+
+public protocol GenericStyleSliderSeparatorTouchDelegate {
+    func onSeparatorTouchBegan(index: Int)
+    func onSeparatorTouchEnded(index: Int)
+}
+
 
 /**
  The Generic Style Slider is a base class intended to be extended by specialized view controls
@@ -75,6 +82,7 @@ public protocol GenericStyleSliderTouchDelegate {
     
     public var sliderDelegate: GenericStyleSliderDelegate?
     public var thumbTouchDelegate: GenericStyleSliderTouchDelegate?
+    public var separatorTouchDelegate: GenericStyleSliderSeparatorTouchDelegate?
     
     // MARK: - Deallocating position update timer
     
@@ -243,7 +251,7 @@ public protocol GenericStyleSliderTouchDelegate {
         }
     }
 
-    /// The thumb's text colors. Default's to black
+    /// The thumbs text colors. Default's to black
     @IBInspectable public var thumbTextColor: UIColor = .blackColor() {
         didSet {
             for thumb in self.thumbList.thumbs {
@@ -252,14 +260,14 @@ public protocol GenericStyleSliderTouchDelegate {
         }
     }
     
-    /// The thumbs's border color.
+    /// The thumbs border color.
     @IBInspectable public var thumbBorderColor: UIColor? {
         didSet {
             self.applyThumbStyle(thumbStyle)
         }
     }
     
-    /// The thumbs's border width. Default's to 1.0
+    /// The thumbs border width. Default's to 1.0
     @IBInspectable public var thumbBorderWidth: CGFloat = 1.0 {
         didSet {
             self.applyThumbStyle(thumbStyle)
@@ -372,6 +380,7 @@ public protocol GenericStyleSliderTouchDelegate {
             thumb.style       = style
             thumb.borderColor = thumbBorderColor
             thumb.borderWidth = thumbBorderWidth
+            thumb.backgroundIcon = self.sliderDelegate?.iconOfThumb(thumb.index)
         }
     }
 
@@ -414,7 +423,7 @@ public protocol GenericStyleSliderTouchDelegate {
             rectColors.append((sep.frame, bgColor ?? .clearColor()))
             idx += 1
         }
-        let sepLayer = StyledShapeLayer.createShape(style, bounds: layerRect, colorRects: rectColors)
+        let sepLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.separatorStyle, colorRects: rectColors)
         bgsLayer.addSublayer(sepLayer)
         
         // Add layer with border, if required
@@ -583,6 +592,25 @@ public protocol GenericStyleSliderTouchDelegate {
         }
     }
     
+    func setupSeparatorGesture(separator: StyledLabel) {
+        let touchGesture = UITapGestureRecognizer(target: self, action: #selector(GenericStyleSlider.separatorTouched))
+        separator.addGestureRecognizer(touchGesture)
+    }
+    
+    func separatorTouched(sender: UITapGestureRecognizer) {
+        if let separator = sender.view as? StyledLabel, index = self.getSeparatorIndex(separator) {
+            switch sender.state {
+            case .Began:
+                touchesBeganPoint = sender.locationInView(self)
+                self.separatorTouchDelegate?.onSeparatorTouchBegan(index)
+            case .Ended:
+                self.separatorTouchDelegate?.onSeparatorTouchEnded(index)
+            default:
+                break
+            }
+        }
+    }
+
     func setupThumbGesture(thumb: StyledSliderThumb) {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(GenericStyleSlider.sliderPanned))
         thumb.addGestureRecognizer(panGesture)
@@ -695,6 +723,17 @@ public protocol GenericStyleSliderTouchDelegate {
         sep.textColor = self.separatorTextColor
         self.separatorLabels.append(sep)
         self.addSubview(sep)
+    }
+    
+    func getSeparatorIndex(separator: StyledLabel) -> Int? {
+        var index: Int = 0
+        for sep in self.separatorLabels {
+            if sep == separator {
+                return index
+            }
+            index += 1
+        }
+        return nil
     }
     
     func assignSeparatorTexts() {

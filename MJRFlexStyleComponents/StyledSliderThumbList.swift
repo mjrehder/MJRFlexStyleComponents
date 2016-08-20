@@ -34,25 +34,21 @@ public class StyledSliderThumbList {
     
     public var maximumValue: Double = 100 {
         didSet {
-            // TODO
         }
     }
     
     public var minimumValue: Double = 0 {
         didSet {
-            // TODO
         }
     }
     
     public var direction: StyleSliderDirection = .Horizontal {
         didSet {
-            // TODO
         }
     }
     
     public var bounds: CGRect = CGRectZero {
         didSet {
-            // TODO
         }
     }
     

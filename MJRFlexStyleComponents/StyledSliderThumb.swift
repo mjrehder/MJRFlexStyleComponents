@@ -34,4 +34,31 @@ public class StyledSliderThumb: StyledLabel {
     var snappingBehavior = SnappingThumbBehaviour(item: nil, snapToPoint: CGPointZero)
     var behaviour: StyledSliderThumbBehaviour = .Freeform
     var index = 0
+    var backgroundIcon: UIImage?
+    
+    private var backgroundShape = CALayer()
+    
+    override public func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if self.backgroundShape.superlayer == nil {
+            // Insert this layer above the styled label style and below the text label
+            self.layer.insertSublayer(self.backgroundShape, atIndex: 1)
+        }
+        
+        let bgLayer = CALayer()
+        if let bgi = self.backgroundIcon {
+            let iSize = bgi.size
+            let bgOffset = CGPointMake((self.bounds.size.width - iSize.width) * 0.5, (self.bounds.size.height - iSize.height) * 0.5)
+            bgLayer.bounds = CGRectMake(bgOffset.x, bgOffset.y, iSize.width, iSize.height)
+            bgLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds))
+            bgLayer.contents = bgi.CGImage
+            let maskPath = StyledShapeLayer.shapePathForStyle(style, bounds: bounds)
+            let maskLayer = CAShapeLayer()
+            maskLayer.path = maskPath.CGPath
+            bgLayer.mask = maskLayer
+        }
+        self.layer.replaceSublayer(self.backgroundShape, with: bgLayer)
+        self.backgroundShape = bgLayer
+    }
 }

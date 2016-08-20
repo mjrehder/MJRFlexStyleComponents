@@ -41,7 +41,7 @@ final class StyledShapeLayer {
         return shape
     }
     
-    static func createShape(style: FlexShapeStyle, bounds: CGRect, colorRects: [(CGRect, UIColor)]) -> CAShapeLayer {
+    static func createShape(style: FlexShapeStyle, bounds: CGRect, shapeStyle: ShapeStyle, colorRects: [(CGRect, UIColor)]) -> CAShapeLayer {
         let maskShape = CAShapeLayer()
         let path = StyledShapeLayer.shapePathForStyle(style, bounds: bounds)
         maskShape.path = path.CGPath
@@ -49,7 +49,7 @@ final class StyledShapeLayer {
         let shape = CAShapeLayer()
         for (rect, color) in colorRects {
             let subShape = CAShapeLayer()
-            let path = StyledShapeLayer.shapePathForStyle(ShapeStyle.Box, bounds: rect)
+            let path = StyledShapeLayer.shapePathForStyle(shapeStyle, bounds: rect)
             subShape.path = path.CGPath
             subShape.fillColor = color.CGColor
             shape.addSublayer(subShape)

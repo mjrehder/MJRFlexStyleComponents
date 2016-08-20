@@ -35,10 +35,32 @@ public protocol FlexMenuDataSource {
     func menuItemSelected(menu: FlexMenu, index: Int)
 }
 
+public enum FlexMenuThumbPosition {
+    case Left
+    case Top
+    case Right
+    case Bottom
+}
+
+public enum FlexMenuStyle {
+    case Compact
+    case EquallySpaces(thumbPos: FlexMenuThumbPosition)
+    case DynamicallySpaces(thumbPos: FlexMenuThumbPosition)
+}
+
 @IBDesignable
 public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, GenericStyleSliderDelegate {
 
     public var menuDataSource: FlexMenuDataSource? {
+        didSet {
+            self.reloadMenu()
+        }
+    }
+
+    /*
+     Set the menu style. The default is the compact style, which uses sliding thumbs to reduce the size of the menu.
+     */
+    public var menuStyle: FlexMenuStyle = .Compact {
         didSet {
             self.reloadMenu()
         }
@@ -91,6 +113,8 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         self.values = vals
     }
     
+    // MARK: - Public functions
+    
     public func selectedItem() -> Int {
         for idx in 1..<self.values.count {
             if self.values[idx] >= 0.5 {
@@ -125,6 +149,10 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
     }
     
     // MARK: - GenericStyleSliderDelegate
+    
+    public func iconOfThumb(index: Int) -> UIImage? {
+        return self.menuDataSource?.menuItemForIndex(self, index: index).thumbIcon
+    }
     
     public func textOfThumb(index: Int) -> String? {
         return self.menuDataSource?.menuItemForIndex(self, index: index).titleShortcut

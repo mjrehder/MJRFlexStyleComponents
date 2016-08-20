@@ -123,7 +123,7 @@
             </objects>
             <point key="canvasLocation" x="1108" y="429"/>
         </scene>
-        <!--Views Demo View Controller-->
+        <!--Flex Views-->
         <scene sceneID="ckO-uJ-FeZ">
             <objects>
                 <viewController id="H1x-Pn-gE6" customClass="ViewsDemoViewController" customModule="MJRFlexStyleExamples" customModuleProvider="target" sceneMemberID="viewController">
@@ -169,6 +169,13 @@
                             <constraint firstItem="3NP-MV-OYk" firstAttribute="centerY" secondItem="PtC-1S-Mnb" secondAttribute="centerY" id="HaO-5n-SQW"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Flex Views" id="paL-DJ-m9F">
+                        <barButtonItem key="rightBarButtonItem" title="Menus" id="hHk-xY-Id7">
+                            <connections>
+                                <segue destination="j7U-6w-Lom" kind="show" id="goI-aZ-D7j"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="leftFlexView" destination="r0N-gF-Xdk" id="gDQ-0x-dw3"/>
                         <outlet property="outerFlexView" destination="3NP-MV-OYk" id="cKB-Vc-jzE"/>
@@ -178,6 +185,63 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="faw-2h-lui" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1802" y="429"/>
+        </scene>
+        <!--Menus Demo View Controller-->
+        <scene sceneID="1Oq-nZ-95m">
+            <objects>
+                <viewController id="j7U-6w-Lom" customClass="MenusDemoViewController" customModule="MJRFlexStyleExamples" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EzU-SH-Zht"/>
+                        <viewControllerLayoutGuide type="bottom" id="lSt-Xd-y6E"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Abf-jI-7sm">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utr-C3-EXj" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <rect key="frame" x="95" y="72" width="411" height="46"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="6Bd-fh-0U9"/>
+                                    <constraint firstAttribute="width" constant="411" id="SaP-Lx-Z3O"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YXA-Zl-d1j" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <rect key="frame" x="95" y="126" width="411" height="46"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="419-bb-NdA"/>
+                                    <constraint firstAttribute="width" constant="411" id="IaB-jC-Czv"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1aZ-RX-jaZ" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <rect key="frame" x="95" y="180" width="411" height="46"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="82p-CH-L8q"/>
+                                    <constraint firstAttribute="width" constant="411" id="lza-9I-ic3"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YXA-Zl-d1j" firstAttribute="leading" secondItem="1aZ-RX-jaZ" secondAttribute="leading" id="21N-YV-BQ2"/>
+                            <constraint firstItem="1aZ-RX-jaZ" firstAttribute="top" secondItem="YXA-Zl-d1j" secondAttribute="bottom" constant="8" symbolic="YES" id="7oh-Hz-9fS"/>
+                            <constraint firstItem="utr-C3-EXj" firstAttribute="top" secondItem="EzU-SH-Zht" secondAttribute="bottom" constant="8" symbolic="YES" id="Pe9-6k-YBd"/>
+                            <constraint firstItem="utr-C3-EXj" firstAttribute="centerX" secondItem="Abf-jI-7sm" secondAttribute="centerX" id="U2v-7q-7A5"/>
+                            <constraint firstItem="YXA-Zl-d1j" firstAttribute="top" secondItem="utr-C3-EXj" secondAttribute="bottom" constant="8" symbolic="YES" id="VLs-c6-hXc"/>
+                            <constraint firstItem="utr-C3-EXj" firstAttribute="leading" secondItem="YXA-Zl-d1j" secondAttribute="leading" id="dgz-F5-q77"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="compactMenu" destination="utr-C3-EXj" id="VAU-qR-Ged"/>
+                        <outlet property="dynSpacedMenu" destination="1aZ-RX-jaZ" id="WPR-3t-Smx"/>
+                        <outlet property="eqSpacedMenu" destination="YXA-Zl-d1j" id="2Z2-Dq-iw5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wGG-fx-Bf4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2590" y="429"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fKv-qm-XHe">

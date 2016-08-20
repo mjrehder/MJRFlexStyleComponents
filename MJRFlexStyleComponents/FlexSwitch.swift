@@ -106,6 +106,10 @@ public protocol FlexSwitchDelegate {
     
     // MARK: - GenericStyleSliderDelegate
     
+    public func iconOfThumb(index: Int) -> UIImage? {
+        return nil
+    }
+    
     public func textOfThumb(index: Int) -> String? {
         return nil
     }

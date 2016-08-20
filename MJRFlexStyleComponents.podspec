@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
   s.name             = 'MJRFlexStyleComponents'
-  s.version          = '1.2'
+  s.version          = '1.3'
   s.license          = 'MIT'
-  s.summary          = 'Sliding components with style'
+  s.summary          = 'Sliding components and views with style'
   s.homepage         = 'https://github.com/mjrehder/MJRFlexStyleComponents.git'
   s.authors          = { 'Martin Jacob Rehder' => 'gitrepocon01@rehsco.com' }
   s.source           = { :git => 'https://github.com/mjrehder/MJRFlexStyleComponents.git', :tag => s.version }
