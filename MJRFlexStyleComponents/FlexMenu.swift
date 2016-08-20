@@ -100,12 +100,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         return self.values.count-1
     }
     
-    // MARK: - GenericStyleSliderTouchDelegate
-    
-    public func onThumbTouchBegan(index: Int) {
-    }
-    
-    public func onThumbTouchEnded(index: Int) {
+    public func setSelectedItem(index: Int) {
         let selIdx = self.selectedItem()
         if selIdx != index {
             var newVals: [Double] = []
@@ -117,6 +112,15 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
             }
             self.values = newVals
         }
+    }
+    
+    // MARK: - GenericStyleSliderTouchDelegate
+    
+    public func onThumbTouchBegan(index: Int) {
+    }
+    
+    public func onThumbTouchEnded(index: Int) {
+        self.setSelectedItem(index)
         self.notifyValueChanged()
     }
     
