@@ -29,16 +29,26 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
         self.menuItems.append(col2)
         self.menuItems.append(col3)
 
-        let scol1 = FlexMenuItem(title: "First", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.MKColor.Grey.P500, thumbIcon: UIImage(named: "ThumbIcon1"))
-        let scol2 = FlexMenuItem(title: "Second Larger", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.MKColor.Grey.P500, thumbIcon: UIImage(named: "ThumbIcon2"))
-        let scol3 = FlexMenuItem(title: "Third Mid", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.MKColor.Grey.P500, thumbIcon: UIImage(named: "ThumbIcon3"))
+        let ti1 = UIImage(named: "ThumbIcon1")
+        let ti2 = UIImage(named: "ThumbIcon2")
+        let ti3 = UIImage(named: "ThumbIcon3")
+        let scol1 = FlexMenuItem(title: "First", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.MKColor.Grey.P500, thumbIcon: ti1)
+        let scol2 = FlexMenuItem(title: "Second Larger", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.MKColor.Grey.P500, thumbIcon: ti2)
+        let scol3 = FlexMenuItem(title: "Third Mid", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.MKColor.Grey.P500, thumbIcon: ti3)
         self.spacedMenuItems.append(scol1)
         self.spacedMenuItems.append(scol2)
         self.spacedMenuItems.append(scol3)
 
         self.compactMenu.menuDataSource = self
+        
         self.eqSpacedMenu.menuDataSource = self
+        self.eqSpacedMenu.thumbSize = ti1?.size
+
         self.dynSpacedMenu.menuDataSource = self
+        self.dynSpacedMenu.thumbSize = ti1?.size
+        
+        self.eqSpacedMenu.menuStyle = .EquallySpaces(thumbPos: .Top)
+//        self.dynSpacedMenu.menuStyle = .DynamicallySpaces(thumbPos: .Bottom)
     }
     
     // MARK: - FlexMenuDataSource

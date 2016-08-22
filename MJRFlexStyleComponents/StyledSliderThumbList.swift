@@ -107,6 +107,10 @@ public class StyledSliderThumbList {
         return self.direction == .Horizontal ? s.width: s.height
     }
     
+    func getNonPrincipalSizeValue(s: CGSize) -> CGFloat {
+        return self.direction == .Horizontal ? s.height: s.width
+    }
+    
     func getPositionMin() -> CGFloat {
         if let firstThumb = self.thumbs.first {
             return self.getPrincipalSizeValue(firstThumb.bounds.size) * 0.5

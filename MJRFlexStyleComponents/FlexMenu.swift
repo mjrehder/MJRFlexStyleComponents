@@ -28,6 +28,7 @@
  */
 
 import UIKit
+import SnappingStepper
 
 public protocol FlexMenuDataSource {
     func numberOfMenuItems(menu: FlexMenu) -> Int
@@ -49,7 +50,7 @@ public enum FlexMenuStyle {
 }
 
 @IBDesignable
-public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, GenericStyleSliderDelegate {
+public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, GenericStyleSliderDelegate, GenericStyleSliderSeparatorTouchDelegate {
 
     public var menuDataSource: FlexMenuDataSource? {
         didSet {
@@ -103,6 +104,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
     
     func setupMenu() {
         self.thumbTouchDelegate = self
+        self.separatorTouchDelegate = self
         self.sliderDelegate = self
         var vals: [Double] = []
         if let ds = self.menuDataSource {
@@ -138,12 +140,163 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         }
     }
     
+    // MARK: - Menu Style
+    
+    override func layoutComponents() {
+        switch self.menuStyle {
+        case .Compact:
+            super.layoutComponents()
+        case .EquallySpaces(let thumbPos):
+            let miFrames = self.getEquallySpacedMenuItemFrames()
+            self.layoutNonCompactMenuItems(thumbPos, menuItemFrames: miFrames)
+            self.applyStylesAndText()
+        case .DynamicallySpaces(let thumbPos):
+            let miFrames = self.getDynamicallySpacedMenuItemFrames()
+            self.layoutNonCompactMenuItems(thumbPos, menuItemFrames: miFrames)
+            self.applyStylesAndText()
+        }
+    }
+    
+    func applyStylesAndText() {
+        applyThumbStyle(thumbStyle)
+        applySeparatorStyle(separatorStyle)
+        applyStyle(style)
+        
+        self.assignThumbTexts()
+        self.assignSeparatorTexts()
+    }
+    
+    func getEquallySpacedMenuItemFrames() -> [CGRect] {
+        var rects: [CGRect] = []
+        if let ds = self.menuDataSource {
+            let numSep = ds.numberOfMenuItems(self)
+            let maxExt = self.thumbList.getPrincipalSizeValue(self.bounds.size)
+            let itemExt = maxExt / CGFloat(numSep)
+            for i in 0..<numSep {
+                let rect: CGRect
+                if self.direction == .Horizontal {
+                    rect = CGRectMake(CGFloat(i) * itemExt, 0, itemExt, self.bounds.height)
+                }
+                else {
+                    rect = CGRectMake(0, CGFloat(i) * itemExt, self.bounds.width, itemExt)
+                }
+                rects.append(rect)
+            }
+        }
+        return rects
+    }
+    
+    func getDynamicallySpacedMenuItemFrames() -> [CGRect] {
+        // TODO
+        return []
+    }
+
+    func layoutNonCompactMenuItems(thumbPos: FlexMenuThumbPosition, menuItemFrames: [CGRect]) {
+        if let ds = self.menuDataSource {
+            for idx in 0..<ds.numberOfMenuItems(self) {
+                let sep = self.separatorForThumb(idx)
+                let thumb = self.thumbList.thumbs[idx]
+                let miFrame = menuItemFrames[idx]
+                
+                let ts = self.getThumbSize()
+                let tp = self.thumbPosInsideSpacedRect(thumb, targetRect: miFrame, thumbPos: thumbPos)
+                let tr = CGRectMake(tp.x, tp.y, ts.width, ts.height)
+                thumb.frame = tr
+                
+                let sepRect = self.separatorRectInsideSpacedRect(thumb, targetRect: miFrame, thumbPos: thumbPos)
+                sep.frame = sepRect
+                
+                // IF separator text == "" => Show thumb only
+                // TODO: No rotation for label possible for vertical layout
+                
+            }
+        }
+    }
+    
+    func thumbPosInsideSpacedRect(thumb: StyledSliderThumb, targetRect: CGRect, thumbPos: FlexMenuThumbPosition) -> CGPoint {
+        var tPos = CGPointZero
+        let ts = self.getThumbSize()
+        let sic = self.thumbList.getPrincipalSizeValue(targetRect.size)
+        let sicNP = self.thumbList.getNonPrincipalSizeValue(targetRect.size)
+        let tSic = self.thumbList.getPrincipalSizeValue(ts)
+        let tSicNP = self.thumbList.getNonPrincipalSizeValue(ts)
+        switch thumbPos {
+        case .Left:
+            tPos = CGPointMake(0, (sicNP - tSicNP) * 0.5)
+        case .Right:
+            tPos = CGPointMake(sic - tSic, (sicNP - tSicNP) * 0.5)
+        case .Top:
+            tPos = CGPointMake((sic - tSic) * 0.5, 0.0)
+        case .Bottom:
+            tPos = CGPointMake((sic - tSic) * 0.5, sicNP - tSicNP)
+        }
+        if self.direction == .Vertical {
+            tPos = CGPointMake(tPos.y, tPos.x)
+        }
+        tPos = CGPointMake(tPos.x + targetRect.origin.x, tPos.y + targetRect.origin.y)
+        return tPos
+    }
+    
+    func separatorRectInsideSpacedRect(thumb: StyledSliderThumb, targetRect: CGRect, thumbPos: FlexMenuThumbPosition) -> CGRect {
+        var tRect = targetRect
+        let ts = self.getThumbSize()
+        let tSic = self.thumbList.getPrincipalSizeValue(ts)
+        let tSicNP = self.thumbList.getNonPrincipalSizeValue(ts)
+        switch thumbPos {
+        case .Left:
+            tRect = tRect.insetBy(dx: tSic * 0.5, dy: 0).offsetBy(dx: tSic * 0.5, dy: 0)
+        case .Right:
+            tRect = tRect.insetBy(dx: tSic * 0.5, dy: 0).offsetBy(dx: tSic * -0.5, dy: 0)
+        case .Top:
+            tRect = tRect.insetBy(dx: 0, dy: tSicNP * 0.5).offsetBy(dx: 0, dy: tSicNP * 0.5)
+        case .Bottom:
+            tRect = tRect.insetBy(dx: 0, dy: tSicNP * 0.5).offsetBy(dx: 0, dy: tSicNP * -0.5)
+        }
+        if self.direction == .Vertical {
+            tRect = CGRectMake(tRect.origin.y, tRect.origin.x, tRect.height, tRect.width)
+        }
+//        tRect = tRect.offsetBy(dx: targetRect.origin.x, dy: targetRect.origin.y)
+        return tRect
+    }
+    
+    override func applySeparatorStyle(style: ShapeStyle) {
+        switch self.menuStyle {
+        case .Compact:
+            super.applySeparatorStyle(style)
+        case .EquallySpaces(let thumbPos):
+            // TODO
+            break
+        case .DynamicallySpaces(let thumbPos):
+            // TODO
+            break
+        }
+    }
+
+    override func sliderPanned(sender: UIPanGestureRecognizer) {
+        switch self.menuStyle {
+        case .Compact:
+            super.sliderPanned(sender)
+        default:
+            break
+        }
+    }
+    
     // MARK: - GenericStyleSliderTouchDelegate
     
     public func onThumbTouchBegan(index: Int) {
     }
     
     public func onThumbTouchEnded(index: Int) {
+        self.setSelectedItem(index)
+        self.notifyValueChanged()
+    }
+    
+    // MARK: - GenericStyleSliderSeparatorTouchDelegate
+    
+    public func onSeparatorTouchBegan(index: Int) {
+    }
+    
+    public func onSeparatorTouchEnded(index: Int) {
         self.setSelectedItem(index)
         self.notifyValueChanged()
     }

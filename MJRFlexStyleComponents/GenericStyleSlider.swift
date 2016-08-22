@@ -217,6 +217,13 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         }
     }
     
+    /// The thumb represented as an absoulte size in the component. When this is not set, then the thumb size will be a square using the minimum size of the control or if thumbRatio is set, then the ratio is used. The thumbSize overrules the thumbRatio, if both are set. Defaults to nil.
+    @IBInspectable public var thumbSize: CGSize? = nil {
+        didSet {
+            layoutComponents()
+        }
+    }
+    
     /// The thumb's background colors. If nil the thumb color will be lighter than the background color. Defaults to nil.
     /// Use the delegate to get fine grained control over each thumb
     @IBInspectable public var thumbBackgroundColor: UIColor? {
@@ -488,6 +495,11 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     func getThumbSize() -> CGSize {
+        // The thumbSize has precedence
+        if let ts = self.thumbSize {
+            return ts
+        }
+        // Use the ratio if set
         if let ratio = self.thumbRatio {
             if self.direction == .Horizontal {
                 return CGSizeMake(bounds.width * ratio, bounds.height)
@@ -496,6 +508,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
                 return CGSizeMake(bounds.width, bounds.height * ratio)
             }
         }
+        // Default to the controls minimum bound, which will result in a square thumb
         let s = min(self.bounds.width, self.bounds.height)
         return CGSizeMake(s, s)
     }
