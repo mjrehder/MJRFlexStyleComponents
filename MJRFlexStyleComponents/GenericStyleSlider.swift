@@ -402,6 +402,19 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         }
     }
 
+    func createSeparatorLayer(layerRect: CGRect) -> CAShapeLayer {
+        // Add layer with separator background colors
+        var rectColors: [(CGRect, UIColor)] = []
+        var idx = 0
+        for sep in self.separatorLabels {
+            let bgColor = self.sliderDelegate?.colorOfSeparatorLabel(idx) ?? separatorBackgroundColor
+            rectColors.append((sep.frame, bgColor ?? .clearColor()))
+            idx += 1
+        }
+        let sepLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.separatorStyle, colorRects: rectColors)
+        return sepLayer
+    }
+    
     func applyHintStyle(style: ShapeStyle) {
         hintLabel.style = style
         
@@ -422,15 +435,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         let layerRect = self.marginsForRect(bounds, margins: backgroundMargins)
         let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
         
-        // Add layer with separator background colors
-        var rectColors: [(CGRect, UIColor)] = []
-        var idx = 0
-        for sep in self.separatorLabels {
-            let bgColor = self.sliderDelegate?.colorOfSeparatorLabel(idx) ?? separatorBackgroundColor
-            rectColors.append((sep.frame, bgColor ?? .clearColor()))
-            idx += 1
-        }
-        let sepLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.separatorStyle, colorRects: rectColors)
+        let sepLayer = self.createSeparatorLayer(layerRect)
         bgsLayer.addSublayer(sepLayer)
         
         // Add layer with border, if required

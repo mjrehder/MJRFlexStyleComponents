@@ -43,12 +43,16 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
         
         self.eqSpacedMenu.menuDataSource = self
         self.eqSpacedMenu.thumbSize = ti1?.size
+        self.eqSpacedMenu.menuItemStyle = .Rounded
+        self.eqSpacedMenu.menuInterItemSpacing = 10.0
 
         self.dynSpacedMenu.menuDataSource = self
         self.dynSpacedMenu.thumbSize = ti1?.size
+        self.dynSpacedMenu.menuItemStyle = .Rounded
+        self.dynSpacedMenu.menuInterItemSpacing = 10.0
         
         self.eqSpacedMenu.menuStyle = .EquallySpaces(thumbPos: .Top)
-//        self.dynSpacedMenu.menuStyle = .DynamicallySpaces(thumbPos: .Bottom)
+        self.dynSpacedMenu.menuStyle = .DynamicallySpaces(thumbPos: .Bottom)
     }
     
     // MARK: - FlexMenuDataSource
