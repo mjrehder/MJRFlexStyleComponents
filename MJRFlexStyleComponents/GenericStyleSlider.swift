@@ -741,6 +741,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         sep.textColor = self.separatorTextColor
         self.separatorLabels.append(sep)
         self.addSubview(sep)
+        self.setupSeparatorGesture(sep)
     }
     
     func getSeparatorIndex(separator: StyledLabel) -> Int? {

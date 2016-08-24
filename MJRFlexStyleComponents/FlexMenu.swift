@@ -92,11 +92,13 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         }
         super.init(frame: targetFrame)
         self.initMenu()
+        self.setupMenuGestures()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.initMenu()
+        self.setupMenuGestures()
     }
 
     public func reloadMenu() {
@@ -360,6 +362,39 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         }
     }
     
+    func setupMenuGestures() {
+        let touchGesture = UITapGestureRecognizer(target: self, action: #selector(FlexMenu.menuTouched))
+        self.addGestureRecognizer(touchGesture)
+    }
+    
+    func menuTouched(sender: UITapGestureRecognizer) {
+        let menuFrames: [CGRect]
+        switch self.menuStyle {
+        case .Compact:
+            return
+        case .EquallySpaces(_):
+            menuFrames = self.getEquallySpacedMenuItemFrames()
+        case .DynamicallySpaces(_):
+            menuFrames = self.getDynamicallySpacedMenuItemFrames()
+        }
+        let p = sender.locationInView(self)
+        var index = 0
+        for f in menuFrames {
+            if CGRectContainsPoint(f, p) {
+                switch sender.state {
+                case .Began:
+                    self.onSeparatorTouchBegan(index)
+                case .Ended:
+                    self.onSeparatorTouchEnded(index)
+                default:
+                    break
+                }
+                return
+            }
+            index += 1
+        }
+    }
+    
     // MARK: - GenericStyleSliderTouchDelegate
     
     public func onThumbTouchBegan(index: Int) {
@@ -376,8 +411,10 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
     }
     
     public func onSeparatorTouchEnded(index: Int) {
-        self.setSelectedItem(index)
-        self.notifyValueChanged()
+        if index > 0 {
+            self.setSelectedItem(index-1)
+            self.notifyValueChanged()
+        }
     }
     
     // MARK: - GenericStyleSliderDelegate
