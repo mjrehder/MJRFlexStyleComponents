@@ -24,7 +24,7 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
     func setupView() {
         let col1 = FlexMenuItem(title: "First", titleShortcut: "F", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.MKColor.Grey.P500)
         let col2 = FlexMenuItem(title: "Second Larger", titleShortcut: "S", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.MKColor.Grey.P500)
-        let col3 = FlexMenuItem(title: "Third Mid", titleShortcut: "T", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.MKColor.Grey.P500)
+        let col3 = FlexMenuItem(title: "Third Med", titleShortcut: "T", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.MKColor.Grey.P500)
         self.menuItems.append(col1)
         self.menuItems.append(col2)
         self.menuItems.append(col3)
@@ -32,9 +32,9 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
         let ti1 = UIImage(named: "ThumbIcon1")
         let ti2 = UIImage(named: "ThumbIcon2")
         let ti3 = UIImage(named: "ThumbIcon3")
-        let scol1 = FlexMenuItem(title: "First", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.MKColor.Grey.P500, thumbIcon: ti1)
-        let scol2 = FlexMenuItem(title: "Second Larger", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.MKColor.Grey.P500, thumbIcon: ti2)
-        let scol3 = FlexMenuItem(title: "Third Mid", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.MKColor.Grey.P500, thumbIcon: ti3)
+        let scol1 = FlexMenuItem(title: "First", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clearColor(), thumbIcon: ti1)
+        let scol2 = FlexMenuItem(title: "Second Larger", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clearColor(), thumbIcon: ti2)
+        let scol3 = FlexMenuItem(title: "Third Med", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clearColor(), thumbIcon: ti3)
         self.spacedMenuItems.append(scol1)
         self.spacedMenuItems.append(scol2)
         self.spacedMenuItems.append(scol3)
@@ -42,7 +42,8 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
         self.compactMenu.menuDataSource = self
         
         self.eqSpacedMenu.menuDataSource = self
-        self.eqSpacedMenu.thumbSize = ti1?.size
+        self.eqSpacedMenu.thumbSize = CGSizeMake(30, 30)
+        self.eqSpacedMenu.separatorFont = UIFont.systemFontOfSize(12)
         self.eqSpacedMenu.menuItemStyle = .Rounded
         self.eqSpacedMenu.menuInterItemSpacing = 10.0
 

@@ -312,15 +312,20 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         let ts = self.getThumbSize()
         let tSic = self.thumbList.getPrincipalSizeValue(ts)
         let tSicNP = self.thumbList.getNonPrincipalSizeValue(ts)
-        switch thumbPos {
-        case .Left:
-            tRect = tRect.insetBy(dx: tSic * 0.5, dy: 0).offsetBy(dx: tSic * 0.5, dy: 0)
-        case .Right:
-            tRect = tRect.insetBy(dx: tSic * 0.5, dy: 0).offsetBy(dx: tSic * -0.5, dy: 0)
-        case .Top:
-            tRect = tRect.insetBy(dx: 0, dy: tSicNP * 0.5).offsetBy(dx: 0, dy: tSicNP * 0.5)
-        case .Bottom:
-            tRect = tRect.insetBy(dx: 0, dy: tSicNP * 0.5).offsetBy(dx: 0, dy: tSicNP * -0.5)
+        if (thumb.text == nil || thumb.text == "" ) && thumb.backgroundIcon == nil {
+            // If there is no thumb, then use the entire targetRect for the separator
+        }
+        else {
+            switch thumbPos {
+            case .Left:
+                tRect = tRect.insetBy(dx: tSic * 0.5, dy: 0).offsetBy(dx: tSic * 0.5, dy: 0)
+            case .Right:
+                tRect = tRect.insetBy(dx: tSic * 0.5, dy: 0).offsetBy(dx: tSic * -0.5, dy: 0)
+            case .Top:
+                tRect = tRect.insetBy(dx: 0, dy: tSicNP * 0.5).offsetBy(dx: 0, dy: tSicNP * 0.5)
+            case .Bottom:
+                tRect = tRect.insetBy(dx: 0, dy: tSicNP * 0.5).offsetBy(dx: 0, dy: tSicNP * -0.5)
+            }
         }
         if self.direction == .Vertical {
             tRect = CGRectMake(tRect.origin.y, tRect.origin.x, tRect.height, tRect.width)
