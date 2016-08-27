@@ -441,7 +441,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
             if CGRectContainsPoint(f, p) {
                 switch sender.state {
                 case .Ended:
-                    self.onSeparatorTouchEnded(index)
+                    self.onSeparatorTouchEnded(index+1)
                 default:
                     break
                 }
