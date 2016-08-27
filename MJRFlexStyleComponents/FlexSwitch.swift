@@ -132,9 +132,6 @@ public protocol FlexSwitchDelegate {
     
     // MARK: - GenericStyleSliderTouchDelegate
     
-    public func onThumbTouchBegan(index: Int) {
-    }
-    
     public func onThumbTouchEnded(index: Int) {
         self.setOn(!self.on)
         self.switchChanged()

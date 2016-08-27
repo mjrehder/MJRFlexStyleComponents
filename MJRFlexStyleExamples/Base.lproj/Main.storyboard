@@ -222,21 +222,41 @@
                                     <constraint firstAttribute="width" constant="411" id="lza-9I-ic3"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fgp-Lo-AN9" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <rect key="frame" x="40" y="77" width="40" height="515"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="jCw-U6-u1P"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bxv-GW-6g8" customClass="FlexView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <rect key="frame" x="95" y="234" width="411" height="358"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="YXA-Zl-d1j" firstAttribute="leading" secondItem="1aZ-RX-jaZ" secondAttribute="leading" id="21N-YV-BQ2"/>
                             <constraint firstItem="1aZ-RX-jaZ" firstAttribute="top" secondItem="YXA-Zl-d1j" secondAttribute="bottom" constant="8" symbolic="YES" id="7oh-Hz-9fS"/>
+                            <constraint firstItem="lSt-Xd-y6E" firstAttribute="top" secondItem="Fgp-Lo-AN9" secondAttribute="bottom" constant="8" symbolic="YES" id="C5a-Sg-Tgm"/>
                             <constraint firstItem="utr-C3-EXj" firstAttribute="top" secondItem="EzU-SH-Zht" secondAttribute="bottom" constant="8" symbolic="YES" id="Pe9-6k-YBd"/>
                             <constraint firstItem="utr-C3-EXj" firstAttribute="centerX" secondItem="Abf-jI-7sm" secondAttribute="centerX" id="U2v-7q-7A5"/>
                             <constraint firstItem="YXA-Zl-d1j" firstAttribute="top" secondItem="utr-C3-EXj" secondAttribute="bottom" constant="8" symbolic="YES" id="VLs-c6-hXc"/>
                             <constraint firstItem="utr-C3-EXj" firstAttribute="leading" secondItem="YXA-Zl-d1j" secondAttribute="leading" id="dgz-F5-q77"/>
+                            <constraint firstItem="bxv-GW-6g8" firstAttribute="trailing" secondItem="1aZ-RX-jaZ" secondAttribute="trailing" id="eKY-Av-eQS"/>
+                            <constraint firstItem="bxv-GW-6g8" firstAttribute="leading" secondItem="1aZ-RX-jaZ" secondAttribute="leading" id="jTv-xd-Dxi"/>
+                            <constraint firstItem="lSt-Xd-y6E" firstAttribute="top" secondItem="bxv-GW-6g8" secondAttribute="bottom" constant="8" symbolic="YES" id="lJo-qG-Qrj"/>
+                            <constraint firstItem="utr-C3-EXj" firstAttribute="leading" secondItem="Fgp-Lo-AN9" secondAttribute="trailing" constant="15" id="tFN-Rs-DHQ"/>
+                            <constraint firstItem="Fgp-Lo-AN9" firstAttribute="top" secondItem="EzU-SH-Zht" secondAttribute="bottom" constant="13" id="tng-UD-lS1"/>
+                            <constraint firstItem="bxv-GW-6g8" firstAttribute="top" secondItem="1aZ-RX-jaZ" secondAttribute="bottom" constant="8" symbolic="YES" id="zwa-OG-v2I"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="compactMenu" destination="utr-C3-EXj" id="VAU-qR-Ged"/>
                         <outlet property="dynSpacedMenu" destination="1aZ-RX-jaZ" id="WPR-3t-Smx"/>
                         <outlet property="eqSpacedMenu" destination="YXA-Zl-d1j" id="2Z2-Dq-iw5"/>
+                        <outlet property="flexView" destination="bxv-GW-6g8" id="dKp-bp-tYN"/>
+                        <outlet property="verticalDynSpacedMenu" destination="Fgp-Lo-AN9" id="2mi-uP-Pqa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wGG-fx-Bf4" userLabel="First Responder" sceneMemberID="firstResponder"/>

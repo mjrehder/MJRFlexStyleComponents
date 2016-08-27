@@ -40,6 +40,8 @@ public class FlexView: MJRFlexBaseControl {
     var headerLabel: StyledLabel?
     var footerLabel: StyledLabel?
     
+    var menus: [FlexViewMenu] = []
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         self.initView()
@@ -211,6 +213,22 @@ public class FlexView: MJRFlexBaseControl {
         }
     }
 
+    public func addMenu(menu: FlexViewMenu) {
+        self.menus.append(menu)
+        self.addSubview(menu.menu)
+        layoutComponents()
+    }
+    
+    public func removeMenu(menu: FlexViewMenu) {
+        if let idx = self.menus.indexOf({ (vmenu) -> Bool in
+            menu.id == vmenu.id
+        }) {
+            self.menus.removeAtIndex(idx)
+            menu.menu.removeFromSuperview()
+            layoutComponents()
+        }
+    }
+    
     // MARK: - Private Style
     
     func applyHeaderStyle(style: ShapeStyle) {
@@ -300,6 +318,10 @@ public class FlexView: MJRFlexBaseControl {
             self.footerLabel?.removeFromSuperview()
             self.footerLabel = nil
         }
+        
+        for menu in self.menus {
+            self.applyMenuLocationAndSize(menu)
+        }
     }
     
     override func applyStyle(style: FlexShapeStyle) {
@@ -330,4 +352,70 @@ public class FlexView: MJRFlexBaseControl {
         styleLayer.frame = layerRect
     }
 
+    // MARK: - Menu Handling
+    
+    func applyMenuLocationAndSize(menu: FlexViewMenu) {
+        menu.menu.direction = self.headerPosition == .Top ? .Horizontal : . Vertical
+        menu.menu.menuItemGravity = self.headerPosition == .Top ? .Normal : (self.headerPosition == .Left ? .Right : .Left)
+        let layerRect = self.marginsForRect(bounds, margins: backgroundMargins)
+        var msize = menu.size
+        var mpos = layerRect.origin
+        switch menu.hPos {
+        case .Fill:
+            let pw = menu.menu.direction.principalSize(layerRect.size)
+            let s = menu.menu.direction.nonPrincipalSize(menu.menu.direction.getSize(msize))
+            msize = menu.menu.direction.getSize(CGSizeMake(pw, s))
+        case .Center:
+            let pw = menu.menu.direction.principalSize(layerRect.size)
+            let pmw = menu.menu.direction.principalSize(menu.menu.direction.getSize(msize))
+            let pp = (pw - pmw) * 0.5
+            let npp = menu.menu.direction.nonPrincipalPosition(mpos)
+            mpos = menu.menu.direction.getPosition(CGPointMake(pp, npp))
+            msize = menu.menu.direction.getSize(msize)
+        case .Right:
+            if self.headerPosition == .Left {
+                msize = menu.menu.direction.getSize(msize)
+            }
+            else {
+                let pw = menu.menu.direction.principalSize(layerRect.size)
+                let pmw = menu.menu.direction.principalSize(menu.menu.direction.getSize(msize))
+                let pp = pw - pmw
+                let npp = menu.menu.direction.nonPrincipalPosition(mpos)
+                mpos = menu.menu.direction.getPosition(CGPointMake(pp, npp))
+                msize = menu.menu.direction.getSize(msize)
+            }
+        case .Left:
+            if self.headerPosition == .Left {
+                let pw = menu.menu.direction.principalSize(layerRect.size)
+                let pmw = menu.menu.direction.principalSize(menu.menu.direction.getSize(msize))
+                let pp = pw - pmw
+                let npp = menu.menu.direction.nonPrincipalPosition(mpos)
+                mpos = menu.menu.direction.getPosition(CGPointMake(pp, npp))
+                msize = menu.menu.direction.getSize(msize)
+            }
+            else {
+                msize = menu.menu.direction.getSize(msize)
+            }
+        }
+        
+        let npvp: CGFloat
+        switch menu.vPos {
+        case .Top:
+            let npw = menu.menu.direction.nonPrincipalSize(layerRect.size)
+            let ms = menu.menu.direction.nonPrincipalSize(msize)
+            npvp = self.headerPosition == .Right ? npw - (self.headerSize + ms) : self.headerSize
+        case .Bottom:
+            let npw = menu.menu.direction.nonPrincipalSize(layerRect.size)
+            let ms = menu.menu.direction.nonPrincipalSize(msize)
+            npvp = self.headerPosition == .Right ? self.footerSize : npw - (self.footerSize + ms)
+        case .Header:
+            let npw = menu.menu.direction.nonPrincipalSize(layerRect.size)
+            npvp = self.headerPosition == .Right ? npw - self.footerSize : 0
+        case .Footer:
+            let npw = menu.menu.direction.nonPrincipalSize(layerRect.size)
+            npvp = self.headerPosition == .Right ? 0 : npw - self.footerSize
+        }
+        mpos = menu.menu.direction.getPosition(CGPointMake(menu.menu.direction.principalPosition(mpos), npvp))
+        menu.menu.frame = CGRectMake(mpos.x, mpos.y, msize.width, msize.height)
+    }
 }

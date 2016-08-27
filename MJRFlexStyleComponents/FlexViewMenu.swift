@@ -1,8 +1,8 @@
 //
-//  StyledSliderDirection.swift
+//  FlexViewMenu.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 16.07.16.
+//  Created by Martin Rehder on 26.08.16.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -27,9 +27,33 @@
  *
  */
 
-import Foundation
+import UIKit
 
-public enum StyleSliderDirection {
-    case Horizontal
-    case Vertical
+public enum FlexViewMenuVerticalPosition {
+    case Top
+    case Bottom
+    case Header
+    case Footer
+}
+
+public enum FlexViewMenuHorizontalPosition {
+    case Left
+    case Right
+    case Fill
+    case Center
+}
+
+public class FlexViewMenu {
+    let hPos: FlexViewMenuHorizontalPosition
+    let vPos: FlexViewMenuVerticalPosition
+    let size: CGSize
+    let menu: FlexMenu
+    public let id = NSUUID().UUIDString
+    
+    public init(menu: FlexMenu, size: CGSize, hPos: FlexViewMenuHorizontalPosition, vPos: FlexViewMenuVerticalPosition) {
+        self.menu = menu
+        self.size = size
+        self.hPos = hPos
+        self.vPos = vPos
+    }
 }

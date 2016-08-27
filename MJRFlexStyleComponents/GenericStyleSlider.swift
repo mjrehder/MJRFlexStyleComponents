@@ -43,12 +43,10 @@ public protocol GenericStyleSliderDelegate {
 }
 
 public protocol GenericStyleSliderTouchDelegate {
-    func onThumbTouchBegan(index: Int)
     func onThumbTouchEnded(index: Int)
 }
 
 public protocol GenericStyleSliderSeparatorTouchDelegate {
-    func onSeparatorTouchBegan(index: Int)
     func onSeparatorTouchEnded(index: Int)
 }
 
@@ -134,7 +132,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
      
      The default is horizontal
      */
-    @IBInspectable public var direction: StyleSliderDirection = .Horizontal {
+    @IBInspectable public var direction: StyledControlDirection = .Horizontal {
         didSet {
             self.thumbList.direction = direction
             self.layoutComponents()
@@ -618,9 +616,6 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     func separatorTouched(sender: UITapGestureRecognizer) {
         if let separator = sender.view as? StyledLabel, index = self.getSeparatorIndex(separator) {
             switch sender.state {
-            case .Began:
-                touchesBeganPoint = sender.locationInView(self)
-                self.separatorTouchDelegate?.onSeparatorTouchBegan(index)
             case .Ended:
                 self.separatorTouchDelegate?.onSeparatorTouchEnded(index)
             default:
@@ -641,9 +636,6 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     func thumbTouched(sender: UITapGestureRecognizer) {
         if let thumb = sender.view as? StyledSliderThumb {
             switch sender.state {
-            case .Began:
-                touchesBeganPoint = sender.locationInView(self)
-                self.thumbTouchDelegate?.onThumbTouchBegan(thumb.index)
             case .Ended:
                 self.thumbTouchDelegate?.onThumbTouchEnded(thumb.index)
             default:

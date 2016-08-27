@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		196EEBA11171CF39C9A3DA13 /* Pods_MJRFlexStyleComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77B0444028789DB3E4592282 /* Pods_MJRFlexStyleComponents.framework */; };
+		5B1EFC7A1D7047250040AD50 /* FlexViewMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1EFC791D7047250040AD50 /* FlexViewMenu.swift */; };
+		5B1EFC7B1D7047250040AD50 /* FlexViewMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1EFC791D7047250040AD50 /* FlexViewMenu.swift */; };
 		5B53D0F31D5372010068BF04 /* FlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B53D0F21D5372010068BF04 /* FlexView.swift */; };
 		5B53D0F41D5372010068BF04 /* FlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B53D0F21D5372010068BF04 /* FlexView.swift */; };
 		5B53D0F71D5393520068BF04 /* ViewsDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B53D0F51D5393520068BF04 /* ViewsDemoViewController.swift */; };
@@ -15,7 +17,7 @@
 		5B8181351D5F1DD300BFEB49 /* FlexShapeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8181341D5F1DD300BFEB49 /* FlexShapeStyle.swift */; };
 		5B8181361D5F1DD300BFEB49 /* FlexShapeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8181341D5F1DD300BFEB49 /* FlexShapeStyle.swift */; };
 		5B9936D71D3A57620043E573 /* StyledSliderThumbList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9936D61D3A57620043E573 /* StyledSliderThumbList.swift */; };
-		5B9936D91D3A578B0043E573 /* StyledSliderDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9936D81D3A578B0043E573 /* StyledSliderDirection.swift */; };
+		5B9936D91D3A578B0043E573 /* StyledControlDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9936D81D3A578B0043E573 /* StyledControlDirection.swift */; };
 		5B9936FF1D3A9E210043E573 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9936FE1D3A9E210043E573 /* AppDelegate.swift */; };
 		5B9937011D3A9E210043E573 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9937001D3A9E210043E573 /* ViewController.swift */; };
 		5B9937041D3A9E210043E573 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B9937021D3A9E210043E573 /* Main.storyboard */; };
@@ -25,7 +27,7 @@
 		5B99370F1D3A9E5B0043E573 /* SnappingThumbBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F2C5D1D31616200B096B5 /* SnappingThumbBehaviour.swift */; };
 		5B9937101D3A9E5B0043E573 /* StyledSliderThumb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */; };
 		5B9937111D3A9E5B0043E573 /* StyledSliderThumbList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9936D61D3A57620043E573 /* StyledSliderThumbList.swift */; };
-		5B9937121D3A9E5B0043E573 /* StyledSliderDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9936D81D3A578B0043E573 /* StyledSliderDirection.swift */; };
+		5B9937121D3A9E5B0043E573 /* StyledControlDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9936D81D3A578B0043E573 /* StyledControlDirection.swift */; };
 		5B9F2C5E1D31616200B096B5 /* SnappingThumbBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F2C5D1D31616200B096B5 /* SnappingThumbBehaviour.swift */; };
 		5B9F2C601D32352600B096B5 /* StyledSliderThumb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */; };
 		5BC4B9B01D520E7F0000421F /* MJRFlexBaseControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC4B9AF1D520E7F0000421F /* MJRFlexBaseControl.swift */; };
@@ -62,12 +64,13 @@
 		3BF4E671A7E1DFDF866C6CB0 /* Pods-MJRFlexStyleExamples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJRFlexStyleExamples.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MJRFlexStyleExamples/Pods-MJRFlexStyleExamples.debug.xcconfig"; sourceTree = "<group>"; };
 		4EC07D419337E6A0F6F6AB74 /* Pods-MJRFlexStyleComponents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJRFlexStyleComponents.release.xcconfig"; path = "Pods/Target Support Files/Pods-MJRFlexStyleComponents/Pods-MJRFlexStyleComponents.release.xcconfig"; sourceTree = "<group>"; };
 		5300EC2FC567953C422F4037 /* Pods-MJRFlexStyleComponents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJRFlexStyleComponents.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MJRFlexStyleComponents/Pods-MJRFlexStyleComponents.debug.xcconfig"; sourceTree = "<group>"; };
+		5B1EFC791D7047250040AD50 /* FlexViewMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexViewMenu.swift; sourceTree = "<group>"; };
 		5B53D0F21D5372010068BF04 /* FlexView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexView.swift; sourceTree = "<group>"; };
 		5B53D0F51D5393520068BF04 /* ViewsDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewsDemoViewController.swift; sourceTree = "<group>"; };
 		5B6CF1581D48E8DD00291D8B /* MKColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKColor.swift; sourceTree = "<group>"; };
 		5B8181341D5F1DD300BFEB49 /* FlexShapeStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexShapeStyle.swift; sourceTree = "<group>"; };
 		5B9936D61D3A57620043E573 /* StyledSliderThumbList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledSliderThumbList.swift; sourceTree = "<group>"; };
-		5B9936D81D3A578B0043E573 /* StyledSliderDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledSliderDirection.swift; sourceTree = "<group>"; };
+		5B9936D81D3A578B0043E573 /* StyledControlDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledControlDirection.swift; sourceTree = "<group>"; };
 		5B9936FC1D3A9E210043E573 /* MJRFlexStyleExamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MJRFlexStyleExamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B9936FE1D3A9E210043E573 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B9937001D3A9E210043E573 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -162,7 +165,7 @@
 				5BE4484C1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift */,
 				5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */,
 				5B9936D61D3A57620043E573 /* StyledSliderThumbList.swift */,
-				5B9936D81D3A578B0043E573 /* StyledSliderDirection.swift */,
+				5B9936D81D3A578B0043E573 /* StyledControlDirection.swift */,
 				5BE448451D412AC60011E5AE /* StyledShapeLayer.swift */,
 				5B8181341D5F1DD300BFEB49 /* FlexShapeStyle.swift */,
 			);
@@ -208,6 +211,7 @@
 				5BE448621D450DC20011E5AE /* FlexSeriesView.swift */,
 				5BE448691D4760EE0011E5AE /* FlexSlider.swift */,
 				5BE4486C1D478E9A0011E5AE /* FlexDoubleSlider.swift */,
+				5B1EFC791D7047250040AD50 /* FlexViewMenu.swift */,
 				5B53D0F21D5372010068BF04 /* FlexView.swift */,
 				5BF7020B1D3113D50011555A /* MJRFlexStyleComponents.h */,
 				5BF7020D1D3113D50011555A /* Info.plist */,
@@ -440,7 +444,8 @@
 				5BC4B9B11D520E7F0000421F /* MJRFlexBaseControl.swift in Sources */,
 				5BE4485B1D44C71D0011E5AE /* FlexMenu.swift in Sources */,
 				5B9937111D3A9E5B0043E573 /* StyledSliderThumbList.swift in Sources */,
-				5B9937121D3A9E5B0043E573 /* StyledSliderDirection.swift in Sources */,
+				5B9937121D3A9E5B0043E573 /* StyledControlDirection.swift in Sources */,
+				5B1EFC7B1D7047250040AD50 /* FlexViewMenu.swift in Sources */,
 				5B9937101D3A9E5B0043E573 /* StyledSliderThumb.swift in Sources */,
 				5BE4485E1D44C8D80011E5AE /* FlexMenuItem.swift in Sources */,
 				5BE4484A1D41F6DB0011E5AE /* PositionUpdateTimer.swift in Sources */,
@@ -464,7 +469,7 @@
 				5BE448531D4381C90011E5AE /* FlexSwitch.swift in Sources */,
 				5B9F2C5E1D31616200B096B5 /* SnappingThumbBehaviour.swift in Sources */,
 				5BC4B9B01D520E7F0000421F /* MJRFlexBaseControl.swift in Sources */,
-				5B9936D91D3A578B0043E573 /* StyledSliderDirection.swift in Sources */,
+				5B9936D91D3A578B0043E573 /* StyledControlDirection.swift in Sources */,
 				5BE4486A1D4760EE0011E5AE /* FlexSlider.swift in Sources */,
 				5BF702151D3116AC0011555A /* GenericStyleSlider.swift in Sources */,
 				5BE448501D4220830011E5AE /* LabelFactory.swift in Sources */,
@@ -477,6 +482,7 @@
 				5BE4484D1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift in Sources */,
 				5B8181351D5F1DD300BFEB49 /* FlexShapeStyle.swift in Sources */,
 				5B9936D71D3A57620043E573 /* StyledSliderThumbList.swift in Sources */,
+				5B1EFC7A1D7047250040AD50 /* FlexViewMenu.swift in Sources */,
 				5BE448631D450DC20011E5AE /* FlexSeriesView.swift in Sources */,
 				5BE4486D1D478E9A0011E5AE /* FlexDoubleSlider.swift in Sources */,
 				5B9F2C601D32352600B096B5 /* StyledSliderThumb.swift in Sources */,

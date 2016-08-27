@@ -42,7 +42,7 @@ public class StyledSliderThumbList {
         }
     }
     
-    public var direction: StyleSliderDirection = .Horizontal {
+    public var direction: StyledControlDirection = .Horizontal {
         didSet {
         }
     }
