@@ -206,7 +206,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         var rects: [CGRect] = []
         if let ds = self.menuDataSource {
             let numSep = ds.numberOfMenuItems(self)
-            let maxExt = self.thumbList.getPrincipalSizeValue(self.bounds.size)
+            let maxExt = self.direction.principalSize(self.bounds.size)
             let itemExt = (maxExt - (self.menuInterItemSpacing * (CGFloat(numSep-1)))) / CGFloat(numSep)
             let itemOffset = itemExt + self.menuInterItemSpacing
             for i in 0..<numSep {
@@ -230,7 +230,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
             for i in 0..<numSep {
                 let sep = self.separatorForThumb(i)
                 if let tSize = self.sizeOfTextLabel(sep) {
-                    totalWidth += self.thumbList.getPrincipalSizeValue(tSize)
+                    totalWidth += self.direction.principalSize(tSize)
                 }
             }
         }
@@ -241,7 +241,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         var rects: [CGRect] = []
         if let ds = self.menuDataSource {
             let numSep = ds.numberOfMenuItems(self)
-            let maxExt = self.thumbList.getPrincipalSizeValue(self.bounds.size)
+            let maxExt = self.direction.principalSize(self.bounds.size)
             let ttWidth = self.getTotalTextWidth()
             let textScaling = ttWidth > 0 ? (maxExt - (self.menuInterItemSpacing * (CGFloat(numSep-1)))) / ttWidth : 1.0
             
@@ -251,10 +251,10 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
 
                 let itemExt: CGFloat
                 if let tSize = self.sizeOfTextLabel(sep) {
-                    itemExt = self.thumbList.getPrincipalSizeValue(tSize) * textScaling
+                    itemExt = self.direction.principalSize(tSize) * textScaling
                 }
                 else {
-                    itemExt = self.thumbList.getPrincipalSizeValue(self.getThumbSize())
+                    itemExt = self.direction.principalSize(self.getThumbSize())
                 }
                 
                 let rect: CGRect
@@ -306,10 +306,10 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
     func thumbPosInsideSpacedRect(thumb: StyledSliderThumb, targetRect: CGRect, thumbPos: FlexMenuThumbPosition) -> CGPoint {
         var tPos = CGPointZero
         let ts = self.getThumbSize()
-        let sic = self.thumbList.getPrincipalSizeValue(targetRect.size)
-        let sicNP = self.thumbList.getNonPrincipalSizeValue(targetRect.size)
-        let tSic = self.thumbList.getPrincipalSizeValue(ts)
-        let tSicNP = self.thumbList.getNonPrincipalSizeValue(ts)
+        let sic = self.direction.principalSize(targetRect.size)
+        let sicNP = self.direction.nonPrincipalSize(targetRect.size)
+        let tSic = self.direction.principalSize(ts)
+        let tSicNP = self.direction.nonPrincipalSize(ts)
         // Center the icon, if there is an empty text
         if let sepText = self.sliderDelegate?.textOfSeparatorLabel(thumb.index+1) where sepText == "" {
             tPos = CGPointMake((sic - tSic) * 0.5, (sicNP - tSicNP) * 0.5)
@@ -339,8 +339,8 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
     func separatorRectInsideSpacedRect(thumb: StyledSliderThumb, targetRect: CGRect, thumbPos: FlexMenuThumbPosition) -> CGRect {
         var tRect = targetRect
         let ts = self.getThumbSize()
-        let tSic = self.thumbList.getPrincipalSizeValue(ts)
-        let tSicNP = self.thumbList.getNonPrincipalSizeValue(ts)
+        let tSic = self.direction.principalSize(ts)
+        let tSicNP = self.direction.nonPrincipalSize(ts)
         if (thumb.text == nil || thumb.text == "" ) && thumb.backgroundIcon == nil {
             // If there is no thumb, then use the entire targetRect for the separator
             return targetRect

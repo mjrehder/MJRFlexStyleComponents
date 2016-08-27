@@ -465,9 +465,9 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         if idx > 0 {
             let sep = self.separatorLabels[idx]
             if let tSize = self.sizeOfTextLabel(sep) {
-                let lp = self.thumbList.getPrincipalPositionValue(self.thumbList.thumbs[idx-1].center)
+                let lp = self.direction.principalPosition(self.thumbList.thumbs[idx-1].center)
                 let hp = self.thumbList.higherPosForThumb(idx-1)
-                let tS = self.thumbList.getPrincipalSizeValue(tSize) * 1.5
+                let tS = self.direction.principalSize(tSize) * 1.5
                 let xp = tS  / (hp - lp)
                 let opa: CGFloat
                 if xp < 0.0 {
@@ -549,10 +549,10 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             let sep = self.separatorForThumb(thumb.index)
             let hp: CGFloat
             if thumb.index+1 < self.thumbList.thumbs.count {
-                hp = self.thumbList.getPrincipalPositionValue(self.thumbList.getThumbPosForValue(_values[thumb.index+1], thumbIndex: thumb.index+1))
+                hp = self.direction.principalPosition(self.thumbList.getThumbPosForValue(_values[thumb.index+1], thumbIndex: thumb.index+1))
             }
             else {
-                hp = self.thumbList.getPrincipalSizeValue(self.bounds.size) + self.thumbList.getPrincipalPositionValue(self.bounds.origin)
+                hp = self.direction.principalSize(self.bounds.size) + self.direction.principalPosition(self.bounds.origin)
             }
             if self.direction == .Horizontal {
                 let sepHeight  = bounds.height * separatorRatio
@@ -568,10 +568,10 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             let sep = self.separatorLabels[0]
             let hp: CGFloat
             if self.thumbList.thumbs.count > 0 {
-                hp = self.thumbList.getPrincipalPositionValue(self.thumbList.getThumbPosForValue(_values[0], thumbIndex: 0))
+                hp = self.direction.principalPosition(self.thumbList.getThumbPosForValue(_values[0], thumbIndex: 0))
             }
             else {
-                hp = self.thumbList.getPrincipalSizeValue(self.bounds.size) + self.thumbList.getPrincipalPositionValue(self.bounds.origin)
+                hp = self.direction.principalSize(self.bounds.size) + self.direction.principalPosition(self.bounds.origin)
             }
             let pos = self.bounds.origin
             if self.direction == .Horizontal {
@@ -671,8 +671,8 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
                 }
                 let translationInView = sender.translationInView(thumb)
                 
-                let tiv = self.thumbList.getPrincipalPositionValue(translationInView)
-                let tb = self.thumbList.getPrincipalPositionValue(touchesBeganPoint)
+                let tiv = self.direction.principalPosition(translationInView)
+                let tb = self.direction.principalPosition(touchesBeganPoint)
                 self.thumbList.updateThumbPosition(tiv+tb, thumbIndex: thumb.index)
 
                 if case .None = hintStyle {} else {

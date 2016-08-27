@@ -68,7 +68,7 @@ public class StyledSliderThumbList {
         case .SnapToHigher:
             thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosFromPrincipalPos(hp, thumbIndex: thumb.index))
         case .SnapToLowerAndHigher:
-            let pos = self.getPrincipalPositionValue(thumb.center)
+            let pos = self.direction.principalPosition(thumb.center)
             if pos < cp {
                 thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosFromPrincipalPos(lp, thumbIndex: thumb.index))
             }
@@ -99,35 +99,23 @@ public class StyledSliderThumbList {
         return (value - minimumValue) / (maximumValue - minimumValue)
     }
     
-    func getPrincipalPositionValue(p: CGPoint) -> CGFloat {
-        return self.direction == .Horizontal ? p.x : p.y
-    }
-    
-    func getPrincipalSizeValue(s: CGSize) -> CGFloat {
-        return self.direction == .Horizontal ? s.width: s.height
-    }
-    
-    func getNonPrincipalSizeValue(s: CGSize) -> CGFloat {
-        return self.direction == .Horizontal ? s.height: s.width
-    }
-    
     func getPositionMin() -> CGFloat {
         if let firstThumb = self.thumbs.first {
-            return self.getPrincipalSizeValue(firstThumb.bounds.size) * 0.5
+            return self.direction.principalSize(firstThumb.bounds.size) * 0.5
         }
-        return self.getPrincipalPositionValue(self.bounds.origin)
+        return self.direction.principalPosition(self.bounds.origin)
     }
     
     func getPositionMax() -> CGFloat {
-        let maxControlPos = self.getPrincipalSizeValue(self.bounds.size) + self.getPrincipalPositionValue(self.bounds.origin)
+        let maxControlPos = self.direction.principalSize(self.bounds.size) + self.direction.principalPosition(self.bounds.origin)
         if let lastThumb = self.thumbs.last {
-            return maxControlPos - self.getPrincipalSizeValue(lastThumb.bounds.size) * 0.5
+            return maxControlPos - self.direction.principalSize(lastThumb.bounds.size) * 0.5
         }
         return maxControlPos
     }
     
     func getControlSize() -> CGFloat {
-        return self.getPrincipalSizeValue(self.bounds.size)
+        return self.direction.principalSize(self.bounds.size)
     }
     
     func thumbSizeSum(startIndex: Int, endIndex: Int) -> CGFloat {
@@ -135,7 +123,7 @@ public class StyledSliderThumbList {
         if startIndex <= endIndex && startIndex >= 0 && endIndex < self.thumbs.count {
             for index in startIndex ... endIndex {
                 let thumb = self.thumbs[index]
-                sum += self.getPrincipalSizeValue(thumb.bounds.size)
+                sum += self.direction.principalSize(thumb.bounds.size)
             }
         }
         return sum
@@ -146,16 +134,16 @@ public class StyledSliderThumbList {
         if startIndex <= endIndex && startIndex >= 0 && endIndex < self.thumbs.count {
             if startIndex == 0 {
                 let thumb = self.thumbs[0]
-                sum += self.getPrincipalPositionValue(thumb.center)
+                sum += self.direction.principalPosition(thumb.center)
             }
             if endIndex == self.thumbs.count-1 {
                 let thumb = self.thumbs[self.thumbs.count-1]
-                sum += self.getPositionMax() - self.getPrincipalPositionValue(thumb.center)
+                sum += self.getPositionMax() - self.direction.principalPosition(thumb.center)
             }
             for index in startIndex ..< endIndex {
                 let thumb = self.thumbs[index]
                 let nextThumb = self.thumbs[index+1]
-                sum += (self.getPrincipalPositionValue(nextThumb.bounds.origin) - self.getPrincipalPositionValue(thumb.bounds.origin))
+                sum += (self.direction.principalPosition(nextThumb.bounds.origin) - self.direction.principalPosition(thumb.bounds.origin))
             }
         }
         return sum
@@ -185,24 +173,24 @@ public class StyledSliderThumbList {
         var prevThumbSize: CGFloat = 0
         var prevPos: CGFloat = 0
         if let prevThumb = self.getPrevThumb(index) {
-            prevThumbSize = self.getPrincipalSizeValue(prevThumb.bounds.size)
-            prevPos = self.getPrincipalPositionValue(prevThumb.center)
+            prevThumbSize = self.direction.principalSize(prevThumb.bounds.size)
+            prevPos = self.direction.principalPosition(prevThumb.center)
         }
         let thumb = self.thumbs[index]
-        let thumbSize = self.getPrincipalSizeValue(thumb.bounds.size)
-        return self.getPrincipalPositionValue(self.bounds.origin) + prevPos + (prevThumbSize + thumbSize) * 0.5
+        let thumbSize = self.direction.principalSize(thumb.bounds.size)
+        return self.direction.principalPosition(self.bounds.origin) + prevPos + (prevThumbSize + thumbSize) * 0.5
     }
     
     func higherPosForThumb(index: Int) -> CGFloat {
         var nextThumbSize: CGFloat = 0
-        var nextPos: CGFloat = self.getPrincipalSizeValue(self.bounds.size)
+        var nextPos: CGFloat = self.direction.principalSize(self.bounds.size)
         if let nextThumb = self.getNextThumb(index) {
-            nextThumbSize = self.getPrincipalSizeValue(nextThumb.bounds.size)
-            nextPos = self.getPrincipalPositionValue(nextThumb.center)
+            nextThumbSize = self.direction.principalSize(nextThumb.bounds.size)
+            nextPos = self.direction.principalPosition(nextThumb.center)
         }
         let thumb = self.thumbs[index]
-        let thumbSize = self.getPrincipalSizeValue(thumb.bounds.size)
-        return (self.getPrincipalPositionValue(self.bounds.origin) + nextPos) - (nextThumbSize + thumbSize) * 0.5
+        let thumbSize = self.direction.principalSize(thumb.bounds.size)
+        return (self.direction.principalPosition(self.bounds.origin) + nextPos) - (nextThumbSize + thumbSize) * 0.5
     }
     
     func updateThumbPosition(pos: CGFloat, thumbIndex: Int) {
@@ -236,7 +224,7 @@ public class StyledSliderThumbList {
     
     func getThumbPosForValue(value: Double, thumbIndex: Int) -> CGPoint {
         let thumb = self.thumbs[thumbIndex]
-        let tS = self.getPrincipalSizeValue(thumb.bounds.size)
+        let tS = self.direction.principalSize(thumb.bounds.size)
         let thS = tS * 0.5
         let vd = CGFloat(self.getValueDelta(value))
         let totalThumbSum = self.thumbSizeSum(0, endIndex: self.thumbs.count-1)
@@ -248,13 +236,13 @@ public class StyledSliderThumbList {
     
     func getValueFromThumbPos(thumbIndex: Int) -> Double {
         let thumb = self.thumbs[thumbIndex]
-        let tS = self.getPrincipalSizeValue(thumb.bounds.size)
+        let tS = self.direction.principalSize(thumb.bounds.size)
         let thS = tS * 0.5
         let totalThumbSum = self.thumbSizeSum(0, endIndex: self.thumbs.count-1)
         let lowerThumbSum = self.thumbSizeSum(0, endIndex: thumbIndex-1)
         let uT = self.getControlSize()
 
-        let pos = self.getPrincipalPositionValue(thumb.center)
+        let pos = self.direction.principalPosition(thumb.center)
         let vT = Double((pos - (lowerThumbSum + thS)) / (uT - totalThumbSum))
         let val = vT * (maximumValue - minimumValue) + minimumValue
         return val
