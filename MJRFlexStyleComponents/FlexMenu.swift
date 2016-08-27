@@ -57,7 +57,8 @@ public enum FlexMenuStyle {
 
 @IBDesignable
 public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, GenericStyleSliderDelegate, GenericStyleSliderSeparatorTouchDelegate {
-
+    private var touchedMenuItem: Int?
+    
     public var menuDataSource: FlexMenuDataSource? {
         didSet {
             self.reloadMenu()
@@ -386,27 +387,33 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         return tRect
     }
     
-    override func createSeparatorLayer(layerRect: CGRect) -> CAShapeLayer {
-        let menuItemFrames: [CGRect]
-
+    private func getActiveMenuFrames() -> [CGRect]? {
         switch self.menuStyle {
         case .Compact:
-            return super.createSeparatorLayer(layerRect)
+            return nil
         case .EquallySpaces(_):
-            menuItemFrames = self.getEquallySpacedMenuItemFrames()
+            return self.getEquallySpacedMenuItemFrames()
         case .DynamicallySpaces(_):
-            menuItemFrames = self.getDynamicallySpacedMenuItemFrames()
+            return self.getDynamicallySpacedMenuItemFrames()
         }
-        // Add layer with separator background colors
+    }
+    
+    override func createSeparatorLayer(layerRect: CGRect) -> CAShapeLayer {
         var rectColors: [(CGRect, UIColor)] = []
-        if let ds = self.menuDataSource {
-            for idx in 0..<ds.numberOfMenuItems(self) {
-                let miFrame = menuItemFrames[idx]
-                let bgColor = self.colorOfSeparatorLabel(idx+1) ?? separatorBackgroundColor
-                rectColors.append((miFrame, bgColor ?? .clearColor()))
+        if let menuItemFrames = self.getActiveMenuFrames() {
+            // Add layer with separator background colors
+            if let ds = self.menuDataSource {
+                for idx in 0..<ds.numberOfMenuItems(self) {
+                    let miFrame = menuItemFrames[idx]
+                    let bgColor = self.colorOfSeparatorLabel(idx+1) ?? separatorBackgroundColor
+                    rectColors.append((miFrame, bgColor ?? .clearColor()))
+                }
             }
         }
-        
+        else {
+            return super.createSeparatorLayer(layerRect)
+        }
+
         let sepLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.menuItemStyle, colorRects: rectColors)
         return sepLayer
     }
@@ -423,31 +430,45 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
     func setupMenuGestures() {
         let touchGesture = UITapGestureRecognizer(target: self, action: #selector(FlexMenu.menuTouched))
         self.addGestureRecognizer(touchGesture)
+        
+    }
+
+    public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if let menuFrames = self.getActiveMenuFrames(), touch = touches.first {
+            let p = touch.locationInView(self)
+            var index = 0
+            for f in menuFrames {
+                if CGRectContainsPoint(f, p) {
+                    self.touchedMenuItem = index
+                    self.layoutComponents()
+                    let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
+                    dispatch_after(delayTime, dispatch_get_main_queue()) {
+                        self.touchedMenuItem = nil
+                        self.layoutComponents()
+                    }
+                    return
+                }
+                index += 1
+            }
+        }
     }
     
     func menuTouched(sender: UITapGestureRecognizer) {
-        let menuFrames: [CGRect]
-        switch self.menuStyle {
-        case .Compact:
-            return
-        case .EquallySpaces(_):
-            menuFrames = self.getEquallySpacedMenuItemFrames()
-        case .DynamicallySpaces(_):
-            menuFrames = self.getDynamicallySpacedMenuItemFrames()
-        }
-        let p = sender.locationInView(self)
-        var index = 0
-        for f in menuFrames {
-            if CGRectContainsPoint(f, p) {
-                switch sender.state {
-                case .Ended:
-                    self.onSeparatorTouchEnded(index+1)
-                default:
-                    break
+        if let menuFrames = self.getActiveMenuFrames() {
+            let p = sender.locationInView(self)
+            var index = 0
+            for f in menuFrames {
+                if CGRectContainsPoint(f, p) {
+                    switch sender.state {
+                    case .Ended:
+                        self.onSeparatorTouchEnded(index+1)
+                    default:
+                        break
+                    }
+                    return
                 }
-                return
+                index += 1
             }
-            index += 1
         }
     }
     
@@ -490,7 +511,11 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
     
     public func colorOfSeparatorLabel(index: Int) -> UIColor? {
         if index > 0 {
-            return self.menuDataSource?.menuItemForIndex(self, index: index-1).color
+            let color = self.menuDataSource?.menuItemForIndex(self, index: index-1).color
+            if let si = self.touchedMenuItem where si == index - 1 {
+                return color?.lighterColor()
+            }
+            return color
         }
         return nil
     }
