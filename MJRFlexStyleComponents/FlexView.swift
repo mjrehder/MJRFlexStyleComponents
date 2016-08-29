@@ -57,7 +57,7 @@ public class FlexView: MJRFlexBaseControl {
         self.layoutComponents()
     }
     
-    private func initView() {
+    func initView() {
         if self.styleLayer.superlayer == nil {
             self.layer.insertSublayer(self.styleLayer, atIndex: 0)
         }
@@ -226,6 +226,28 @@ public class FlexView: MJRFlexBaseControl {
             self.menus.removeAtIndex(idx)
             menu.menu.removeFromSuperview()
             layoutComponents()
+        }
+    }
+    
+    public func getViewRect() -> CGRect {
+        var heightReduce: CGFloat = 0
+        var topOffset: CGFloat = 0
+        var bottomOffset: CGFloat = 0
+        if self.headerText != nil {
+            heightReduce += self.headerSize
+            topOffset += self.headerSize
+        }
+        if self.footerText != nil {
+            bottomOffset += self.footerSize
+            heightReduce += self.footerSize
+        }
+        switch self.headerPosition {
+        case .Top:
+            return CGRectMake(0, topOffset, self.bounds.size.width, self.bounds.size.height - heightReduce)
+        case .Left:
+            return CGRectMake(topOffset, 0, self.bounds.size.width - heightReduce, self.bounds.size.height)
+        case .Right:
+            return CGRectMake(bottomOffset, 0, self.bounds.size.width - heightReduce, self.bounds.size.height)
         }
     }
     

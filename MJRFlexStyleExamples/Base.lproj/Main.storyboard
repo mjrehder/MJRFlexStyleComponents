@@ -186,7 +186,7 @@
             </objects>
             <point key="canvasLocation" x="1802" y="429"/>
         </scene>
-        <!--Menus Demo View Controller-->
+        <!--Flex Menus-->
         <scene sceneID="1Oq-nZ-95m">
             <objects>
                 <viewController id="j7U-6w-Lom" customClass="MenusDemoViewController" customModule="MJRFlexStyleExamples" customModuleProvider="target" sceneMemberID="viewController">
@@ -251,6 +251,13 @@
                             <constraint firstItem="bxv-GW-6g8" firstAttribute="top" secondItem="1aZ-RX-jaZ" secondAttribute="bottom" constant="8" symbolic="YES" id="zwa-OG-v2I"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Flex Menus" id="bZ0-zd-4Qe">
+                        <barButtonItem key="rightBarButtonItem" title="Image View" id="ERO-sz-6ZL">
+                            <connections>
+                                <segue destination="7HK-Sf-CE8" kind="show" id="pKN-Mc-bUA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="compactMenu" destination="utr-C3-EXj" id="VAU-qR-Ged"/>
                         <outlet property="dynSpacedMenu" destination="1aZ-RX-jaZ" id="WPR-3t-Smx"/>
@@ -262,6 +269,62 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wGG-fx-Bf4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2590" y="429"/>
+        </scene>
+        <!--Image View-->
+        <scene sceneID="0Bf-bN-CXh">
+            <objects>
+                <viewController id="7HK-Sf-CE8" customClass="ImageViewDemoViewController" customModule="MJRFlexStyleExamples" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Hly-6t-5b9"/>
+                        <viewControllerLayoutGuide type="bottom" id="HK7-H7-Mv8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gWF-wX-Pwy">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0d4-Cl-e10" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <rect key="frame" x="94" y="126" width="411" height="46"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="411" id="Rhu-l0-gdv"/>
+                                    <constraint firstAttribute="height" constant="46" id="kYm-HO-Q0f"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Htv-6x-PL4" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <rect key="frame" x="94" y="72" width="411" height="46"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="411" id="EH7-bI-KMv"/>
+                                    <constraint firstAttribute="height" constant="46" id="WDn-0W-PXj"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wuv-S2-yxX" customClass="FlexImageView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <rect key="frame" x="94" y="180" width="411" height="412"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wuv-S2-yxX" firstAttribute="top" secondItem="0d4-Cl-e10" secondAttribute="bottom" constant="8" symbolic="YES" id="AfO-3N-d9e"/>
+                            <constraint firstItem="0d4-Cl-e10" firstAttribute="leading" secondItem="wuv-S2-yxX" secondAttribute="leading" id="KWL-Vn-t03"/>
+                            <constraint firstItem="Htv-6x-PL4" firstAttribute="leading" secondItem="0d4-Cl-e10" secondAttribute="leading" id="MPs-yP-Flt"/>
+                            <constraint firstItem="Htv-6x-PL4" firstAttribute="centerX" secondItem="gWF-wX-Pwy" secondAttribute="centerX" id="a0a-Mw-TBk"/>
+                            <constraint firstItem="HK7-H7-Mv8" firstAttribute="top" secondItem="wuv-S2-yxX" secondAttribute="bottom" constant="8" symbolic="YES" id="e5G-ZU-JDY"/>
+                            <constraint firstItem="0d4-Cl-e10" firstAttribute="trailing" secondItem="wuv-S2-yxX" secondAttribute="trailing" id="ivP-oQ-Et6"/>
+                            <constraint firstItem="Htv-6x-PL4" firstAttribute="top" secondItem="Hly-6t-5b9" secondAttribute="bottom" constant="8" symbolic="YES" id="xcO-Z3-zbD"/>
+                            <constraint firstItem="0d4-Cl-e10" firstAttribute="top" secondItem="Htv-6x-PL4" secondAttribute="bottom" constant="8" symbolic="YES" id="z0E-tr-duS"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Image View" id="yVl-00-wii"/>
+                    <connections>
+                        <outlet property="flexView" destination="wuv-S2-yxX" id="My6-pJ-5Lw"/>
+                        <outlet property="flexViewOrientation" destination="Htv-6x-PL4" id="fL1-pT-PwM"/>
+                        <outlet property="imageViewStyle" destination="0d4-Cl-e10" id="LcA-V0-2q5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p7c-VJ-lRX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3329" y="429"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fKv-qm-XHe">
