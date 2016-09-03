@@ -29,8 +29,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, ‘9.0’
 
 use_frameworks!
-pod 'SnappingStepper', '~> 2.3.1’
-pod ‘MJRFlexStyleComponents’, '~> 1.0.0’
+pod ‘MJRFlexStyleComponents’, '~> 1.3’
 ```
 
 Install into your project:
