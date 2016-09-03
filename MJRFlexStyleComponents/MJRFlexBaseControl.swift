@@ -28,6 +28,7 @@
  */
 
 import UIKit
+import StyledLabel
 
 public class MJRFlexBaseControl: UIControl {
     var styleLayer = CAShapeLayer()
@@ -50,7 +51,7 @@ public class MJRFlexBaseControl: UIControl {
     // MARK: - Control Style
     
     /// The view's style. Default's to box.
-    @IBInspectable public var style: FlexShapeStyle = .Box {
+    @IBInspectable public var style: ShapeStyle = .Box {
         didSet {
             self.applyStyle(self.style)
         }
@@ -101,7 +102,7 @@ public class MJRFlexBaseControl: UIControl {
         self.applyStyle(self.style)
     }
     
-    func applyStyle(style: FlexShapeStyle) {
+    func applyStyle(style: ShapeStyle) {
         if self.styleLayer.superlayer == nil {
             self.layer.addSublayer(styleLayer)
         }

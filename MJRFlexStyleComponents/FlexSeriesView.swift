@@ -82,7 +82,7 @@ public class FlexSeriesView: UIControl {
      
      The default is horizontal
      */
-    @IBInspectable public var direction: StyleSliderDirection = .Horizontal {
+    @IBInspectable public var direction: StyledControlDirection = .Horizontal {
         didSet {
             for slider in self.sliders {
                 slider.direction = direction

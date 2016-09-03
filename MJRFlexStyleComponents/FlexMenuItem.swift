@@ -34,11 +34,13 @@ public class FlexMenuItem {
     let titleShortcut: String
     let color: UIColor
     let thumbColor: UIColor
+    let thumbIcon: UIImage?
     
-    public init(title: String, titleShortcut: String, color: UIColor, thumbColor: UIColor) {
+    public init(title: String, titleShortcut: String, color: UIColor, thumbColor: UIColor, thumbIcon: UIImage? = nil) {
         self.title = title
         self.titleShortcut = titleShortcut
         self.color = color
         self.thumbColor = thumbColor
+        self.thumbIcon = thumbIcon
     }
 }
