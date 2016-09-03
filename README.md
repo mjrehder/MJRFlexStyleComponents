@@ -121,9 +121,23 @@ Example:
 
 ### FlexMenu
 
-This is a compact menu with a thumb shortcut text and a menu title for an arbitrary number of FlexMenuItems
+![flexmenusdemo](https://cloud.githubusercontent.com/assets/476994/18223685/9608dbc6-71bf-11e6-9939-e1554d6ed890.gif)
 
-Example (from the example project):
+FlexMenu has three different layout types:
+* Compact
+* Equally Spaced
+* Dynamically Spaced
+
+The compact menu has a thumb shortcut text and a menu title for an arbitrary number of FlexMenuItems. You can swipe the thumbs to change the selected menu item or press the thumbs.
+
+The equally and dynamically spaced layouts are similar to the familiar Toolbar or NavigationBar from iOS.
+
+All menu layouts support vertical layout and you can specify the gravity of the text labels in order to rotate the text
+```swift
+    flexMenuExample.menuItemGravity: FlexMenuItemGravity = .Normal // .Left or .Right
+```
+
+Simple example for the compact style (from the example project):
 ```swift
     var styleMenuItems: [FlexMenuItem] = []
     let styleMenuSelector = FlexMenu()
@@ -206,11 +220,20 @@ Example (from the example project):
 
 ### FlexView
 
-
 ![flexviewdemo](https://cloud.githubusercontent.com/assets/476994/17434897/6638ad5e-5b0d-11e6-8082-903326f31c28.png)
 
 This view is similar to a UIView, but has support for header and footer labels. You can use the same styling for the view, the header and the footer as for all the other components and the header/footer can also appear on the left or right side.
 Margins allow the header and footer to be detached of the background, if that is desired.
+
+The FlexView can have FlexViewMenu menus, which are added by using:
+```swift
+    viewMenu = ... (Omitted the code. See example from the FlexMenu section)
+    flexViewMenu = FlexViewMenu(menu: viewMenu, size: CGSizeMake(100, 18), hPos: .Center, vPos: .Top)
+    flexView.addMenu(flexViewMenu)
+```
+The size of the FlexViewMenu is relevant, if you do not fill the menu. The height in the size will be the height of the menu.
+The horizontal position (hPos) can be .Left, .Right, .Center and .Fill.
+The vertical position (vPos) can be .Header, .Top, .Bottom and .Footer and places the menu inside the FlexView at that location. The headerSize and footerSize of the FlexView is used as the vertical offset when you choose .Bottom (ie. above the footer) or .Top (below the header)
 
 Example (from the example project):
 ```swift
