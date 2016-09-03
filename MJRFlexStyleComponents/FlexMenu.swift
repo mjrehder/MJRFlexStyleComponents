@@ -28,7 +28,7 @@
  */
 
 import UIKit
-import SnappingStepper
+import StyledLabel
 
 public protocol FlexMenuDataSource {
     func numberOfMenuItems(menu: FlexMenu) -> Int

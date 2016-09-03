@@ -28,7 +28,7 @@
  */
 
 import UIKit
-import SnappingStepper
+import StyledLabel
 
 public class StyledSliderThumb: StyledLabel {
     var snappingBehavior = SnappingThumbBehaviour(item: nil, snapToPoint: CGPointZero)

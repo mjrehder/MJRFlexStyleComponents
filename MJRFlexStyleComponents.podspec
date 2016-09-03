@@ -8,8 +8,8 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/mjrehder/MJRFlexStyleComponents.git', :tag => s.version }
   s.ios.deployment_target = '9.0'
 
-  s.dependency 'DynamicColor'
-  s.dependency 'SnappingStepper', '~> 2.3.1'
+  s.dependency 'DynamicColor', '~> 2.4'
+  s.dependency 'StyledLabel', '~> 1.0.1'
 
   s.framework    = 'UIKit'
   s.source_files = 'MJRFlexStyleComponents/*.swift'

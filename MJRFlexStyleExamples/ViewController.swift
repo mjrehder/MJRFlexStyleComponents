@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import SnappingStepper
+import StyledLabel
+import MJRFlexStyleComponents
 
 class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSource, FlexSwitchDelegate {
     var colorMenuItems: [FlexMenuItem] = []
@@ -157,15 +158,15 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
         self.dataSeries = newDemoData
     }
     
-    func setStyleOfDemoControls(flexStyle: FlexShapeStyle, style: ShapeStyle) {
+    func setStyleOfDemoControls(style: ShapeStyle) {
         self.numSeriesSelector.thumbStyle = style
         self.dataPointSelector.thumbStyle = style
         self.maxMinDataSlider.thumbStyle = style
         self.vhSwitch.thumbStyle = style
-        self.numSeriesSelector.style = flexStyle
-        self.dataPointSelector.style = flexStyle
-        self.maxMinDataSlider.style = flexStyle
-        self.vhSwitch.style = flexStyle
+        self.numSeriesSelector.style = style
+        self.dataPointSelector.style = style
+        self.maxMinDataSlider.style = style
+        self.vhSwitch.style = style
     }
     
     func applyColorToDemoControls() {
@@ -236,11 +237,11 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
         else {
             switch index {
             case 0:
-                self.setStyleOfDemoControls(.Box, style: .Box)
+                self.setStyleOfDemoControls(.Box)
             case 1:
-                self.setStyleOfDemoControls(.Rounded, style: .Rounded)
+                self.setStyleOfDemoControls(.Rounded)
             case 2:
-                self.setStyleOfDemoControls(.Tube, style: .Tube)
+                self.setStyleOfDemoControls(.Tube)
             default:
                 break
             }

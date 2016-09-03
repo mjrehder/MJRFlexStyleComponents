@@ -28,7 +28,7 @@
  */
 
 import UIKit
-import SnappingStepper
+import StyledLabel
 import DynamicColor
 
 public protocol GenericStyleSliderDelegate {
@@ -428,7 +428,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         self.hintShapeLayer = sLayer
     }
     
-    override func applyStyle(style: FlexShapeStyle) {
+    override func applyStyle(style: ShapeStyle) {
         let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clearColor()
         let layerRect = self.marginsForRect(bounds, margins: backgroundMargins)
         let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)

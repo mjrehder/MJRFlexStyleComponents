@@ -28,6 +28,7 @@
  */
 
 import UIKit
+import StyledLabel
 
 @IBDesignable
 public class FlexImageView: FlexView {

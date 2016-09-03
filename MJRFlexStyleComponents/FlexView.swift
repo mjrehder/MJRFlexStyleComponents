@@ -28,7 +28,7 @@
  */
 
 import UIKit
-import SnappingStepper
+import StyledLabel
 
 public enum FlexViewHeaderPosition {
     case Top
@@ -346,7 +346,7 @@ public class FlexView: MJRFlexBaseControl {
         }
     }
     
-    override func applyStyle(style: FlexShapeStyle) {
+    override func applyStyle(style: ShapeStyle) {
         let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clearColor()
         let layerRect = self.marginsForRect(bounds, margins: backgroundMargins)
         let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)

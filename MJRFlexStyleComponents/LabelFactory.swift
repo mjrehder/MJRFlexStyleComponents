@@ -28,7 +28,7 @@
  */
 
 import UIKit
-import SnappingStepper
+import StyledLabel
 
 final class LabelFactory {
     static func defaultLabel() -> UILabel {
