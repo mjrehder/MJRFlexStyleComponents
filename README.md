@@ -255,6 +255,19 @@ Example (from the example project):
 
 This example also shows the custom style option, where an arbitrary UIBezierPath is used to define the background style.
 
+### FlexImageView
+
+![imageviewdemo](https://cloud.githubusercontent.com/assets/476994/18223817/4757fd50-71c3-11e6-9e1b-895f00a4ce53.gif)
+
+The FlexImageView is a specialization of the FlexView. This is both a lightweight component to view images and serves also as an example on how to extend the Flex Style components.
+
+Beside the FlexView features, the FlexImageView exposes a simple interface directly to the contained UIImageView in order to set and layout the image:
+```swift
+        flexView.imageView.image = UIImage(named: "DemoImage")
+        flexView.imageView.contentMode = .ScaleAspectFit
+```
+Use ```imageViewMargins: UIEdgeInsets``` to add insets to the image inside the display rect of the FlexView.
+
 ### GenericStyleSlider
 
 This is the class used by all other slider classes, either as superclass or in the case of the FlexSeriesView as sub components.
@@ -276,7 +289,7 @@ Currently only left-to-right (horizontal) and top-down (vertical) layout is supp
 
 ## Acknowledgements
 
-Using SnappingStepper by Yannick Loriot (https://github.com/yannickl/SnappingStepper.git)
+Derived from SnappingStepper by Yannick Loriot (https://github.com/yannickl/SnappingStepper.git)
 and inspirations from BEMSimpleLineGraph by Boris Emorine and Sam Spencer (https://github.com/Boris-Em/BEMSimpleLineGraph)
 
 ## License
