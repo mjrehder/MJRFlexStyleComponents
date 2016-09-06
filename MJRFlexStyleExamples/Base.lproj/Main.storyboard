@@ -315,7 +315,13 @@
                             <constraint firstItem="0d4-Cl-e10" firstAttribute="top" secondItem="Htv-6x-PL4" secondAttribute="bottom" constant="8" symbolic="YES" id="z0E-tr-duS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Image View" id="yVl-00-wii"/>
+                    <navigationItem key="navigationItem" title="Image View" id="yVl-00-wii">
+                        <barButtonItem key="rightBarButtonItem" title="Text View" id="4Qj-Qz-0ZD">
+                            <connections>
+                                <segue destination="w14-FH-J3S" kind="show" id="h4K-gh-7RC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="flexView" destination="wuv-S2-yxX" id="My6-pJ-5Lw"/>
                         <outlet property="flexViewOrientation" destination="Htv-6x-PL4" id="fL1-pT-PwM"/>
@@ -325,6 +331,46 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p7c-VJ-lRX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3329" y="429"/>
+        </scene>
+        <!--Text View-->
+        <scene sceneID="IxU-CX-K6E">
+            <objects>
+                <viewController id="w14-FH-J3S" customClass="FlexTextViewDemoViewController" customModule="MJRFlexStyleExamples" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="POt-vv-sjc"/>
+                        <viewControllerLayoutGuide type="bottom" id="RWe-dj-Cbu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UNk-Pw-6oU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5t7-Zh-Gc0" customClass="FlexTextView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <rect key="frame" x="152" y="72" width="296" height="508"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="headerText" value="This is a FlexTextView"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="headerBackgroundColor">
+                                        <color key="value" red="1" green="0.70658557046979864" blue="0.385539010067114" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="5t7-Zh-Gc0" secondAttribute="bottom" constant="20" symbolic="YES" id="CrA-WV-KzY"/>
+                            <constraint firstItem="5t7-Zh-Gc0" firstAttribute="leading" secondItem="UNk-Pw-6oU" secondAttribute="leadingMargin" constant="132" id="Q3T-8g-znl"/>
+                            <constraint firstItem="5t7-Zh-Gc0" firstAttribute="top" secondItem="POt-vv-sjc" secondAttribute="bottom" constant="8" symbolic="YES" id="bgl-Si-hMf"/>
+                            <constraint firstItem="5t7-Zh-Gc0" firstAttribute="trailing" secondItem="UNk-Pw-6oU" secondAttribute="trailingMargin" constant="-132" id="rcY-vG-uAl"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Text View" id="6dq-44-gnr"/>
+                    <connections>
+                        <outlet property="flexTextView" destination="5t7-Zh-Gc0" id="BAG-LE-5sy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TDg-uV-rZR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4035" y="429"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fKv-qm-XHe">

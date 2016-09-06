@@ -29,7 +29,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, ‘9.0’
 
 use_frameworks!
-pod ‘MJRFlexStyleComponents’, '~> 1.3’
+pod ‘MJRFlexStyleComponents’
 ```
 
 Install into your project:
@@ -267,6 +267,11 @@ Beside the FlexView features, the FlexImageView exposes a simple interface direc
 ```
 Use ```imageViewMargins: UIEdgeInsets``` to add insets to the image inside the display rect of the FlexView.
 
+### FlexTextView
+
+This is another lightweight component of a UITextView inside a FlexView.
+
+
 ### GenericStyleSlider
 
 This is the class used by all other slider classes, either as superclass or in the case of the FlexSeriesView as sub components.
@@ -275,15 +280,6 @@ You can use the generic slider directly or make other subclasses from it.
 ### MJRFlexBaseControl
 
 This is the base class for all flex style controls. Extend this control, if you want to create a control based on the same styles and principles as the other components in this library.
-
-## TODO
-Here are some item, which could improve the components. Any contribution is welcome and this list might be an inspiration.
-
-### Discrete/Step Values
-Right now the sliders are continous. It would be nice to have stepping values, which allow the slider to snap to these.
-
-### Inverse Direction
-Currently only left-to-right (horizontal) and top-down (vertical) layout is supported. Especially for the FlexSeriesView it would make sense to have bottom-up also.
 
 
 ## Acknowledgements

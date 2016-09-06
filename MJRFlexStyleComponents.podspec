@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MJRFlexStyleComponents'
-  s.version          = '1.3'
+  s.version          = '1.4'
   s.license          = 'MIT'
   s.summary          = 'Sliding components and views with style'
   s.homepage         = 'https://github.com/mjrehder/MJRFlexStyleComponents.git'
@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '9.0'
 
   s.dependency 'DynamicColor', '~> 2.4'
-  s.dependency 'StyledLabel', '~> 1.0.1'
+  s.dependency 'StyledLabel', '~> 1.1'
 
   s.framework    = 'UIKit'
   s.source_files = 'MJRFlexStyleComponents/*.swift'

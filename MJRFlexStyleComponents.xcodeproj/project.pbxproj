@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		02C7A0C6F31C44B6874EDD09 /* Pods_MJRFlexStyleExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EB58092D6A64F2179A05BD8 /* Pods_MJRFlexStyleExamples.framework */; };
+		5B0859E01D7EE65500484E8F /* FlexTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0859DF1D7EE65500484E8F /* FlexTextView.swift */; };
+		5B0859E11D7EE65500484E8F /* FlexTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0859DF1D7EE65500484E8F /* FlexTextView.swift */; };
+		5B0859E41D7EE84B00484E8F /* FlexTextViewDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0859E21D7EE84B00484E8F /* FlexTextViewDemoViewController.swift */; };
 		5B12A8E11D72EBE50072D1E1 /* FlexImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B12A8E01D72EBE50072D1E1 /* FlexImageView.swift */; };
 		5B12A8E21D72EBE50072D1E1 /* FlexImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B12A8E01D72EBE50072D1E1 /* FlexImageView.swift */; };
 		5B12A8E41D73066E0072D1E1 /* ImageViewDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B12A8E31D73066E0072D1E1 /* ImageViewDemoViewController.swift */; };
@@ -62,6 +65,8 @@
 /* Begin PBXFileReference section */
 		0FEAA0B139A84C5E5B477A55 /* Pods-MJRFlexStyleExamples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJRFlexStyleExamples.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MJRFlexStyleExamples/Pods-MJRFlexStyleExamples.debug.xcconfig"; sourceTree = "<group>"; };
 		22BD3094DC054D5C1054E0DD /* Pods-MJRFlexStyleExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJRFlexStyleExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-MJRFlexStyleExamples/Pods-MJRFlexStyleExamples.release.xcconfig"; sourceTree = "<group>"; };
+		5B0859DF1D7EE65500484E8F /* FlexTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexTextView.swift; sourceTree = "<group>"; };
+		5B0859E21D7EE84B00484E8F /* FlexTextViewDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexTextViewDemoViewController.swift; sourceTree = "<group>"; };
 		5B12A8E01D72EBE50072D1E1 /* FlexImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexImageView.swift; sourceTree = "<group>"; };
 		5B12A8E31D73066E0072D1E1 /* ImageViewDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewDemoViewController.swift; sourceTree = "<group>"; };
 		5B1EFC791D7047250040AD50 /* FlexViewMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexViewMenu.swift; sourceTree = "<group>"; };
@@ -139,6 +144,7 @@
 				5B53D0F51D5393520068BF04 /* ViewsDemoViewController.swift */,
 				5BEAF3221D6851B600BF5D83 /* MenusDemoViewController.swift */,
 				5B12A8E31D73066E0072D1E1 /* ImageViewDemoViewController.swift */,
+				5B0859E21D7EE84B00484E8F /* FlexTextViewDemoViewController.swift */,
 				5B9937021D3A9E210043E573 /* Main.storyboard */,
 				5B9937051D3A9E210043E573 /* Assets.xcassets */,
 				5B9937071D3A9E210043E573 /* LaunchScreen.storyboard */,
@@ -210,6 +216,7 @@
 				5B1EFC791D7047250040AD50 /* FlexViewMenu.swift */,
 				5B53D0F21D5372010068BF04 /* FlexView.swift */,
 				5B12A8E01D72EBE50072D1E1 /* FlexImageView.swift */,
+				5B0859DF1D7EE65500484E8F /* FlexTextView.swift */,
 				5BF7020B1D3113D50011555A /* MJRFlexStyleComponents.h */,
 				5BF7020D1D3113D50011555A /* Info.plist */,
 			);
@@ -307,7 +314,6 @@
 					};
 					5BF702071D3113D50011555A = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = V7Y9TF9C7U;
 					};
 				};
 			};
@@ -439,6 +445,7 @@
 				5B12A8E21D72EBE50072D1E1 /* FlexImageView.swift in Sources */,
 				5B6CF1591D48E8DD00291D8B /* MKColor.swift in Sources */,
 				5BE448641D450DC20011E5AE /* FlexSeriesView.swift in Sources */,
+				5B0859E41D7EE84B00484E8F /* FlexTextViewDemoViewController.swift in Sources */,
 				5B99370E1D3A9E5B0043E573 /* GenericStyleSlider.swift in Sources */,
 				5BC4B9B11D520E7F0000421F /* MJRFlexBaseControl.swift in Sources */,
 				5BE4485B1D44C71D0011E5AE /* FlexMenu.swift in Sources */,
@@ -455,6 +462,7 @@
 				5B9937011D3A9E210043E573 /* ViewController.swift in Sources */,
 				5B53D0F71D5393520068BF04 /* ViewsDemoViewController.swift in Sources */,
 				5BEAF3231D6851B600BF5D83 /* MenusDemoViewController.swift in Sources */,
+				5B0859E11D7EE65500484E8F /* FlexTextView.swift in Sources */,
 				5BE4486B1D4760EE0011E5AE /* FlexSlider.swift in Sources */,
 				5B9936FF1D3A9E210043E573 /* AppDelegate.swift in Sources */,
 				5BE448541D4381C90011E5AE /* FlexSwitch.swift in Sources */,
@@ -469,6 +477,7 @@
 				5B9F2C5E1D31616200B096B5 /* SnappingThumbBehaviour.swift in Sources */,
 				5BC4B9B01D520E7F0000421F /* MJRFlexBaseControl.swift in Sources */,
 				5B9936D91D3A578B0043E573 /* StyledControlDirection.swift in Sources */,
+				5B0859E01D7EE65500484E8F /* FlexTextView.swift in Sources */,
 				5BE4486A1D4760EE0011E5AE /* FlexSlider.swift in Sources */,
 				5BF702151D3116AC0011555A /* GenericStyleSlider.swift in Sources */,
 				5BE448501D4220830011E5AE /* LabelFactory.swift in Sources */,
@@ -637,7 +646,7 @@
 				INFOPLIST_FILE = MJRFlexStyleComponents/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rehsco.MJRFlexStyleComponents;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.MJRFlexStyleComponents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -657,7 +666,7 @@
 				INFOPLIST_FILE = MJRFlexStyleComponents/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rehsco.MJRFlexStyleComponents;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.MJRFlexStyleComponents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};

@@ -80,6 +80,13 @@ public class FlexView: MJRFlexBaseControl {
         }
     }
 
+    /// The header text. Defaults to nil, which means no text.
+    @IBInspectable public var headerAttributedText: NSAttributedString? = nil {
+        didSet {
+            layoutComponents()
+        }
+    }
+
     /// The header size is either the height or the width of the header, depending on the header position. Defaults to 18.
     @IBInspectable public var headerSize: CGFloat = 18.0 {
         didSet {
@@ -146,6 +153,13 @@ public class FlexView: MJRFlexBaseControl {
     
     /// The footer text. Defaults to nil, which means no text.
     @IBInspectable public var footerText: String? = nil {
+        didSet {
+            layoutComponents()
+        }
+    }
+    
+    /// The footer text. Defaults to nil, which means no text.
+    @IBInspectable public var footerAttributedText: NSAttributedString? = nil {
         didSet {
             layoutComponents()
         }
@@ -229,15 +243,23 @@ public class FlexView: MJRFlexBaseControl {
         }
     }
     
+    func hasHeaderText() -> Bool {
+        return self.headerText != nil || self.headerAttributedText != nil
+    }
+    
+    func hasFooterText() -> Bool {
+        return self.footerText != nil || self.footerAttributedText != nil
+    }
+    
     public func getViewRect() -> CGRect {
         var heightReduce: CGFloat = 0
         var topOffset: CGFloat = 0
         var bottomOffset: CGFloat = 0
-        if self.headerText != nil {
+        if self.hasHeaderText() {
             heightReduce += self.headerSize
             topOffset += self.headerSize
         }
-        if self.footerText != nil {
+        if self.hasFooterText() {
             bottomOffset += self.footerSize
             heightReduce += self.footerSize
         }
@@ -309,7 +331,7 @@ public class FlexView: MJRFlexBaseControl {
     override func layoutComponents() {
         super.layoutComponents()
         
-        if let headerText = self.headerText {
+        if self.hasHeaderText() {
             if self.headerLabel == nil {
                 self.headerLabel = LabelFactory.defaultStyledLabel()
                 self.addSubview(self.headerLabel!)
@@ -317,7 +339,12 @@ public class FlexView: MJRFlexBaseControl {
             self.headerLabel?.frame = self.rectForHeader()
             self.headerLabel?.transform = self.getHeaderFooterRotation()
             self.headerLabel?.frame = self.rectForHeader()
-            self.headerLabel?.text = headerText
+            if self.headerText != nil {
+                self.headerLabel?.text = headerText
+            }
+            else {
+                self.headerLabel?.attributedText = headerAttributedText
+            }
             applyHeaderStyle(headerStyle)
         }
         else {
@@ -325,7 +352,7 @@ public class FlexView: MJRFlexBaseControl {
             self.headerLabel = nil
         }
         
-        if let footerText = self.footerText {
+        if self.hasFooterText() {
             if self.footerLabel == nil {
                 self.footerLabel = LabelFactory.defaultStyledLabel()
                 self.addSubview(self.footerLabel!)
@@ -333,7 +360,12 @@ public class FlexView: MJRFlexBaseControl {
             self.footerLabel?.frame = self.rectForFooter()
             self.footerLabel?.transform = self.getHeaderFooterRotation()
             self.footerLabel?.frame = self.rectForFooter()
-            self.footerLabel?.text = footerText
+            if self.footerText != nil {
+                self.footerLabel?.text = footerText
+            }
+            else {
+                self.footerLabel?.attributedText = footerAttributedText
+            }
             applyFooterStyle(footerStyle)
         }
         else {
@@ -351,12 +383,12 @@ public class FlexView: MJRFlexBaseControl {
         let layerRect = self.marginsForRect(bounds, margins: backgroundMargins)
         let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
         
-        if self.headerText != nil {
+        if self.hasHeaderText() {
             let headerShapeLayer = StyledShapeLayer.createShape(self.style, bounds: layerRect, shapeStyle: self.headerStyle, shapeBounds: self.rectForHeader().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.headerBackgroundColor ?? .clearColor(), maskToBounds: self.headerClipToBackgroundShape)
             bgsLayer.addSublayer(headerShapeLayer)
         }
         
-        if self.footerText != nil {
+        if self.hasFooterText() {
             let footerShapeLayer = StyledShapeLayer.createShape(self.style, bounds: layerRect, shapeStyle: self.footerStyle, shapeBounds: self.rectForFooter().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.footerBackgroundColor ?? .clearColor(), maskToBounds: self.footerClipToBackgroundShape)
             bgsLayer.addSublayer(footerShapeLayer)
         }

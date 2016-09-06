@@ -1,0 +1,78 @@
+//
+//  FlexTextView.swift
+//  MJRFlexStyleComponents
+//
+//  Created by Martin Rehder on 06.09.16.
+/*
+ * Copyright 2016-present Martin Jacob Rehder.
+ * http://www.rehsco.com
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
+
+import UIKit
+import StyledLabel
+
+public class FlexTextView: FlexView {
+    private var _textView: UITextView?
+    
+    public var textView: UITextView {
+        get {
+            return _textView!
+        }
+    }
+    
+    /// The text view insets, also known as border margins. Defaults to UIEdgeInsetsZero
+    @IBInspectable public var textViewMargins: UIEdgeInsets = UIEdgeInsetsZero {
+        didSet {
+            self.layoutComponents()
+        }
+    }
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.initView()
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.initView()
+    }
+    
+    override func initView() {
+        super.initView()
+        self._textView = UITextView()
+        self.addSubview(self._textView!)
+    }
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        self.setupImageView()
+    }
+    
+    func setupImageView() {
+        let textViewRect = UIEdgeInsetsInsetRect(self.getViewRect(), self.textViewMargins)
+        self.textView.frame = textViewRect
+        
+        let clipRect = CGRectOffset(self.bounds, -textViewRect.origin.x, -textViewRect.origin.y)
+        let maskShapeLayer = StyledShapeLayer.createShape(self.style, bounds: clipRect, color: UIColor.blackColor())
+        
+        self.textView.layer.mask = maskShapeLayer
+    }}
