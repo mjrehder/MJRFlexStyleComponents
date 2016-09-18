@@ -37,8 +37,8 @@ public enum FlexViewHeaderPosition {
 }
 
 public class FlexView: MJRFlexBaseControl {
-    var headerLabel: StyledLabel?
-    var footerLabel: StyledLabel?
+    var headerLabel = FlexLabel()
+    var footerLabel = FlexLabel()
     
     var menus: [FlexViewMenu] = []
     
@@ -79,69 +79,21 @@ public class FlexView: MJRFlexBaseControl {
             layoutComponents()
         }
     }
-
+    
     /// The header text. Defaults to nil, which means no text.
     @IBInspectable public var headerAttributedText: NSAttributedString? = nil {
         didSet {
             layoutComponents()
         }
     }
-
+    
     /// The header size is either the height or the width of the header, depending on the header position. Defaults to 18.
     @IBInspectable public var headerSize: CGFloat = 18.0 {
         didSet {
             layoutComponents()
         }
     }
-    
-    /// The headers background colors. If nil the header color will be clear color. Defaults to nil.
-    @IBInspectable public var headerBackgroundColor: UIColor? {
-        didSet {
-            self.applyHeaderStyle(headerStyle)
-        }
-    }
-    
-    /// The font of the header labels
-    @IBInspectable public var headerFont = UIFont(name: "TrebuchetMS-Bold", size: 20) {
-        didSet {
-            self.applyHeaderStyle(headerStyle)
-        }
-    }
-    
-    /// The text alignment of the header label
-    @IBInspectable public var headerTextAlignment: NSTextAlignment = .Center {
-        didSet {
-            self.applyHeaderStyle(headerStyle)
-        }
-    }
-    
-    /// The headers text colors. Default's to black
-    @IBInspectable public var headerTextColor: UIColor = .blackColor() {
-        didSet {
-            self.applyHeaderStyle(headerStyle)
-        }
-    }
-    
-    @IBInspectable public var headerStyle: ShapeStyle = .Box {
-        didSet {
-            self.applyHeaderStyle(headerStyle)
-        }
-    }
-    
-    /// The headers border color.
-    @IBInspectable public var headerBorderColor: UIColor? {
-        didSet {
-            self.applyHeaderStyle(headerStyle)
-        }
-    }
-    
-    /// The headers border width. Default's to 1.0
-    @IBInspectable public var headerBorderWidth: CGFloat = 1.0 {
-        didSet {
-            self.applyHeaderStyle(headerStyle)
-        }
-    }
-    
+
     /// The header will be clipped to the background shape. Defaults to true.
     @IBInspectable public var headerClipToBackgroundShape: Bool = true {
         didSet {
@@ -172,54 +124,6 @@ public class FlexView: MJRFlexBaseControl {
         }
     }
     
-    /// The footers background color. If nil the footer color will be clear color. Defaults to nil.
-    @IBInspectable public var footerBackgroundColor: UIColor? {
-        didSet {
-            self.applyFooterStyle(footerStyle)
-        }
-    }
-    
-    /// The font of the footer label
-    @IBInspectable public var footerFont = UIFont(name: "TrebuchetMS-Bold", size: 20) {
-        didSet {
-            self.applyFooterStyle(footerStyle)
-        }
-    }
-    
-    /// The text alignment of the footer label
-    @IBInspectable public var footerTextAlignment: NSTextAlignment = .Center {
-        didSet {
-            self.applyFooterStyle(footerStyle)
-        }
-    }
-    
-    /// The footers text colors. Default's to black
-    @IBInspectable public var footerTextColor: UIColor = .blackColor() {
-        didSet {
-            self.applyFooterStyle(footerStyle)
-        }
-    }
-    
-    @IBInspectable public var footerStyle: ShapeStyle = .Box {
-        didSet {
-            self.applyFooterStyle(footerStyle)
-        }
-    }
-    
-    /// The footers border color.
-    @IBInspectable public var footerBorderColor: UIColor? {
-        didSet {
-            self.applyFooterStyle(footerStyle)
-        }
-    }
-    
-    /// The footers border width. Default's to 1.0
-    @IBInspectable public var footerBorderWidth: CGFloat = 1.0 {
-        didSet {
-            self.applyFooterStyle(footerStyle)
-        }
-    }
-
     /// The footer will be clipped to the background shape. Defaults to true.
     @IBInspectable public var footerClipToBackgroundShape: Bool = true {
         didSet {
@@ -274,26 +178,6 @@ public class FlexView: MJRFlexBaseControl {
     }
     
     // MARK: - Private Style
-    
-    func applyHeaderStyle(style: ShapeStyle) {
-        self.headerLabel?.style = style
-        self.headerLabel?.backgroundColor = .clearColor()
-        self.headerLabel?.borderColor = headerBorderColor
-        self.headerLabel?.borderWidth = headerBorderWidth
-        self.headerLabel?.textColor = headerTextColor
-        self.headerLabel?.font = headerFont
-        self.headerLabel?.textAlignment = headerTextAlignment
-    }
-    
-    func applyFooterStyle(style: ShapeStyle) {
-        self.footerLabel?.style = style
-        self.footerLabel?.backgroundColor = .clearColor()
-        self.footerLabel?.borderColor = footerBorderColor
-        self.footerLabel?.borderWidth = footerBorderWidth
-        self.footerLabel?.textColor = footerTextColor
-        self.footerLabel?.font = footerFont
-        self.footerLabel?.textAlignment = footerTextAlignment
-    }
 
     func rectForHeader() -> CGRect {
         switch self.headerPosition {
@@ -332,45 +216,45 @@ public class FlexView: MJRFlexBaseControl {
         super.layoutComponents()
         
         if self.hasHeaderText() {
-            if self.headerLabel == nil {
-                self.headerLabel = LabelFactory.defaultStyledLabel()
-                self.addSubview(self.headerLabel!)
+            if self.headerLabel.superview == nil {
+                self.addSubview(self.headerLabel)
             }
-            self.headerLabel?.frame = self.rectForHeader()
-            self.headerLabel?.transform = self.getHeaderFooterRotation()
-            self.headerLabel?.frame = self.rectForHeader()
+            self.headerLabel.frame = self.rectForHeader()
+            let headerBounds = UIEdgeInsetsInsetRect(self.headerLabel.bounds, self.headerLabel.labelInsets)
+            self.headerLabel.label.frame = headerBounds
+            self.headerLabel.label.transform = self.getHeaderFooterRotation()
+            self.headerLabel.label.frame = headerBounds
             if self.headerText != nil {
-                self.headerLabel?.text = headerText
+                self.headerLabel.label.text = headerText
             }
             else {
-                self.headerLabel?.attributedText = headerAttributedText
+                self.headerLabel.label.attributedText = headerAttributedText
             }
-            applyHeaderStyle(headerStyle)
+            self.headerLabel.applyStyle()
         }
         else {
-            self.headerLabel?.removeFromSuperview()
-            self.headerLabel = nil
+            self.headerLabel.removeFromSuperview()
         }
         
         if self.hasFooterText() {
-            if self.footerLabel == nil {
-                self.footerLabel = LabelFactory.defaultStyledLabel()
-                self.addSubview(self.footerLabel!)
+            if self.footerLabel.superview == nil {
+                self.addSubview(self.footerLabel)
             }
-            self.footerLabel?.frame = self.rectForFooter()
-            self.footerLabel?.transform = self.getHeaderFooterRotation()
-            self.footerLabel?.frame = self.rectForFooter()
+            self.footerLabel.frame = self.rectForFooter()
+            let footerBounds = UIEdgeInsetsInsetRect(self.footerLabel.bounds, self.footerLabel.labelInsets)
+            self.footerLabel.label.frame = footerBounds
+            self.footerLabel.label.transform = self.getHeaderFooterRotation()
+            self.footerLabel.label.frame = footerBounds
             if self.footerText != nil {
-                self.footerLabel?.text = footerText
+                self.footerLabel.label.text = footerText
             }
             else {
-                self.footerLabel?.attributedText = footerAttributedText
+                self.footerLabel.label.attributedText = footerAttributedText
             }
-            applyFooterStyle(footerStyle)
+            self.footerLabel.applyStyle()
         }
         else {
-            self.footerLabel?.removeFromSuperview()
-            self.footerLabel = nil
+            self.footerLabel.removeFromSuperview()
         }
         
         for menu in self.menus {
@@ -384,12 +268,12 @@ public class FlexView: MJRFlexBaseControl {
         let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
         
         if self.hasHeaderText() {
-            let headerShapeLayer = StyledShapeLayer.createShape(self.style, bounds: layerRect, shapeStyle: self.headerStyle, shapeBounds: self.rectForHeader().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.headerBackgroundColor ?? .clearColor(), maskToBounds: self.headerClipToBackgroundShape)
+            let headerShapeLayer = StyledShapeLayer.createShape(self.style, bounds: layerRect, shapeStyle: self.headerLabel.style, shapeBounds: self.rectForHeader().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.headerLabel.labelBackgroundColor ?? .clearColor(), maskToBounds: self.headerClipToBackgroundShape)
             bgsLayer.addSublayer(headerShapeLayer)
         }
         
         if self.hasFooterText() {
-            let footerShapeLayer = StyledShapeLayer.createShape(self.style, bounds: layerRect, shapeStyle: self.footerStyle, shapeBounds: self.rectForFooter().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.footerBackgroundColor ?? .clearColor(), maskToBounds: self.footerClipToBackgroundShape)
+            let footerShapeLayer = StyledShapeLayer.createShape(self.style, bounds: layerRect, shapeStyle: self.footerLabel.style, shapeBounds: self.rectForFooter().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.footerLabel.labelBackgroundColor ?? .clearColor(), maskToBounds: self.footerClipToBackgroundShape)
             bgsLayer.addSublayer(footerShapeLayer)
         }
 

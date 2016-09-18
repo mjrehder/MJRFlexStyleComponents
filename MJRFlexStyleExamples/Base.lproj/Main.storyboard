@@ -347,12 +347,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5t7-Zh-Gc0" customClass="FlexTextView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
                                 <rect key="frame" x="152" y="72" width="296" height="508"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="headerText" value="This is a FlexTextView"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="headerBackgroundColor">
-                                        <color key="value" red="1" green="0.70658557046979864" blue="0.385539010067114" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
