@@ -37,8 +37,21 @@ public enum FlexViewHeaderPosition {
 }
 
 public class FlexView: MJRFlexBaseControl {
-    var headerLabel = FlexLabel()
-    var footerLabel = FlexLabel()
+    private var _headerLabel = FlexLabel()
+    
+    public var headerLabel: FlexLabel {
+        get {
+            return _headerLabel
+        }
+    }
+    
+    private var _footerLabel = FlexLabel()
+    
+    public var footerLabel: FlexLabel {
+        get {
+            return _footerLabel
+        }
+    }
     
     var menus: [FlexViewMenu] = []
     
