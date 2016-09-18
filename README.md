@@ -241,14 +241,14 @@ Example (from the example project):
         rightFlexView.headerText = "Right"
         rightFlexView.footerText = "Right Footer"
         rightFlexView.styleColor = UIColor.MKColor.Amber.P100
-        rightFlexView.headerBackgroundColor = UIColor.MKColor.Amber.P500
+        rightFlexView.headerLabel.labelBackgroundColor = UIColor.MKColor.Amber.P500
         rightFlexView.headerSize = 16
-        rightFlexView.headerStyle = .Tube
+        rightFlexView.headerLabel.style = .Tube
         rightFlexView.headerClipToBackgroundShape = false
-        rightFlexView.headerFont = UIFont.boldSystemFontOfSize(10)
-        rightFlexView.footerFont = UIFont.systemFontOfSize(10)
+        rightFlexView.headerLabel.labelFont = UIFont.boldSystemFontOfSize(10)
+        rightFlexView.footerLabel.labelFont = UIFont.systemFontOfSize(10)
         rightFlexView.footerClipToBackgroundShape = false
-        rightFlexView.headerTextColor = UIColor.whiteColor()
+        rightFlexView.headerLabel.labelTextColor = UIColor.whiteColor()
         rightFlexView.style = .Custom(path: UIBezierPath(roundedRect: rightFlexView.bounds, cornerRadius: 10))
 ```
 
