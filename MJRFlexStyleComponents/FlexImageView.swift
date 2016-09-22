@@ -40,13 +40,6 @@ public class FlexImageView: FlexView {
         }
     }
     
-    /// The image view insets, also known as border margins. Defaults to UIEdgeInsetsZero
-    @IBInspectable public var imageViewMargins: UIEdgeInsets = UIEdgeInsetsZero {
-        didSet {
-            self.layoutComponents()
-        }
-    }
-    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         self.initView()
@@ -69,7 +62,7 @@ public class FlexImageView: FlexView {
     }
     
     func setupImageView() {
-        let imageViewRect = UIEdgeInsetsInsetRect(self.getViewRect(), self.imageViewMargins)
+        let imageViewRect = self.getViewRect()
         self.imageView.frame = imageViewRect
 
         let clipRect = CGRectOffset(self.bounds, -imageViewRect.origin.x, -imageViewRect.origin.y)

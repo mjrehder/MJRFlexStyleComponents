@@ -37,12 +37,11 @@ public class FlexTextView: FlexView {
         get {
             return _textView!
         }
-    }
-    
-    /// The text view insets, also known as border margins. Defaults to UIEdgeInsetsZero
-    @IBInspectable public var textViewMargins: UIEdgeInsets = UIEdgeInsetsZero {
-        didSet {
-            self.layoutComponents()
+        set {
+            self._textView?.removeFromSuperview()
+            self._textView = newValue
+            self.addSubview(self._textView!)
+            self.setupTextView()
         }
     }
     
@@ -64,11 +63,11 @@ public class FlexTextView: FlexView {
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        self.setupImageView()
+        self.setupTextView()
     }
     
-    func setupImageView() {
-        let textViewRect = UIEdgeInsetsInsetRect(self.getViewRect(), self.textViewMargins)
+    func setupTextView() {
+        let textViewRect = self.getViewRect()
         self.textView.frame = textViewRect
         
         let clipRect = CGRectOffset(self.bounds, -textViewRect.origin.x, -textViewRect.origin.y)

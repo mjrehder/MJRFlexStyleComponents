@@ -59,9 +59,9 @@ class ImageViewDemoViewController: UIViewController, FlexMenuDataSource {
         self.flexView.headerPosition = .Top
         self.flexView.style = .RoundedFixed(cornerRadius: 10.0)
         self.flexView.styleColor = UIColor.MKColor.Teal.P500
-        self.flexView.headerLabel.labelBackgroundColor = UIColor.MKColor.Teal.P700
-        self.flexView.headerLabel.labelFont = UIFont.boldSystemFontOfSize(14)
-        self.flexView.headerLabel.labelTextColor = UIColor.whiteColor()
+        self.flexView.header.labelBackgroundColor = UIColor.MKColor.Teal.P700
+        self.flexView.header.labelFont = UIFont.boldSystemFontOfSize(14)
+        self.flexView.header.labelTextColor = UIColor.whiteColor()
         
         self.flexView.imageView.image = UIImage(named: "DemoImage")
         self.flexView.imageView.contentMode = .ScaleAspectFit

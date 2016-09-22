@@ -39,7 +39,7 @@ public enum FlexViewHeaderPosition {
 public class FlexView: MJRFlexBaseControl {
     private var _headerLabel = FlexLabel()
     
-    public var headerLabel: FlexLabel {
+    public var header: FlexLabel {
         get {
             return _headerLabel
         }
@@ -47,7 +47,7 @@ public class FlexView: MJRFlexBaseControl {
     
     private var _footerLabel = FlexLabel()
     
-    public var footerLabel: FlexLabel {
+    public var footer: FlexLabel {
         get {
             return _footerLabel
         }
@@ -76,6 +76,12 @@ public class FlexView: MJRFlexBaseControl {
         }
     }
     
+    /// The content view insets, also known as border margins. Defaults to UIEdgeInsetsZero
+    @IBInspectable public var contentViewMargins: UIEdgeInsets = UIEdgeInsetsZero {
+        didSet {
+            self.layoutComponents()
+        }
+    }
     
     /// The position of the header. The footer, if used, is on the opposite end of the view. Defaults to top.
     @IBInspectable public var headerPosition: FlexViewHeaderPosition = .Top {
@@ -182,11 +188,11 @@ public class FlexView: MJRFlexBaseControl {
         }
         switch self.headerPosition {
         case .Top:
-            return CGRectMake(0, topOffset, self.bounds.size.width, self.bounds.size.height - heightReduce)
+            return UIEdgeInsetsInsetRect(CGRectMake(0, topOffset, self.bounds.size.width, self.bounds.size.height - heightReduce), self.contentViewMargins)
         case .Left:
-            return CGRectMake(topOffset, 0, self.bounds.size.width - heightReduce, self.bounds.size.height)
+            return UIEdgeInsetsInsetRect(CGRectMake(topOffset, 0, self.bounds.size.width - heightReduce, self.bounds.size.height), self.contentViewMargins)
         case .Right:
-            return CGRectMake(bottomOffset, 0, self.bounds.size.width - heightReduce, self.bounds.size.height)
+            return UIEdgeInsetsInsetRect(CGRectMake(bottomOffset, 0, self.bounds.size.width - heightReduce, self.bounds.size.height), self.contentViewMargins)
         }
     }
     
@@ -229,45 +235,45 @@ public class FlexView: MJRFlexBaseControl {
         super.layoutComponents()
         
         if self.hasHeaderText() {
-            if self.headerLabel.superview == nil {
-                self.addSubview(self.headerLabel)
+            if self.header.superview == nil {
+                self.addSubview(self.header)
             }
-            self.headerLabel.frame = self.rectForHeader()
-            let headerBounds = UIEdgeInsetsInsetRect(self.headerLabel.bounds, self.headerLabel.labelInsets)
-            self.headerLabel.label.frame = headerBounds
-            self.headerLabel.label.transform = self.getHeaderFooterRotation()
-            self.headerLabel.label.frame = headerBounds
+            self.header.frame = self.rectForHeader()
+            let headerBounds = UIEdgeInsetsInsetRect(self.header.bounds, self.header.labelInsets)
+            self.header.label.frame = headerBounds
+            self.header.label.transform = self.getHeaderFooterRotation()
+            self.header.label.frame = headerBounds
             if self.headerText != nil {
-                self.headerLabel.label.text = headerText
+                self.header.label.text = headerText
             }
             else {
-                self.headerLabel.label.attributedText = headerAttributedText
+                self.header.label.attributedText = headerAttributedText
             }
-            self.headerLabel.applyStyle()
+            self.header.applyStyle()
         }
         else {
-            self.headerLabel.removeFromSuperview()
+            self.header.removeFromSuperview()
         }
         
         if self.hasFooterText() {
-            if self.footerLabel.superview == nil {
-                self.addSubview(self.footerLabel)
+            if self.footer.superview == nil {
+                self.addSubview(self.footer)
             }
-            self.footerLabel.frame = self.rectForFooter()
-            let footerBounds = UIEdgeInsetsInsetRect(self.footerLabel.bounds, self.footerLabel.labelInsets)
-            self.footerLabel.label.frame = footerBounds
-            self.footerLabel.label.transform = self.getHeaderFooterRotation()
-            self.footerLabel.label.frame = footerBounds
+            self.footer.frame = self.rectForFooter()
+            let footerBounds = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.labelInsets)
+            self.footer.label.frame = footerBounds
+            self.footer.label.transform = self.getHeaderFooterRotation()
+            self.footer.label.frame = footerBounds
             if self.footerText != nil {
-                self.footerLabel.label.text = footerText
+                self.footer.label.text = footerText
             }
             else {
-                self.footerLabel.label.attributedText = footerAttributedText
+                self.footer.label.attributedText = footerAttributedText
             }
-            self.footerLabel.applyStyle()
+            self.footer.applyStyle()
         }
         else {
-            self.footerLabel.removeFromSuperview()
+            self.footer.removeFromSuperview()
         }
         
         for menu in self.menus {
@@ -281,12 +287,12 @@ public class FlexView: MJRFlexBaseControl {
         let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
         
         if self.hasHeaderText() {
-            let headerShapeLayer = StyledShapeLayer.createShape(self.style, bounds: layerRect, shapeStyle: self.headerLabel.style, shapeBounds: self.rectForHeader().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.headerLabel.labelBackgroundColor ?? .clearColor(), maskToBounds: self.headerClipToBackgroundShape)
+            let headerShapeLayer = StyledShapeLayer.createShape(self.style, bounds: layerRect, shapeStyle: self.header.style, shapeBounds: self.rectForHeader().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.header.labelBackgroundColor ?? .clearColor(), maskToBounds: self.headerClipToBackgroundShape)
             bgsLayer.addSublayer(headerShapeLayer)
         }
         
         if self.hasFooterText() {
-            let footerShapeLayer = StyledShapeLayer.createShape(self.style, bounds: layerRect, shapeStyle: self.footerLabel.style, shapeBounds: self.rectForFooter().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.footerLabel.labelBackgroundColor ?? .clearColor(), maskToBounds: self.footerClipToBackgroundShape)
+            let footerShapeLayer = StyledShapeLayer.createShape(self.style, bounds: layerRect, shapeStyle: self.footer.style, shapeBounds: self.rectForFooter().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.footer.labelBackgroundColor ?? .clearColor(), maskToBounds: self.footerClipToBackgroundShape)
             bgsLayer.addSublayer(footerShapeLayer)
         }
 

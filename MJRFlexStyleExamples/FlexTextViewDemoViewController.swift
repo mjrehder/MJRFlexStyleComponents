@@ -25,8 +25,8 @@ class FlexTextViewDemoViewController: UIViewController {
         self.flexTextView.headerPosition = .Top
         self.flexTextView.style = .RoundedFixed(cornerRadius: 10.0)
         self.flexTextView.styleColor = UIColor.MKColor.Teal.P50
-        self.flexTextView.headerLabel.labelBackgroundColor = UIColor.MKColor.Teal.P700
-        self.flexTextView.headerLabel.labelFont = UIFont.boldSystemFontOfSize(14)
-        self.flexTextView.headerLabel.labelTextColor = UIColor.whiteColor()
+        self.flexTextView.header.labelBackgroundColor = UIColor.MKColor.Teal.P700
+        self.flexTextView.header.labelFont = UIFont.boldSystemFontOfSize(14)
+        self.flexTextView.header.labelTextColor = UIColor.whiteColor()
     }
 }
