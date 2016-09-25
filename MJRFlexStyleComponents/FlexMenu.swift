@@ -79,7 +79,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
      */
     @IBInspectable public var menuItemStyle: ShapeStyle = .Box {
         didSet {
-            self.layoutComponents()
+            self.setNeedsLayout()
         }
     }
     
@@ -88,7 +88,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
      */
     @IBInspectable public var menuInterItemSpacing: CGFloat = 0 {
         didSet {
-            self.layoutComponents()
+            self.setNeedsLayout()
         }
     }
     
@@ -98,7 +98,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
      */
     @IBInspectable public var menuItemGravity: FlexMenuItemGravity = .Normal {
         didSet {
-            self.layoutComponents()
+            self.setNeedsLayout()
         }
     }
     

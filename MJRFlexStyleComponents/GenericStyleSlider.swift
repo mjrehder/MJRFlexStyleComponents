@@ -135,7 +135,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     @IBInspectable public var direction: StyledControlDirection = .Horizontal {
         didSet {
             self.thumbList.direction = direction
-            self.layoutComponents()
+            self.setNeedsLayout()
         }
     }
 
@@ -152,7 +152,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         }
         set (newValue) {
             initValues(newValue)
-            self.layoutComponents()
+            self.setNeedsLayout()
         }
     }
     
@@ -211,14 +211,14 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     /// The thumb represented as a ratio of the component. For example if the width of the control is 30px and the ratio is 0.5, the thumb width will be equal to 15px when in horizontal layout. When this is not set then the thumb size will be a square using the minimum size of the control. Defaults to nil.
     @IBInspectable public var thumbRatio: CGFloat? = nil {
         didSet {
-            layoutComponents()
+            self.setNeedsLayout()
         }
     }
     
     /// The thumb represented as an absoulte size in the component. When this is not set, then the thumb size will be a square using the minimum size of the control or if thumbRatio is set, then the ratio is used. The thumbSize overrules the thumbRatio, if both are set. Defaults to nil.
     @IBInspectable public var thumbSize: CGSize? = nil {
         didSet {
-            layoutComponents()
+            self.setNeedsLayout()
         }
     }
     
@@ -292,7 +292,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     /// The separator represented as a ratio of the component. Defaults to 1.
     @IBInspectable public var separatorRatio: CGFloat = 1.0 {
         didSet {
-            layoutComponents()
+            self.setNeedsLayout()
         }
     }
 

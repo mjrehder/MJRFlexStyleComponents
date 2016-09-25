@@ -79,14 +79,14 @@ public class FlexView: MJRFlexBaseControl {
     /// The content view insets, also known as border margins. Defaults to UIEdgeInsetsZero
     @IBInspectable public var contentViewMargins: UIEdgeInsets = UIEdgeInsetsZero {
         didSet {
-            self.layoutComponents()
+            self.setNeedsLayout()
         }
     }
     
     /// The position of the header. The footer, if used, is on the opposite end of the view. Defaults to top.
     @IBInspectable public var headerPosition: FlexViewHeaderPosition = .Top {
         didSet {
-            layoutComponents()
+            self.setNeedsLayout()
         }
     }
     
@@ -95,28 +95,28 @@ public class FlexView: MJRFlexBaseControl {
     /// The header text. Defaults to nil, which means no text.
     @IBInspectable public var headerText: String? = nil {
         didSet {
-            layoutComponents()
+            self.setNeedsLayout()
         }
     }
     
     /// The header text. Defaults to nil, which means no text.
     @IBInspectable public var headerAttributedText: NSAttributedString? = nil {
         didSet {
-            layoutComponents()
+            self.setNeedsLayout()
         }
     }
     
     /// The header size is either the height or the width of the header, depending on the header position. Defaults to 18.
     @IBInspectable public var headerSize: CGFloat = 18.0 {
         didSet {
-            layoutComponents()
+            self.setNeedsLayout()
         }
     }
 
     /// The header will be clipped to the background shape. Defaults to true.
     @IBInspectable public var headerClipToBackgroundShape: Bool = true {
         didSet {
-            layoutComponents()
+            self.setNeedsLayout()
         }
     }
 
@@ -125,28 +125,28 @@ public class FlexView: MJRFlexBaseControl {
     /// The footer text. Defaults to nil, which means no text.
     @IBInspectable public var footerText: String? = nil {
         didSet {
-            layoutComponents()
+            self.setNeedsLayout()
         }
     }
     
     /// The footer text. Defaults to nil, which means no text.
     @IBInspectable public var footerAttributedText: NSAttributedString? = nil {
         didSet {
-            layoutComponents()
+            self.setNeedsLayout()
         }
     }
     
     /// The footer size is either the height or the width of the footer, depending on the footer position. Defaults to 18.
     @IBInspectable public var footerSize: CGFloat = 18.0 {
         didSet {
-            layoutComponents()
+            self.setNeedsLayout()
         }
     }
     
     /// The footer will be clipped to the background shape. Defaults to true.
     @IBInspectable public var footerClipToBackgroundShape: Bool = true {
         didSet {
-            layoutComponents()
+            self.setNeedsLayout()
         }
     }
 

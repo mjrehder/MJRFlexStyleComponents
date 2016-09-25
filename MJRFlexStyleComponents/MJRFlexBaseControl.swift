@@ -53,42 +53,42 @@ public class MJRFlexBaseControl: UIControl {
     /// The view's style. Default's to box.
     @IBInspectable public var style: ShapeStyle = .Box {
         didSet {
-            self.applyStyle(self.style)
+            self.setNeedsLayout()
         }
     }
     
     /// The view’s background color.
     @IBInspectable public var styleColor: UIColor? {
         didSet {
-            self.applyStyle(self.style)
+            self.setNeedsLayout()
         }
     }
     
     /// The view's border color.
     @IBInspectable public var borderColor: UIColor? {
         didSet {
-            self.applyStyle(self.style)
+            self.setNeedsLayout()
         }
     }
     
     /// The view's border width. Default's to 1.0
     @IBInspectable public var borderWidth: CGFloat = 1.0 {
         didSet {
-            self.applyStyle(self.style)
+            self.setNeedsLayout()
         }
     }
     
     /// The view’s background color.
     override public var backgroundColor: UIColor? {
         didSet {
-            self.applyStyle(self.style)
+            self.setNeedsLayout()
         }
     }
 
     /// The controls background insets, also known as border margins. Defaults to UIEdgeInsetsZero
     @IBInspectable public var backgroundMargins: UIEdgeInsets = UIEdgeInsetsZero {
         didSet {
-            self.layoutComponents()
+            self.setNeedsLayout()
         }
     }
     
