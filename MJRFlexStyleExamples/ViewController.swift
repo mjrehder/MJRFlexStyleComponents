@@ -150,7 +150,7 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
         for s in 0..<self.numSeries {
             var dataPoints: [Double] = []
             for _ in 0..<self.numDataPoints {
-                let r = Double(random() % 100) / 10.0
+                let r = Double(arc4random() % 100) / 10.0
                 dataPoints.append(Double(s)*10.0 + r)
             }
             newDemoData.append(dataPoints)
