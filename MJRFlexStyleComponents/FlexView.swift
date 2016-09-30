@@ -312,6 +312,10 @@ public class FlexView: MJRFlexBaseControl {
     // MARK: - Menu Handling
     
     func applyMenuLocationAndSize(menu: FlexViewMenu) {
+        // Make sure that the menu is on top of the subviews
+        menu.menu.removeFromSuperview()
+        self.addSubview(menu.menu)
+
         menu.menu.direction = self.headerPosition == .Top ? .Horizontal : . Vertical
         menu.menu.menuItemGravity = self.headerPosition == .Top ? .Normal : (self.headerPosition == .Left ? .Right : .Left)
         let layerRect = self.marginsForRect(bounds, margins: backgroundMargins)
