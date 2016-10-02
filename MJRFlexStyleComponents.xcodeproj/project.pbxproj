@@ -38,6 +38,11 @@
 		5B9F2C601D32352600B096B5 /* StyledSliderThumb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */; };
 		5BC4B9B01D520E7F0000421F /* MJRFlexBaseControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC4B9AF1D520E7F0000421F /* MJRFlexBaseControl.swift */; };
 		5BC4B9B11D520E7F0000421F /* MJRFlexBaseControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC4B9AF1D520E7F0000421F /* MJRFlexBaseControl.swift */; };
+		5BD460411DA100B0001FA9B3 /* CGRectHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD460401DA100B0001FA9B3 /* CGRectHelper.swift */; };
+		5BD460421DA100B0001FA9B3 /* CGRectHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD460401DA100B0001FA9B3 /* CGRectHelper.swift */; };
+		5BD460471DA10A56001FA9B3 /* FlexImageShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD460461DA10A56001FA9B3 /* FlexImageShapeView.swift */; };
+		5BD460481DA10A56001FA9B3 /* FlexImageShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD460461DA10A56001FA9B3 /* FlexImageShapeView.swift */; };
+		5BD4604A1DA1109E001FA9B3 /* ImageShapeDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD460491DA1109E001FA9B3 /* ImageShapeDemoViewController.swift */; };
 		5BE448491D41F6DB0011E5AE /* PositionUpdateTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE448481D41F6DB0011E5AE /* PositionUpdateTimer.swift */; };
 		5BE4484A1D41F6DB0011E5AE /* PositionUpdateTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE448481D41F6DB0011E5AE /* PositionUpdateTimer.swift */; };
 		5BE4484D1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE4484C1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift */; };
@@ -88,6 +93,9 @@
 		5B9F2C5D1D31616200B096B5 /* SnappingThumbBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnappingThumbBehaviour.swift; sourceTree = "<group>"; };
 		5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledSliderThumb.swift; sourceTree = "<group>"; };
 		5BC4B9AF1D520E7F0000421F /* MJRFlexBaseControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MJRFlexBaseControl.swift; sourceTree = "<group>"; };
+		5BD460401DA100B0001FA9B3 /* CGRectHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectHelper.swift; sourceTree = "<group>"; };
+		5BD460461DA10A56001FA9B3 /* FlexImageShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexImageShapeView.swift; sourceTree = "<group>"; };
+		5BD460491DA1109E001FA9B3 /* ImageShapeDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageShapeDemoViewController.swift; sourceTree = "<group>"; };
 		5BE448481D41F6DB0011E5AE /* PositionUpdateTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionUpdateTimer.swift; sourceTree = "<group>"; };
 		5BE4484C1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledSliderThumbBehaviour.swift; sourceTree = "<group>"; };
 		5BE4484F1D4220830011E5AE /* LabelFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
@@ -148,12 +156,39 @@
 				5BEAF3221D6851B600BF5D83 /* MenusDemoViewController.swift */,
 				5B12A8E31D73066E0072D1E1 /* ImageViewDemoViewController.swift */,
 				5B0859E21D7EE84B00484E8F /* FlexTextViewDemoViewController.swift */,
+				5BD460491DA1109E001FA9B3 /* ImageShapeDemoViewController.swift */,
 				5B9937021D3A9E210043E573 /* Main.storyboard */,
 				5B9937051D3A9E210043E573 /* Assets.xcassets */,
 				5B9937071D3A9E210043E573 /* LaunchScreen.storyboard */,
 				5B99370A1D3A9E220043E573 /* Info.plist */,
 			);
 			path = MJRFlexStyleExamples;
+			sourceTree = "<group>";
+		};
+		5BD4603E1DA0FFD4001FA9B3 /* Flex Views */ = {
+			isa = PBXGroup;
+			children = (
+				5BE448621D450DC20011E5AE /* FlexSeriesView.swift */,
+				5B1EFC791D7047250040AD50 /* FlexViewMenu.swift */,
+				5B53D0F21D5372010068BF04 /* FlexView.swift */,
+				5B12A8E01D72EBE50072D1E1 /* FlexImageView.swift */,
+				5B0859DF1D7EE65500484E8F /* FlexTextView.swift */,
+				5BD460461DA10A56001FA9B3 /* FlexImageShapeView.swift */,
+			);
+			name = "Flex Views";
+			sourceTree = "<group>";
+		};
+		5BD4603F1DA1004A001FA9B3 /* Flex Controls */ = {
+			isa = PBXGroup;
+			children = (
+				5B49AAF21D8E6CB0003C062E /* FlexLabel.swift */,
+				5BE448521D4381C90011E5AE /* FlexSwitch.swift */,
+				5BE4485C1D44C8D80011E5AE /* FlexMenuItem.swift */,
+				5BE448591D44C71D0011E5AE /* FlexMenu.swift */,
+				5BE448691D4760EE0011E5AE /* FlexSlider.swift */,
+				5BE4486C1D478E9A0011E5AE /* FlexDoubleSlider.swift */,
+			);
+			name = "Flex Controls";
 			sourceTree = "<group>";
 		};
 		5BE4484B1D41F8080011E5AE /* Helper */ = {
@@ -180,6 +215,7 @@
 		5BE448651D474DE20011E5AE /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				5BD460401DA100B0001FA9B3 /* CGRectHelper.swift */,
 				5BE448661D474DFD0011E5AE /* BezierPathHelper.swift */,
 			);
 			name = Helper;
@@ -209,18 +245,9 @@
 			isa = PBXGroup;
 			children = (
 				5BE448651D474DE20011E5AE /* Helper */,
+				5BD4603F1DA1004A001FA9B3 /* Flex Controls */,
+				5BD4603E1DA0FFD4001FA9B3 /* Flex Views */,
 				5BF702131D3114CB0011555A /* GenericStyleSlider */,
-				5B49AAF21D8E6CB0003C062E /* FlexLabel.swift */,
-				5BE448521D4381C90011E5AE /* FlexSwitch.swift */,
-				5BE4485C1D44C8D80011E5AE /* FlexMenuItem.swift */,
-				5BE448591D44C71D0011E5AE /* FlexMenu.swift */,
-				5BE448621D450DC20011E5AE /* FlexSeriesView.swift */,
-				5BE448691D4760EE0011E5AE /* FlexSlider.swift */,
-				5BE4486C1D478E9A0011E5AE /* FlexDoubleSlider.swift */,
-				5B1EFC791D7047250040AD50 /* FlexViewMenu.swift */,
-				5B53D0F21D5372010068BF04 /* FlexView.swift */,
-				5B12A8E01D72EBE50072D1E1 /* FlexImageView.swift */,
-				5B0859DF1D7EE65500484E8F /* FlexTextView.swift */,
 				5BF7020B1D3113D50011555A /* MJRFlexStyleComponents.h */,
 				5BF7020D1D3113D50011555A /* Info.plist */,
 			);
@@ -454,6 +481,7 @@
 				5B0859E41D7EE84B00484E8F /* FlexTextViewDemoViewController.swift in Sources */,
 				5B99370E1D3A9E5B0043E573 /* GenericStyleSlider.swift in Sources */,
 				5BC4B9B11D520E7F0000421F /* MJRFlexBaseControl.swift in Sources */,
+				5BD4604A1DA1109E001FA9B3 /* ImageShapeDemoViewController.swift in Sources */,
 				5BE4485B1D44C71D0011E5AE /* FlexMenu.swift in Sources */,
 				5B9937111D3A9E5B0043E573 /* StyledSliderThumbList.swift in Sources */,
 				5B12A8E41D73066E0072D1E1 /* ImageViewDemoViewController.swift in Sources */,
@@ -462,6 +490,7 @@
 				5B9937101D3A9E5B0043E573 /* StyledSliderThumb.swift in Sources */,
 				5BE4485E1D44C8D80011E5AE /* FlexMenuItem.swift in Sources */,
 				5BE4484A1D41F6DB0011E5AE /* PositionUpdateTimer.swift in Sources */,
+				5BD460481DA10A56001FA9B3 /* FlexImageShapeView.swift in Sources */,
 				5B53D0F41D5372010068BF04 /* FlexView.swift in Sources */,
 				5BE4486E1D478E9A0011E5AE /* FlexDoubleSlider.swift in Sources */,
 				5BE448511D4220830011E5AE /* LabelFactory.swift in Sources */,
@@ -470,6 +499,7 @@
 				5BEAF3231D6851B600BF5D83 /* MenusDemoViewController.swift in Sources */,
 				5B0859E11D7EE65500484E8F /* FlexTextView.swift in Sources */,
 				5BE4486B1D4760EE0011E5AE /* FlexSlider.swift in Sources */,
+				5BD460421DA100B0001FA9B3 /* CGRectHelper.swift in Sources */,
 				5B49AAF41D8E6CB0003C062E /* FlexLabel.swift in Sources */,
 				5B9936FF1D3A9E210043E573 /* AppDelegate.swift in Sources */,
 				5BE448541D4381C90011E5AE /* FlexSwitch.swift in Sources */,
@@ -496,9 +526,11 @@
 				5BE448671D474DFD0011E5AE /* BezierPathHelper.swift in Sources */,
 				5BE4484D1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift in Sources */,
 				5B12A8E11D72EBE50072D1E1 /* FlexImageView.swift in Sources */,
+				5BD460471DA10A56001FA9B3 /* FlexImageShapeView.swift in Sources */,
 				5B9936D71D3A57620043E573 /* StyledSliderThumbList.swift in Sources */,
 				5B1EFC7A1D7047250040AD50 /* FlexViewMenu.swift in Sources */,
 				5BE448631D450DC20011E5AE /* FlexSeriesView.swift in Sources */,
+				5BD460411DA100B0001FA9B3 /* CGRectHelper.swift in Sources */,
 				5BE4486D1D478E9A0011E5AE /* FlexDoubleSlider.swift in Sources */,
 				5B9F2C601D32352600B096B5 /* StyledSliderThumb.swift in Sources */,
 			);

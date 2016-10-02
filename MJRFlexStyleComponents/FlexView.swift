@@ -38,7 +38,6 @@ public enum FlexViewHeaderPosition {
 
 public class FlexView: MJRFlexBaseControl {
     private var _headerLabel = FlexLabel()
-    
     public var header: FlexLabel {
         get {
             return _headerLabel
@@ -46,7 +45,6 @@ public class FlexView: MJRFlexBaseControl {
     }
     
     private var _footerLabel = FlexLabel()
-    
     public var footer: FlexLabel {
         get {
             return _footerLabel
