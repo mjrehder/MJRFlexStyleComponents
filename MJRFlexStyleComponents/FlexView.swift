@@ -241,7 +241,7 @@ public class FlexView: MJRFlexBaseControl {
                 self.addSubview(self.header)
             }
             self.header.frame = self.rectForHeader()
-            let headerBounds = UIEdgeInsetsInsetRect(self.header.bounds, self.header.labelInsets)
+            let headerBounds = UIEdgeInsetsInsetRect(self.header.bounds, self.header.labelInsets ?? self.getAppearance().headerInsets)
             self.header.label.frame = headerBounds
             self.header.label.transform = self.getHeaderFooterRotation()
             self.header.label.frame = headerBounds
@@ -251,6 +251,9 @@ public class FlexView: MJRFlexBaseControl {
             else {
                 self.header.label.attributedText = headerAttributedText
             }
+            self.header.labelFont = self.header.labelFont ?? self.getAppearance().headerTextFont
+            self.header.labelTextColor = self.header.labelTextColor ?? self.getAppearance().headerTextColor
+            self.header.labelTextAlignment = self.header.labelTextAlignment ?? self.getAppearance().headerAlignment
             self.header.applyStyle()
         }
         else {
@@ -262,7 +265,7 @@ public class FlexView: MJRFlexBaseControl {
                 self.addSubview(self.footer)
             }
             self.footer.frame = self.rectForFooter()
-            let footerBounds = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.labelInsets)
+            let footerBounds = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.labelInsets ?? self.getAppearance().footerInsets)
             self.footer.label.frame = footerBounds
             self.footer.label.transform = self.getHeaderFooterRotation()
             self.footer.label.frame = footerBounds
@@ -272,6 +275,9 @@ public class FlexView: MJRFlexBaseControl {
             else {
                 self.footer.label.attributedText = footerAttributedText
             }
+            self.footer.labelFont = self.footer.labelFont ?? self.getAppearance().footerTextFont
+            self.footer.labelTextColor = self.footer.labelTextColor ?? self.getAppearance().footerTextColor
+            self.footer.labelTextAlignment = self.footer.labelTextAlignment ?? self.getAppearance().footerAlignment
             self.footer.applyStyle()
         }
         else {
@@ -290,12 +296,12 @@ public class FlexView: MJRFlexBaseControl {
         let style = self.getStyle()
         
         if self.hasHeaderText() {
-            let headerShapeLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.header.style, shapeBounds: self.rectForHeader().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.header.labelBackgroundColor ?? .clearColor(), maskToBounds: self.headerClipToBackgroundShape)
+            let headerShapeLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.header.getStyle(), shapeBounds: self.rectForHeader().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.header.labelBackgroundColor ?? .clearColor(), maskToBounds: self.headerClipToBackgroundShape)
             bgsLayer.addSublayer(headerShapeLayer)
         }
         
         if self.hasFooterText() {
-            let footerShapeLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.footer.style, shapeBounds: self.rectForFooter().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.footer.labelBackgroundColor ?? .clearColor(), maskToBounds: self.footerClipToBackgroundShape)
+            let footerShapeLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.footer.getStyle(), shapeBounds: self.rectForFooter().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.footer.labelBackgroundColor ?? .clearColor(), maskToBounds: self.footerClipToBackgroundShape)
             bgsLayer.addSublayer(footerShapeLayer)
         }
 

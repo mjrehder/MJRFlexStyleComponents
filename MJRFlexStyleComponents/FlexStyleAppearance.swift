@@ -70,12 +70,12 @@ public class FlexStyleAppearance  {
     public var headerTextFont = UIFont.boldSystemFontOfSize(12.0)
     public var headerSize: CGFloat = 18
     public var headerAlignment: NSTextAlignment = .Center
-    public var headerInsets: UIEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
+    public var headerInsets: UIEdgeInsets = UIEdgeInsetsZero
     public var footerTextColor = UIColor.whiteColor()
     public var footerTextFont = UIFont.boldSystemFontOfSize(10.0)
     public var footerSize: CGFloat = 18
     public var footerAlignment: NSTextAlignment = .Center
-    public var footerInsets: UIEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
+    public var footerInsets: UIEdgeInsets = UIEdgeInsetsZero
     
     // Menus
     public var menuBackgroundColor: UIColor = UIColor.blackColor()
