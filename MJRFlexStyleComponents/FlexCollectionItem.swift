@@ -32,8 +32,7 @@ import UIKit
 
 public class FlexCollectionItem: NSObject {
     public var reference: String
-    public var title: String?
-    public var footerMenuItems: [FlexMenuItem] = []
+    public var text: String?
     public var sectionReference: String?
     public var preferredCellSize: CGSize?
     

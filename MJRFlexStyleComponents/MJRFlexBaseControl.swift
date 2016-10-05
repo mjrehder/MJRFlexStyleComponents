@@ -33,6 +33,15 @@ import StyledLabel
 public class MJRFlexBaseControl: UIControl {
     var styleLayer = CAShapeLayer()
 
+    public var appearance: FlexStyleAppearance? {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    public func getAppearance() -> FlexStyleAppearance {
+        return self.appearance ?? flexStyleAppearance
+    }
+    
     override public init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -50,11 +59,15 @@ public class MJRFlexBaseControl: UIControl {
     
     // MARK: - Control Style
     
-    /// The view's style. Default's to box.
-    @IBInspectable public var style: ShapeStyle = .Box {
+    /// The view's style.
+    @IBInspectable public var style: ShapeStyle? {
         didSet {
             self.setNeedsLayout()
         }
+    }
+    /// Convenience for getting a valid style
+    public func getStyle() -> ShapeStyle {
+        return self.style ?? self.getAppearance().style
     }
     
     /// The view’s background color.
@@ -71,8 +84,8 @@ public class MJRFlexBaseControl: UIControl {
         }
     }
     
-    /// The view's border width. Default's to 1.0
-    @IBInspectable public var borderWidth: CGFloat = 1.0 {
+    /// The view's border width.
+    @IBInspectable public var borderWidth: CGFloat? {
         didSet {
             self.setNeedsLayout()
         }
@@ -85,8 +98,8 @@ public class MJRFlexBaseControl: UIControl {
         }
     }
 
-    /// The controls background insets, also known as border margins. Defaults to UIEdgeInsetsZero
-    @IBInspectable public var backgroundMargins: UIEdgeInsets = UIEdgeInsetsZero {
+    /// The controls background insets, also known as border margins.
+    @IBInspectable public var backgroundInsets: UIEdgeInsets? {
         didSet {
             self.setNeedsLayout()
         }
@@ -99,7 +112,7 @@ public class MJRFlexBaseControl: UIControl {
     }
 
     func layoutComponents() {
-        self.applyStyle(self.style)
+        self.applyStyle(self.getStyle())
     }
     
     func applyStyle(style: ShapeStyle) {
@@ -107,13 +120,14 @@ public class MJRFlexBaseControl: UIControl {
             self.layer.addSublayer(styleLayer)
         }
         
-        let layerRect = self.marginsForRect(bounds, margins: backgroundMargins)
-        let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clearColor()
+        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets ?? self.getAppearance().backgroundInsets)
+        let bgColor: UIColor = self.styleColor ?? backgroundColor ?? self.getAppearance().backgroundColor
         let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
         
         // Add layer with border, if required
-        if let borderColor = borderColor {
-            let bLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: .clearColor(), borderColor: borderColor, borderWidth: borderWidth)
+        let borderWidth = self.borderWidth ?? self.getAppearance().borderWidth
+        if borderWidth > 0 {
+            let bLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: .clearColor(), borderColor: borderColor ?? self.getAppearance().borderColor, borderWidth: borderWidth)
             bgsLayer.addSublayer(bLayer)
         }
         

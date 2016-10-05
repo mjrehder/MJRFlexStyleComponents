@@ -84,35 +84,7 @@ public class FlexImageShapeView: FlexView {
             self.backgroundShape.removeFromSuperlayer()
         }
 
-        let bgLayer = CALayer()
-        bgLayer.frame = imageViewRect
-        let clipRect = CGRectOffset(self.bounds, -imageViewRect.origin.x, -imageViewRect.origin.y)
-        let maskShapeLayer = StyledShapeLayer.createShape(self.style, bounds: clipRect, color: UIColor.blackColor())
-        bgLayer.mask = maskShapeLayer
-
-        if let bgi = self.image {
-            let imgLayer = CALayer()
-            var imgRect = CGRect(origin: CGPointZero, size: imageViewRect.size)
-            switch self.backgroundImageFit {
-            case .Center:
-                let iSize = bgi.size
-                let bgOffset = CGPointMake((imgRect.size.width - iSize.width) * 0.5, (imgRect.size.height - iSize.height) * 0.5)
-                imgRect = CGRectMake(bgOffset.x, bgOffset.y, iSize.width, iSize.height)
-            case .ScaleToFill:
-                break
-            case .ScaleToFit:
-                let imageR = CGRect(origin: CGPointZero, size: bgi.size)
-                imgRect = CGRectHelper.AspectFitRectInRect(imageR, rtarget: imgRect)
-            }
-            imgLayer.bounds = imgRect
-            imgLayer.contents = bgi.CGImage
-            imgLayer.position = CGPointMake(CGRectGetMidX(imgRect), CGRectGetMidY(imgRect))
-            let maskPath = StyledShapeLayer.shapePathForStyle(self.imageStyle, bounds: imgRect)
-            let maskLayer = CAShapeLayer()
-            maskLayer.path = maskPath.CGPath
-            imgLayer.mask = maskLayer
-            bgLayer.addSublayer(imgLayer)
-        }
+        let bgLayer = ImageShapeLayerFactory.createImageShapeInView(imageViewRect, viewBounds: self.bounds, image: self.image, viewStyle: self.getStyle(), imageStyle: self.imageStyle, imageFitting: self.backgroundImageFit)
         
         self.styleLayer.insertSublayer(bgLayer, atIndex: 0)
         self.backgroundShape = bgLayer

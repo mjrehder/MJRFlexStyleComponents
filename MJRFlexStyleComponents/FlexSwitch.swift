@@ -70,13 +70,6 @@ public protocol FlexSwitchDelegate {
         self.addTarget(self, action: #selector(FlexSwitch.switchChanged), forControlEvents: .ValueChanged)
     }
 
-    override func initComponent() {
-        super.initComponent()
-        if bounds.size.width > 0.0 {
-            self.thumbRatio = (bounds.size.height - 1.0) / bounds.size.width
-        }
-    }
-    
     @IBInspectable public var onTintColor: UIColor? = UISwitch.appearance().onTintColor {
         didSet {
             self.applySeparatorStyle(self.separatorStyle)
@@ -123,7 +116,7 @@ public protocol FlexSwitchDelegate {
     }
     
     public func colorOfSeparatorLabel(index: Int) -> UIColor? {
-        return index == 0 ? self.onTintColor : self.backgroundColor
+        return index == 0 ? self.onTintColor : self.styleColor
     }
     
     public func behaviourOfThumb(index: Int) -> StyledSliderThumbBehaviour? {

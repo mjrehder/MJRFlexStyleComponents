@@ -148,7 +148,7 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         self.itemCollectionView.frame = collectionViewRect
         
         let clipRect = CGRectOffset(self.bounds, -collectionViewRect.origin.x, -collectionViewRect.origin.y)
-        let maskShapeLayer = StyledShapeLayer.createShape(self.style, bounds: clipRect, color: UIColor.blackColor())
+        let maskShapeLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: clipRect, color: UIColor.blackColor())
         
         self.itemCollectionView.layer.mask = maskShapeLayer
     }

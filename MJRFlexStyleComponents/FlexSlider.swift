@@ -63,19 +63,19 @@ public class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
     
     @IBInspectable public var minimumTrackTintColor: UIColor? = UISlider.appearance().minimumTrackTintColor {
         didSet {
-            self.applyStyle(self.style)
+            self.applyStyle(self.getStyle())
         }
     }
     
     @IBInspectable public var maximumTrackTintColor: UIColor? = UISlider.appearance().maximumTrackTintColor {
         didSet {
-            self.applyStyle(self.style)
+            self.applyStyle(self.getStyle())
         }
     }
 
     @IBInspectable public var maximumTrackText: String? = nil {
         didSet {
-            self.applyStyle(self.style)
+            self.applyStyle(self.getStyle())
         }
     }
 

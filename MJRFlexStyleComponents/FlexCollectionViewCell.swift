@@ -45,6 +45,9 @@ public class FlexCollectionViewCell: UICollectionViewCell {
             self.refreshLayout()
         }
     }
+    public func getAppearance() -> FlexStyleAppearance {
+        return self.appearance ?? flexStyleAppearance
+    }
     
     public override var selected: Bool {
         didSet {
@@ -83,9 +86,9 @@ public class FlexCollectionViewCell: UICollectionViewCell {
     
     func applyStyles() {
     }
-    
+
     public func assignBorderLayout() {
-        let appe = self.appearance ?? flexStyleAppearance
+        let appe = self.getAppearance()
         self.layer.borderColor = self.selected ? appe.selectedBorderColor.CGColor : appe.borderColor.CGColor
         self.layer.borderWidth = self.selected ? appe.selectedBorderWidth : appe.borderWidth
     }

@@ -71,7 +71,7 @@ public class FlexTextView: FlexView {
         self.textView.frame = textViewRect
         
         let clipRect = CGRectOffset(self.bounds, -textViewRect.origin.x, -textViewRect.origin.y)
-        let maskShapeLayer = StyledShapeLayer.createShape(self.style, bounds: clipRect, color: UIColor.blackColor())
+        let maskShapeLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: clipRect, color: UIColor.blackColor())
         
         self.textView.layer.mask = maskShapeLayer
     }}

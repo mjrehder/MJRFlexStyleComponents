@@ -354,7 +354,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     /// The view’s background color.
     @IBInspectable override public var styleColor: UIColor? {
         didSet {
-            self.applyStyle(self.style)
+            self.applyStyle(self.getStyle())
             
             if thumbBackgroundColor == nil {
                 for thumb in self.thumbList.thumbs {
@@ -367,7 +367,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     /// The view’s background color.
     override public var backgroundColor: UIColor? {
         didSet {
-            self.applyStyle(self.style)
+            self.applyStyle(self.getStyle())
             
             if thumbBackgroundColor == nil {
                 for thumb in self.thumbList.thumbs {
@@ -390,13 +390,11 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
 
     func applySeparatorStyle(style: ShapeStyle) {
-        var idx = 0
         for sep in self.separatorLabels {
             sep.style = style
             sep.backgroundColor = .clearColor()
             sep.borderColor = separatorBorderColor
             sep.borderWidth = separatorBorderWidth
-            idx += 1
         }
     }
 
@@ -409,7 +407,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             rectColors.append((sep.frame, bgColor ?? .clearColor()))
             idx += 1
         }
-        let sepLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.separatorStyle, colorRects: rectColors)
+        let sepLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: layerRect, shapeStyle: self.separatorStyle, colorRects: rectColors)
         return sepLayer
     }
     
@@ -429,16 +427,17 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     override func applyStyle(style: ShapeStyle) {
-        let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clearColor()
-        let layerRect = self.marginsForRect(bounds, margins: backgroundMargins)
+        let bgColor: UIColor = self.styleColor ?? backgroundColor ?? self.getAppearance().backgroundColor
+        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets ?? self.getAppearance().backgroundInsets)
         let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
         
         let sepLayer = self.createSeparatorLayer(layerRect)
         bgsLayer.addSublayer(sepLayer)
         
         // Add layer with border, if required
-        if let borderColor = borderColor {
-            let bLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: .clearColor(), borderColor: borderColor, borderWidth: borderWidth)
+        let borderWidth = self.borderWidth ?? self.getAppearance().borderWidth
+        if borderWidth > 0 {
+            let bLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: .clearColor(), borderColor: self.borderColor ?? self.getAppearance().borderColor, borderWidth: borderWidth)
             bgsLayer.addSublayer(bLayer)
         }
         
@@ -456,7 +455,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         if let font = label.font, text = label.text {
             let textString = text as NSString
             let textAttributes = [NSFontAttributeName: font]
-            return textString.boundingRectWithSize(self.marginsForRect(bounds, margins: backgroundMargins).size, options: .UsesLineFragmentOrigin, attributes: textAttributes, context: nil).size
+            return textString.boundingRectWithSize(self.marginsForRect(bounds, margins: backgroundInsets ?? self.getAppearance().backgroundInsets).size, options: .UsesLineFragmentOrigin, attributes: textAttributes, context: nil).size
         }
         return nil
     }
@@ -535,7 +534,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
 
         applyThumbStyle(thumbStyle)
         applySeparatorStyle(separatorStyle)
-        applyStyle(style)
+        applyStyle(self.getStyle())
         applyHintStyle(hintStyle)
 
         self.assignThumbTexts()
