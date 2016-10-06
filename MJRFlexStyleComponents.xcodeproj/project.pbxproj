@@ -56,6 +56,7 @@
 		5BB91CA71DA3D8F600A94D12 /* FlexBaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91CA51DA3D8F600A94D12 /* FlexBaseCollectionViewCell.swift */; };
 		5BB91CA91DA3DC3500A94D12 /* FlexBaseCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91CA81DA3DC3500A94D12 /* FlexBaseCollectionItem.swift */; };
 		5BB91CAA1DA3DC3500A94D12 /* FlexBaseCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91CA81DA3DC3500A94D12 /* FlexBaseCollectionItem.swift */; };
+		5BC284231DA66689004E1731 /* FlexCollectionDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC284221DA66689004E1731 /* FlexCollectionDemoViewController.swift */; };
 		5BC4B9B01D520E7F0000421F /* MJRFlexBaseControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC4B9AF1D520E7F0000421F /* MJRFlexBaseControl.swift */; };
 		5BC4B9B11D520E7F0000421F /* MJRFlexBaseControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC4B9AF1D520E7F0000421F /* MJRFlexBaseControl.swift */; };
 		5BD460411DA100B0001FA9B3 /* CGRectHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD460401DA100B0001FA9B3 /* CGRectHelper.swift */; };
@@ -122,6 +123,7 @@
 		5BB91CA11DA39E0F00A94D12 /* ImageShapeLayerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageShapeLayerFactory.swift; sourceTree = "<group>"; };
 		5BB91CA51DA3D8F600A94D12 /* FlexBaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexBaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BB91CA81DA3DC3500A94D12 /* FlexBaseCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexBaseCollectionItem.swift; sourceTree = "<group>"; };
+		5BC284221DA66689004E1731 /* FlexCollectionDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCollectionDemoViewController.swift; sourceTree = "<group>"; };
 		5BC4B9AF1D520E7F0000421F /* MJRFlexBaseControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MJRFlexBaseControl.swift; sourceTree = "<group>"; };
 		5BD460401DA100B0001FA9B3 /* CGRectHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectHelper.swift; sourceTree = "<group>"; };
 		5BD460461DA10A56001FA9B3 /* FlexImageShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexImageShapeView.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				5B12A8E31D73066E0072D1E1 /* ImageViewDemoViewController.swift */,
 				5B0859E21D7EE84B00484E8F /* FlexTextViewDemoViewController.swift */,
 				5BD460491DA1109E001FA9B3 /* ImageShapeDemoViewController.swift */,
+				5BC284221DA66689004E1731 /* FlexCollectionDemoViewController.swift */,
 				5B9937021D3A9E210043E573 /* Main.storyboard */,
 				5B9937051D3A9E210043E573 /* Assets.xcassets */,
 				5B9937071D3A9E210043E573 /* LaunchScreen.storyboard */,
@@ -564,6 +567,7 @@
 				5BB91CA71DA3D8F600A94D12 /* FlexBaseCollectionViewCell.swift in Sources */,
 				5BB91C951DA3955900A94D12 /* EmptyHeaderCollectionReusableView.swift in Sources */,
 				5B9937121D3A9E5B0043E573 /* StyledControlDirection.swift in Sources */,
+				5BC284231DA66689004E1731 /* FlexCollectionDemoViewController.swift in Sources */,
 				5B1EFC7B1D7047250040AD50 /* FlexViewMenu.swift in Sources */,
 				5BB91C991DA3955900A94D12 /* FlexCollectionView.swift in Sources */,
 				5B9937101D3A9E5B0043E573 /* StyledSliderThumb.swift in Sources */,

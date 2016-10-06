@@ -16,7 +16,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="la0-9i-uk0">
@@ -126,7 +126,7 @@
                         <viewControllerLayoutGuide type="bottom" id="MRv-Qm-NfF"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="PtC-1S-Mnb">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3NP-MV-OYk" customClass="FlexView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
@@ -185,7 +185,7 @@
                         <viewControllerLayoutGuide type="bottom" id="lSt-Xd-y6E"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Abf-jI-7sm">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="utr-C3-EXj" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
@@ -269,7 +269,7 @@
                         <viewControllerLayoutGuide type="bottom" id="HK7-H7-Mv8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="gWF-wX-Pwy">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0d4-Cl-e10" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
@@ -331,7 +331,7 @@
                         <viewControllerLayoutGuide type="bottom" id="RWe-dj-Cbu"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="UNk-Pw-6oU">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5t7-Zh-Gc0" customClass="FlexTextView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
@@ -362,16 +362,16 @@
             </objects>
             <point key="canvasLocation" x="4035" y="429"/>
         </scene>
-        <!--Image Shape View-->
+        <!--Shape View-->
         <scene sceneID="rli-x0-sQw">
             <objects>
-                <viewController title="Image Shape View" id="cfR-pt-KGx" customClass="ImageShapeDemoViewController" customModule="MJRFlexStyleExamples" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="cfR-pt-KGx" customClass="ImageShapeDemoViewController" customModule="MJRFlexStyleExamples" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jjg-9A-6DZ"/>
                         <viewControllerLayoutGuide type="bottom" id="rlD-aA-yBa"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yoU-Xd-The">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ru-Si-9Ny" customClass="FlexImageShapeView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
@@ -404,6 +404,13 @@
                             <constraint firstItem="9ru-Si-9Ny" firstAttribute="top" secondItem="e1e-qf-Grt" secondAttribute="bottom" constant="8" symbolic="YES" id="pdq-ec-zUa"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Shape View" id="eA9-AJ-qOX">
+                        <barButtonItem key="rightBarButtonItem" title="Collections" id="T2A-bW-PcH">
+                            <connections>
+                                <segue destination="5SO-hz-o6k" kind="show" id="hbV-AI-A2E"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="flexViewOrientation" destination="UsN-L0-Iae" id="8lP-Yf-ytb"/>
                         <outlet property="imageShapeView" destination="9ru-Si-9Ny" id="C3T-NP-rr7"/>
@@ -413,6 +420,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zct-9V-HlK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4763.5682158920545" y="416.80000000000001"/>
+        </scene>
+        <!--Collections-->
+        <scene sceneID="nhi-Q6-OQi">
+            <objects>
+                <viewController id="5SO-hz-o6k" customClass="FlexCollectionDemoViewController" customModule="MJRFlexStyleExamples" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0e3-SQ-cNB"/>
+                        <viewControllerLayoutGuide type="bottom" id="qbF-TL-Ft3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Cwe-Wl-9u0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1FE-fF-6b5" customClass="FlexCollectionView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1FE-fF-6b5" firstAttribute="bottom" secondItem="qbF-TL-Ft3" secondAttribute="top" id="086-rN-Cmh"/>
+                            <constraint firstItem="1FE-fF-6b5" firstAttribute="leading" secondItem="Cwe-Wl-9u0" secondAttribute="leading" id="46h-jc-H6o"/>
+                            <constraint firstAttribute="trailing" secondItem="1FE-fF-6b5" secondAttribute="trailing" id="biD-Ya-wQC"/>
+                            <constraint firstItem="1FE-fF-6b5" firstAttribute="top" secondItem="0e3-SQ-cNB" secondAttribute="bottom" id="dbO-gm-lxa"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Collections" id="z7g-cd-pRQ"/>
+                    <connections>
+                        <outlet property="demoCollectionView" destination="1FE-fF-6b5" id="cFm-Ij-2OR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VyT-m6-jAc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5440.8000000000002" y="415.14242878560725"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fKv-qm-XHe">

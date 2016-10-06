@@ -104,8 +104,6 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
     }
     
     func createView() {
-        self.registerDefaultCells()
-        
         self._itemCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
         self.itemCollectionView.dataSource = self
         self.itemCollectionView.delegate = self
@@ -123,9 +121,8 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
             collectionViewLayout.headerReferenceSize = CGSizeMake(0, 0) // was 0,30
         }
         
-//        self.itemCollectionView.registerClass(FlowViewImageCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: imageCellReuseIdentifier)
-//        self.itemCollectionView.registerClass(FlowViewLabelCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: textCellReuseIdentifier)
-
+        self.registerDefaultCells()
+        
         self.itemCollectionView.registerClass(SimpleHeaderCollectionReusableView.classForCoder(), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: simpleHeaderViewID)
         self.itemCollectionView.registerClass(EmptyHeaderCollectionReusableView.classForCoder(), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: emptyHeaderViewID)
 
@@ -136,7 +133,8 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
     }
     
     func registerDefaultCells() {
-//        self.collectionItemTypeMap[FlowViewTextCollectionItem.classForCoder().description()] = FlowViewLabelCollectionViewCell.classForCoder().description()
+        self.collectionItemTypeMap[FlexBaseCollectionItem.classForCoder().description()] = FlexBaseCollectionViewCell.classForCoder().description()
+        self.itemCollectionView.registerClass(FlexBaseCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: FlexBaseCollectionViewCell.classForCoder().description())
     }
     
     func setupView() {

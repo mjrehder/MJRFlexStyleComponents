@@ -54,13 +54,13 @@ public class FlexStyleAppearance  {
 
     // Used for collection view cells
     public var cellStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
-    public var cellIconSize: CGSize = CGSizeMake(48, 48)
+    public var cellIconSize: CGSize = CGSizeMake(32, 32)
     public var cellIconInsets: UIEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
     public var cellIconStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
-    public var cellAccessoryImageSize: CGSize = CGSizeMake(24, 24)
+    public var cellAccessoryImageSize: CGSize = CGSizeMake(18, 18)
     public var cellAccessoryImageInsets: UIEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
     public var cellAccessoryStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
-    public var cellTextInsets: UIEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
+    public var cellTextInsets: UIEdgeInsets = UIEdgeInsetsZero
     public var cellTextTextColor = UIColor.blackColor()
     public var cellTextTextFont = UIFont.boldSystemFontOfSize(16.0)
     public var cellTextAlignment: NSTextAlignment = .Left

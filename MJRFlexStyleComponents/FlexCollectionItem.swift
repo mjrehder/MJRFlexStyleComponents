@@ -32,11 +32,12 @@ import UIKit
 
 public class FlexCollectionItem: NSObject {
     public var reference: String
-    public var text: String?
+    public var text: NSAttributedString?
     public var sectionReference: String?
     public var preferredCellSize: CGSize?
     
-    public init(reference: String) {
+    public init(reference: String, text: NSAttributedString? = nil) {
         self.reference = reference
+        self.text = text
     }
 }

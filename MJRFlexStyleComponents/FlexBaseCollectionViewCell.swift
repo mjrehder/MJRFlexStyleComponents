@@ -32,7 +32,7 @@ import StyledLabel
 
 public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     var imageLayer: CALayer?
-    var textLabel: StyledLabel?
+    var textLabel: FlexLabel?
     var accessoryLayer: CALayer?
 
     public var flexContentView: FlexView?
@@ -44,6 +44,13 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         self.flexContentView = FlexView(frame: baseRect)
         if let pcv = self.flexContentView {
             self.contentView.addSubview(pcv)
+
+            // Just allocate and hide for now, in order to avoid re-creating this all the time
+            self.textLabel = FlexLabel(frame: CGRectZero)
+            if let tl = self.textLabel {
+                tl.hidden = true
+                pcv.addSubview(tl)
+            }
         }
     }
     
@@ -69,14 +76,53 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         super.applyStyles()
   
         let appe = self.getAppearance()
-        self.flexContentView?.style = appe.cellStyle
-        self.flexContentView?.headerSize = appe.headerSize
-        
-        if let item = self.item as? FlexBaseCollectionItem {
+        if let item = self.item as? FlexBaseCollectionItem, fcv = self.flexContentView {
+            fcv.headerAttributedText = item.title
+            
+            var remainingCellArea = fcv.getViewRect() //UIEdgeInsetsInsetRect(fcv.getViewRect(), ...)
+
             if let icon = item.icon {
-                let imageViewRect = CGRectMake(0, 0, 50, 50) // TODO
-                // TODO
-                self.imageLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: icon, imageStyle: .Rounded, imageFitting: .ScaleToFit)
+                let imageViewRect = CGRect(origin: CGPointZero, size: appe.cellIconSize)
+                let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: icon, imageStyle: appe.cellIconStyle, imageFitting: .ScaleToFit)
+                imgLayer.frame = CGRectMake(remainingCellArea.origin.x + appe.cellIconInsets.left, remainingCellArea.origin.y + (remainingCellArea.size.height - appe.cellIconSize.height) * 0.5, appe.cellIconSize.width, appe.cellIconSize.height)
+                
+                if let il = self.imageLayer {
+                    self.layer.replaceSublayer(il, with: imgLayer)
+                }
+                else {
+                    self.layer.addSublayer(imgLayer)
+                }
+                self.imageLayer = imgLayer
+                let imageLayerTotalWidth = imageViewRect.size.width + appe.cellIconInsets.left + appe.cellIconInsets.right
+                remainingCellArea = remainingCellArea.insetBy(dx: imageLayerTotalWidth*0.5, dy: 0).offsetBy(dx: imageLayerTotalWidth * 0.5, dy: 0)
+            }
+
+            if let aim = item.accessoryImage {
+                let imageViewRect = CGRect(origin: CGPointZero, size: appe.cellAccessoryImageSize)
+                let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: aim, imageStyle: appe.cellAccessoryStyle, imageFitting: .ScaleToFit)
+                imgLayer.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (appe.cellAccessoryImageInsets.right + appe.cellAccessoryImageSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - appe.cellAccessoryImageSize.height) * 0.5, appe.cellAccessoryImageSize.width, appe.cellAccessoryImageSize.height)
+                
+                if let il = self.accessoryLayer {
+                    self.layer.replaceSublayer(il, with: imgLayer)
+                }
+                else {
+                    self.layer.addSublayer(imgLayer)
+                }
+                self.accessoryLayer = imgLayer
+                let imageLayerTotalWidth = imageViewRect.size.width + appe.cellAccessoryImageInsets.left + appe.cellAccessoryImageInsets.right
+                remainingCellArea = remainingCellArea.insetBy(dx: imageLayerTotalWidth*0.5, dy: 0).offsetBy(dx: -imageLayerTotalWidth*0.5, dy: 0)
+            }
+
+            if let text = item.text {
+                let textRect =  UIEdgeInsetsInsetRect(remainingCellArea, appe.cellTextInsets)
+                self.textLabel?.label.frame = textRect
+                self.textLabel?.hidden = false
+                self.textLabel?.appearance = appe
+                self.textLabel?.labelTextAlignment = appe.cellTextAlignment
+                self.textLabel?.label.attributedText = text
+            }
+            else {
+                self.textLabel?.hidden = true
             }
         }
     }
