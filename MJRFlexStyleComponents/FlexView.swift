@@ -304,9 +304,7 @@ public class FlexView: MJRFlexBaseControl {
         }
 
         // Add layer with border, if required
-        let borderWidth = self.borderWidth ?? self.getAppearance().borderWidth
-        if borderWidth > 0 {
-            let bLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: .clearColor(), borderColor: borderColor ?? self.getAppearance().borderColor, borderWidth: borderWidth)
+        if let bLayer = self.createBorderLayer(style, layerRect: layerRect) {
             bgsLayer.addSublayer(bLayer)
         }
         

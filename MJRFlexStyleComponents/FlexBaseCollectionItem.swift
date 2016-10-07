@@ -34,10 +34,14 @@ public class FlexBaseCollectionItem: FlexCollectionItem {
     public var accessoryImage: UIImage?
     public var title: NSAttributedString?
     
-    public init(reference: String, text: NSAttributedString? = nil, icon: UIImage? = nil, accessoryImage: UIImage? = nil, title: NSAttributedString? = nil) {
+    public var accessoryImageActionHandler: (() -> Void)?
+    public var imageViewActionHandler: (() -> Void)?
+    
+    public init(reference: String, text: NSAttributedString? = nil, icon: UIImage? = nil, accessoryImage: UIImage? = nil, title: NSAttributedString? = nil, accessoryImageActionHandler: (() -> Void)? = nil) {
         self.icon = icon
         self.accessoryImage = accessoryImage
         self.title = title
+        self.accessoryImageActionHandler = accessoryImageActionHandler
         super.init(reference: reference, text: text)
     }
 }

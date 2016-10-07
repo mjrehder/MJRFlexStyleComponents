@@ -23,7 +23,12 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         let secRef = self.demoCollectionView.addSection()
         let ti1 = UIImage(named: "ThumbIcon1")
         let ti2 = UIImage(named: "ThumbIcon2")
-        let item1 = FlexBaseCollectionItem(reference: "item1ref", text: NSAttributedString(string: "Text"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 1"))
+        let item1 = FlexBaseCollectionItem(reference: "item1ref", text: NSAttributedString(string: "Text"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 1")) {
+            NSLog("did press accessory image")
+        }
+        item1.imageViewActionHandler = {
+            NSLog("image view pressed")
+        }
         self.demoCollectionView.addItem(secRef, item: item1)
         
     }
@@ -34,5 +39,6 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
     }
     
     func onFlexCollectionItemSelected(view: FlexCollectionView, item: FlexCollectionItem) {
+        NSLog("Item \(item.reference) selected")
     }
 }

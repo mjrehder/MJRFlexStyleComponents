@@ -115,6 +115,15 @@ public class MJRFlexBaseControl: UIControl {
         self.applyStyle(self.getStyle())
     }
     
+    func createBorderLayer(style: ShapeStyle, layerRect: CGRect) -> CALayer? {
+        let borderWidth = self.borderWidth ?? self.getAppearance().borderWidth
+        if borderWidth > 0 {
+            let bLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: .clearColor(), borderColor: borderColor ?? self.getAppearance().borderColor, borderWidth: borderWidth)
+            return bLayer
+        }
+        return nil
+    }
+    
     func applyStyle(style: ShapeStyle) {
         if self.styleLayer.superlayer == nil {
             self.layer.addSublayer(styleLayer)
@@ -125,9 +134,7 @@ public class MJRFlexBaseControl: UIControl {
         let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
         
         // Add layer with border, if required
-        let borderWidth = self.borderWidth ?? self.getAppearance().borderWidth
-        if borderWidth > 0 {
-            let bLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: .clearColor(), borderColor: borderColor ?? self.getAppearance().borderColor, borderWidth: borderWidth)
+        if let bLayer = self.createBorderLayer(style, layerRect: layerRect) {
             bgsLayer.addSublayer(bLayer)
         }
         

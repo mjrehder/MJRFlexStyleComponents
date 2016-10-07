@@ -36,7 +36,7 @@ public protocol FlexCollectionViewDelegate {
     func onFlexCollectionItemMoved(view: FlexCollectionView, item: FlexCollectionItem)
 }
 
-public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectionViewDelegate {
+public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectionViewDelegate, FlexCollectionViewCellTouchedDelegate {
     let simpleHeaderViewID = "SimpleHeaderView"
     let emptyHeaderViewID = "EmptyHeaderView"
     
@@ -202,6 +202,19 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         }
         return nil
     }
+
+    public func getItemForReference(itemReference: String) -> FlexCollectionItem? {
+        for sec in self.sections {
+            if let items = self.contentDic?[sec.reference] {
+                for item in items {
+                    if item.reference == itemReference {
+                        return item
+                    }
+                }
+            }
+        }
+        return nil
+    }
     
     public func removeItem(item: FlexCollectionItem) {
         if let items = self.contentDic?[item.sectionReference!] {
@@ -228,6 +241,8 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
             if let cellClassStr = collectionItemTypeMap[item.classForCoder.description()] {
                 if let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellClassStr, forIndexPath:indexPath) as? FlexCollectionViewCell {
                     cell._item = item
+                    cell.reference = item.reference
+                    cell.flexCellTouchDelegate = self
                     cell.appearance = self.collectionCellAppearance
                     return cell
                 }
@@ -276,6 +291,14 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
             self.contentDic?[tsec.reference]?.insert(item, atIndex: destinationIndexPath.row)
             item.sectionReference = tsec.reference
             self.flexCollectionDelegate?.onFlexCollectionItemMoved(self, item: item)
+        }
+    }
+    
+    // MARK: - FlexCollectionViewCellTouchedDelegate
+    
+    public func onFlexCollectionViewCellTouched(item: FlexCollectionItem?) {
+        if let item = item {
+            self.flexCollectionDelegate?.onFlexCollectionItemSelected(self, item: item)
         }
     }
 }

@@ -30,8 +30,14 @@
 
 import UIKit
 
+public protocol FlexCollectionViewCellTouchedDelegate {
+    func onFlexCollectionViewCellTouched(item : FlexCollectionItem?)
+}
+
 public class FlexCollectionViewCell: UICollectionViewCell {
     public var reference : String?
+    
+    public var flexCellTouchDelegate: FlexCollectionViewCellTouchedDelegate?
     
     var _item: FlexCollectionItem? = nil
     public var item: FlexCollectionItem? {
