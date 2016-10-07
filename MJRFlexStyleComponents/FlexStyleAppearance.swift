@@ -52,6 +52,10 @@ public class FlexStyleAppearance  {
     public var backgroundColor = UIColor.clearColor()
     public var selectedBackgroundColor = UIColor.clearColor()
 
+    // Flex Switch
+    public var switchOnColor: UIColor = UIColor.redColor().darkerColor()
+    public var switchThumbColor: UIColor = .grayColor()
+    
     // Used for collection view cells
     public var cellStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
     public var cellIconSize: CGSize = CGSizeMake(32, 32)
@@ -67,6 +71,7 @@ public class FlexStyleAppearance  {
     public var cellControlSize: CGSize = CGSizeMake(32, 32)
     public var cellControlInsets: UIEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
     public var cellControlStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
+    public var cellControlStyleColor = UIColor.lightGrayColor()
 
     // Header and Footer
     public var headerStyle: ShapeStyle = .Box

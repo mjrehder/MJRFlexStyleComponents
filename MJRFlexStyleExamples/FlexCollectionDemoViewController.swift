@@ -35,10 +35,19 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         self.demoCollectionView.addItem(secRef, item: item1)
         
         // Color item
-        let colItem = FlexColorCollectionViewItem(reference: "colorItem", color: .yellowColor(), text: NSAttributedString(string: "Color"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 2")) { 
+        let colItem = FlexColorCollectionItem(reference: "colorItem", color: .yellowColor(), text: NSAttributedString(string: "Color"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 2")) { 
             NSLog("did press color view")
         }
         self.demoCollectionView.addItem(secRef, item: colItem)
+        
+        // Switch value
+        let switchItem = FlexSwitchCollectionItem(reference: "switch", value: true, text: NSAttributedString(string: "Switch"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 3")) { (value) in
+            NSLog("The switch is now \(value)")
+        }
+        let siApp = FlexStyleAppearance()
+        siApp.cellControlSize = CGSizeMake(48,32)
+        switchItem.cellAppearance = siApp
+        self.demoCollectionView.addItem(secRef, item: switchItem)
     }
     
     // MARK: - FlexCollectionViewDelegate

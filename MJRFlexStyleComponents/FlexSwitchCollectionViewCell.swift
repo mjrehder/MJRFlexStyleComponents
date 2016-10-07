@@ -1,5 +1,5 @@
 //
-//  FlexColorCollectionViewCell.swift
+//  FlexSwitchCollectionViewCell.swift
 //  MJRFlexStyleComponents
 //
 //  Created by Martin Rehder on 07.10.2016.
@@ -28,60 +28,63 @@
  */
 
 import UIKit
-import StyledLabel
 
-public class FlexColorCollectionViewCell: FlexBaseCollectionViewCell {
-    var colorView: UIView?
+public class FlexSwitchCollectionViewCell: FlexBaseCollectionViewCell, FlexSwitchDelegate {
+    var flexSwitch: FlexSwitch?
 
     public override func initialize() {
         super.initialize()
         
         if let pcv = self.flexContentView {
-            self.colorView = UIView()
-            if let cv = self.colorView {
-                cv.hidden = true
-                pcv.addSubview(cv)
-                let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.colorViewTouched(_:)))
-                cv.addGestureRecognizer(tapGest)
+            self.flexSwitch = FlexSwitch()
+            if let fs = self.flexSwitch {
+                fs.hidden = true
+                fs.switchDelegate = self
+                pcv.addSubview(fs)
             }
         }
     }
     
-    public func colorViewTouched(recognizer: UITapGestureRecognizer) {
-        if let item = self.item as? FlexColorCollectionItem {
-            item.colorActionHandler?()
-        }
-    }
-    
-    public func layoutColorView(item: FlexColorCollectionItem, area: CGRect) -> CGRect {
+    public func layoutSwitchView(item: FlexSwitchCollectionItem, area: CGRect) -> CGRect {
         var remainingCellArea = area
         
-        if let cv = self.colorView {
+        if let fs = self.flexSwitch {
             let appe = self.getAppearance()
             let imageViewRect = CGRect(origin: CGPointZero, size: appe.cellControlSize)
-            let colorLayer = StyledShapeLayer.createShape(appe.cellControlStyle, bounds: imageViewRect, color: item.color)
+
+            fs.appearance = appe
+            fs.style = appe.cellControlStyle
+            fs.thumbStyle = appe.cellControlStyle
+            fs.styleColor = appe.cellControlStyleColor
             
-            cv.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (appe.cellControlInsets.right + appe.cellControlSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - appe.cellControlSize.height) * 0.5, appe.cellControlSize.width, appe.cellControlSize.height)
-            cv.layer.sublayers?.removeAll()
-            cv.layer.addSublayer(colorLayer)
-            cv.hidden = false
-            let colorLayerTotalWidth = imageViewRect.size.width + appe.cellControlInsets.left + appe.cellControlInsets.right
-            remainingCellArea = remainingCellArea.insetBy(dx: colorLayerTotalWidth*0.5, dy: 0).offsetBy(dx: -colorLayerTotalWidth*0.5, dy: 0)
+            fs.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (appe.cellControlInsets.right + appe.cellControlSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - appe.cellControlSize.height) * 0.5, appe.cellControlSize.width, appe.cellControlSize.height)
+            fs.hidden = false
+            fs.setOn(item.value)
+            let switchTotalWidth = imageViewRect.size.width + appe.cellControlInsets.left + appe.cellControlInsets.right
+            remainingCellArea = remainingCellArea.insetBy(dx: switchTotalWidth*0.5, dy: 0).offsetBy(dx: -switchTotalWidth*0.5, dy: 0)
         }
         else {
-            self.colorView?.hidden = true
+            self.flexSwitch?.hidden = true
         }
         return remainingCellArea
     }
     
     override func applyStyles() {
-        if let item = self.item as? FlexColorCollectionItem, fcv = self.flexContentView {
+        if let item = self.item as? FlexSwitchCollectionItem, fcv = self.flexContentView {
             fcv.headerAttributedText = item.title
             var remainingCellArea = fcv.getViewRect()
             remainingCellArea = self.layoutIconView(item, area: remainingCellArea)
             remainingCellArea = self.layoutAccessoryView(item, area: remainingCellArea)
-            remainingCellArea = self.layoutColorView(item, area: remainingCellArea)
+            remainingCellArea = self.layoutSwitchView(item, area: remainingCellArea)
             self.layoutText(item, area: remainingCellArea)
+        }
+    }
+    
+    // MARK: - FlexSwitchDelegate
+    
+    public func switchStateChanged(flexSwitch: FlexSwitch, on: Bool) {
+        if let item = self.item as? FlexSwitchCollectionItem {
+            item.valueChangedHandler?(value: on)
         }
     }
 }

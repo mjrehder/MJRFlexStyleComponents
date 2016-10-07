@@ -70,13 +70,13 @@ public protocol FlexSwitchDelegate {
         self.addTarget(self, action: #selector(FlexSwitch.switchChanged), forControlEvents: .ValueChanged)
     }
 
-    @IBInspectable public var onTintColor: UIColor? = UISwitch.appearance().onTintColor {
+    @IBInspectable public var onTintColor: UIColor? {
         didSet {
             self.applySeparatorStyle(self.separatorStyle)
         }
     }
     
-    @IBInspectable public var thumbTintColor: UIColor? = UISwitch.appearance().thumbTintColor {
+    @IBInspectable public var thumbTintColor: UIColor? {
         didSet {
             self.applyThumbStyle(self.thumbStyle)
         }
@@ -112,11 +112,11 @@ public protocol FlexSwitchDelegate {
     }
     
     public func colorOfThumb(index: Int) -> UIColor? {
-        return self.thumbTintColor
+        return self.thumbTintColor ?? self.getAppearance().switchThumbColor
     }
     
     public func colorOfSeparatorLabel(index: Int) -> UIColor? {
-        return index == 0 ? self.onTintColor : self.styleColor
+        return index == 0 ? self.onTintColor ?? self.getAppearance().switchOnColor : self.styleColor
     }
     
     public func behaviourOfThumb(index: Int) -> StyledSliderThumbBehaviour? {

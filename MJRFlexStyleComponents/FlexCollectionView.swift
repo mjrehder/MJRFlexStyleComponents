@@ -136,9 +136,12 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         self.collectionItemTypeMap[FlexBaseCollectionItem.classForCoder().description()] = FlexBaseCollectionViewCell.classForCoder().description()
         self.itemCollectionView.registerClass(FlexBaseCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: FlexBaseCollectionViewCell.classForCoder().description())
 
-        self.collectionItemTypeMap[FlexColorCollectionViewItem.classForCoder().description()] = FlexColorCollectionViewCell.classForCoder().description()
+        self.collectionItemTypeMap[FlexColorCollectionItem.classForCoder().description()] = FlexColorCollectionViewCell.classForCoder().description()
         self.itemCollectionView.registerClass(FlexColorCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: FlexColorCollectionViewCell.classForCoder().description())
-}
+
+        self.collectionItemTypeMap[FlexSwitchCollectionItem.classForCoder().description()] = FlexSwitchCollectionViewCell.classForCoder().description()
+        self.itemCollectionView.registerClass(FlexSwitchCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: FlexSwitchCollectionViewCell.classForCoder().description())
+    }
     
     func setupView() {
         self.setupCollectionView()

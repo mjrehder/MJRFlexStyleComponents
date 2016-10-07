@@ -40,6 +40,10 @@
 		5BB2A61E1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2A61C1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift */; };
 		5BB2A6201DA7A774003D38C3 /* FlexColorCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2A61F1DA7A774003D38C3 /* FlexColorCollectionViewItem.swift */; };
 		5BB2A6211DA7A774003D38C3 /* FlexColorCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2A61F1DA7A774003D38C3 /* FlexColorCollectionViewItem.swift */; };
+		5BB2A6231DA7D296003D38C3 /* FlexSwitchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2A6221DA7D296003D38C3 /* FlexSwitchCollectionViewCell.swift */; };
+		5BB2A6241DA7D296003D38C3 /* FlexSwitchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2A6221DA7D296003D38C3 /* FlexSwitchCollectionViewCell.swift */; };
+		5BB2A6261DA7D2E9003D38C3 /* FlexSwitchCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2A6251DA7D2E9003D38C3 /* FlexSwitchCollectionItem.swift */; };
+		5BB2A6271DA7D2E9003D38C3 /* FlexSwitchCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2A6251DA7D2E9003D38C3 /* FlexSwitchCollectionItem.swift */; };
 		5BB91C901DA3955900A94D12 /* FlexCollectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91C8A1DA3955900A94D12 /* FlexCollectionSection.swift */; };
 		5BB91C911DA3955900A94D12 /* FlexCollectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91C8A1DA3955900A94D12 /* FlexCollectionSection.swift */; };
 		5BB91C921DA3955900A94D12 /* FlexCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91C8B1DA3955900A94D12 /* FlexCollectionItem.swift */; };
@@ -119,6 +123,8 @@
 		5B9F2C5F1D32352600B096B5 /* StyledSliderThumb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledSliderThumb.swift; sourceTree = "<group>"; };
 		5BB2A61C1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BB2A61F1DA7A774003D38C3 /* FlexColorCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexColorCollectionViewItem.swift; sourceTree = "<group>"; };
+		5BB2A6221DA7D296003D38C3 /* FlexSwitchCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSwitchCollectionViewCell.swift; sourceTree = "<group>"; };
+		5BB2A6251DA7D2E9003D38C3 /* FlexSwitchCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSwitchCollectionItem.swift; sourceTree = "<group>"; };
 		5BB91C8A1DA3955900A94D12 /* FlexCollectionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCollectionSection.swift; sourceTree = "<group>"; };
 		5BB91C8B1DA3955900A94D12 /* FlexCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCollectionItem.swift; sourceTree = "<group>"; };
 		5BB91C8C1DA3955900A94D12 /* EmptyHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -222,6 +228,7 @@
 				5BB91C8B1DA3955900A94D12 /* FlexCollectionItem.swift */,
 				5BB91CA81DA3DC3500A94D12 /* FlexBaseCollectionItem.swift */,
 				5BB2A61F1DA7A774003D38C3 /* FlexColorCollectionViewItem.swift */,
+				5BB2A6251DA7D2E9003D38C3 /* FlexSwitchCollectionItem.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -232,6 +239,7 @@
 				5BB91C8F1DA3955900A94D12 /* FlexCollectionViewCell.swift */,
 				5BB91CA51DA3D8F600A94D12 /* FlexBaseCollectionViewCell.swift */,
 				5BB2A61C1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift */,
+				5BB2A6221DA7D296003D38C3 /* FlexSwitchCollectionViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -584,6 +592,7 @@
 				5BD460481DA10A56001FA9B3 /* FlexImageShapeView.swift in Sources */,
 				5B53D0F41D5372010068BF04 /* FlexView.swift in Sources */,
 				5BE4486E1D478E9A0011E5AE /* FlexDoubleSlider.swift in Sources */,
+				5BB2A6241DA7D296003D38C3 /* FlexSwitchCollectionViewCell.swift in Sources */,
 				5BE448511D4220830011E5AE /* LabelFactory.swift in Sources */,
 				5B9937011D3A9E210043E573 /* ViewController.swift in Sources */,
 				5BB2A61E1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift in Sources */,
@@ -591,6 +600,7 @@
 				5B53D0F71D5393520068BF04 /* ViewsDemoViewController.swift in Sources */,
 				5BB91C931DA3955900A94D12 /* FlexCollectionItem.swift in Sources */,
 				5BEAF3231D6851B600BF5D83 /* MenusDemoViewController.swift in Sources */,
+				5BB2A6271DA7D2E9003D38C3 /* FlexSwitchCollectionItem.swift in Sources */,
 				5BB2A6211DA7A774003D38C3 /* FlexColorCollectionViewItem.swift in Sources */,
 				5B0859E11D7EE65500484E8F /* FlexTextView.swift in Sources */,
 				5BB91C9B1DA3955900A94D12 /* FlexCollectionViewCell.swift in Sources */,
@@ -627,6 +637,7 @@
 				5B53D0F31D5372010068BF04 /* FlexView.swift in Sources */,
 				5BE448671D474DFD0011E5AE /* BezierPathHelper.swift in Sources */,
 				5BB91C981DA3955900A94D12 /* FlexCollectionView.swift in Sources */,
+				5BB2A6261DA7D2E9003D38C3 /* FlexSwitchCollectionItem.swift in Sources */,
 				5BB91C9A1DA3955900A94D12 /* FlexCollectionViewCell.swift in Sources */,
 				5BB91C921DA3955900A94D12 /* FlexCollectionItem.swift in Sources */,
 				5BE4484D1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift in Sources */,
@@ -635,6 +646,7 @@
 				5BB91CA61DA3D8F600A94D12 /* FlexBaseCollectionViewCell.swift in Sources */,
 				5B9936D71D3A57620043E573 /* StyledSliderThumbList.swift in Sources */,
 				5BB91CA21DA39E0F00A94D12 /* ImageShapeLayerFactory.swift in Sources */,
+				5BB2A6231DA7D296003D38C3 /* FlexSwitchCollectionViewCell.swift in Sources */,
 				5B1EFC7A1D7047250040AD50 /* FlexViewMenu.swift in Sources */,
 				5BE448631D450DC20011E5AE /* FlexSeriesView.swift in Sources */,
 				5BD460411DA100B0001FA9B3 /* CGRectHelper.swift in Sources */,

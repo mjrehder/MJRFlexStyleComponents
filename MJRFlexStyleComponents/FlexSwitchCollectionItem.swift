@@ -1,5 +1,5 @@
 //
-//  FlexColorCollectionViewItem.swift
+//  FlexSwitchCollectionItem.swift
 //  MJRFlexStyleComponents
 //
 //  Created by Martin Rehder on 07.10.2016.
@@ -29,13 +29,13 @@
 
 import UIKit
 
-public class FlexColorCollectionItem: FlexBaseCollectionItem {
-    public var color: UIColor = UIColor.blackColor()
-    public var colorActionHandler: (() -> Void)?
-
-    public init(reference: String, color: UIColor, text: NSAttributedString? = nil, icon: UIImage? = nil, accessoryImage: UIImage? = nil, title: NSAttributedString? = nil, colorActionHandler: (() -> Void)? = nil) {
-        self.color = color
-        self.colorActionHandler = colorActionHandler
+public class FlexSwitchCollectionItem: FlexBaseCollectionItem {
+    public var valueChangedHandler: ((value: Bool) -> Void)?
+    public var value: Bool = false
+    
+    public init(reference: String, value: Bool, text: NSAttributedString? = nil, icon: UIImage? = nil, accessoryImage: UIImage? = nil, title: NSAttributedString? = nil, valueChangedHandler: ((value: Bool) -> Void)? = nil) {
+        self.value = value
+        self.valueChangedHandler = valueChangedHandler
         super.init(reference: reference, text: text, icon: icon, accessoryImage: accessoryImage, title: title, accessoryImageActionHandler: nil)
     }
 }
