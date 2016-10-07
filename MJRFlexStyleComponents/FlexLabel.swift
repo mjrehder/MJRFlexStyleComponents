@@ -114,7 +114,7 @@ public class FlexLabel: UIControl {
             self.addSubview(self.label)
         }
         self.label.style = style
-        self.label.backgroundColor = self.labelBackgroundColor ?? .clearColor()
+        self.label.backgroundColor = .clearColor() // This must be clear color as the surrounding view might want to use background clipping
         self.label.borderColor = labelBorderColor ?? self.getAppearance().borderColor
         self.label.borderWidth = labelBorderWidth ?? self.getAppearance().borderWidth
         self.label.textColor = labelTextColor ?? UIColor.blackColor()

@@ -19,8 +19,11 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
     
     func setupView() {
         self.demoCollectionView.flexCollectionDelegate = self
+        self.demoCollectionView.defaultCellSize = CGSizeMake(250, 64)
         
         let secRef = self.demoCollectionView.addSection()
+
+        // Simple Image,Text,Accessory Item
         let ti1 = UIImage(named: "ThumbIcon1")
         let ti2 = UIImage(named: "ThumbIcon2")
         let item1 = FlexBaseCollectionItem(reference: "item1ref", text: NSAttributedString(string: "Text"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 1")) {
@@ -31,6 +34,11 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         }
         self.demoCollectionView.addItem(secRef, item: item1)
         
+        // Color item
+        let colItem = FlexColorCollectionViewItem(reference: "colorItem", color: .yellowColor(), text: NSAttributedString(string: "Color"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 2")) { 
+            NSLog("did press color view")
+        }
+        self.demoCollectionView.addItem(secRef, item: colItem)
     }
     
     // MARK: - FlexCollectionViewDelegate

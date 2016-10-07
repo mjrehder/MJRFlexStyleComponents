@@ -135,7 +135,10 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
     func registerDefaultCells() {
         self.collectionItemTypeMap[FlexBaseCollectionItem.classForCoder().description()] = FlexBaseCollectionViewCell.classForCoder().description()
         self.itemCollectionView.registerClass(FlexBaseCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: FlexBaseCollectionViewCell.classForCoder().description())
-    }
+
+        self.collectionItemTypeMap[FlexColorCollectionViewItem.classForCoder().description()] = FlexColorCollectionViewCell.classForCoder().description()
+        self.itemCollectionView.registerClass(FlexColorCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: FlexColorCollectionViewCell.classForCoder().description())
+}
     
     func setupView() {
         self.setupCollectionView()
@@ -172,6 +175,12 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
     
     public func selectItem(itemReference: String) {
         self.itemCollectionView.selectItemAtIndexPath(self.getIndexPathForItem(itemReference), animated: true, scrollPosition: .None)
+    }
+    
+    public func updateCellForItem(itemReference: String) {
+        if let indexPath = self.getIndexPathForItem(itemReference) {
+            self.itemCollectionView.cellForItemAtIndexPath(indexPath)?.setNeedsLayout()
+        }
     }
     
     // MARK: - Collection View Callbacks
@@ -243,7 +252,7 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
                     cell._item = item
                     cell.reference = item.reference
                     cell.flexCellTouchDelegate = self
-                    cell.appearance = self.collectionCellAppearance
+                    cell.appearance = item.cellAppearance ?? self.collectionCellAppearance
                     return cell
                 }
             }

@@ -1,8 +1,8 @@
 //
-//  FlexCollectionItem.swift
+//  FlexColorCollectionViewItem.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 23.09.16.
+//  Created by Martin Rehder on 07.10.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -27,18 +27,15 @@
  *
  */
 
-
 import UIKit
 
-public class FlexCollectionItem: NSObject {
-    public var reference: String
-    public var text: NSAttributedString?
-    public var sectionReference: String?
-    public var preferredCellSize: CGSize?
-    public var cellAppearance: FlexStyleAppearance?
-    
-    public init(reference: String, text: NSAttributedString? = nil) {
-        self.reference = reference
-        self.text = text
+public class FlexColorCollectionViewItem: FlexBaseCollectionItem {
+    public var color: UIColor = UIColor.blackColor()
+    public var colorActionHandler: (() -> Void)?
+
+    public init(reference: String, color: UIColor, text: NSAttributedString? = nil, icon: UIImage? = nil, accessoryImage: UIImage? = nil, title: NSAttributedString? = nil, colorActionHandler: (() -> Void)? = nil) {
+        self.color = color
+        self.colorActionHandler = colorActionHandler
+        super.init(reference: reference, text: text, icon: icon, accessoryImage: accessoryImage, title: title, accessoryImageActionHandler: nil)
     }
 }

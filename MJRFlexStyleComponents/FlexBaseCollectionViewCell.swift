@@ -69,7 +69,7 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
                 let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.imageViewTouched(_:)))
                 iv.addGestureRecognizer(tapGest)
             }
-}
+        }
     }
     
     public override func prepareForReuse() {
@@ -98,56 +98,72 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         }
     }
     
+    public func layoutIconView(item: FlexBaseCollectionItem, area: CGRect) -> CGRect {
+        var remainingCellArea = area
+        
+        if let icon = item.icon, iv = self.imageView {
+            let appe = self.getAppearance()
+            let imageViewRect = CGRect(origin: CGPointZero, size: appe.cellIconSize)
+            let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: icon, imageStyle: appe.cellIconStyle, imageFitting: .ScaleToFit)
+            
+            iv.frame = CGRectMake(remainingCellArea.origin.x + appe.cellIconInsets.left, remainingCellArea.origin.y + (remainingCellArea.size.height - appe.cellIconSize.height) * 0.5, appe.cellIconSize.width, appe.cellIconSize.height)
+            iv.layer.sublayers?.removeAll()
+            iv.layer.addSublayer(imgLayer)
+            iv.hidden = false
+            let imageLayerTotalWidth = imageViewRect.size.width + appe.cellIconInsets.left + appe.cellIconInsets.right
+            remainingCellArea = remainingCellArea.insetBy(dx: imageLayerTotalWidth*0.5, dy: 0).offsetBy(dx: imageLayerTotalWidth * 0.5, dy: 0)
+        }
+        else {
+            self.imageView?.hidden = true
+        }
+        return remainingCellArea
+    }
+    
+    public func layoutAccessoryView(item: FlexBaseCollectionItem, area: CGRect) -> CGRect {
+        var remainingCellArea = area
+        
+        if let aim = item.accessoryImage, av = self.accessoryView {
+            let appe = self.getAppearance()
+            let imageViewRect = CGRect(origin: CGPointZero, size: appe.cellAccessoryImageSize)
+            let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: aim, imageStyle: appe.cellAccessoryStyle, imageFitting: .ScaleToFit)
+            
+            av.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (appe.cellAccessoryImageInsets.right + appe.cellAccessoryImageSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - appe.cellAccessoryImageSize.height) * 0.5, appe.cellAccessoryImageSize.width, appe.cellAccessoryImageSize.height)
+            av.layer.sublayers?.removeAll()
+            av.layer.addSublayer(imgLayer)
+            av.hidden = false
+            let imageLayerTotalWidth = imageViewRect.size.width + appe.cellAccessoryImageInsets.left + appe.cellAccessoryImageInsets.right
+            remainingCellArea = remainingCellArea.insetBy(dx: imageLayerTotalWidth*0.5, dy: 0).offsetBy(dx: -imageLayerTotalWidth*0.5, dy: 0)
+        }
+        else {
+            self.accessoryView?.hidden = true
+        }
+        return remainingCellArea
+    }
+    
+    public func layoutText(item: FlexBaseCollectionItem, area: CGRect) {
+        if let text = item.text {
+            let appe = self.getAppearance()
+            let textRect =  UIEdgeInsetsInsetRect(area, appe.cellTextInsets)
+            self.textLabel?.label.frame = textRect
+            self.textLabel?.hidden = false
+            self.textLabel?.appearance = appe
+            self.textLabel?.labelTextAlignment = appe.cellTextAlignment
+            self.textLabel?.label.attributedText = text
+        }
+        else {
+            self.textLabel?.hidden = true
+        }
+    }
+    
     override func applyStyles() {
         super.applyStyles()
   
-        let appe = self.getAppearance()
         if let item = self.item as? FlexBaseCollectionItem, fcv = self.flexContentView {
             fcv.headerAttributedText = item.title
-            
-            var remainingCellArea = fcv.getViewRect() //UIEdgeInsetsInsetRect(fcv.getViewRect(), ...)
-
-            if let icon = item.icon, iv = self.imageView {
-                let imageViewRect = CGRect(origin: CGPointZero, size: appe.cellIconSize)
-                let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: icon, imageStyle: appe.cellIconStyle, imageFitting: .ScaleToFit)
-
-                iv.frame = CGRectMake(remainingCellArea.origin.x + appe.cellIconInsets.left, remainingCellArea.origin.y + (remainingCellArea.size.height - appe.cellIconSize.height) * 0.5, appe.cellIconSize.width, appe.cellIconSize.height)
-                iv.layer.sublayers?.removeAll()
-                iv.layer.addSublayer(imgLayer)
-                iv.hidden = false
-                let imageLayerTotalWidth = imageViewRect.size.width + appe.cellIconInsets.left + appe.cellIconInsets.right
-                remainingCellArea = remainingCellArea.insetBy(dx: imageLayerTotalWidth*0.5, dy: 0).offsetBy(dx: imageLayerTotalWidth * 0.5, dy: 0)
-            }
-            else {
-                self.imageView?.hidden = true
-            }
-
-            if let aim = item.accessoryImage, av = self.accessoryView {
-                let imageViewRect = CGRect(origin: CGPointZero, size: appe.cellAccessoryImageSize)
-                let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: aim, imageStyle: appe.cellAccessoryStyle, imageFitting: .ScaleToFit)
-
-                av.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (appe.cellAccessoryImageInsets.right + appe.cellAccessoryImageSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - appe.cellAccessoryImageSize.height) * 0.5, appe.cellAccessoryImageSize.width, appe.cellAccessoryImageSize.height)
-                av.layer.sublayers?.removeAll()
-                av.layer.addSublayer(imgLayer)
-                av.hidden = false
-                let imageLayerTotalWidth = imageViewRect.size.width + appe.cellAccessoryImageInsets.left + appe.cellAccessoryImageInsets.right
-                remainingCellArea = remainingCellArea.insetBy(dx: imageLayerTotalWidth*0.5, dy: 0).offsetBy(dx: -imageLayerTotalWidth*0.5, dy: 0)
-            }
-            else {
-                self.accessoryView?.hidden = true
-            }
-
-            if let text = item.text {
-                let textRect =  UIEdgeInsetsInsetRect(remainingCellArea, appe.cellTextInsets)
-                self.textLabel?.label.frame = textRect
-                self.textLabel?.hidden = false
-                self.textLabel?.appearance = appe
-                self.textLabel?.labelTextAlignment = appe.cellTextAlignment
-                self.textLabel?.label.attributedText = text
-            }
-            else {
-                self.textLabel?.hidden = true
-            }
+            var remainingCellArea = fcv.getViewRect()
+            remainingCellArea = self.layoutIconView(item, area: remainingCellArea)
+            remainingCellArea = self.layoutAccessoryView(item, area: remainingCellArea)
+            self.layoutText(item, area: remainingCellArea)
         }
     }
 }

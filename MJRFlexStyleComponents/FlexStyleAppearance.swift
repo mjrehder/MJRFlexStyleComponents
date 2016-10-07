@@ -46,7 +46,7 @@ public class FlexStyleAppearance  {
 	public var borderColor: UIColor = UIColor.grayColor()
     public var selectedBorderColor: UIColor = UIColor.blackColor()
     
-    public var styleColor = UIColor.grayColor()
+    public var styleColor = UIColor.lightGrayColor()
     public var selectedStyleColor = UIColor.blackColor()
     
     public var backgroundColor = UIColor.clearColor()
@@ -64,18 +64,26 @@ public class FlexStyleAppearance  {
     public var cellTextTextColor = UIColor.blackColor()
     public var cellTextTextFont = UIFont.boldSystemFontOfSize(16.0)
     public var cellTextAlignment: NSTextAlignment = .Left
+    public var cellControlSize: CGSize = CGSizeMake(32, 32)
+    public var cellControlInsets: UIEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
+    public var cellControlStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
 
     // Header and Footer
+    public var headerStyle: ShapeStyle = .Box
     public var headerTextColor = UIColor.whiteColor()
     public var headerTextFont = UIFont.boldSystemFontOfSize(12.0)
     public var headerSize: CGFloat = 18
     public var headerAlignment: NSTextAlignment = .Center
     public var headerInsets: UIEdgeInsets = UIEdgeInsetsZero
+    public var headerBackgroundColor: UIColor = .grayColor()
+
+    public var footerStyle: ShapeStyle = .Box
     public var footerTextColor = UIColor.whiteColor()
     public var footerTextFont = UIFont.boldSystemFontOfSize(10.0)
     public var footerSize: CGFloat = 18
     public var footerAlignment: NSTextAlignment = .Center
     public var footerInsets: UIEdgeInsets = UIEdgeInsetsZero
+    public var footerBackgroundColor: UIColor = .grayColor()
     
     // Menus
     public var menuBackgroundColor: UIColor = UIColor.blackColor()

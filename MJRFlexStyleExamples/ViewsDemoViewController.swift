@@ -31,6 +31,7 @@ class ViewsDemoViewController: UIViewController {
         self.outerFlexView.header.labelFont = UIFont.systemFontOfSize(18)
         self.outerFlexView.footer.labelFont = UIFont.systemFontOfSize(14)
         self.outerFlexView.header.labelTextColor = UIColor.whiteColor()
+        self.outerFlexView.footer.labelBackgroundColor = .clearColor()
 
         leftFlexView.headerPosition = .Left
         leftFlexView.backgroundInsets = UIEdgeInsetsMake(0, 20, 0, 0)
@@ -44,6 +45,7 @@ class ViewsDemoViewController: UIViewController {
         leftFlexView.footer.labelFont = UIFont.systemFontOfSize(10)
         leftFlexView.header.labelTextColor = UIColor.whiteColor()
         leftFlexView.footer.labelTextColor = UIColor.blackColor()
+        leftFlexView.footer.labelBackgroundColor = .clearColor()
         leftFlexView.style = .Custom(path: UIBezierPath(roundedRect: leftFlexView.bounds, cornerRadius: 10))
         
         rightFlexView.headerPosition = .Right
@@ -58,6 +60,7 @@ class ViewsDemoViewController: UIViewController {
         rightFlexView.header.labelFont = UIFont.boldSystemFontOfSize(10)
         rightFlexView.footer.labelFont = UIFont.systemFontOfSize(10)
         rightFlexView.footerClipToBackgroundShape = false
+        rightFlexView.footer.labelBackgroundColor = .clearColor()
         rightFlexView.header.labelTextColor = UIColor.whiteColor()
         rightFlexView.footer.labelTextColor = UIColor.blackColor()
         rightFlexView.style = .Custom(path: UIBezierPath(roundedRect: rightFlexView.bounds, cornerRadius: 10))

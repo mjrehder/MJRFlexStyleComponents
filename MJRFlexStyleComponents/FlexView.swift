@@ -251,9 +251,11 @@ public class FlexView: MJRFlexBaseControl {
             else {
                 self.header.label.attributedText = headerAttributedText
             }
+            self.header.style = self.header.style ?? self.getAppearance().headerStyle
             self.header.labelFont = self.header.labelFont ?? self.getAppearance().headerTextFont
             self.header.labelTextColor = self.header.labelTextColor ?? self.getAppearance().headerTextColor
             self.header.labelTextAlignment = self.header.labelTextAlignment ?? self.getAppearance().headerAlignment
+            self.header.labelBackgroundColor = self.header.labelBackgroundColor ?? self.getAppearance().headerBackgroundColor
         }
         else {
             self.header.removeFromSuperview()
@@ -274,9 +276,11 @@ public class FlexView: MJRFlexBaseControl {
             else {
                 self.footer.label.attributedText = footerAttributedText
             }
+            self.footer.style = self.footer.style ?? self.getAppearance().footerStyle
             self.footer.labelFont = self.footer.labelFont ?? self.getAppearance().footerTextFont
             self.footer.labelTextColor = self.footer.labelTextColor ?? self.getAppearance().footerTextColor
             self.footer.labelTextAlignment = self.footer.labelTextAlignment ?? self.getAppearance().footerAlignment
+            self.footer.labelBackgroundColor = self.footer.labelBackgroundColor ?? self.getAppearance().footerBackgroundColor
         }
         else {
             self.footer.removeFromSuperview()
