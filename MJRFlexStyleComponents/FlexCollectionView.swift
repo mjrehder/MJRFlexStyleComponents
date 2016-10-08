@@ -36,6 +36,7 @@ public protocol FlexCollectionViewDelegate {
     func onFlexCollectionItemMoved(view: FlexCollectionView, item: FlexCollectionItem)
 }
 
+@IBDesignable
 public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectionViewDelegate, FlexCollectionViewCellTouchedDelegate {
     let simpleHeaderViewID = "SimpleHeaderView"
     let emptyHeaderViewID = "EmptyHeaderView"
@@ -60,15 +61,31 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         }
     }
     
+    @IBInspectable
     public var viewMargins: UIEdgeInsets = UIEdgeInsetsZero {
         didSet {
             self.setNeedsLayout()
         }
     }
     
+    @IBInspectable
     public var defaultCellSize: CGSize = CGSizeMake(120, 50) {
         didSet {
             self.setNeedsLayout()
+        }
+    }
+    
+    @IBInspectable
+    public var allowsMultipleSelection = false {
+        didSet {
+            self._itemCollectionView?.allowsMultipleSelection = self.allowsMultipleSelection
+        }
+    }
+    
+    @IBInspectable
+    public var allowsSelection = true {
+        didSet {
+            self._itemCollectionView?.allowsSelection = self.allowsSelection
         }
     }
 
@@ -126,8 +143,8 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         self.itemCollectionView.registerClass(SimpleHeaderCollectionReusableView.classForCoder(), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: simpleHeaderViewID)
         self.itemCollectionView.registerClass(EmptyHeaderCollectionReusableView.classForCoder(), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: emptyHeaderViewID)
 
-        self.itemCollectionView.allowsMultipleSelection = false
-        self.itemCollectionView.allowsSelection = true
+        self.itemCollectionView.allowsMultipleSelection = self.allowsMultipleSelection
+        self.itemCollectionView.allowsSelection = self.allowsSelection
         
         self.addSubview(self.itemCollectionView)
     }
