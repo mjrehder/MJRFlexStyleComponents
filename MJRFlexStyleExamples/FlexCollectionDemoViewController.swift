@@ -48,6 +48,15 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         siApp.cellControlSize = CGSizeMake(48,32)
         switchItem.cellAppearance = siApp
         self.demoCollectionView.addItem(secRef, item: switchItem)
+        
+        // Slider value
+        let sliderItem = FlexSliderCollectionItem(reference: "slider", value: 0, text: NSAttributedString(string: "Slider"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 4")) { (value) in
+            NSLog("The slider is now \(value)")
+        }
+        let slApp = FlexStyleAppearance()
+        slApp.cellControlInsets = UIEdgeInsetsMake(0, 0, 5, 0)
+        sliderItem.cellAppearance = slApp
+        self.demoCollectionView.addItem(secRef, item: sliderItem)
     }
     
     // MARK: - FlexCollectionViewDelegate

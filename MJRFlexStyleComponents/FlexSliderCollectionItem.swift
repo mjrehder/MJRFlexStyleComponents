@@ -1,8 +1,8 @@
 //
-//  FlexCollectionSection.swift
+//  FlexSliderCollectionItem.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 23.09.16.
+//  Created by Martin Rehder on 08.10.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -29,12 +29,15 @@
 
 import UIKit
 
-public class FlexCollectionSection: NSObject {
-    var reference: String
-    var title: String?
+public class FlexSliderCollectionItem: FlexBaseCollectionItem {
+    public var valueChangedHandler: ((value: Double) -> Void)?
+    public var value: Double = 0
+    public var minValue: Double = 0
+    public var maxValue: Double = 1
     
-    public init(reference: String, title: String? = nil) {
-        self.reference = reference
-        self.title = title
+    public init(reference: String, value: Double, text: NSAttributedString? = nil, icon: UIImage? = nil, accessoryImage: UIImage? = nil, title: NSAttributedString? = nil, valueChangedHandler: ((value: Double) -> Void)? = nil) {
+        self.value = value
+        self.valueChangedHandler = valueChangedHandler
+        super.init(reference: reference, text: text, icon: icon, accessoryImage: accessoryImage, title: title, accessoryImageActionHandler: nil)
     }
 }

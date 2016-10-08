@@ -133,14 +133,15 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
     }
     
     func registerDefaultCells() {
-        self.collectionItemTypeMap[FlexBaseCollectionItem.classForCoder().description()] = FlexBaseCollectionViewCell.classForCoder().description()
-        self.itemCollectionView.registerClass(FlexBaseCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: FlexBaseCollectionViewCell.classForCoder().description())
-
-        self.collectionItemTypeMap[FlexColorCollectionItem.classForCoder().description()] = FlexColorCollectionViewCell.classForCoder().description()
-        self.itemCollectionView.registerClass(FlexColorCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: FlexColorCollectionViewCell.classForCoder().description())
-
-        self.collectionItemTypeMap[FlexSwitchCollectionItem.classForCoder().description()] = FlexSwitchCollectionViewCell.classForCoder().description()
-        self.itemCollectionView.registerClass(FlexSwitchCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: FlexSwitchCollectionViewCell.classForCoder().description())
+        self.registerCell(FlexBaseCollectionItem.classForCoder(), cellClass: FlexBaseCollectionViewCell.classForCoder())
+        self.registerCell(FlexColorCollectionItem.classForCoder(), cellClass: FlexColorCollectionViewCell.classForCoder())
+        self.registerCell(FlexSwitchCollectionItem.classForCoder(), cellClass: FlexSwitchCollectionViewCell.classForCoder())
+        self.registerCell(FlexSliderCollectionItem.classForCoder(), cellClass: FlexSliderCollectionViewCell.classForCoder())
+    }
+    
+    public func registerCell(itemClass: AnyClass, cellClass: AnyClass) {
+        self.collectionItemTypeMap[itemClass.description()] = cellClass.description()
+        self.itemCollectionView.registerClass(cellClass, forCellWithReuseIdentifier: cellClass.description())
     }
     
     func setupView() {

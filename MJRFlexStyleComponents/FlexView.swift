@@ -241,7 +241,7 @@ public class FlexView: MJRFlexBaseControl {
                 self.addSubview(self.header)
             }
             self.header.frame = self.rectForHeader()
-            let headerBounds = UIEdgeInsetsInsetRect(self.header.bounds, self.header.labelInsets ?? self.getAppearance().headerInsets)
+            let headerBounds = UIEdgeInsetsInsetRect(self.header.bounds, self.header.controlInsets ?? self.getAppearance().headerInsets)
             self.header.label.frame = headerBounds
             self.header.label.transform = self.getHeaderFooterRotation()
             self.header.label.frame = headerBounds
@@ -266,7 +266,7 @@ public class FlexView: MJRFlexBaseControl {
                 self.addSubview(self.footer)
             }
             self.footer.frame = self.rectForFooter()
-            let footerBounds = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.labelInsets ?? self.getAppearance().footerInsets)
+            let footerBounds = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.controlInsets ?? self.getAppearance().footerInsets)
             self.footer.label.frame = footerBounds
             self.footer.label.transform = self.getHeaderFooterRotation()
             self.footer.label.frame = footerBounds

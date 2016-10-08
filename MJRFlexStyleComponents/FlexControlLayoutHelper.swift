@@ -1,8 +1,8 @@
 //
-//  FlexCollectionSection.swift
+//  FlexControlLayoutHelper.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 23.09.16.
+//  Created by Martin Rehder on 08.10.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -29,12 +29,20 @@
 
 import UIKit
 
-public class FlexCollectionSection: NSObject {
-    var reference: String
-    var title: String?
+public class FlexControlLayoutHelper {
     
-    public init(reference: String, title: String? = nil) {
-        self.reference = reference
-        self.title = title
+    public class func horizontallyAlignTwoFlexControls(upperControl: MJRFlexBaseControl, lowerControl: MJRFlexBaseControl, area: CGRect) {
+        let upperFrame = UIEdgeInsetsInsetRect(CGRectMake(area.origin.x, area.origin.y, area.size.width, area.size.height * 0.5), upperControl.controlInsets ?? UIEdgeInsetsZero)
+        let lowerFrame = UIEdgeInsetsInsetRect(CGRectMake(area.origin.x, area.origin.y + area.size.height * 0.5, area.size.width, area.size.height * 0.5), lowerControl.controlInsets ?? UIEdgeInsetsZero)
+        upperControl.frame = upperFrame
+        lowerControl.frame = lowerFrame
+
+        // FlexLabels are special, as they contain a label inside in order to support rotated text
+        if let uLabel = upperControl as? FlexLabel {
+            uLabel.label.frame = uLabel.bounds
+        }
+        if let lLabel = lowerControl as? FlexLabel {
+            lLabel.label.frame = lLabel.bounds
+        }
     }
 }

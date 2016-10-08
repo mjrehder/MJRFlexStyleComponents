@@ -98,8 +98,15 @@ public class MJRFlexBaseControl: UIControl {
         }
     }
 
-    /// The controls background insets, also known as border margins.
+    /// The controls background insets. These are margins for the inner background.
     @IBInspectable public var backgroundInsets: UIEdgeInsets? {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    /// The controls insets, also known as border margins. This value is not used by this control, but by the embedding control
+    @IBInspectable public var controlInsets: UIEdgeInsets? {
         didSet {
             self.setNeedsLayout()
         }

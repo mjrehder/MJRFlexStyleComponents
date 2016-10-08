@@ -32,33 +32,13 @@ import StyledLabel
 
 /// This class wraps a StyledLabel and adds features for placement, layout, etc.
 @IBDesignable
-public class FlexLabel: UIControl {
+public class FlexLabel: MJRFlexBaseControl {
     private lazy var _label = LabelFactory.defaultStyledLabel()
     
     public var label: StyledLabel {
         get {
             return _label
         }
-    }
-    
-    public var appearance: FlexStyleAppearance? {
-        didSet {
-            self.setNeedsLayout()
-        }
-    }
-    public func getAppearance() -> FlexStyleAppearance {
-        return self.appearance ?? flexStyleAppearance
-    }
-    
-    /// The style of the label
-    @IBInspectable public var style: ShapeStyle? {
-        didSet {
-            self.applyStyle()
-        }
-    }
-    // Convenience valid style getter
-    public func getStyle() -> ShapeStyle {
-        return self.style ?? self.getAppearance().style
     }
     
     /// The background color. If nil the color will be clear color. Defaults to nil.
@@ -103,13 +83,7 @@ public class FlexLabel: UIControl {
         }
     }
     
-    public var labelInsets: UIEdgeInsets? {
-        didSet {
-            self.applyStyle()
-        }
-    }
-    
-    func applyStyle(style: ShapeStyle) {
+    override func applyStyle(style: ShapeStyle) {
         if self.label.superview == nil {
             self.addSubview(self.label)
         }

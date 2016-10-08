@@ -56,6 +56,11 @@ public class FlexStyleAppearance  {
     public var switchOnColor: UIColor = UIColor.redColor().darkerColor()
     public var switchThumbColor: UIColor = .grayColor()
     
+    // Flex Slider
+    public var sliderMinimumTrackColor: UIColor = UIColor.redColor().darkerColor()
+    public var sliderMaximumTrackColor: UIColor = .clearColor()
+    public var sliderThumbColor: UIColor = .grayColor()
+    
     // Used for collection view cells
     public var cellStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
     public var cellIconSize: CGSize = CGSizeMake(32, 32)
