@@ -121,6 +121,8 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
     }
     
     func createView() {
+        self.backgroundColor = nil
+        
         self._itemCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
         self.itemCollectionView.dataSource = self
         self.itemCollectionView.delegate = self

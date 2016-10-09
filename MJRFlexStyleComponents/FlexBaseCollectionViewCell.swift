@@ -37,11 +37,26 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
 
     public var flexContentView: FlexView?
     
+    override public var appearance: FlexStyleAppearance? {
+        didSet {
+            self.flexContentView?.appearance = appearance
+            self.applyTextAppearance()
+            self.refreshLayout()
+        }
+    }
+
+    func applyTextAppearance() {
+        if self.textLabel?.appearance == nil {
+            self.textLabel?.appearance = appearance
+        }
+    }
+    
     public override func initialize() {
         super.initialize()
         let baseRect = self.bounds
         
         self.flexContentView = FlexView(frame: baseRect)
+        self.flexContentView?.appearance = self.getAppearance()
         if let pcv = self.flexContentView {
             let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.cellTouched(_:)))
             pcv.addGestureRecognizer(tapGest)
@@ -50,6 +65,7 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
             // Just allocate and hide for now, in order to avoid re-creating this all the time
             self.textLabel = FlexLabel(frame: CGRectZero)
             if let tl = self.textLabel {
+                self.applyTextAppearance()
                 tl.hidden = true
                 pcv.addSubview(tl)
             }
@@ -103,14 +119,17 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         
         if let icon = item.icon, iv = self.imageView {
             let appe = self.getAppearance()
-            let imageViewRect = CGRect(origin: CGPointZero, size: appe.cellIconSize)
-            let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: icon, imageStyle: appe.cellIconStyle, imageFitting: .ScaleToFit)
+            let iconInsets = appe.cellAppearance.iconInsets
+            let iconSize = appe.cellAppearance.iconSize
+
+            let imageViewRect = CGRect(origin: CGPointZero, size: iconSize)
+            let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: icon, imageStyle: appe.cellAppearance.iconStyle, imageFitting: .ScaleToFit)
             
-            iv.frame = CGRectMake(remainingCellArea.origin.x + appe.cellIconInsets.left, remainingCellArea.origin.y + (remainingCellArea.size.height - appe.cellIconSize.height) * 0.5, appe.cellIconSize.width, appe.cellIconSize.height)
+            iv.frame = CGRectMake(remainingCellArea.origin.x + iconInsets.left, remainingCellArea.origin.y + (remainingCellArea.size.height - iconSize.height) * 0.5, iconSize.width, iconSize.height)
             iv.layer.sublayers?.removeAll()
             iv.layer.addSublayer(imgLayer)
             iv.hidden = false
-            let imageLayerTotalWidth = imageViewRect.size.width + appe.cellIconInsets.left + appe.cellIconInsets.right
+            let imageLayerTotalWidth = imageViewRect.size.width + iconInsets.left + iconInsets.right
             remainingCellArea = remainingCellArea.insetBy(dx: imageLayerTotalWidth*0.5, dy: 0).offsetBy(dx: imageLayerTotalWidth * 0.5, dy: 0)
         }
         else {
@@ -124,14 +143,17 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         
         if let aim = item.accessoryImage, av = self.accessoryView {
             let appe = self.getAppearance()
-            let imageViewRect = CGRect(origin: CGPointZero, size: appe.cellAccessoryImageSize)
-            let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: aim, imageStyle: appe.cellAccessoryStyle, imageFitting: .ScaleToFit)
+            let accessoryImageInsets = appe.cellAppearance.accessoryImageInsets
+            let accessoryImageSize = appe.cellAppearance.accessoryImageSize
             
-            av.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (appe.cellAccessoryImageInsets.right + appe.cellAccessoryImageSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - appe.cellAccessoryImageSize.height) * 0.5, appe.cellAccessoryImageSize.width, appe.cellAccessoryImageSize.height)
+            let imageViewRect = CGRect(origin: CGPointZero, size: accessoryImageSize)
+            let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: aim, imageStyle: appe.cellAppearance.accessoryStyle, imageFitting: .ScaleToFit)
+            
+            av.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (accessoryImageInsets.right + accessoryImageSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - accessoryImageSize.height) * 0.5, accessoryImageSize.width, accessoryImageSize.height)
             av.layer.sublayers?.removeAll()
             av.layer.addSublayer(imgLayer)
             av.hidden = false
-            let imageLayerTotalWidth = imageViewRect.size.width + appe.cellAccessoryImageInsets.left + appe.cellAccessoryImageInsets.right
+            let imageLayerTotalWidth = imageViewRect.size.width + accessoryImageInsets.left + accessoryImageInsets.right
             remainingCellArea = remainingCellArea.insetBy(dx: imageLayerTotalWidth*0.5, dy: 0).offsetBy(dx: -imageLayerTotalWidth*0.5, dy: 0)
         }
         else {
@@ -143,11 +165,11 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     public func layoutText(item: FlexBaseCollectionItem, area: CGRect) {
         if let text = item.text {
             let appe = self.getAppearance()
-            let textRect =  UIEdgeInsetsInsetRect(area, appe.cellTextInsets)
+            let textRect =  UIEdgeInsetsInsetRect(area, appe.cellAppearance.textInsets)
             self.textLabel?.label.frame = textRect
             self.textLabel?.hidden = false
             self.textLabel?.appearance = appe
-            self.textLabel?.labelTextAlignment = appe.cellTextAlignment
+            self.textLabel?.labelTextAlignment = appe.cellAppearance.textAlignment
             self.textLabel?.label.attributedText = text
         }
         else {

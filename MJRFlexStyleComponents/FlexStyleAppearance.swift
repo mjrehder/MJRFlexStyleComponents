@@ -32,9 +32,13 @@ import StyledLabel
 
 public let flexStyleAppearance = FlexStyleAppearance()
 
-public class FlexStyleAppearance  {
+public class FlexStyleAppearance {
 	static var initialized: Bool = false
 
+    public var cellAppearance = FlexStyleCollectionCellAppearance()
+    public var headerAppearance = FlexStyleHeaderFooterAppearance()
+    public var footerAppearance = FlexStyleHeaderFooterAppearance()
+    
     public var style: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
     public var backgroundInsets: UIEdgeInsets = UIEdgeInsetsZero
     public var contentInsets: UIEdgeInsets = UIEdgeInsetsZero
@@ -60,40 +64,6 @@ public class FlexStyleAppearance  {
     public var sliderMinimumTrackColor: UIColor = UIColor.redColor().darkerColor()
     public var sliderMaximumTrackColor: UIColor = .clearColor()
     public var sliderThumbColor: UIColor = .grayColor()
-    
-    // Used for collection view cells
-    public var cellStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
-    public var cellIconSize: CGSize = CGSizeMake(32, 32)
-    public var cellIconInsets: UIEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
-    public var cellIconStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
-    public var cellAccessoryImageSize: CGSize = CGSizeMake(18, 18)
-    public var cellAccessoryImageInsets: UIEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
-    public var cellAccessoryStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
-    public var cellTextInsets: UIEdgeInsets = UIEdgeInsetsZero
-    public var cellTextTextColor = UIColor.blackColor()
-    public var cellTextTextFont = UIFont.boldSystemFontOfSize(16.0)
-    public var cellTextAlignment: NSTextAlignment = .Left
-    public var cellControlSize: CGSize = CGSizeMake(32, 32)
-    public var cellControlInsets: UIEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
-    public var cellControlStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
-    public var cellControlStyleColor = UIColor.lightGrayColor()
-
-    // Header and Footer
-    public var headerStyle: ShapeStyle = .Box
-    public var headerTextColor = UIColor.whiteColor()
-    public var headerTextFont = UIFont.boldSystemFontOfSize(12.0)
-    public var headerSize: CGFloat = 18
-    public var headerAlignment: NSTextAlignment = .Center
-    public var headerInsets: UIEdgeInsets = UIEdgeInsetsZero
-    public var headerBackgroundColor: UIColor = .grayColor()
-
-    public var footerStyle: ShapeStyle = .Box
-    public var footerTextColor = UIColor.whiteColor()
-    public var footerTextFont = UIFont.boldSystemFontOfSize(10.0)
-    public var footerSize: CGFloat = 18
-    public var footerAlignment: NSTextAlignment = .Center
-    public var footerInsets: UIEdgeInsets = UIEdgeInsetsZero
-    public var footerBackgroundColor: UIColor = .grayColor()
     
     // Menus
     public var menuBackgroundColor: UIColor = UIColor.blackColor()

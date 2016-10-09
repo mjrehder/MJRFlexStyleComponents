@@ -58,14 +58,17 @@ public class FlexColorCollectionViewCell: FlexBaseCollectionViewCell {
         
         if let cv = self.colorView {
             let appe = self.getAppearance()
-            let imageViewRect = CGRect(origin: CGPointZero, size: appe.cellControlSize)
-            let colorLayer = StyledShapeLayer.createShape(appe.cellControlStyle, bounds: imageViewRect, color: item.color)
-            
-            cv.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (appe.cellControlInsets.right + appe.cellControlSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - appe.cellControlSize.height) * 0.5, appe.cellControlSize.width, appe.cellControlSize.height)
+            let controlInsets = appe.cellAppearance.controlInsets
+            let controlSize = appe.cellAppearance.controlSize
+
+            let imageViewRect = CGRect(origin: CGPointZero, size: controlSize)
+            let colorLayer = StyledShapeLayer.createShape(appe.cellAppearance.controlStyle, bounds: imageViewRect, color: item.color, borderColor: appe.cellAppearance.controlBorderColor, borderWidth: appe.cellAppearance.controlBorderWidth)
+
+            cv.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (controlInsets.right + controlSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - controlSize.height) * 0.5, controlSize.width, controlSize.height)
             cv.layer.sublayers?.removeAll()
             cv.layer.addSublayer(colorLayer)
             cv.hidden = false
-            let colorLayerTotalWidth = imageViewRect.size.width + appe.cellControlInsets.left + appe.cellControlInsets.right
+            let colorLayerTotalWidth = imageViewRect.size.width + controlInsets.left + controlInsets.right
             remainingCellArea = remainingCellArea.insetBy(dx: colorLayerTotalWidth*0.5, dy: 0).offsetBy(dx: -colorLayerTotalWidth*0.5, dy: 0)
         }
         else {

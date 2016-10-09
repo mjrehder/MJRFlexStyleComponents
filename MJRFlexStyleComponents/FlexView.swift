@@ -178,12 +178,12 @@ public class FlexView: MJRFlexBaseControl {
         var topOffset: CGFloat = 0
         var bottomOffset: CGFloat = 0
         if self.hasHeaderText() {
-            heightReduce += self.headerSize ?? appe.headerSize
-            topOffset += self.headerSize ?? appe.headerSize
+            heightReduce += self.headerSize ?? appe.headerAppearance.size
+            topOffset += self.headerSize ?? appe.headerAppearance.size
         }
         if self.hasFooterText() {
-            bottomOffset += self.footerSize ?? appe.footerSize
-            heightReduce += self.footerSize ?? appe.footerSize
+            bottomOffset += self.footerSize ?? appe.footerAppearance.size
+            heightReduce += self.footerSize ?? appe.footerAppearance.size
         }
         let margins = self.contentViewMargins ?? appe.contentInsets
         switch self.headerPosition {
@@ -199,7 +199,7 @@ public class FlexView: MJRFlexBaseControl {
     // MARK: - Private Style
 
     func rectForHeader() -> CGRect {
-        let hSize = self.headerSize ?? self.getAppearance().headerSize
+        let hSize = self.headerSize ?? self.getAppearance().headerAppearance.size
         switch self.headerPosition {
         case .Top:
             return CGRectMake(0, 0, self.bounds.size.width, hSize)
@@ -211,7 +211,7 @@ public class FlexView: MJRFlexBaseControl {
     }
     
     func rectForFooter() -> CGRect {
-        let fSize = self.footerSize ?? self.getAppearance().footerSize
+        let fSize = self.footerSize ?? self.getAppearance().footerAppearance.size
         switch self.headerPosition {
         case .Top:
             return CGRectMake(0, self.bounds.size.height - fSize, self.bounds.size.width, fSize)
@@ -241,7 +241,7 @@ public class FlexView: MJRFlexBaseControl {
                 self.addSubview(self.header)
             }
             self.header.frame = self.rectForHeader()
-            let headerBounds = UIEdgeInsetsInsetRect(self.header.bounds, self.header.controlInsets ?? self.getAppearance().headerInsets)
+            let headerBounds = UIEdgeInsetsInsetRect(self.header.bounds, self.header.controlInsets ?? self.getAppearance().headerAppearance.insets)
             self.header.label.frame = headerBounds
             self.header.label.transform = self.getHeaderFooterRotation()
             self.header.label.frame = headerBounds
@@ -251,11 +251,7 @@ public class FlexView: MJRFlexBaseControl {
             else {
                 self.header.label.attributedText = headerAttributedText
             }
-            self.header.style = self.header.style ?? self.getAppearance().headerStyle
-            self.header.labelFont = self.header.labelFont ?? self.getAppearance().headerTextFont
-            self.header.labelTextColor = self.header.labelTextColor ?? self.getAppearance().headerTextColor
-            self.header.labelTextAlignment = self.header.labelTextAlignment ?? self.getAppearance().headerAlignment
-            self.header.labelBackgroundColor = self.header.labelBackgroundColor ?? self.getAppearance().headerBackgroundColor
+            self.applyHeaderFooterStyles(self.header, appe: self.getAppearance().headerAppearance)
         }
         else {
             self.header.removeFromSuperview()
@@ -266,7 +262,7 @@ public class FlexView: MJRFlexBaseControl {
                 self.addSubview(self.footer)
             }
             self.footer.frame = self.rectForFooter()
-            let footerBounds = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.controlInsets ?? self.getAppearance().footerInsets)
+            let footerBounds = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.controlInsets ?? self.getAppearance().footerAppearance.insets)
             self.footer.label.frame = footerBounds
             self.footer.label.transform = self.getHeaderFooterRotation()
             self.footer.label.frame = footerBounds
@@ -276,11 +272,7 @@ public class FlexView: MJRFlexBaseControl {
             else {
                 self.footer.label.attributedText = footerAttributedText
             }
-            self.footer.style = self.footer.style ?? self.getAppearance().footerStyle
-            self.footer.labelFont = self.footer.labelFont ?? self.getAppearance().footerTextFont
-            self.footer.labelTextColor = self.footer.labelTextColor ?? self.getAppearance().footerTextColor
-            self.footer.labelTextAlignment = self.footer.labelTextAlignment ?? self.getAppearance().footerAlignment
-            self.footer.labelBackgroundColor = self.footer.labelBackgroundColor ?? self.getAppearance().footerBackgroundColor
+            self.applyHeaderFooterStyles(self.footer, appe: self.getAppearance().footerAppearance)
         }
         else {
             self.footer.removeFromSuperview()
@@ -289,6 +281,14 @@ public class FlexView: MJRFlexBaseControl {
         for menu in self.menus {
             self.applyMenuLocationAndSize(menu)
         }
+    }
+    
+    func applyHeaderFooterStyles(hf: FlexLabel, appe: FlexStyleHeaderFooterAppearance) {
+        hf.style = hf.style ?? appe.style
+        hf.labelFont = hf.labelFont ?? appe.textFont
+        hf.labelTextColor = hf.labelTextColor ?? appe.textColor
+        hf.labelTextAlignment = hf.labelTextAlignment ?? appe.textAlignment
+        hf.labelBackgroundColor = hf.labelBackgroundColor ?? appe.backgroundColor
     }
     
     override func applyStyle(style: ShapeStyle) {
@@ -370,8 +370,8 @@ public class FlexView: MJRFlexBaseControl {
         }
         
         let npvp: CGFloat
-        let hSize = self.headerSize ?? self.getAppearance().headerSize
-        let fSize = self.footerSize ?? self.getAppearance().footerSize
+        let hSize = self.headerSize ?? self.getAppearance().headerAppearance.size
+        let fSize = self.footerSize ?? self.getAppearance().footerAppearance.size
         
         switch menu.vPos {
         case .Top:

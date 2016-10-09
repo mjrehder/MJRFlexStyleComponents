@@ -50,25 +50,43 @@ public class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
         }
     }
     
+    override public var appearance: FlexStyleAppearance? {
+        didSet {
+            self.flexContentView?.appearance = appearance
+            self.applyTextAppearance()
+            self.applySliderAppearance()
+            self.refreshLayout()
+        }
+    }
+    
+    func applySliderAppearance() {
+        if self.flexSlider?.appearance == nil {
+            self.flexSlider?.appearance = self.appearance
+        }
+    }
+    
     public func layoutSliderView(item: FlexSliderCollectionItem, area: CGRect) -> CGRect {
         var remainingCellArea = area
         
         if let fs = self.flexSlider {
             let appe = self.getAppearance()
-            let imageViewRect = CGRect(origin: CGPointZero, size: appe.cellControlSize)
+            let imageViewRect = CGRect(origin: CGPointZero, size: appe.cellAppearance.controlSize)
             
             fs.appearance = appe
-            fs.style = appe.cellControlStyle
-            fs.thumbStyle = appe.cellControlStyle
-            fs.styleColor = appe.cellControlStyleColor
-            fs.controlInsets = appe.cellControlInsets
+            fs.style = appe.cellAppearance.controlStyle
+            fs.thumbStyle = appe.cellAppearance.controlStyle
+            fs.styleColor = appe.cellAppearance.controlStyleColor
+            fs.controlInsets = appe.cellAppearance.controlInsets
             
-            fs.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (appe.cellControlInsets.right + appe.cellControlSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - appe.cellControlSize.height) * 0.5, appe.cellControlSize.width, appe.cellControlSize.height)
+            let controlInsets = appe.cellAppearance.controlInsets
+            let controlSize = appe.cellAppearance.controlSize
+            
+            fs.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (controlInsets.right + controlSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - controlSize.height) * 0.5, controlSize.width, controlSize.height)
             fs.hidden = false
             fs.minimumValue = item.minValue
             fs.maximumValue = item.maxValue
             fs.value = item.value
-            let switchTotalWidth = imageViewRect.size.width + appe.cellControlInsets.left + appe.cellControlInsets.right
+            let switchTotalWidth = imageViewRect.size.width + controlInsets.left + controlInsets.right
             remainingCellArea = remainingCellArea.insetBy(dx: switchTotalWidth*0.5, dy: 0).offsetBy(dx: -switchTotalWidth*0.5, dy: 0)
         }
         else {
