@@ -258,7 +258,7 @@ This example also shows the custom style option, where an arbitrary UIBezierPath
 
 ![imageviewdemo](https://cloud.githubusercontent.com/assets/476994/18223817/4757fd50-71c3-11e6-9e1b-895f00a4ce53.gif)
 
-The FlexImageView is a specialization of the FlexView. This is both a lightweight component to view images and serves also as an example on how to extend the Flex Style components.
+The FlexImageView is a specialisation of the FlexView. This is both a lightweight component to view images and serves also as an example on how to extend the Flex Style components.
 
 Beside the FlexView features, the FlexImageView exposes a simple interface directly to the contained UIImageView in order to set and layout the image:
 ```swift
@@ -270,6 +270,72 @@ Use ```imageViewMargins: UIEdgeInsets``` to add insets to the image inside the d
 ### FlexTextView
 
 This is another lightweight component of a UITextView inside a FlexView.
+
+### FlexCollectionView
+
+![screen shot 2016-10-10 at 09 16 47](https://cloud.githubusercontent.com/assets/476994/19233537/5b6891e8-8ee6-11e6-8513-99a55d511d02.png)
+
+The specialised collection view is a larger extension and consists not only of a FlexView extension embedding a collection view, but also of a number of cells and an collection item model.
+You can register new FlexCollectionItem and FlexCollectionViewCell in order to use your own model and cells. The example contained in the project results in the view shown above. These are the cells currently available in the FlexCollectionView.
+Images and text are all optional in these cells. The layout will adjust accordingly. The cells contain a FlexView as the container view. The flex style with the header is also configurable. Just don’t set the header text if you do not want a cell header.
+
+A simple example from the demo project for using the FlexCollectionView
+``` swift
+    @IBOutlet weak var demoCollectionView: FlexCollectionView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupView()
+    }
+    
+    func setupView() {
+        self.automaticallyAdjustsScrollViewInsets = false
+
+        self.demoCollectionView.flexCollectionDelegate = self
+        self.demoCollectionView.defaultCellSize = CGSizeMake(250, 64)
+        self.demoCollectionView.headerText = "Collection Demo"
+        
+        // Setup demo style
+        let collectionDemoStyle = FlexStyleAppearance()
+        collectionDemoStyle.styleColor = UIColor.MKColor.Brown.P50
+        collectionDemoStyle.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
+        collectionDemoStyle.cellAppearance.controlStyleColor = UIColor.MKColor.Brown.P100
+        self.demoCollectionView.appearance = collectionDemoStyle
+        self.demoCollectionView.collectionCellAppearance = collectionDemoStyle
+        
+        let secRef = self.demoCollectionView.addSection()
+
+        // Simple Text
+        let item0 = FlexBaseCollectionItem(reference: "item0ref", text: NSAttributedString(string: "Simple Text"), icon: nil, accessoryImage: nil, title: NSAttributedString(string: "Item 0"))
+        let i0App = FlexStyleAppearance()
+        i0App.styleColor = UIColor.MKColor.Brown.P100
+        i0App.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
+        i0App.cellAppearance = FlexStyleCollectionCellAppearance()
+        i0App.cellAppearance.controlStyleColor = UIColor.MKColor.Brown.P100
+        i0App.cellAppearance.textInsets = UIEdgeInsetsMake(0, 8, 0, 8)
+        item0.cellAppearance = i0App
+        self.demoCollectionView.addItem(secRef, item: item0)
+    }
+```
+
+Please note, that this example uses the new FlexStyleAppearance in order to make the styling and layout easier.
+
+#### Collection delegate
+The FlexCollectionViewDelegate has two functions in order to react on selection and re-ordering:
+
+``` swift
+    func onFlexCollectionItemMoved(view: FlexCollectionView, item: FlexCollectionItem) {
+    }
+    
+    func onFlexCollectionItemSelected(view: FlexCollectionView, item: FlexCollectionItem) {
+    }
+```
+
+#### Collection sections
+The ````addSection()``` is used to add a section to your FlexCollectionView. The function returns a section reference which is used when you add the items. You can furthermore pass a title and use ```getSection(reference)``` for adjusting the section layout.
+
+#### Register own cells and items
+When you want to add your own items and cells, please use the ```registerCell(itemClass: AnyClass, cellClass: AnyClass)```. The classes must inherit from FlexCollectionItem and FlexCollectionViewCell.
 
 
 ### GenericStyleSlider
