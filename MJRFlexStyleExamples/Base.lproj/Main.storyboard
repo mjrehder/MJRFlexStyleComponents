@@ -439,10 +439,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="1FE-fF-6b5" secondAttribute="bottom" constant="20" symbolic="YES" id="9Cj-is-SY6"/>
-                            <constraint firstItem="1FE-fF-6b5" firstAttribute="trailing" secondItem="Cwe-Wl-9u0" secondAttribute="trailingMargin" id="eL5-bu-zR2"/>
-                            <constraint firstItem="1FE-fF-6b5" firstAttribute="top" secondItem="0e3-SQ-cNB" secondAttribute="bottom" constant="8" symbolic="YES" id="oRS-Hf-LaC"/>
-                            <constraint firstItem="1FE-fF-6b5" firstAttribute="leading" secondItem="Cwe-Wl-9u0" secondAttribute="leadingMargin" id="wdy-hb-xOO"/>
+                            <constraint firstItem="1FE-fF-6b5" firstAttribute="top" secondItem="0e3-SQ-cNB" secondAttribute="bottom" constant="8" symbolic="YES" id="Dgk-6p-r9M"/>
+                            <constraint firstItem="1FE-fF-6b5" firstAttribute="centerX" secondItem="Cwe-Wl-9u0" secondAttribute="centerX" id="dQC-QH-qab"/>
+                            <constraint firstItem="qbF-TL-Ft3" firstAttribute="top" secondItem="1FE-fF-6b5" secondAttribute="bottom" constant="156" id="l7R-qB-atg"/>
+                            <constraint firstItem="1FE-fF-6b5" firstAttribute="leading" secondItem="Cwe-Wl-9u0" secondAttribute="leadingMargin" constant="33" id="pbA-al-6OV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Collections" id="z7g-cd-pRQ"/>

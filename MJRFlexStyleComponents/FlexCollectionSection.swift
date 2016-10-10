@@ -32,9 +32,15 @@ import UIKit
 public class FlexCollectionSection: NSObject {
     var reference: String
     var title: String?
+    public var insets: UIEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)
+    public var size: CGSize = CGSizeMake(0,18)
     
     public init(reference: String, title: String? = nil) {
         self.reference = reference
         self.title = title
+        
+        if title == nil {
+            self.size = CGSizeZero
+        }
     }
 }

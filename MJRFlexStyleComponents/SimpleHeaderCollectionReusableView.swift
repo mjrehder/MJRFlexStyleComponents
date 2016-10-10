@@ -47,5 +47,6 @@ class SimpleHeaderCollectionReusableView: UICollectionReusableView {
     func initView() {
         self.title = StyledLabel()
         self.title?.frame = self.bounds
+        self.addSubview(self.title!)
     }
 }

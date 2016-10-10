@@ -37,7 +37,7 @@ public protocol FlexCollectionViewDelegate {
 }
 
 @IBDesignable
-public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectionViewDelegate, FlexCollectionViewCellTouchedDelegate {
+public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectionViewDelegate, FlexCollectionViewCellTouchedDelegate, UICollectionViewDelegateFlowLayout {
     let simpleHeaderViewID = "SimpleHeaderView"
     let emptyHeaderViewID = "EmptyHeaderView"
     
@@ -127,17 +127,12 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         self.itemCollectionView.dataSource = self
         self.itemCollectionView.delegate = self
         self.itemCollectionView.backgroundColor = .clearColor()
-
+        
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(FlexCollectionView.handleLongGesture(_:)))
         self.itemCollectionView.addGestureRecognizer(longPressGesture)
 
         if self.contentDic == nil {
             self.contentDic = [:]
-        }
-        
-        if let collectionViewLayout = self.itemCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            collectionViewLayout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)
-            collectionViewLayout.headerReferenceSize = CGSizeMake(0, 0) // was 0,30
         }
         
         self.registerDefaultCells()
@@ -189,6 +184,15 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         self.sections.append(s)
         self.contentDic?[s.reference] = []
         return s.reference
+    }
+    
+    public func getSection(sectionReference: String) -> FlexCollectionSection? {
+        for sec in self.sections {
+            if sec.reference == sectionReference {
+                return sec
+            }
+        }
+        return nil
     }
     
     public func addItem(sectionReference: String, item: FlexCollectionItem) {
@@ -324,6 +328,18 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
             item.sectionReference = tsec.reference
             self.flexCollectionDelegate?.onFlexCollectionItemMoved(self, item: item)
         }
+    }
+    
+    // MARK: - UICollectionViewDelegateFlowLayout
+    
+    public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let sec = self.sections[section]
+        return sec.size
+    }
+    
+    public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        let sec = self.sections[section]
+        return sec.insets
     }
     
     // MARK: - FlexCollectionViewCellTouchedDelegate

@@ -18,6 +18,8 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
     }
     
     func setupView() {
+        self.automaticallyAdjustsScrollViewInsets = false
+
         self.demoCollectionView.flexCollectionDelegate = self
         self.demoCollectionView.defaultCellSize = CGSizeMake(250, 64)
         self.demoCollectionView.headerText = "Collection Demo"
