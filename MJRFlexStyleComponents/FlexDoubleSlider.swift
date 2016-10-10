@@ -56,7 +56,7 @@ public class FlexDoubleSlider: FlexSlider {
 
     @IBInspectable public var middleTrackTintColor: UIColor? = UISlider.appearance().minimumTrackTintColor {
         didSet {
-            self.applyStyle(self.style)
+            self.applyStyle(self.getStyle())
         }
     }
 

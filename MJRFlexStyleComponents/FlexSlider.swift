@@ -55,27 +55,27 @@ public class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
         }
     }
     
-    @IBInspectable public var thumbTintColor: UIColor? = UISlider.appearance().thumbTintColor {
+    @IBInspectable public var thumbTintColor: UIColor? {
         didSet {
             self.applyThumbStyle(self.thumbStyle)
         }
     }
     
-    @IBInspectable public var minimumTrackTintColor: UIColor? = UISlider.appearance().minimumTrackTintColor {
+    @IBInspectable public var minimumTrackTintColor: UIColor? {
         didSet {
-            self.applyStyle(self.style)
+            self.applyStyle(self.getStyle())
         }
     }
     
-    @IBInspectable public var maximumTrackTintColor: UIColor? = UISlider.appearance().maximumTrackTintColor {
+    @IBInspectable public var maximumTrackTintColor: UIColor? {
         didSet {
-            self.applyStyle(self.style)
+            self.applyStyle(self.getStyle())
         }
     }
 
     @IBInspectable public var maximumTrackText: String? = nil {
         didSet {
-            self.applyStyle(self.style)
+            self.applyStyle(self.getStyle())
         }
     }
 
@@ -111,11 +111,11 @@ public class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
     }
     
     public func colorOfThumb(index: Int) -> UIColor? {
-        return self.thumbTintColor
+        return self.thumbTintColor ?? self.getAppearance().sliderThumbColor
     }
     
     public func colorOfSeparatorLabel(index: Int) -> UIColor? {
-        return index == 0 ? self.minimumTrackTintColor : self.maximumTrackTintColor
+        return index == 0 ? self.minimumTrackTintColor ?? self.getAppearance().sliderMinimumTrackColor : self.maximumTrackTintColor ?? self.getAppearance().sliderMaximumTrackColor
     }
 
     public func behaviourOfThumb(index: Int) -> StyledSliderThumbBehaviour? {

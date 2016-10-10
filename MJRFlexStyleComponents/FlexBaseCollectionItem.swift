@@ -1,8 +1,8 @@
 //
-//  FlexImageView.swift
+//  FlexBaseCollectionItem.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 28.08.16.
+//  Created by Martin Rehder on 04.10.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -28,46 +28,20 @@
  */
 
 import UIKit
-import StyledLabel
 
-@IBDesignable
-public class FlexImageView: FlexView {
-    private var _imageView: UIImageView?
+public class FlexBaseCollectionItem: FlexCollectionItem {
+    public var icon: UIImage?
+    public var accessoryImage: UIImage?
+    public var title: NSAttributedString?
     
-    public var imageView: UIImageView {
-        get {
-            return _imageView!
-        }
-    }
+    public var accessoryImageActionHandler: (() -> Void)?
+    public var imageViewActionHandler: (() -> Void)?
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.initView()
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.initView()
-    }
-    
-    override func initView() {
-        super.initView()
-        self._imageView = UIImageView()
-        self.addSubview(self._imageView!)
-    }
-    
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        self.setupImageView()
-    }
-    
-    func setupImageView() {
-        let imageViewRect = self.getViewRect()
-        self.imageView.frame = imageViewRect
-
-        let clipRect = CGRectOffset(self.bounds, -imageViewRect.origin.x, -imageViewRect.origin.y)
-        let maskShapeLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: clipRect, color: UIColor.blackColor())
-        
-        self.imageView.layer.mask = maskShapeLayer
+    public init(reference: String, text: NSAttributedString? = nil, icon: UIImage? = nil, accessoryImage: UIImage? = nil, title: NSAttributedString? = nil, accessoryImageActionHandler: (() -> Void)? = nil) {
+        self.icon = icon
+        self.accessoryImage = accessoryImage
+        self.title = title
+        self.accessoryImageActionHandler = accessoryImageActionHandler
+        super.init(reference: reference, text: text)
     }
 }

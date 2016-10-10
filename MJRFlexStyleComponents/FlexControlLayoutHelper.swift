@@ -1,8 +1,8 @@
 //
-//  FlexImageView.swift
+//  FlexControlLayoutHelper.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 28.08.16.
+//  Created by Martin Rehder on 08.10.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -28,46 +28,21 @@
  */
 
 import UIKit
-import StyledLabel
 
-@IBDesignable
-public class FlexImageView: FlexView {
-    private var _imageView: UIImageView?
+public class FlexControlLayoutHelper {
     
-    public var imageView: UIImageView {
-        get {
-            return _imageView!
+    public class func horizontallyAlignTwoFlexControls(upperControl: MJRFlexBaseControl, lowerControl: MJRFlexBaseControl, area: CGRect) {
+        let upperFrame = UIEdgeInsetsInsetRect(CGRectMake(area.origin.x, area.origin.y, area.size.width, area.size.height * 0.5), upperControl.controlInsets ?? UIEdgeInsetsZero)
+        let lowerFrame = UIEdgeInsetsInsetRect(CGRectMake(area.origin.x, area.origin.y + area.size.height * 0.5, area.size.width, area.size.height * 0.5), lowerControl.controlInsets ?? UIEdgeInsetsZero)
+        upperControl.frame = upperFrame
+        lowerControl.frame = lowerFrame
+
+        // FlexLabels are special, as they contain a label inside in order to support rotated text
+        if let uLabel = upperControl as? FlexLabel {
+            uLabel.label.frame = uLabel.bounds
         }
-    }
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.initView()
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.initView()
-    }
-    
-    override func initView() {
-        super.initView()
-        self._imageView = UIImageView()
-        self.addSubview(self._imageView!)
-    }
-    
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        self.setupImageView()
-    }
-    
-    func setupImageView() {
-        let imageViewRect = self.getViewRect()
-        self.imageView.frame = imageViewRect
-
-        let clipRect = CGRectOffset(self.bounds, -imageViewRect.origin.x, -imageViewRect.origin.y)
-        let maskShapeLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: clipRect, color: UIColor.blackColor())
-        
-        self.imageView.layer.mask = maskShapeLayer
+        if let lLabel = lowerControl as? FlexLabel {
+            lLabel.label.frame = lLabel.bounds
+        }
     }
 }

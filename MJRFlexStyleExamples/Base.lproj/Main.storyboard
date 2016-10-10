@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kfd-7Y-fCm">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kfd-7Y-fCm">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Sliders-->
@@ -15,51 +16,44 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="la0-9i-uk0">
-                                <rect key="frame" x="82" y="108" width="436" height="383"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="la0-9i-uk0">
+                                <frame key="frameInset" minX="82" minY="108" width="436" height="383"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iCJ-fK-fQD" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                        <rect key="frame" x="11" y="12" width="413" height="42"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hiq-M2-tME" customClass="FlexSwitch" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                        <rect key="frame" x="364" y="62" width="60" height="39"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="onTintColor">
-                                                <color key="value" red="0.53735902260000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.53735902260000001" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="thumbTintColor">
-                                                <color key="value" red="0.77549677309999998" green="0.77549677309999998" blue="0.77549677309999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.77549677309999998" green="0.77549677309999998" blue="0.77549677309999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="thumbBackgroundColor">
-                                                <color key="value" red="0.77549677309999998" green="0.77549677309999998" blue="0.77549677309999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.77549677309999998" green="0.77549677309999998" blue="0.77549677309999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="continuous" value="NO"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xok-IF-OGA" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                        <rect key="frame" x="11" y="62" width="345" height="39"/>
-                                        <color key="backgroundColor" red="0.78039215689999997" green="0.63921568630000003" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.78039215689999997" green="0.63921568630000003" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h8F-Ah-pft" customClass="FlexDoubleSlider" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                        <rect key="frame" x="364" y="109" width="60" height="262"/>
-                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ojO-t0-c7G" customClass="FlexSeriesView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                        <rect key="frame" x="11" y="109" width="345" height="190"/>
-                                        <color key="backgroundColor" red="1" green="0.763660432" blue="0.32489238860000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="1" green="0.763660432" blue="0.32489238860000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fB0-zX-wEQ" customClass="FlexSlider" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                        <rect key="frame" x="11" y="307" width="345" height="28"/>
-                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0n-l8-vtC" customClass="FlexSlider" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                        <rect key="frame" x="11" y="343" width="345" height="28"/>
-                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -96,7 +90,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="la0-9i-uk0" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ds8-qA-bDd"/>
                             <constraint firstItem="la0-9i-uk0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hrC-55-gay"/>
@@ -132,18 +126,14 @@
                         <viewControllerLayoutGuide type="bottom" id="MRv-Qm-NfF"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="PtC-1S-Mnb">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3NP-MV-OYk" customClass="FlexView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="105" y="193" width="390" height="213"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3NP-MV-OYk" customClass="FlexView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <frame key="frameInset" minX="105" minY="193" width="390" height="213"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvk-XL-7UG" customClass="FlexView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                        <rect key="frame" x="212" y="43" width="170" height="128"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r0N-gF-Xdk" customClass="FlexView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="43" width="180" height="128"/>
-                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvk-XL-7UG" customClass="FlexView" customModule="MJRFlexStyleExamples" customModuleProvider="target"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r0N-gF-Xdk" customClass="FlexView" customModule="MJRFlexStyleExamples" customModuleProvider="target"/>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="fvk-XL-7UG" firstAttribute="leading" secondItem="r0N-gF-Xdk" secondAttribute="trailing" constant="24" id="2oN-7X-PMk"/>
@@ -163,7 +153,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="3NP-MV-OYk" firstAttribute="centerX" secondItem="PtC-1S-Mnb" secondAttribute="centerX" id="5oh-rG-oGS"/>
                             <constraint firstItem="3NP-MV-OYk" firstAttribute="centerY" secondItem="PtC-1S-Mnb" secondAttribute="centerY" id="HaO-5n-SQW"/>
@@ -195,46 +185,46 @@
                         <viewControllerLayoutGuide type="bottom" id="lSt-Xd-y6E"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Abf-jI-7sm">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utr-C3-EXj" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="95" y="72" width="411" height="46"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="utr-C3-EXj" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <frame key="frameInset" minX="95" minY="72" width="411" height="46"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="6Bd-fh-0U9"/>
                                     <constraint firstAttribute="width" constant="411" id="SaP-Lx-Z3O"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YXA-Zl-d1j" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="95" y="126" width="411" height="46"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YXA-Zl-d1j" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <frame key="frameInset" minX="95" minY="126" width="411" height="46"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="419-bb-NdA"/>
                                     <constraint firstAttribute="width" constant="411" id="IaB-jC-Czv"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1aZ-RX-jaZ" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="95" y="180" width="411" height="46"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1aZ-RX-jaZ" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <frame key="frameInset" minX="95" minY="180" width="411" height="46"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="82p-CH-L8q"/>
                                     <constraint firstAttribute="width" constant="411" id="lza-9I-ic3"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fgp-Lo-AN9" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="40" y="77" width="40" height="515"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fgp-Lo-AN9" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <frame key="frameInset" minX="40" minY="77" width="40" height="515"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="jCw-U6-u1P"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bxv-GW-6g8" customClass="FlexView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="95" y="234" width="411" height="358"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bxv-GW-6g8" customClass="FlexView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <frame key="frameInset" minX="95" minY="234" width="411" height="358"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="YXA-Zl-d1j" firstAttribute="leading" secondItem="1aZ-RX-jaZ" secondAttribute="leading" id="21N-YV-BQ2"/>
                             <constraint firstItem="1aZ-RX-jaZ" firstAttribute="top" secondItem="YXA-Zl-d1j" secondAttribute="bottom" constant="8" symbolic="YES" id="7oh-Hz-9fS"/>
@@ -279,31 +269,31 @@
                         <viewControllerLayoutGuide type="bottom" id="HK7-H7-Mv8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="gWF-wX-Pwy">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0d4-Cl-e10" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="94" y="126" width="411" height="46"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0d4-Cl-e10" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <frame key="frameInset" minX="94" minY="126" width="411" height="46"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="411" id="Rhu-l0-gdv"/>
                                     <constraint firstAttribute="height" constant="46" id="kYm-HO-Q0f"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Htv-6x-PL4" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="94" y="72" width="411" height="46"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Htv-6x-PL4" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <frame key="frameInset" minX="94" minY="72" width="411" height="46"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="411" id="EH7-bI-KMv"/>
                                     <constraint firstAttribute="height" constant="46" id="WDn-0W-PXj"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wuv-S2-yxX" customClass="FlexImageView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="94" y="180" width="411" height="412"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wuv-S2-yxX" customClass="FlexImageView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <frame key="frameInset" minX="94" minY="180" width="411" height="412"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="wuv-S2-yxX" firstAttribute="top" secondItem="0d4-Cl-e10" secondAttribute="bottom" constant="8" symbolic="YES" id="AfO-3N-d9e"/>
                             <constraint firstItem="0d4-Cl-e10" firstAttribute="leading" secondItem="wuv-S2-yxX" secondAttribute="leading" id="KWL-Vn-t03"/>
@@ -341,15 +331,15 @@
                         <viewControllerLayoutGuide type="bottom" id="RWe-dj-Cbu"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="UNk-Pw-6oU">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5t7-Zh-Gc0" customClass="FlexTextView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
-                                <rect key="frame" x="152" y="72" width="296" height="508"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5t7-Zh-Gc0" customClass="FlexTextView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <frame key="frameInset" minX="152" minY="72" width="296" height="508"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="5t7-Zh-Gc0" secondAttribute="bottom" constant="20" symbolic="YES" id="CrA-WV-KzY"/>
                             <constraint firstItem="5t7-Zh-Gc0" firstAttribute="leading" secondItem="UNk-Pw-6oU" secondAttribute="leadingMargin" constant="132" id="Q3T-8g-znl"/>
@@ -357,7 +347,13 @@
                             <constraint firstItem="5t7-Zh-Gc0" firstAttribute="trailing" secondItem="UNk-Pw-6oU" secondAttribute="trailingMargin" constant="-132" id="rcY-vG-uAl"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Text View" id="6dq-44-gnr"/>
+                    <navigationItem key="navigationItem" title="Text View" id="6dq-44-gnr">
+                        <barButtonItem key="rightBarButtonItem" title="Image Shape" id="tyv-FY-Cwa">
+                            <connections>
+                                <segue destination="cfR-pt-KGx" kind="show" id="5yH-Xg-1fG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="flexTextView" destination="5t7-Zh-Gc0" id="BAG-LE-5sy"/>
                     </connections>
@@ -365,6 +361,98 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TDg-uV-rZR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4035" y="429"/>
+        </scene>
+        <!--Shape View-->
+        <scene sceneID="rli-x0-sQw">
+            <objects>
+                <viewController id="cfR-pt-KGx" customClass="ImageShapeDemoViewController" customModule="MJRFlexStyleExamples" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jjg-9A-6DZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="rlD-aA-yBa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yoU-Xd-The">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ru-Si-9Ny" customClass="FlexImageShapeView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UsN-L0-Iae" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="sIj-u3-h6C"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e1e-qf-Grt" customClass="FlexMenu" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="SsM-Wo-kTI"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="UsN-L0-Iae" firstAttribute="leading" secondItem="yoU-Xd-The" secondAttribute="leading" constant="128" id="5F1-rU-OBz"/>
+                            <constraint firstItem="9ru-Si-9Ny" firstAttribute="leading" secondItem="yoU-Xd-The" secondAttribute="leadingMargin" constant="-8" id="6mV-T1-HT9"/>
+                            <constraint firstItem="UsN-L0-Iae" firstAttribute="centerX" secondItem="yoU-Xd-The" secondAttribute="centerX" id="Cgm-hm-n0V"/>
+                            <constraint firstItem="UsN-L0-Iae" firstAttribute="top" secondItem="jjg-9A-6DZ" secondAttribute="bottom" constant="8" symbolic="YES" id="ICV-Eh-EMn"/>
+                            <constraint firstItem="e1e-qf-Grt" firstAttribute="centerX" secondItem="9ru-Si-9Ny" secondAttribute="centerX" id="K4M-UK-pBW"/>
+                            <constraint firstItem="e1e-qf-Grt" firstAttribute="top" secondItem="UsN-L0-Iae" secondAttribute="bottom" constant="8" symbolic="YES" id="TFj-ao-Bal"/>
+                            <constraint firstItem="UsN-L0-Iae" firstAttribute="leading" secondItem="e1e-qf-Grt" secondAttribute="leading" id="VEI-hB-UlW"/>
+                            <constraint firstItem="rlD-aA-yBa" firstAttribute="top" secondItem="9ru-Si-9Ny" secondAttribute="bottom" constant="8" symbolic="YES" id="YxT-85-ydy"/>
+                            <constraint firstItem="UsN-L0-Iae" firstAttribute="trailing" secondItem="e1e-qf-Grt" secondAttribute="trailing" id="bga-f0-ZWH"/>
+                            <constraint firstItem="9ru-Si-9Ny" firstAttribute="top" secondItem="e1e-qf-Grt" secondAttribute="bottom" constant="8" symbolic="YES" id="pdq-ec-zUa"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Shape View" id="eA9-AJ-qOX">
+                        <barButtonItem key="rightBarButtonItem" title="Collections" id="T2A-bW-PcH">
+                            <connections>
+                                <segue destination="5SO-hz-o6k" kind="show" id="hbV-AI-A2E"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="flexViewOrientation" destination="UsN-L0-Iae" id="8lP-Yf-ytb"/>
+                        <outlet property="imageShapeView" destination="9ru-Si-9Ny" id="C3T-NP-rr7"/>
+                        <outlet property="imageViewStyle" destination="e1e-qf-Grt" id="01X-by-Ify"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zct-9V-HlK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4763.5682158920545" y="416.80000000000001"/>
+        </scene>
+        <!--Collections-->
+        <scene sceneID="nhi-Q6-OQi">
+            <objects>
+                <viewController id="5SO-hz-o6k" customClass="FlexCollectionDemoViewController" customModule="MJRFlexStyleExamples" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0e3-SQ-cNB"/>
+                        <viewControllerLayoutGuide type="bottom" id="qbF-TL-Ft3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Cwe-Wl-9u0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1FE-fF-6b5" customClass="FlexCollectionView" customModule="MJRFlexStyleExamples" customModuleProvider="target">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1FE-fF-6b5" firstAttribute="top" secondItem="0e3-SQ-cNB" secondAttribute="bottom" constant="8" symbolic="YES" id="Dgk-6p-r9M"/>
+                            <constraint firstItem="1FE-fF-6b5" firstAttribute="centerX" secondItem="Cwe-Wl-9u0" secondAttribute="centerX" id="dQC-QH-qab"/>
+                            <constraint firstItem="qbF-TL-Ft3" firstAttribute="top" secondItem="1FE-fF-6b5" secondAttribute="bottom" constant="156" id="l7R-qB-atg"/>
+                            <constraint firstItem="1FE-fF-6b5" firstAttribute="leading" secondItem="Cwe-Wl-9u0" secondAttribute="leadingMargin" constant="33" id="pbA-al-6OV"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Collections" id="z7g-cd-pRQ"/>
+                    <connections>
+                        <outlet property="demoCollectionView" destination="1FE-fF-6b5" id="cFm-Ij-2OR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VyT-m6-jAc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5440.8000000000002" y="415.14242878560725"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fKv-qm-XHe">

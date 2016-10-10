@@ -1,8 +1,8 @@
 //
-//  FlexImageView.swift
+//  FlexCollectionSection.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 28.08.16.
+//  Created by Martin Rehder on 23.09.16.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -28,46 +28,19 @@
  */
 
 import UIKit
-import StyledLabel
 
-@IBDesignable
-public class FlexImageView: FlexView {
-    private var _imageView: UIImageView?
+public class FlexCollectionSection: NSObject {
+    var reference: String
+    var title: String?
+    public var insets: UIEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)
+    public var size: CGSize = CGSizeMake(0,18)
     
-    public var imageView: UIImageView {
-        get {
-            return _imageView!
-        }
-    }
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.initView()
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.initView()
-    }
-    
-    override func initView() {
-        super.initView()
-        self._imageView = UIImageView()
-        self.addSubview(self._imageView!)
-    }
-    
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        self.setupImageView()
-    }
-    
-    func setupImageView() {
-        let imageViewRect = self.getViewRect()
-        self.imageView.frame = imageViewRect
-
-        let clipRect = CGRectOffset(self.bounds, -imageViewRect.origin.x, -imageViewRect.origin.y)
-        let maskShapeLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: clipRect, color: UIColor.blackColor())
+    public init(reference: String, title: String? = nil) {
+        self.reference = reference
+        self.title = title
         
-        self.imageView.layer.mask = maskShapeLayer
+        if title == nil {
+            self.size = CGSizeZero
+        }
     }
 }

@@ -1,8 +1,8 @@
 //
-//  FlexImageView.swift
+//  FlexColorCollectionViewItem.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 28.08.16.
+//  Created by Martin Rehder on 07.10.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -28,46 +28,14 @@
  */
 
 import UIKit
-import StyledLabel
 
-@IBDesignable
-public class FlexImageView: FlexView {
-    private var _imageView: UIImageView?
-    
-    public var imageView: UIImageView {
-        get {
-            return _imageView!
-        }
-    }
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.initView()
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.initView()
-    }
-    
-    override func initView() {
-        super.initView()
-        self._imageView = UIImageView()
-        self.addSubview(self._imageView!)
-    }
-    
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        self.setupImageView()
-    }
-    
-    func setupImageView() {
-        let imageViewRect = self.getViewRect()
-        self.imageView.frame = imageViewRect
+public class FlexColorCollectionItem: FlexBaseCollectionItem {
+    public var color: UIColor = UIColor.blackColor()
+    public var colorActionHandler: (() -> Void)?
 
-        let clipRect = CGRectOffset(self.bounds, -imageViewRect.origin.x, -imageViewRect.origin.y)
-        let maskShapeLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: clipRect, color: UIColor.blackColor())
-        
-        self.imageView.layer.mask = maskShapeLayer
+    public init(reference: String, color: UIColor, text: NSAttributedString? = nil, icon: UIImage? = nil, accessoryImage: UIImage? = nil, title: NSAttributedString? = nil, colorActionHandler: (() -> Void)? = nil) {
+        self.color = color
+        self.colorActionHandler = colorActionHandler
+        super.init(reference: reference, text: text, icon: icon, accessoryImage: accessoryImage, title: title, accessoryImageActionHandler: nil)
     }
 }

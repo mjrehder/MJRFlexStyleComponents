@@ -1,8 +1,8 @@
 //
-//  FlexImageView.swift
+//  FlexHeaderFooterAppearance.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 28.08.16.
+//  Created by Martin Rehder on 09.10.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -30,44 +30,22 @@
 import UIKit
 import StyledLabel
 
-@IBDesignable
-public class FlexImageView: FlexView {
-    private var _imageView: UIImageView?
+public class FlexStyleHeaderFooterAppearance: NSObject {
+    public var style: ShapeStyle = .Box
+    public var textColor = UIColor.whiteColor()
+    public var textFont = UIFont.boldSystemFontOfSize(12.0)
+    public var size: CGFloat = 18
+    public var textAlignment: NSTextAlignment = .Center
+    public var insets: UIEdgeInsets = UIEdgeInsetsZero
+    public var backgroundColor: UIColor = .grayColor()
     
-    public var imageView: UIImageView {
-        get {
-            return _imageView!
-        }
-    }
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.initView()
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.initView()
-    }
-    
-    override func initView() {
-        super.initView()
-        self._imageView = UIImageView()
-        self.addSubview(self._imageView!)
-    }
-    
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        self.setupImageView()
-    }
-    
-    func setupImageView() {
-        let imageViewRect = self.getViewRect()
-        self.imageView.frame = imageViewRect
-
-        let clipRect = CGRectOffset(self.bounds, -imageViewRect.origin.x, -imageViewRect.origin.y)
-        let maskShapeLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: clipRect, color: UIColor.blackColor())
-        
-        self.imageView.layer.mask = maskShapeLayer
+    public func setAppearance(style: ShapeStyle, textColor: UIColor, textFont: UIFont, textAlignment: NSTextAlignment, size: CGFloat, insets: UIEdgeInsets, backgroundColor: UIColor) {
+        self.style = style
+        self.textColor = textColor
+        self.textFont = textFont
+        self.size = size
+        self.textAlignment = textAlignment
+        self.insets = insets
+        self.backgroundColor = backgroundColor
     }
 }

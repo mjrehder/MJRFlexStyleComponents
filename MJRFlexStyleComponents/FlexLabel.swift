@@ -32,7 +32,7 @@ import StyledLabel
 
 /// This class wraps a StyledLabel and adds features for placement, layout, etc.
 @IBDesignable
-public class FlexLabel: UIControl {
+public class FlexLabel: MJRFlexBaseControl {
     private lazy var _label = LabelFactory.defaultStyledLabel()
     
     public var label: StyledLabel {
@@ -44,71 +44,59 @@ public class FlexLabel: UIControl {
     /// The background color. If nil the color will be clear color. Defaults to nil.
     @IBInspectable public var labelBackgroundColor: UIColor? {
         didSet {
-            self.applyStyle(style)
+            self.applyStyle()
         }
     }
     
     /// The font of the label
-    @IBInspectable public var labelFont = UIFont(name: "TrebuchetMS-Bold", size: 20) {
+    @IBInspectable public var labelFont: UIFont? {
         didSet {
-            self.applyStyle(style)
+            self.applyStyle()
         }
     }
     
     /// The text alignment of the label
-    @IBInspectable public var labelTextAlignment: NSTextAlignment = .Center {
+    @IBInspectable public var labelTextAlignment: NSTextAlignment? {
         didSet {
-            self.applyStyle(style)
+            self.applyStyle()
         }
     }
     
-    /// The text color. Default's to black
-    @IBInspectable public var labelTextColor: UIColor = .blackColor() {
+    /// The text color.
+    @IBInspectable public var labelTextColor: UIColor? {
         didSet {
-            self.applyStyle(style)
-        }
-    }
-    
-    @IBInspectable public var style: ShapeStyle = .Box {
-        didSet {
-            self.applyStyle(style)
+            self.applyStyle()
         }
     }
     
     /// The border color.
     @IBInspectable public var labelBorderColor: UIColor? {
         didSet {
-            self.applyStyle(style)
+            self.applyStyle()
         }
     }
     
-    /// The border width. Default's to 1.0
-    @IBInspectable public var labelBorderWidth: CGFloat = 1.0 {
+    /// The border width
+    @IBInspectable public var labelBorderWidth: CGFloat? {
         didSet {
-            self.applyStyle(style)
+            self.applyStyle()
         }
     }
     
-    public var labelInsets: UIEdgeInsets = UIEdgeInsetsZero {
-        didSet {
-            self.applyStyle(style)
-        }
-    }
-    
-    func applyStyle(style: ShapeStyle) {
+    override func applyStyle(style: ShapeStyle) {
         if self.label.superview == nil {
             self.addSubview(self.label)
         }
         self.label.style = style
-        self.label.backgroundColor = .clearColor()
-        self.label.borderColor = labelBorderColor
-        self.label.borderWidth = labelBorderWidth
-        self.label.textColor = labelTextColor
+        self.label.backgroundColor = .clearColor() // This must be clear color as the surrounding view might want to use background clipping
+        self.label.borderColor = labelBorderColor ?? self.getAppearance().borderColor
+        self.label.borderWidth = labelBorderWidth ?? self.getAppearance().borderWidth
+        self.label.textColor = labelTextColor ?? UIColor.blackColor()
         self.label.font = labelFont
-        self.label.textAlignment = labelTextAlignment
+        self.label.textAlignment = labelTextAlignment ?? .Center
     }
     
     func applyStyle() {
-        self.applyStyle(style)
+        self.applyStyle(self.getStyle())
     }
 }

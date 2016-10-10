@@ -1,8 +1,8 @@
 //
-//  FlexTextView.swift
+//  FlexImageShapeView.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 06.09.16.
+//  Created by Martin Rehder on 02/10/2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -30,18 +30,31 @@
 import UIKit
 import StyledLabel
 
-public class FlexTextView: FlexView {
-    private var _textView: UITextView?
+public enum FlexImageShapeFit {
+    case Center
+    case ScaleToFill
+    case ScaleToFit
+}
+
+public class FlexImageShapeView: FlexView {
+    private var backgroundShape = CALayer()
+    private var imageShape = CALayer()
     
-    public var textView: UITextView {
-        get {
-            return _textView!
+    public var image: UIImage? = nil {
+        didSet {
+            self.setNeedsLayout()
         }
-        set {
-            self._textView?.removeFromSuperview()
-            self._textView = newValue
-            self.addSubview(self._textView!)
-            self.setupTextView()
+    }
+
+    public var backgroundImageFit: FlexImageShapeFit = .ScaleToFit {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+
+    public var imageStyle: ShapeStyle = .Box {
+        didSet {
+            self.setNeedsLayout()
         }
     }
     
@@ -57,21 +70,23 @@ public class FlexTextView: FlexView {
     
     override func initView() {
         super.initView()
-        self._textView = UITextView()
-        self.addSubview(self._textView!)
     }
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        self.setupTextView()
+        self.setupImageView()
     }
     
-    func setupTextView() {
-        let textViewRect = self.getViewRect()
-        self.textView.frame = textViewRect
+    func setupImageView() {
+        let imageViewRect = self.getViewRect()
         
-        let clipRect = CGRectOffset(self.bounds, -textViewRect.origin.x, -textViewRect.origin.y)
-        let maskShapeLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: clipRect, color: UIColor.blackColor())
+        if self.backgroundShape.superlayer != nil {
+            self.backgroundShape.removeFromSuperlayer()
+        }
+
+        let bgLayer = ImageShapeLayerFactory.createImageShapeInView(imageViewRect, viewBounds: self.bounds, image: self.image, viewStyle: self.getStyle(), imageStyle: self.imageStyle, imageFitting: self.backgroundImageFit)
         
-        self.textView.layer.mask = maskShapeLayer
-    }}
+        self.styleLayer.insertSublayer(bgLayer, atIndex: 0)
+        self.backgroundShape = bgLayer
+    }
+}

@@ -1,8 +1,8 @@
 //
-//  FlexTextView.swift
+//  SimpleHeaderCollectionReusableView.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 06.09.16.
+//  Created by Martin Rehder on 01/10/2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -27,51 +27,26 @@
  *
  */
 
+
 import UIKit
 import StyledLabel
 
-public class FlexTextView: FlexView {
-    private var _textView: UITextView?
+class SimpleHeaderCollectionReusableView: UICollectionReusableView {
+    var title: StyledLabel?
     
-    public var textView: UITextView {
-        get {
-            return _textView!
-        }
-        set {
-            self._textView?.removeFromSuperview()
-            self._textView = newValue
-            self.addSubview(self._textView!)
-            self.setupTextView()
-        }
-    }
-    
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         self.initView()
     }
     
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.initView()
     }
-    
-    override func initView() {
-        super.initView()
-        self._textView = UITextView()
-        self.addSubview(self._textView!)
+
+    func initView() {
+        self.title = StyledLabel()
+        self.title?.frame = self.bounds
+        self.addSubview(self.title!)
     }
-    
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        self.setupTextView()
-    }
-    
-    func setupTextView() {
-        let textViewRect = self.getViewRect()
-        self.textView.frame = textViewRect
-        
-        let clipRect = CGRectOffset(self.bounds, -textViewRect.origin.x, -textViewRect.origin.y)
-        let maskShapeLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: clipRect, color: UIColor.blackColor())
-        
-        self.textView.layer.mask = maskShapeLayer
-    }}
+}

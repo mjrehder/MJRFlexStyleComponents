@@ -197,7 +197,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
     func applyStylesAndText() {
         applyThumbStyle(thumbStyle)
         applySeparatorStyle(separatorStyle)
-        applyStyle(style)
+        applyStyle(self.getStyle())
         
         self.assignThumbTexts()
         self.assignSeparatorTexts()
@@ -414,7 +414,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
             return super.createSeparatorLayer(layerRect)
         }
 
-        let sepLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.menuItemStyle, colorRects: rectColors)
+        let sepLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: layerRect, shapeStyle: self.menuItemStyle, colorRects: rectColors)
         return sepLayer
     }
 
