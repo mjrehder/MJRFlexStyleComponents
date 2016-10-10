@@ -332,7 +332,7 @@ The FlexCollectionViewDelegate has two functions in order to react on selection 
 ```
 
 #### Collection sections
-The ````addSection()``` is used to add a section to your FlexCollectionView. The function returns a section reference which is used when you add the items. You can furthermore pass a title and use ```getSection(reference)``` for adjusting the section layout.
+The ```addSection()``` is used to add a section to your FlexCollectionView. The function returns a section reference which is used when you add the items. You can furthermore pass a title and use ```getSection(reference)``` for adjusting the section layout.
 
 #### Register own cells and items
 When you want to add your own items and cells, please use the ```registerCell(itemClass: AnyClass, cellClass: AnyClass)```. The classes must inherit from FlexCollectionItem and FlexCollectionViewCell.
