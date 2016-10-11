@@ -28,7 +28,6 @@
  */
 
 import UIKit
-import MJRFlexStyleComponents
 import StyledLabel
 
 public class FlexTextViewCollectionViewCell: FlexCollectionViewCell {

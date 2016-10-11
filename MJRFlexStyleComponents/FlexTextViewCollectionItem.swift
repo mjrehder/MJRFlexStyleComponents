@@ -28,7 +28,6 @@
  */
 
 import UIKit
-import MJRFlexStyleComponents
 
 public class FlexTextViewCollectionItem: FlexCollectionItem {
     public var title: NSAttributedString?
