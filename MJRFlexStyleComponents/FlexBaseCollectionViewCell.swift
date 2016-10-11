@@ -177,7 +177,7 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         }
     }
     
-    override func applyStyles() {
+    override public func applyStyles() {
         super.applyStyles()
   
         if let item = self.item as? FlexBaseCollectionItem, fcv = self.flexContentView {

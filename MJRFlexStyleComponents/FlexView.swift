@@ -83,8 +83,8 @@ public class FlexView: MJRFlexBaseControl {
     
     // MARK: - Header
     
-    /// The position of the header. The footer, if used, is on the opposite end of the view. Defaults to top.
-    @IBInspectable public var headerPosition: FlexViewHeaderPosition = .Top {
+    /// The position of the header. The footer, if used, is on the opposite end of the view.
+    @IBInspectable public var headerPosition: FlexViewHeaderPosition? {
         didSet {
             self.setNeedsLayout()
         }
@@ -185,8 +185,9 @@ public class FlexView: MJRFlexBaseControl {
             bottomOffset += self.footerSize ?? appe.footerAppearance.size
             heightReduce += self.footerSize ?? appe.footerAppearance.size
         }
+        let headerPos = self.headerPosition ?? appe.headerPosition
         let margins = self.contentViewMargins ?? appe.contentInsets
-        switch self.headerPosition {
+        switch headerPos {
         case .Top:
             return UIEdgeInsetsInsetRect(CGRectMake(0, topOffset, self.bounds.size.width, self.bounds.size.height - heightReduce), margins)
         case .Left:
@@ -199,8 +200,9 @@ public class FlexView: MJRFlexBaseControl {
     // MARK: - Private Style
 
     func rectForHeader() -> CGRect {
+        let headerPos = self.headerPosition ?? self.getAppearance().headerPosition
         let hSize = self.headerSize ?? self.getAppearance().headerAppearance.size
-        switch self.headerPosition {
+        switch headerPos {
         case .Top:
             return CGRectMake(0, 0, self.bounds.size.width, hSize)
         case .Left:
@@ -211,8 +213,9 @@ public class FlexView: MJRFlexBaseControl {
     }
     
     func rectForFooter() -> CGRect {
+        let headerPos = self.headerPosition ?? self.getAppearance().headerPosition
         let fSize = self.footerSize ?? self.getAppearance().footerAppearance.size
-        switch self.headerPosition {
+        switch headerPos {
         case .Top:
             return CGRectMake(0, self.bounds.size.height - fSize, self.bounds.size.width, fSize)
         case .Left:
@@ -223,7 +226,8 @@ public class FlexView: MJRFlexBaseControl {
     }
     
     func getHeaderFooterRotation() -> CGAffineTransform {
-        switch self.headerPosition {
+        let headerPos = self.headerPosition ?? self.getAppearance().headerPosition
+        switch headerPos {
         case .Top:
             return CGAffineTransformMakeRotation(0)
         case .Left:

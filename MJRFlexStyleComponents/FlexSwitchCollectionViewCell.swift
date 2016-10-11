@@ -87,7 +87,7 @@ public class FlexSwitchCollectionViewCell: FlexBaseCollectionViewCell, FlexSwitc
         return remainingCellArea
     }
     
-    override func applyStyles() {
+    override public func applyStyles() {
         if let item = self.item as? FlexSwitchCollectionItem, fcv = self.flexContentView {
             fcv.headerAttributedText = item.title
             var remainingCellArea = fcv.getViewRect()

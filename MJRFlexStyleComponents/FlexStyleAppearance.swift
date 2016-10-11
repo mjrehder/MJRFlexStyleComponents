@@ -36,7 +36,10 @@ public class FlexStyleAppearance {
 	static var initialized: Bool = false
 
     public var cellAppearance = FlexStyleCollectionCellAppearance()
+
+    public var headerPosition: FlexViewHeaderPosition = .Top
     public var headerAppearance = FlexStyleHeaderFooterAppearance()
+
     public var footerAppearance = FlexStyleHeaderFooterAppearance()
     
     public var style: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)

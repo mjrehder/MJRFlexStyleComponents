@@ -1,5 +1,5 @@
 //
-//  FlexCollectionItem.swift
+//  FlexTextViewCollectionItem.swift
 //  MJRFlexStyleComponents
 //
 //  Created by Martin Rehder on 23.09.16.
@@ -27,19 +27,14 @@
  *
  */
 
-
 import UIKit
+import MJRFlexStyleComponents
 
-public class FlexCollectionItem: NSObject {
-    public var reference: String
-    public var text: NSAttributedString?
-    public var sectionReference: String?
-    public var preferredCellSize: CGSize?
-    public var cellAppearance: FlexStyleAppearance?
-    public var canMoveItem: Bool = true
+public class FlexTextViewCollectionItem: FlexCollectionItem {
+    public var title: NSAttributedString?
     
-    public init(reference: String, text: NSAttributedString? = nil) {
-        self.reference = reference
-        self.text = text
+    public init(reference: String, text: NSAttributedString? = nil, title: NSAttributedString? = nil) {
+        self.title = title
+        super.init(reference: reference, text: text)
     }
 }

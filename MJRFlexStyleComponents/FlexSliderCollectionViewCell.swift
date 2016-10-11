@@ -95,7 +95,7 @@ public class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
         return remainingCellArea
     }
     
-    override func applyStyles() {
+    override public func applyStyles() {
         if let item = self.item as? FlexSliderCollectionItem, fcv = self.flexContentView {
             fcv.headerAttributedText = item.title
             var remainingCellArea = fcv.getViewRect()

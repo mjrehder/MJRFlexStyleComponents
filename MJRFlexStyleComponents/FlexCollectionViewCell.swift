@@ -90,7 +90,7 @@ public class FlexCollectionViewCell: UICollectionViewCell {
         self.applyStyles()
     }
     
-    func applyStyles() {
+    public func applyStyles() {
     }
 
     public func assignBorderLayout() {

@@ -151,6 +151,7 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         self.registerCell(FlexColorCollectionItem.classForCoder(), cellClass: FlexColorCollectionViewCell.classForCoder())
         self.registerCell(FlexSwitchCollectionItem.classForCoder(), cellClass: FlexSwitchCollectionViewCell.classForCoder())
         self.registerCell(FlexSliderCollectionItem.classForCoder(), cellClass: FlexSliderCollectionViewCell.classForCoder())
+        self.registerCell(FlexTextViewCollectionItem.classForCoder(), cellClass: FlexTextViewCollectionViewCell.classForCoder())
     }
     
     public func registerCell(itemClass: AnyClass, cellClass: AnyClass) {
@@ -165,11 +166,6 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
     func setupCollectionView() {
         let collectionViewRect = UIEdgeInsetsInsetRect(self.getViewRect(), self.viewMargins)
         self.itemCollectionView.frame = collectionViewRect
-        
-        let clipRect = CGRectOffset(self.bounds, -collectionViewRect.origin.x, -collectionViewRect.origin.y)
-        let maskShapeLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: clipRect, color: UIColor.blackColor())
-        
-        self.itemCollectionView.layer.mask = maskShapeLayer
     }
     
     // MARK: - public
@@ -328,6 +324,13 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
             item.sectionReference = tsec.reference
             self.flexCollectionDelegate?.onFlexCollectionItemMoved(self, item: item)
         }
+    }
+    
+    public func collectionView(collectionView: UICollectionView, canMoveItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if let item = self.getItemForIndexPath(indexPath) {
+            return item.canMoveItem
+        }
+        return false
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout

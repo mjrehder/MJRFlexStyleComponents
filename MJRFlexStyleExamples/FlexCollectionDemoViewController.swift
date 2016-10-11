@@ -66,6 +66,19 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         i1App.cellAppearance = cellAppearance
         item1.cellAppearance = i1App
         self.demoCollectionView.addItem(secRef, item: item1)
+
+        // Text View Collection Item
+        let item2 = FlexTextViewCollectionItem(reference: "item2ref", text: NSAttributedString(string: "This is a longer text in order to test the TextView"), title: NSAttributedString(string: "Item 1.1"))
+        item2.canMoveItem = false
+        let i2App = FlexStyleAppearance()
+        i2App.styleColor = UIColor.MKColor.Brown.P100
+        i2App.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
+        i2App.headerPosition = .Left
+        i2App.headerAppearance.textFont = UIFont.systemFontOfSize(10)
+        i2App.contentInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+        i2App.cellAppearance = cellAppearance
+        item2.cellAppearance = i2App
+        self.demoCollectionView.addItem(secRef, item: item2)
         
         // Color item
         let colItem = FlexColorCollectionItem(reference: "colorItem", color: UIColor.MKColor.Orange.P200 , text: NSAttributedString(string: "Color"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 2")) {
