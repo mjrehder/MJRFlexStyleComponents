@@ -177,11 +177,19 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         }
     }
     
+    public func applySelectionStyles(fcv: FlexView) {
+        fcv.header.labelBackgroundColor = self.selected ? self.getAppearance().cellAppearance.selectedBackgroundColor : self.getAppearance().headerAppearance.backgroundColor
+        fcv.styleColor = self.selected ? self.getAppearance().cellAppearance.selectedStyleColor : self.getAppearance().styleColor
+        fcv.borderColor = self.selected ? self.getAppearance().cellAppearance.selectedBorderColor : self.getAppearance().borderColor
+        fcv.borderWidth = self.selected ? self.getAppearance().cellAppearance.selectedBorderWidth : self.getAppearance().borderWidth
+    }
+    
     override public func applyStyles() {
         super.applyStyles()
   
         if let item = self.item as? FlexBaseCollectionItem, fcv = self.flexContentView {
             fcv.headerAttributedText = item.title
+            self.applySelectionStyles(fcv)
             var remainingCellArea = fcv.getViewRect()
             remainingCellArea = self.layoutIconView(item, area: remainingCellArea)
             remainingCellArea = self.layoutAccessoryView(item, area: remainingCellArea)

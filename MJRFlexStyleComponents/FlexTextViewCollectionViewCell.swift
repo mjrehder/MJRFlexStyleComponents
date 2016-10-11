@@ -63,6 +63,10 @@ public class FlexTextViewCollectionViewCell: FlexCollectionViewCell {
             if let pcv = self.textContentView {
                 pcv.textView.backgroundColor = .clearColor()
                 self.prepareTextView(pcv.textView)
+                pcv.header.labelBackgroundColor = self.selected ? self.getAppearance().cellAppearance.selectedBackgroundColor : self.getAppearance().headerAppearance.backgroundColor
+                pcv.styleColor = self.selected ? self.getAppearance().cellAppearance.selectedStyleColor : self.getAppearance().styleColor
+                pcv.borderColor = self.selected ? self.getAppearance().cellAppearance.selectedBorderColor : self.getAppearance().borderColor
+                pcv.borderWidth = self.selected ? self.getAppearance().cellAppearance.selectedBorderWidth : self.getAppearance().borderWidth
                 pcv.userInteractionEnabled = false
             }
         }

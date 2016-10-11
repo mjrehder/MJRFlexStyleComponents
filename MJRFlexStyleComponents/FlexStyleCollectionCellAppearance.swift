@@ -34,6 +34,11 @@ import StyledLabel
 public class FlexStyleCollectionCellAppearance: NSObject {
     public var style: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
 
+    public var selectedBorderWidth: CGFloat = 0
+    public var selectedBorderColor: UIColor = UIColor.blackColor()
+    public var selectedStyleColor = UIColor.lightGrayColor()
+    public var selectedBackgroundColor = UIColor.grayColor()
+
     public var iconSize: CGSize = CGSizeMake(32, 32)
     public var iconInsets: UIEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
     public var iconStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)

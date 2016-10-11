@@ -349,6 +349,9 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
     
     public func onFlexCollectionViewCellTouched(item: FlexCollectionItem?) {
         if let item = item {
+            if let ip = self.getIndexPathForItem(item.reference) {
+                self.itemCollectionView.selectItemAtIndexPath(ip, animated: true, scrollPosition: .None)
+            }
             self.flexCollectionDelegate?.onFlexCollectionItemSelected(self, item: item)
         }
     }

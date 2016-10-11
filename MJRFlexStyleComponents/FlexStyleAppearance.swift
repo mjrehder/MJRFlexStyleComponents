@@ -46,18 +46,11 @@ public class FlexStyleAppearance {
     public var backgroundInsets: UIEdgeInsets = UIEdgeInsetsZero
     public var contentInsets: UIEdgeInsets = UIEdgeInsetsZero
 
-    // Styles and colors. Selected styles and colors are for collection views etc.
+    // Styles and colors.
     public var borderWidth: CGFloat = 0
-	public var selectedBorderWidth: CGFloat = 0
-
 	public var borderColor: UIColor = UIColor.grayColor()
-    public var selectedBorderColor: UIColor = UIColor.blackColor()
-    
     public var styleColor = UIColor.lightGrayColor()
-    public var selectedStyleColor = UIColor.blackColor()
-    
     public var backgroundColor = UIColor.clearColor()
-    public var selectedBackgroundColor = UIColor.clearColor()
 
     // Flex Switch
     public var switchOnColor: UIColor = UIColor.redColor().darkerColor()

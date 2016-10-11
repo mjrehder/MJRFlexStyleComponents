@@ -95,8 +95,8 @@ public class FlexCollectionViewCell: UICollectionViewCell {
 
     public func assignBorderLayout() {
         let appe = self.getAppearance()
-        self.layer.borderColor = self.selected ? appe.selectedBorderColor.CGColor : appe.borderColor.CGColor
-        self.layer.borderWidth = self.selected ? appe.selectedBorderWidth : appe.borderWidth
+        self.layer.borderColor = self.selected ? appe.cellAppearance.selectedBorderColor.CGColor : appe.borderColor.CGColor
+        self.layer.borderWidth = self.selected ? appe.cellAppearance.selectedBorderWidth : appe.borderWidth
     }
 
 }
