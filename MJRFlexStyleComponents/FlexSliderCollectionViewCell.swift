@@ -42,6 +42,7 @@ public class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
                 fs.valueChangedBlock = {
                     (value, index) in
                     if let item = self.item as? FlexSliderCollectionItem {
+                        item.value = value
                         item.valueChangedHandler?(value: value)
                     }
                 }
@@ -79,7 +80,7 @@ public class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
             fs.controlInsets = appe.cellAppearance.controlInsets
             
             let controlInsets = appe.cellAppearance.controlInsets
-            let controlSize = appe.cellAppearance.controlSize
+            let controlSize = CGSizeMake(remainingCellArea.width, appe.cellAppearance.controlSize.height)
             
             fs.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (controlInsets.right + controlSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - controlSize.height) * 0.5, controlSize.width, controlSize.height)
             fs.hidden = false

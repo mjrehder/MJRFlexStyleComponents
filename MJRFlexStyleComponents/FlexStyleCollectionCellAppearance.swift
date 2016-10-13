@@ -34,6 +34,9 @@ import StyledLabel
 public class FlexStyleCollectionCellAppearance: NSObject {
     public var style: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
 
+    public var borderWidth: CGFloat = 0
+    public var borderColor: UIColor = UIColor.blackColor()
+    
     public var selectedBorderWidth: CGFloat = 0
     public var selectedBorderColor: UIColor = UIColor.blackColor()
     public var selectedStyleColor = UIColor.lightGrayColor()
@@ -51,8 +54,8 @@ public class FlexStyleCollectionCellAppearance: NSObject {
     public var textTextColor = UIColor.blackColor()
     public var textTextFont = UIFont.boldSystemFontOfSize(16.0)
     public var textAlignment: NSTextAlignment = .Left
-    public var controlSize: CGSize = CGSizeMake(32, 32)
 
+    public var controlSize: CGSize = CGSizeMake(32, 32)
     public var controlInsets: UIEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
     public var controlStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
     public var controlStyleColor = UIColor.lightGrayColor()

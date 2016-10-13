@@ -104,12 +104,18 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     
     public func accessoryViewTouched(recognizer: UITapGestureRecognizer) {
         if let item = self.item as? FlexBaseCollectionItem {
+            if item.contentInteractionWillSelectItem {
+                self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item)
+            }
             item.accessoryImageActionHandler?()
         }
     }
     
     public func imageViewTouched(recognizer: UITapGestureRecognizer) {
         if let item = self.item as? FlexBaseCollectionItem {
+            if item.contentInteractionWillSelectItem {
+                self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item)
+            }
             item.imageViewActionHandler?()
         }
     }
@@ -152,7 +158,7 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
             av.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (accessoryImageInsets.right + accessoryImageSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - accessoryImageSize.height) * 0.5, accessoryImageSize.width, accessoryImageSize.height)
             av.layer.sublayers?.removeAll()
             av.layer.addSublayer(imgLayer)
-            av.hidden = false
+            av.hidden = item.showAccessoryImageOnlyWhenSelected ? !self.selected : false
             let imageLayerTotalWidth = imageViewRect.size.width + accessoryImageInsets.left + accessoryImageInsets.right
             remainingCellArea = remainingCellArea.insetBy(dx: imageLayerTotalWidth*0.5, dy: 0).offsetBy(dx: -imageLayerTotalWidth*0.5, dy: 0)
         }
@@ -180,8 +186,8 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     public func applySelectionStyles(fcv: FlexView) {
         fcv.header.labelBackgroundColor = self.selected ? self.getAppearance().cellAppearance.selectedBackgroundColor : self.getAppearance().headerAppearance.backgroundColor
         fcv.styleColor = self.selected ? self.getAppearance().cellAppearance.selectedStyleColor : self.getAppearance().styleColor
-        fcv.borderColor = self.selected ? self.getAppearance().cellAppearance.selectedBorderColor : self.getAppearance().borderColor
-        fcv.borderWidth = self.selected ? self.getAppearance().cellAppearance.selectedBorderWidth : self.getAppearance().borderWidth
+        fcv.borderColor = self.selected ? self.getAppearance().cellAppearance.selectedBorderColor : self.getAppearance().cellAppearance.borderColor
+        fcv.borderWidth = self.selected ? self.getAppearance().cellAppearance.selectedBorderWidth : self.getAppearance().cellAppearance.borderWidth
     }
     
     override public func applyStyles() {

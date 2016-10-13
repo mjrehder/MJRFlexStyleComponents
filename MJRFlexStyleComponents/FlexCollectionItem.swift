@@ -32,6 +32,10 @@ import UIKit
 
 public class FlexCollectionItem: NSObject {
     public var reference: String
+
+    /// Use this to refer to other content or items. The auxReference is not used or altered by the FlexCollection.
+    public var auxReference: String?
+    
     public var text: NSAttributedString?
     public var sectionReference: String?
     public var preferredCellSize: CGSize?

@@ -51,7 +51,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         item0.cellAppearance = i0App
         self.demoCollectionView.addItem(secRef, item: item0)
         
-        // Simple Image,Text,Accessory Item
+        // Simple Image,Text,Accessory Item. Accessory will only show on selection. Selection is triggered also for pressing icon and accessory image in this cell.
         let ti1 = UIImage(named: "DemoImage2")
         let ti2 = UIImage(named: "ThumbIcon3")
         let item1 = FlexBaseCollectionItem(reference: "item1ref", text: NSAttributedString(string: "Text"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 1")) {
@@ -60,6 +60,8 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         item1.imageViewActionHandler = {
             NSLog("image view pressed")
         }
+        item1.showAccessoryImageOnlyWhenSelected = true
+        item1.contentInteractionWillSelectItem = true
         let i1App = FlexStyleAppearance()
         i1App.styleColor = UIColor.MKColor.Brown.P100
         i1App.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
@@ -107,7 +109,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         self.demoCollectionView.addItem(secRef, item: switchItem)
         
         // Slider value
-        let sliderItem = FlexSliderCollectionItem(reference: "slider", value: 0, text: NSAttributedString(string: "Slider"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 4")) { (value) in
+        let sliderItem = FlexSliderCollectionItem(reference: "slider", value: 0.6, text: NSAttributedString(string: "Slider"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 4")) { (value) in
             NSLog("The slider is now \(value)")
         }
         let slApp = FlexStyleAppearance()

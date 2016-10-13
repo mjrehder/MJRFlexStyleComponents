@@ -514,15 +514,17 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     override func layoutComponents() {
-        self.thumbList.bounds = self.bounds
+        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets ?? self.getAppearance().backgroundInsets)
+
+        self.thumbList.bounds = layerRect
         let thumbSize = self.getThumbSize()
         for thumb in self.thumbList.thumbs {
             let pos = self.thumbList.getThumbPosForValue(_values[thumb.index], thumbIndex: thumb.index)
             if self.direction == .Horizontal {
-                thumb.frame = CGRect(x: pos.x - thumbSize.width / 2.0, y: (bounds.height - thumbSize.height) / 2.0, width: thumbSize.width, height: thumbSize.height)
+                thumb.frame = CGRect(x: pos.x - thumbSize.width / 2.0, y: (layerRect.height - thumbSize.height) / 2.0, width: thumbSize.width, height: thumbSize.height)
             }
             else {
-                thumb.frame = CGRect(x: (bounds.width - thumbSize.width) / 2.0, y: pos.y - thumbSize.height / 2.0, width: thumbSize.width, height: thumbSize.height)
+                thumb.frame = CGRect(x: (layerRect.width - thumbSize.width) / 2.0, y: pos.y - thumbSize.height / 2.0, width: thumbSize.width, height: thumbSize.height)
             }
         }
 
@@ -589,7 +591,9 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             if let weakSelf = self {
                 for thumb in weakSelf.thumbList.thumbs {
                     let v = weakSelf.thumbList.getValueFromThumbPos(thumb.index)
-                    weakSelf.updateValue(thumb.index, value: v, finished: false)
+                    if !v.isNaN && !v.isInfinite {
+                        weakSelf.updateValue(thumb.index, value: v, finished: false)
+                    }
                 }
                 weakSelf.layoutSeparators()
                 weakSelf.assignSeparatorTextOpacities()
@@ -825,13 +829,15 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         if self.continuous {
             self.startPositionUpdateNotification()
         }
-        
-        self.hintLabel.font      = thumbFont
-        self.hintLabel.textColor = thumbTextColor
     }
     
     func initValues(values: [Double]) {
-        self.initComponent()
+        self.posUpdateTimer.stop()
+        if self.continuous {
+            self.startPositionUpdateNotification()
+        }
+        self.hintLabel.font      = thumbFont
+        self.hintLabel.textColor = thumbTextColor
         
         if self.styleLayer.superlayer == nil {
             self.layer.addSublayer(styleLayer)
