@@ -111,11 +111,11 @@ public class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
     }
     
     public func colorOfThumb(index: Int) -> UIColor? {
-        return self.thumbTintColor ?? self.getAppearance().sliderThumbColor
+        return self.thumbTintColor ?? self.getSliderAppearance().sliderThumbColor
     }
     
     public func colorOfSeparatorLabel(index: Int) -> UIColor? {
-        return index == 0 ? self.minimumTrackTintColor ?? self.getAppearance().sliderMinimumTrackColor : self.maximumTrackTintColor ?? self.getAppearance().sliderMaximumTrackColor
+        return index == 0 ? self.minimumTrackTintColor ?? self.getSliderAppearance().sliderMinimumTrackColor : self.maximumTrackTintColor ?? self.getSliderAppearance().sliderMaximumTrackColor
     }
 
     public func behaviourOfThumb(index: Int) -> StyledSliderThumbBehaviour? {

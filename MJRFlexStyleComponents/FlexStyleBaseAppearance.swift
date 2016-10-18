@@ -1,8 +1,8 @@
 //
-//  SimpleHeaderCollectionReusableView.swift
+//  FlexStyleBaseAppearance.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 01/10/2016.
+//  Created by Martin Rehder on 17.10.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -27,27 +27,26 @@
  *
  */
 
-
 import UIKit
+import StyledLabel
 
-class SimpleHeaderCollectionReusableView: UICollectionReusableView {
-    var title: FlexLabel?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.initView()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.initView()
-    }
+public class FlexStyleBaseAppearance {
+    public var style: ShapeStyle = .Box
+    public var styleColor = UIColor.lightGrayColor()
+    public var backgroundColor = UIColor.clearColor()
+    public var backgroundInsets: UIEdgeInsets = UIEdgeInsetsZero
 
-    func initView() {
-        self.title = FlexLabel()
-        self.title?.frame = self.bounds
-        self.addSubview(self.title!)
+    public var borderWidth: CGFloat = 0
+    public var borderColor: UIColor = UIColor.blackColor()
+    
+    public init() {
     }
     
-    
+    public init(style: ShapeStyle, styleColor: UIColor, backgroundColor: UIColor, borderColor: UIColor, borderWidth: CGFloat) {
+        self.style = style
+        self.styleColor = styleColor
+        self.borderColor = borderColor
+        self.borderWidth = borderWidth
+        self.backgroundColor = backgroundColor
+    }
 }

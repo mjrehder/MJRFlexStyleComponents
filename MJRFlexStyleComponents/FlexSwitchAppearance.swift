@@ -1,8 +1,8 @@
 //
-//  SimpleHeaderCollectionReusableView.swift
+//  FlexSwitchAppearance.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 01/10/2016.
+//  Created by Martin Rehder on 18.10.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -27,27 +27,9 @@
  *
  */
 
-
 import UIKit
 
-class SimpleHeaderCollectionReusableView: UICollectionReusableView {
-    var title: FlexLabel?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.initView()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.initView()
-    }
-
-    func initView() {
-        self.title = FlexLabel()
-        self.title?.frame = self.bounds
-        self.addSubview(self.title!)
-    }
-    
-    
+public class FlexSwitchAppearance: FlexStyleBaseAppearance {
+    public var switchOnColor: UIColor = UIColor.redColor().darkerColor()
+    public var switchThumbColor: UIColor = .grayColor()
 }

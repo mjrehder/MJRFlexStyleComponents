@@ -1,8 +1,8 @@
 //
-//  SimpleHeaderCollectionReusableView.swift
+//  FlexViewAppearance.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 01/10/2016.
+//  Created by Martin Rehder on 17.10.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -27,27 +27,18 @@
  *
  */
 
-
 import UIKit
+import StyledLabel
 
-class SimpleHeaderCollectionReusableView: UICollectionReusableView {
-    var title: FlexLabel?
+public class FlexViewAppearance: FlexStyleContainerAppearance {
+    public var headerPosition: FlexViewHeaderPosition = .Top
+    public var headerAppearance = FlexLabelAppearance()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.initView()
-    }
+    public var footerAppearance = FlexLabelAppearance()
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.initView()
-    }
+    public var contentInsets: UIEdgeInsets = UIEdgeInsetsZero
 
-    func initView() {
-        self.title = FlexLabel()
-        self.title?.frame = self.bounds
-        self.addSubview(self.title!)
+    public override init() {
+        super.init(style: .RoundedFixed(cornerRadius: 5.0), styleColor: .blackColor(), backgroundColor: .clearColor(), borderColor: .grayColor(), borderWidth: 0.0)
     }
-    
-    
 }

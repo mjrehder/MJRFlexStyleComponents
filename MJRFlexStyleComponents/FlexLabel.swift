@@ -41,6 +41,18 @@ public class FlexLabel: MJRFlexBaseControl {
         }
     }
     
+    public var labelAppearance: FlexLabelAppearance? {
+        didSet {
+            self.labelBackgroundColor = self.labelBackgroundColor ?? self.getLabelAppearance().backgroundColor
+            self.style = self.style ?? self.getLabelAppearance().style
+            self.applyStyle()
+        }
+    }
+    /// The return of this is either the local labelAppearance or the getAppearance().labelAppearance.
+    public func getLabelAppearance() -> FlexLabelAppearance {
+        return self.labelAppearance ?? flexStyleAppearance.textAppearance
+    }
+    
     /// The background color. If nil the color will be clear color. Defaults to nil.
     @IBInspectable public var labelBackgroundColor: UIColor? {
         didSet {
@@ -89,14 +101,14 @@ public class FlexLabel: MJRFlexBaseControl {
         }
         self.label.style = style
         self.label.backgroundColor = .clearColor() // This must be clear color as the surrounding view might want to use background clipping
-        self.label.borderColor = labelBorderColor ?? self.getAppearance().borderColor
-        self.label.borderWidth = labelBorderWidth ?? self.getAppearance().borderWidth
-        self.label.textColor = labelTextColor ?? UIColor.blackColor()
-        self.label.font = labelFont
-        self.label.textAlignment = labelTextAlignment ?? .Center
+        self.label.borderColor = labelBorderColor ?? self.getLabelAppearance().borderColor
+        self.label.borderWidth = labelBorderWidth ?? self.getLabelAppearance().borderWidth
+        self.label.textColor = labelTextColor ?? self.getLabelAppearance().textColor
+        self.label.font = labelFont ?? self.getLabelAppearance().textFont
+        self.label.textAlignment = labelTextAlignment ?? self.getLabelAppearance().textAlignment
     }
     
     func applyStyle() {
-        self.applyStyle(self.getStyle())
+        self.applyStyle(self.style ?? self.getLabelAppearance().style)
     }
 }

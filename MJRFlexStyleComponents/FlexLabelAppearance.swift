@@ -1,8 +1,8 @@
 //
-//  SimpleHeaderCollectionReusableView.swift
+//  FlexLabelAppearance.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 01/10/2016.
+//  Created by Martin Rehder on 09.10.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -27,27 +27,27 @@
  *
  */
 
-
 import UIKit
+import StyledLabel
 
-class SimpleHeaderCollectionReusableView: UICollectionReusableView {
-    var title: FlexLabel?
+public class FlexLabelAppearance: FlexStyleBaseAppearance {
+    public var textColor = UIColor.whiteColor()
+    public var textFont = UIFont.boldSystemFontOfSize(12.0)
+    public var size: CGFloat = 18
+    public var textAlignment: NSTextAlignment = .Center
+    public var insets: UIEdgeInsets = UIEdgeInsetsZero
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.initView()
+    public override init() {
+        super.init(style: .Box, styleColor: .clearColor(), backgroundColor: .grayColor(), borderColor: .grayColor(), borderWidth: 0.0)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.initView()
+    public init(style: ShapeStyle, textColor: UIColor, textFont: UIFont, textAlignment: NSTextAlignment, size: CGFloat, insets: UIEdgeInsets, backgroundColor: UIColor, borderColor: UIColor, borderWidth: CGFloat) {
+        self.textColor = textColor
+        self.textFont = textFont
+        self.size = size
+        self.textAlignment = textAlignment
+        self.insets = insets
+        
+        super.init(style: style, styleColor: .clearColor(), backgroundColor: backgroundColor, borderColor: borderColor, borderWidth: borderWidth)
     }
-
-    func initView() {
-        self.title = FlexLabel()
-        self.title?.frame = self.bounds
-        self.addSubview(self.title!)
-    }
-    
-    
 }

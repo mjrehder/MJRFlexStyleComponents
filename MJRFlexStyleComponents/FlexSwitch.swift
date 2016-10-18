@@ -39,6 +39,15 @@ public protocol FlexSwitchDelegate {
 
     public var switchDelegate: FlexSwitchDelegate?
     
+    public var switchAppearance: FlexSwitchAppearance? {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    public func getSwitchAppearance() -> FlexSwitchAppearance {
+        return self.switchAppearance ?? flexStyleAppearance.switchAppearance
+    }
+    
     public override init(frame: CGRect) {
         var targetFrame = frame
         if CGRectIsNull(frame) || frame.size.height == 0 || frame.size.width == 0 {
@@ -112,11 +121,11 @@ public protocol FlexSwitchDelegate {
     }
     
     public func colorOfThumb(index: Int) -> UIColor? {
-        return self.thumbTintColor ?? self.getAppearance().switchThumbColor
+        return self.thumbTintColor ?? self.getSwitchAppearance().switchThumbColor
     }
     
     public func colorOfSeparatorLabel(index: Int) -> UIColor? {
-        return index == 0 ? self.onTintColor ?? self.getAppearance().switchOnColor : self.styleColor
+        return index == 0 ? self.onTintColor ?? self.getSwitchAppearance().switchOnColor : self.styleColor
     }
     
     public func behaviourOfThumb(index: Int) -> StyledSliderThumbBehaviour? {

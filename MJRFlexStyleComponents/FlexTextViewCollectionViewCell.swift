@@ -30,12 +30,12 @@
 import UIKit
 import StyledLabel
 
-public class FlexTextViewCollectionViewCell: FlexCollectionViewCell {
+public class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell {
     public var textContentView: FlexTextView?
     
-    override public var appearance: FlexStyleAppearance? {
+    override public var cellAppearance: FlexStyleCollectionCellAppearance? {
         didSet {
-            self.textContentView?.appearance = appearance
+            self.textContentView?.flexViewAppearance = cellAppearance?.viewAppearance
             self.refreshLayout()
         }
     }
@@ -45,34 +45,35 @@ public class FlexTextViewCollectionViewCell: FlexCollectionViewCell {
         let baseRect = self.bounds
         
         self.textContentView = FlexTextView(frame: baseRect)
-        self.textContentView?.appearance = self.getAppearance()
+        self.textContentView?.flexViewAppearance = self.getCellAppearance().viewAppearance
         if let pcv = self.textContentView {
-            let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.cellTouched(_:)))
+            let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.cellTextAreaTouched(_:)))
             pcv.addGestureRecognizer(tapGest)
             self.contentView.addSubview(pcv)
         }
     }
     
-    public override func refreshLayout() {
-        super.refreshLayout()
+    public override func layoutText(item: FlexBaseCollectionItem, area: CGRect) {
         dispatch_async(dispatch_get_main_queue()) {
-            if let tc = self.item as? FlexTextViewCollectionItem {
-                self.textContentView?.headerAttributedText = tc.title
-                self.textContentView?.textView.attributedText = tc.text
+            if let text = item.text {
+                self.textContentView?.textView.attributedText = text
+                if let pcv = self.textContentView {
+                    pcv.textView.backgroundColor = .clearColor()
+                    self.prepareTextView(pcv.textView)
+                    let appe = self.getCellAppearance()
+                    let textRect =  UIEdgeInsetsInsetRect(area, appe.textAppearance.insets)
+                    pcv.frame = textRect
+                    pcv.hidden = false
+                    pcv.userInteractionEnabled = false
+                }
             }
-            if let pcv = self.textContentView {
-                pcv.textView.backgroundColor = .clearColor()
-                self.prepareTextView(pcv.textView)
-                pcv.header.labelBackgroundColor = self.selected ? self.getAppearance().cellAppearance.selectedBackgroundColor : self.getAppearance().headerAppearance.backgroundColor
-                pcv.styleColor = self.selected ? self.getAppearance().cellAppearance.selectedStyleColor : self.getAppearance().styleColor
-                pcv.borderColor = self.selected ? self.getAppearance().cellAppearance.selectedBorderColor : self.getAppearance().borderColor
-                pcv.borderWidth = self.selected ? self.getAppearance().cellAppearance.selectedBorderWidth : self.getAppearance().borderWidth
-                pcv.userInteractionEnabled = false
+            else {
+                self.textLabel?.hidden = true
             }
         }
     }
-    
-    public func cellTouched(recognizer: UITapGestureRecognizer) {
+
+    public func cellTextAreaTouched(recognizer: UITapGestureRecognizer) {
         if let item = self.item {
             self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item)
         }

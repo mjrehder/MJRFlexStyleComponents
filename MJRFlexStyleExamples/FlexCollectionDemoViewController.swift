@@ -25,12 +25,11 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         self.demoCollectionView.headerText = "Collection Demo"
         
         // Setup demo style
-        let collectionDemoStyle = FlexStyleAppearance()
-        collectionDemoStyle.styleColor = UIColor.MKColor.Brown.P50
-        collectionDemoStyle.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
+        let collectionDemoStyle = FlexCollectionViewAppearance()
+        collectionDemoStyle.viewAppearance.styleColor = UIColor.MKColor.Brown.P50
+        collectionDemoStyle.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
         collectionDemoStyle.cellAppearance.controlStyleColor = UIColor.MKColor.Brown.P100
-        self.demoCollectionView.appearance = collectionDemoStyle
-        self.demoCollectionView.collectionCellAppearance = collectionDemoStyle
+        self.demoCollectionView.collectionViewAppearance = collectionDemoStyle
         
         let secRef = self.demoCollectionView.addSection()
 
@@ -42,12 +41,12 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         
         // Simple Text
         let item0 = FlexBaseCollectionItem(reference: "item0ref", text: NSAttributedString(string: "Simple Text"), icon: nil, accessoryImage: nil, title: NSAttributedString(string: "Item 0"))
-        let i0App = FlexStyleAppearance()
+        let i0App = FlexStyleCollectionCellAppearance()
         i0App.styleColor = UIColor.MKColor.Brown.P100
-        i0App.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
-        i0App.cellAppearance = FlexStyleCollectionCellAppearance()
-        i0App.cellAppearance.controlStyleColor = UIColor.MKColor.Brown.P100
-        i0App.cellAppearance.textInsets = UIEdgeInsetsMake(0, 8, 0, 8)
+        i0App.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
+        i0App.controlStyleColor = UIColor.MKColor.Brown.P100
+        i0App.textAppearance.insets = UIEdgeInsetsMake(0, 8, 0, 8)
+        i0App.textAppearance.style = .Box
         item0.cellAppearance = i0App
         self.demoCollectionView.addItem(secRef, item: item0)
         
@@ -62,23 +61,22 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         }
         item1.showAccessoryImageOnlyWhenSelected = true
         item1.contentInteractionWillSelectItem = true
-        let i1App = FlexStyleAppearance()
+        let i1App = FlexStyleCollectionCellAppearance()
         i1App.styleColor = UIColor.MKColor.Brown.P100
-        i1App.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
-        i1App.cellAppearance = cellAppearance
+        i1App.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
         item1.cellAppearance = i1App
         self.demoCollectionView.addItem(secRef, item: item1)
 
         // Text View Collection Item
         let item2 = FlexTextViewCollectionItem(reference: "item2ref", text: NSAttributedString(string: "This is a longer text in order to test the TextView"), title: NSAttributedString(string: "Item 1.1"))
         item2.canMoveItem = false
-        let i2App = FlexStyleAppearance()
+        let i2App = FlexStyleCollectionCellAppearance()
         i2App.styleColor = UIColor.MKColor.Brown.P100
-        i2App.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
-        i2App.headerPosition = .Left
-        i2App.headerAppearance.textFont = UIFont.systemFontOfSize(10)
-        i2App.contentInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-        i2App.cellAppearance = cellAppearance
+        i2App.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
+        i2App.viewAppearance.headerPosition = .Left
+        i2App.viewAppearance.headerAppearance.textFont = UIFont.systemFontOfSize(10)
+        i2App.viewAppearance.contentInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+        i2App.viewAppearance.styleColor = .clearColor()
         item2.cellAppearance = i2App
         self.demoCollectionView.addItem(secRef, item: item2)
         
@@ -86,10 +84,9 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         let colItem = FlexColorCollectionItem(reference: "colorItem", color: UIColor.MKColor.Orange.P200 , text: NSAttributedString(string: "Color"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 2")) {
             NSLog("did press color view")
         }
-        let scApp = FlexStyleAppearance()
+        let scApp = FlexStyleCollectionCellAppearance()
         scApp.styleColor = UIColor.MKColor.Brown.P100
-        scApp.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
-        scApp.cellAppearance = cellAppearance
+        scApp.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
         colItem.cellAppearance = scApp
         self.demoCollectionView.addItem(secRef, item: colItem)
         
@@ -97,14 +94,13 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         let switchItem = FlexSwitchCollectionItem(reference: "switch", value: true, text: NSAttributedString(string: "Switch"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 3")) { (value) in
             NSLog("The switch is now \(value)")
         }
-        let siApp = FlexStyleAppearance()
+        let siApp = FlexStyleCollectionCellAppearance()
         siApp.styleColor = UIColor.MKColor.Brown.P100
-        siApp.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
-        siApp.cellAppearance = FlexStyleCollectionCellAppearance()
-        siApp.cellAppearance.controlStyleColor = UIColor.MKColor.Brown.P100
-        siApp.cellAppearance.controlSize = CGSizeMake(48,32)
-        siApp.switchOnColor = UIColor.MKColor.Brown.P200
-        siApp.switchThumbColor = UIColor.MKColor.Brown.P700
+        siApp.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
+        siApp.controlStyleColor = UIColor.MKColor.Brown.P100
+        siApp.controlSize = CGSizeMake(48,32)
+        siApp.switchAppearance.switchOnColor = UIColor.MKColor.Brown.P200
+        siApp.switchAppearance.switchThumbColor = UIColor.MKColor.Brown.P700
         switchItem.cellAppearance = siApp
         self.demoCollectionView.addItem(secRef, item: switchItem)
         
@@ -112,14 +108,13 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         let sliderItem = FlexSliderCollectionItem(reference: "slider", value: 0.6, text: NSAttributedString(string: "Slider"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 4")) { (value) in
             NSLog("The slider is now \(value)")
         }
-        let slApp = FlexStyleAppearance()
+        let slApp = FlexStyleCollectionCellAppearance()
         slApp.styleColor = UIColor.MKColor.Brown.P100
-        slApp.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
-        slApp.cellAppearance = FlexStyleCollectionCellAppearance()
-        slApp.cellAppearance.controlStyleColor = UIColor.MKColor.Brown.P100
-        slApp.cellAppearance.controlInsets = UIEdgeInsetsMake(0, 0, 5, 8)
-        slApp.sliderThumbColor = UIColor.MKColor.Brown.P700
-        slApp.sliderMinimumTrackColor = UIColor.MKColor.Brown.P200
+        slApp.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
+        slApp.controlStyleColor = UIColor.MKColor.Brown.P100
+        slApp.controlInsets = UIEdgeInsetsMake(0, 0, 5, 8)
+        slApp.sliderAppearance.sliderThumbColor = UIColor.MKColor.Brown.P700
+        slApp.sliderAppearance.sliderMinimumTrackColor = UIColor.MKColor.Brown.P200
         sliderItem.cellAppearance = slApp
         self.demoCollectionView.addItem(secRef, item: sliderItem)
     }

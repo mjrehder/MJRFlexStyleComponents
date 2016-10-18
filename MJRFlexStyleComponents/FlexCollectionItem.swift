@@ -39,7 +39,7 @@ public class FlexCollectionItem: NSObject {
     public var text: NSAttributedString?
     public var sectionReference: String?
     public var preferredCellSize: CGSize?
-    public var cellAppearance: FlexStyleAppearance?
+    public var cellAppearance: FlexStyleCollectionCellAppearance?
     public var canMoveItem: Bool = true
     
     public init(reference: String, text: NSAttributedString? = nil) {

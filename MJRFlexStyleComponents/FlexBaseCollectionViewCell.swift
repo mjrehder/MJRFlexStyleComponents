@@ -37,17 +37,17 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
 
     public var flexContentView: FlexView?
     
-    override public var appearance: FlexStyleAppearance? {
+    override public var cellAppearance: FlexStyleCollectionCellAppearance? {
         didSet {
-            self.flexContentView?.appearance = appearance
+            self.flexContentView?.flexViewAppearance = cellAppearance?.viewAppearance
             self.applyTextAppearance()
             self.refreshLayout()
         }
     }
 
     func applyTextAppearance() {
-        if self.textLabel?.appearance == nil {
-            self.textLabel?.appearance = appearance
+        if self.textLabel?.labelAppearance == nil {
+            self.textLabel?.labelAppearance = self.getCellAppearance().textAppearance
         }
     }
     
@@ -56,7 +56,7 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         let baseRect = self.bounds
         
         self.flexContentView = FlexView(frame: baseRect)
-        self.flexContentView?.appearance = self.getAppearance()
+        self.flexContentView?.flexViewAppearance = self.getCellAppearance().viewAppearance
         if let pcv = self.flexContentView {
             let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.cellTouched(_:)))
             pcv.addGestureRecognizer(tapGest)
@@ -124,12 +124,12 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         var remainingCellArea = area
         
         if let icon = item.icon, iv = self.imageView {
-            let appe = self.getAppearance()
-            let iconInsets = appe.cellAppearance.iconInsets
-            let iconSize = appe.cellAppearance.iconSize
+            let appe = self.getCellAppearance()
+            let iconInsets = appe.iconInsets
+            let iconSize = appe.iconSize
 
             let imageViewRect = CGRect(origin: CGPointZero, size: iconSize)
-            let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: icon, imageStyle: appe.cellAppearance.iconStyle, imageFitting: .ScaleToFit)
+            let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: icon, imageStyle: appe.iconStyle, imageFitting: .ScaleToFit)
             
             iv.frame = CGRectMake(remainingCellArea.origin.x + iconInsets.left, remainingCellArea.origin.y + (remainingCellArea.size.height - iconSize.height) * 0.5, iconSize.width, iconSize.height)
             iv.layer.sublayers?.removeAll()
@@ -148,12 +148,12 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         var remainingCellArea = area
         
         if let aim = item.accessoryImage, av = self.accessoryView {
-            let appe = self.getAppearance()
-            let accessoryImageInsets = appe.cellAppearance.accessoryImageInsets
-            let accessoryImageSize = appe.cellAppearance.accessoryImageSize
+            let appe = self.getCellAppearance()
+            let accessoryImageInsets = appe.accessoryImageInsets
+            let accessoryImageSize = appe.accessoryImageSize
             
             let imageViewRect = CGRect(origin: CGPointZero, size: accessoryImageSize)
-            let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: aim, imageStyle: appe.cellAppearance.accessoryStyle, imageFitting: .ScaleToFit)
+            let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: aim, imageStyle: appe.accessoryStyle, imageFitting: .ScaleToFit)
             
             av.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (accessoryImageInsets.right + accessoryImageSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - accessoryImageSize.height) * 0.5, accessoryImageSize.width, accessoryImageSize.height)
             av.layer.sublayers?.removeAll()
@@ -170,13 +170,13 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     
     public func layoutText(item: FlexBaseCollectionItem, area: CGRect) {
         if let text = item.text {
-            let appe = self.getAppearance()
-            let textRect =  UIEdgeInsetsInsetRect(area, appe.cellAppearance.textInsets)
+            let appe = self.getCellAppearance()
+            let textRect =  UIEdgeInsetsInsetRect(area, appe.textAppearance.insets)
             self.textLabel?.label.frame = textRect
             self.textLabel?.hidden = false
-            self.textLabel?.appearance = appe
-            self.textLabel?.labelTextAlignment = appe.cellAppearance.textAlignment
+            self.textLabel?.labelAppearance = appe.textAppearance
             self.textLabel?.label.attributedText = text
+            self.textLabel?.labelAppearance = self.textLabel?.labelAppearance ?? appe.textAppearance
         }
         else {
             self.textLabel?.hidden = true
@@ -184,10 +184,10 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     }
     
     public func applySelectionStyles(fcv: FlexView) {
-        fcv.header.labelBackgroundColor = self.selected ? self.getAppearance().cellAppearance.selectedBackgroundColor : self.getAppearance().headerAppearance.backgroundColor
-        fcv.styleColor = self.selected ? self.getAppearance().cellAppearance.selectedStyleColor : self.getAppearance().styleColor
-        fcv.borderColor = self.selected ? self.getAppearance().cellAppearance.selectedBorderColor : self.getAppearance().cellAppearance.borderColor
-        fcv.borderWidth = self.selected ? self.getAppearance().cellAppearance.selectedBorderWidth : self.getAppearance().cellAppearance.borderWidth
+        fcv.header.labelBackgroundColor = self.selected ? self.getCellAppearance().selectedBackgroundColor : self.getCellAppearance().viewAppearance.headerAppearance.backgroundColor
+        fcv.styleColor = self.selected ? self.getCellAppearance().selectedStyleColor : self.getCellAppearance().styleColor
+        fcv.borderColor = self.selected ? self.getCellAppearance().selectedBorderColor : self.getCellAppearance().borderColor
+        fcv.borderWidth = self.selected ? self.getCellAppearance().selectedBorderWidth : self.getCellAppearance().borderWidth
     }
     
     override public func applyStyles() {

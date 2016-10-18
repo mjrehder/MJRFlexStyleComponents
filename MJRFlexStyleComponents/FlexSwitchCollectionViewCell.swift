@@ -45,9 +45,9 @@ public class FlexSwitchCollectionViewCell: FlexBaseCollectionViewCell, FlexSwitc
         }
     }
     
-    override public var appearance: FlexStyleAppearance? {
+    override public var cellAppearance: FlexStyleCollectionCellAppearance? {
         didSet {
-            self.flexContentView?.appearance = appearance
+            self.flexContentView?.flexViewAppearance = cellAppearance?.viewAppearance
             self.applyTextAppearance()
             self.applySwitchAppearance()
             self.refreshLayout()
@@ -55,8 +55,8 @@ public class FlexSwitchCollectionViewCell: FlexBaseCollectionViewCell, FlexSwitc
     }
 
     func applySwitchAppearance() {
-        if self.flexSwitch?.appearance == nil {
-            self.flexSwitch?.appearance = self.appearance
+        if self.flexSwitch?.switchAppearance == nil {
+            self.flexSwitch?.switchAppearance = self.getCellAppearance().switchAppearance
         }
     }
     
@@ -64,16 +64,16 @@ public class FlexSwitchCollectionViewCell: FlexBaseCollectionViewCell, FlexSwitc
         var remainingCellArea = area
         
         if let fs = self.flexSwitch {
-            let appe = self.getAppearance()
-            let controlInsets = appe.cellAppearance.controlInsets
-            let controlSize = appe.cellAppearance.controlSize
+            let appe = self.getCellAppearance()
+            let controlInsets = appe.controlInsets
+            let controlSize = appe.controlSize
             
             let imageViewRect = CGRect(origin: CGPointZero, size: controlSize)
 
-            fs.appearance = appe
-            fs.style = appe.cellAppearance.controlStyle
-            fs.thumbStyle = appe.cellAppearance.controlStyle
-            fs.styleColor = appe.cellAppearance.controlStyleColor
+            fs.switchAppearance = appe.switchAppearance
+            fs.style = appe.controlStyle
+            fs.thumbStyle = appe.controlStyle
+            fs.styleColor = appe.controlStyleColor
             
             fs.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (controlInsets.right + controlSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - controlSize.height) * 0.5, controlSize.width, controlSize.height)
             fs.hidden = false
