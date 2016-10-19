@@ -172,7 +172,7 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         if let text = item.text {
             let appe = self.getCellAppearance()
             let textRect =  UIEdgeInsetsInsetRect(area, appe.textAppearance.insets)
-            self.textLabel?.label.frame = textRect
+            self.textLabel?.frame = textRect
             self.textLabel?.hidden = false
             self.textLabel?.labelAppearance = appe.textAppearance
             self.textLabel?.label.attributedText = text

@@ -100,12 +100,14 @@ public class FlexLabel: MJRFlexBaseControl {
             self.addSubview(self.label)
         }
         self.label.style = style
-        self.label.backgroundColor = .clearColor() // This must be clear color as the surrounding view might want to use background clipping
+        self.label.backgroundColor = styleColor ?? self.getLabelAppearance().styleColor
         self.label.borderColor = labelBorderColor ?? self.getLabelAppearance().borderColor
         self.label.borderWidth = labelBorderWidth ?? self.getLabelAppearance().borderWidth
         self.label.textColor = labelTextColor ?? self.getLabelAppearance().textColor
         self.label.font = labelFont ?? self.getLabelAppearance().textFont
         self.label.textAlignment = labelTextAlignment ?? self.getLabelAppearance().textAlignment
+        
+        self.label.frame = UIEdgeInsetsInsetRect(self.bounds, self.controlInsets ?? self.getLabelAppearance().insets)
     }
     
     func applyStyle() {

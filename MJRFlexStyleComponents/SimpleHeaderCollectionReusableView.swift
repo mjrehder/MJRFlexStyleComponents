@@ -49,5 +49,8 @@ class SimpleHeaderCollectionReusableView: UICollectionReusableView {
         self.addSubview(self.title!)
     }
     
-    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.title?.frame = self.bounds
+    }
 }

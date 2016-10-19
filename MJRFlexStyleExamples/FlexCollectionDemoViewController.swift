@@ -29,9 +29,14 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         collectionDemoStyle.viewAppearance.styleColor = UIColor.MKColor.Brown.P50
         collectionDemoStyle.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
         collectionDemoStyle.cellAppearance.controlStyleColor = UIColor.MKColor.Brown.P100
+        collectionDemoStyle.sectionHeaderAppearance.styleColor = UIColor.MKColor.Brown.P300
+        collectionDemoStyle.sectionHeaderAppearance.insets = UIEdgeInsetsMake(2, 2, 2, 2)
+        collectionDemoStyle.sectionHeaderAppearance.style = .RoundedFixed(cornerRadius: 5)
+        collectionDemoStyle.sectionHeaderAppearance.textFont = UIFont.systemFontOfSize(10)
         self.demoCollectionView.collectionViewAppearance = collectionDemoStyle
         
-        let secRef = self.demoCollectionView.addSection()
+        let secRef = self.demoCollectionView.addSection(NSAttributedString(string: "Section 1"))
+        self.demoCollectionView.addSection(NSAttributedString(string: "Section 2"))
 
         let cellAppearance = FlexStyleCollectionCellAppearance()
         cellAppearance.controlStyleColor = UIColor.MKColor.Brown.P100
