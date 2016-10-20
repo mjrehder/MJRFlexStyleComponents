@@ -36,7 +36,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         self.demoCollectionView.collectionViewAppearance = collectionDemoStyle
         
         let secRef = self.demoCollectionView.addSection(NSAttributedString(string: "Section 1"))
-        self.demoCollectionView.addSection(NSAttributedString(string: "Section 2"))
+        let sec2Ref = self.demoCollectionView.addSection(NSAttributedString(string: "Section 2"))
 
         let cellAppearance = FlexStyleCollectionCellAppearance()
         cellAppearance.controlStyleColor = UIColor.MKColor.Brown.P100
@@ -122,6 +122,15 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         slApp.sliderAppearance.sliderMinimumTrackColor = UIColor.MKColor.Brown.P200
         sliderItem.cellAppearance = slApp
         self.demoCollectionView.addItem(secRef, item: sliderItem)
+
+        // Image view
+        let imageItem = FlexImageCollectionItem(reference: "image", image: UIImage(named: "DemoImage"), title: NSAttributedString(string: "Item 5"))
+        let iApp = FlexStyleCollectionCellAppearance()
+        iApp.styleColor = UIColor.MKColor.Brown.P100
+        iApp.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
+        iApp.controlInsets = UIEdgeInsetsMake(2, 2, 2, 2)
+        imageItem.cellAppearance = iApp
+        self.demoCollectionView.addItem(sec2Ref, item: imageItem)
     }
     
     // MARK: - FlexCollectionViewDelegate

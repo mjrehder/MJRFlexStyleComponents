@@ -58,6 +58,10 @@
 		5BADFC601DA8CA33004A5D12 /* FlexSliderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BADFC5E1DA8CA33004A5D12 /* FlexSliderCollectionViewCell.swift */; };
 		5BADFC621DA8E151004A5D12 /* FlexControlLayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BADFC611DA8E151004A5D12 /* FlexControlLayoutHelper.swift */; };
 		5BADFC631DA8E151004A5D12 /* FlexControlLayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BADFC611DA8E151004A5D12 /* FlexControlLayoutHelper.swift */; };
+		5BB1141C1DB8CA9700719EEB /* FlexImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1141B1DB8CA9700719EEB /* FlexImageCollectionViewCell.swift */; };
+		5BB1141D1DB8CA9700719EEB /* FlexImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1141B1DB8CA9700719EEB /* FlexImageCollectionViewCell.swift */; };
+		5BB1141F1DB8CADB00719EEB /* FlexImageCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1141E1DB8CADB00719EEB /* FlexImageCollectionItem.swift */; };
+		5BB114201DB8CADB00719EEB /* FlexImageCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1141E1DB8CADB00719EEB /* FlexImageCollectionItem.swift */; };
 		5BB2A61D1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2A61C1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift */; };
 		5BB2A61E1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2A61C1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift */; };
 		5BB2A6201DA7A774003D38C3 /* FlexColorCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2A61F1DA7A774003D38C3 /* FlexColorCollectionItem.swift */; };
@@ -158,6 +162,8 @@
 		5BADFC5B1DA8C9DA004A5D12 /* FlexSliderCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSliderCollectionItem.swift; sourceTree = "<group>"; };
 		5BADFC5E1DA8CA33004A5D12 /* FlexSliderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSliderCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BADFC611DA8E151004A5D12 /* FlexControlLayoutHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexControlLayoutHelper.swift; sourceTree = "<group>"; };
+		5BB1141B1DB8CA9700719EEB /* FlexImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		5BB1141E1DB8CADB00719EEB /* FlexImageCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexImageCollectionItem.swift; sourceTree = "<group>"; };
 		5BB2A61C1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BB2A61F1DA7A774003D38C3 /* FlexColorCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexColorCollectionItem.swift; sourceTree = "<group>"; };
 		5BB2A6221DA7D296003D38C3 /* FlexSwitchCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSwitchCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -281,11 +287,12 @@
 			children = (
 				5BB91C8A1DA3955900A94D12 /* FlexCollectionSection.swift */,
 				5BB91C8B1DA3955900A94D12 /* FlexCollectionItem.swift */,
-				5BADC33D1DACDFF7009B899E /* FlexTextViewCollectionItem.swift */,
 				5BB91CA81DA3DC3500A94D12 /* FlexBaseCollectionItem.swift */,
+				5BADC33D1DACDFF7009B899E /* FlexTextViewCollectionItem.swift */,
 				5BB2A61F1DA7A774003D38C3 /* FlexColorCollectionItem.swift */,
 				5BB2A6251DA7D2E9003D38C3 /* FlexSwitchCollectionItem.swift */,
 				5BADFC5B1DA8C9DA004A5D12 /* FlexSliderCollectionItem.swift */,
+				5BB1141E1DB8CADB00719EEB /* FlexImageCollectionItem.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -299,6 +306,7 @@
 				5BB2A61C1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift */,
 				5BB2A6221DA7D296003D38C3 /* FlexSwitchCollectionViewCell.swift */,
 				5BADFC5E1DA8CA33004A5D12 /* FlexSliderCollectionViewCell.swift */,
+				5BB1141B1DB8CA9700719EEB /* FlexImageCollectionViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -634,6 +642,7 @@
 				5BADC3421DACE23D009B899E /* FlexTextViewCollectionViewCell.swift in Sources */,
 				5B1A81101DAA6C1F008A4F28 /* FlexLabelAppearance.swift in Sources */,
 				5BB91C911DA3955900A94D12 /* FlexCollectionSection.swift in Sources */,
+				5BB1141D1DB8CA9700719EEB /* FlexImageCollectionViewCell.swift in Sources */,
 				5B0859E41D7EE84B00484E8F /* FlexTextViewDemoViewController.swift in Sources */,
 				5BB91C9E1DA3974000A94D12 /* FlexStyleAppearance.swift in Sources */,
 				5BADFC631DA8E151004A5D12 /* FlexControlLayoutHelper.swift in Sources */,
@@ -641,6 +650,7 @@
 				5BC4B9B11D520E7F0000421F /* MJRFlexBaseControl.swift in Sources */,
 				5BD4604A1DA1109E001FA9B3 /* ImageShapeDemoViewController.swift in Sources */,
 				5BADC33F1DACDFF7009B899E /* FlexTextViewCollectionItem.swift in Sources */,
+				5BB114201DB8CADB00719EEB /* FlexImageCollectionItem.swift in Sources */,
 				5BE4485B1D44C71D0011E5AE /* FlexMenu.swift in Sources */,
 				5B9B23491DB63EEA00F1F13D /* FlexSwitchAppearance.swift in Sources */,
 				5BB91CA31DA39E0F00A94D12 /* ImageShapeLayerFactory.swift in Sources */,
@@ -700,6 +710,7 @@
 				5B9936D91D3A578B0043E573 /* StyledControlDirection.swift in Sources */,
 				5B49AAF31D8E6CB0003C062E /* FlexLabel.swift in Sources */,
 				5BB91C9D1DA3974000A94D12 /* FlexStyleAppearance.swift in Sources */,
+				5BB1141C1DB8CA9700719EEB /* FlexImageCollectionViewCell.swift in Sources */,
 				5B0859E01D7EE65500484E8F /* FlexTextView.swift in Sources */,
 				5BADC33E1DACDFF7009B899E /* FlexTextViewCollectionItem.swift in Sources */,
 				5BB91C901DA3955900A94D12 /* FlexCollectionSection.swift in Sources */,
@@ -737,6 +748,7 @@
 				5B1A810F1DAA6C1F008A4F28 /* FlexLabelAppearance.swift in Sources */,
 				5BE4486D1D478E9A0011E5AE /* FlexDoubleSlider.swift in Sources */,
 				5BB2D73D1DB5260F002F4D29 /* FlexViewAppearance.swift in Sources */,
+				5BB1141F1DB8CADB00719EEB /* FlexImageCollectionItem.swift in Sources */,
 				5B9F2C601D32352600B096B5 /* StyledSliderThumb.swift in Sources */,
 				5BB91CA91DA3DC3500A94D12 /* FlexBaseCollectionItem.swift in Sources */,
 			);

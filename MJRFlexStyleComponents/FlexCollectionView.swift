@@ -156,6 +156,7 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         self.registerCell(FlexSwitchCollectionItem.classForCoder(), cellClass: FlexSwitchCollectionViewCell.classForCoder())
         self.registerCell(FlexSliderCollectionItem.classForCoder(), cellClass: FlexSliderCollectionViewCell.classForCoder())
         self.registerCell(FlexTextViewCollectionItem.classForCoder(), cellClass: FlexTextViewCollectionViewCell.classForCoder())
+        self.registerCell(FlexImageCollectionItem.classForCoder(), cellClass: FlexImageCollectionViewCell.classForCoder())
     }
     
     public func registerCell(itemClass: AnyClass, cellClass: AnyClass) {
@@ -233,7 +234,7 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         let row: Int = index.row
         let section: Int = index.section
         let sec = self.sections[section]
-        if let items = self.contentDic?[sec.reference] {
+        if let items = self.contentDic?[sec.reference] where row < items.count {
             return items[row]
         }
         return nil
