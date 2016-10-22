@@ -34,6 +34,10 @@ import StyledLabel
 public class FlexStyleCollectionCellAppearance: FlexStyleContainerAppearance {
     public var viewAppearance = FlexViewAppearance()
     
+    public var detailTextAppearance = FlexLabelAppearance(style: .Box, textColor: .blackColor(), textFont: UIFont.systemFontOfSize(10), textAlignment: .Left, size: 16, insets: UIEdgeInsetsZero, backgroundColor: .clearColor(), borderColor: .blackColor(), borderWidth: 0)
+    public var infoTextAppearance = FlexLabelAppearance(style: .Box, textColor: .blackColor(), textFont: UIFont.systemFontOfSize(12), textAlignment: .Left, size: 16, insets: UIEdgeInsetsZero, backgroundColor: .clearColor(), borderColor: .blackColor(), borderWidth: 0)
+    public var auxTextAppearance = FlexLabelAppearance(style: .Box, textColor: .blackColor(), textFont: UIFont.systemFontOfSize(8), textAlignment: .Left, size: 16, insets: UIEdgeInsetsZero, backgroundColor: .clearColor(), borderColor: .blackColor(), borderWidth: 0)
+    
     public var selectedBorderWidth: CGFloat = 0
     public var selectedBorderColor: UIColor = UIColor.blackColor()
     public var selectedStyleColor = UIColor.lightGrayColor()
@@ -48,7 +52,7 @@ public class FlexStyleCollectionCellAppearance: FlexStyleContainerAppearance {
     public var accessoryStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
 
     public var controlSize: CGSize = CGSizeMake(32, 32)
-    public var controlInsets: UIEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
+    public var controlInsets: UIEdgeInsets = UIEdgeInsetsZero
     public var controlStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
     public var controlStyleColor = UIColor.lightGrayColor()
     public var controlBorderWidth: CGFloat = 0

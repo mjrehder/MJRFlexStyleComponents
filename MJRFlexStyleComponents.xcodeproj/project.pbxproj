@@ -62,6 +62,8 @@
 		5BB1141D1DB8CA9700719EEB /* FlexImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1141B1DB8CA9700719EEB /* FlexImageCollectionViewCell.swift */; };
 		5BB1141F1DB8CADB00719EEB /* FlexImageCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1141E1DB8CADB00719EEB /* FlexImageCollectionItem.swift */; };
 		5BB114201DB8CADB00719EEB /* FlexImageCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1141E1DB8CADB00719EEB /* FlexImageCollectionItem.swift */; };
+		5BB114221DB8F7FD00719EEB /* NSAttributedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB114211DB8F7FD00719EEB /* NSAttributedStringExtension.swift */; };
+		5BB114231DB8F7FD00719EEB /* NSAttributedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB114211DB8F7FD00719EEB /* NSAttributedStringExtension.swift */; };
 		5BB2A61D1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2A61C1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift */; };
 		5BB2A61E1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2A61C1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift */; };
 		5BB2A6201DA7A774003D38C3 /* FlexColorCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2A61F1DA7A774003D38C3 /* FlexColorCollectionItem.swift */; };
@@ -74,6 +76,8 @@
 		5BB2D73E1DB5260F002F4D29 /* FlexViewAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2D73C1DB5260F002F4D29 /* FlexViewAppearance.swift */; };
 		5BB2D7411DB526D3002F4D29 /* FlexStyleBaseAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2D7401DB526D3002F4D29 /* FlexStyleBaseAppearance.swift */; };
 		5BB2D7421DB526D3002F4D29 /* FlexStyleBaseAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2D7401DB526D3002F4D29 /* FlexStyleBaseAppearance.swift */; };
+		5BB366101DBA382500C26FC0 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB3660F1DBA382500C26FC0 /* StringExtension.swift */; };
+		5BB366111DBA382500C26FC0 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB3660F1DBA382500C26FC0 /* StringExtension.swift */; };
 		5BB91C901DA3955900A94D12 /* FlexCollectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91C8A1DA3955900A94D12 /* FlexCollectionSection.swift */; };
 		5BB91C911DA3955900A94D12 /* FlexCollectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91C8A1DA3955900A94D12 /* FlexCollectionSection.swift */; };
 		5BB91C921DA3955900A94D12 /* FlexCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91C8B1DA3955900A94D12 /* FlexCollectionItem.swift */; };
@@ -164,12 +168,14 @@
 		5BADFC611DA8E151004A5D12 /* FlexControlLayoutHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexControlLayoutHelper.swift; sourceTree = "<group>"; };
 		5BB1141B1DB8CA9700719EEB /* FlexImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BB1141E1DB8CADB00719EEB /* FlexImageCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexImageCollectionItem.swift; sourceTree = "<group>"; };
+		5BB114211DB8F7FD00719EEB /* NSAttributedStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedStringExtension.swift; sourceTree = "<group>"; };
 		5BB2A61C1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BB2A61F1DA7A774003D38C3 /* FlexColorCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexColorCollectionItem.swift; sourceTree = "<group>"; };
 		5BB2A6221DA7D296003D38C3 /* FlexSwitchCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSwitchCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BB2A6251DA7D2E9003D38C3 /* FlexSwitchCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSwitchCollectionItem.swift; sourceTree = "<group>"; };
 		5BB2D73C1DB5260F002F4D29 /* FlexViewAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexViewAppearance.swift; sourceTree = "<group>"; };
 		5BB2D7401DB526D3002F4D29 /* FlexStyleBaseAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexStyleBaseAppearance.swift; sourceTree = "<group>"; };
+		5BB3660F1DBA382500C26FC0 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		5BB91C8A1DA3955900A94D12 /* FlexCollectionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCollectionSection.swift; sourceTree = "<group>"; };
 		5BB91C8B1DA3955900A94D12 /* FlexCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCollectionItem.swift; sourceTree = "<group>"; };
 		5BB91C8C1DA3955900A94D12 /* EmptyHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -350,6 +356,8 @@
 		5BE4484B1D41F8080011E5AE /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				5BB3660F1DBA382500C26FC0 /* StringExtension.swift */,
+				5BB114211DB8F7FD00719EEB /* NSAttributedStringExtension.swift */,
 				5B9F2C5D1D31616200B096B5 /* SnappingThumbBehaviour.swift */,
 				5BE448481D41F6DB0011E5AE /* PositionUpdateTimer.swift */,
 				5BE4484F1D4220830011E5AE /* LabelFactory.swift */,
@@ -636,6 +644,7 @@
 				5BE4484E1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift in Sources */,
 				5B12A8E21D72EBE50072D1E1 /* FlexImageView.swift in Sources */,
 				5B6CF1591D48E8DD00291D8B /* MKColor.swift in Sources */,
+				5BB114231DB8F7FD00719EEB /* NSAttributedStringExtension.swift in Sources */,
 				5BE448641D450DC20011E5AE /* FlexSeriesView.swift in Sources */,
 				5B1A810D1DAA5C1E008A4F28 /* FlexStyleCollectionCellAppearance.swift in Sources */,
 				5BB91CAA1DA3DC3500A94D12 /* FlexBaseCollectionItem.swift in Sources */,
@@ -692,6 +701,7 @@
 				5BB2D73E1DB5260F002F4D29 /* FlexViewAppearance.swift in Sources */,
 				5B9936FF1D3A9E210043E573 /* AppDelegate.swift in Sources */,
 				5BE448541D4381C90011E5AE /* FlexSwitch.swift in Sources */,
+				5BB366111DBA382500C26FC0 /* StringExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -716,6 +726,7 @@
 				5BB91C901DA3955900A94D12 /* FlexCollectionSection.swift in Sources */,
 				5BE4486A1D4760EE0011E5AE /* FlexSlider.swift in Sources */,
 				5BF702151D3116AC0011555A /* GenericStyleSlider.swift in Sources */,
+				5BB366101DBA382500C26FC0 /* StringExtension.swift in Sources */,
 				5BE448501D4220830011E5AE /* LabelFactory.swift in Sources */,
 				5BB91C961DA3955900A94D12 /* SimpleHeaderCollectionReusableView.swift in Sources */,
 				5B9B23481DB63EEA00F1F13D /* FlexSwitchAppearance.swift in Sources */,
@@ -729,6 +740,7 @@
 				5BE448671D474DFD0011E5AE /* BezierPathHelper.swift in Sources */,
 				5BB91C981DA3955900A94D12 /* FlexCollectionView.swift in Sources */,
 				5BB2A6261DA7D2E9003D38C3 /* FlexSwitchCollectionItem.swift in Sources */,
+				5BB114221DB8F7FD00719EEB /* NSAttributedStringExtension.swift in Sources */,
 				5B1A810C1DAA5C1E008A4F28 /* FlexStyleCollectionCellAppearance.swift in Sources */,
 				5BB91C9A1DA3955900A94D12 /* FlexCollectionViewCell.swift in Sources */,
 				5BB91C921DA3955900A94D12 /* FlexCollectionItem.swift in Sources */,

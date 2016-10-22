@@ -33,6 +33,9 @@ import StyledLabel
 public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     var imageView: UIView?
     var textLabel: FlexLabel?
+    var detailTextLabel: FlexLabel?
+    var infoTextLabel: FlexLabel?
+    var auxTextLabel: FlexLabel?
     var accessoryView: UIView?
 
     public var flexContentView: FlexView?
@@ -46,9 +49,10 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     }
 
     func applyTextAppearance() {
-        if self.textLabel?.labelAppearance == nil {
-            self.textLabel?.labelAppearance = self.getCellAppearance().textAppearance
-        }
+        self.textLabel?.labelAppearance = self.textLabel?.labelAppearance ?? self.getCellAppearance().textAppearance
+        self.detailTextLabel?.labelAppearance = self.detailTextLabel?.labelAppearance ?? self.getCellAppearance().detailTextAppearance
+        self.infoTextLabel?.labelAppearance = self.infoTextLabel?.labelAppearance ?? self.getCellAppearance().infoTextAppearance
+        self.auxTextLabel?.labelAppearance = self.auxTextLabel?.labelAppearance ?? self.getCellAppearance().auxTextAppearance
     }
     
     public override func initialize() {
@@ -62,13 +66,14 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
             pcv.addGestureRecognizer(tapGest)
             self.contentView.addSubview(pcv)
 
-            // Just allocate and hide for now, in order to avoid re-creating this all the time
-            self.textLabel = FlexLabel(frame: CGRectZero)
-            if let tl = self.textLabel {
-                self.applyTextAppearance()
-                tl.hidden = true
-                pcv.addSubview(tl)
-            }
+            self.applyTextAppearance()
+
+            // Just allocate and hide subviews for now, in order to avoid re-creating this all the time
+            
+            self.textLabel = self.createTextLabel()
+            self.detailTextLabel = self.createTextLabel()
+            self.infoTextLabel = self.createTextLabel()
+            self.auxTextLabel = self.createTextLabel()
             
             self.accessoryView = UIView()
             if let av = self.accessoryView {
@@ -86,14 +91,6 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
                 iv.addGestureRecognizer(tapGest)
             }
         }
-    }
-    
-    public override func prepareForReuse() {
-        super.prepareForReuse()
-    }
-
-    public override func layoutSubviews() {
-        super.layoutSubviews()
     }
 
     public func cellTouched(recognizer: UITapGestureRecognizer) {
@@ -169,17 +166,40 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     }
     
     public func layoutText(item: FlexBaseCollectionItem, area: CGRect) {
-        if let text = item.text {
-            let appe = self.getCellAppearance()
-            let textRect =  UIEdgeInsetsInsetRect(area, appe.textAppearance.insets)
-            self.textLabel?.frame = textRect
-            self.textLabel?.hidden = false
-            self.textLabel?.labelAppearance = appe.textAppearance
-            self.textLabel?.label.attributedText = text
-            self.textLabel?.labelAppearance = self.textLabel?.labelAppearance ?? appe.textAppearance
+        let appe = self.getCellAppearance()
+
+        //            let textRect =  UIEdgeInsetsInsetRect(area, appe.textAppearance.insets)
+        //            tl.frame = textRect
+
+        self.setupTextLabel(self.textLabel, appearance: appe.textAppearance, text: item.text)
+        self.setupTextLabel(self.detailTextLabel, appearance: appe.detailTextAppearance, text: item.detailText)
+        self.setupTextLabel(self.infoTextLabel, appearance: appe.infoTextAppearance, text: item.infoText)
+        self.setupTextLabel(self.auxTextLabel, appearance: appe.auxTextAppearance, text: item.auxText)
+        
+        if let ul = self.textLabel, ll = self.detailTextLabel, ur = self.infoTextLabel, lr = self.auxTextLabel {
+            FlexControlLayoutHelper.layoutFourLabelsInArea(ul, lowerLeft: ll, upperRight: ur, lowerRight: lr, area: area)
         }
-        else {
-            self.textLabel?.hidden = true
+    }
+    
+    func createTextLabel() -> FlexLabel {
+        let fl = FlexLabel(frame: CGRectZero)
+        if let fcv = self.flexContentView {
+            fl.hidden = true
+            fcv.addSubview(fl)
+        }
+        return fl
+    }
+    
+    func setupTextLabel(label: FlexLabel?, appearance: FlexLabelAppearance, text: NSAttributedString?) {
+        if let label = label {
+            if let aText = text {
+                label.hidden = false
+                label.label.attributedText = aText
+                label.labelAppearance = label.labelAppearance ?? appearance
+            }
+            else {
+                label.hidden = true
+            }
         }
     }
     
@@ -199,7 +219,7 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
             var remainingCellArea = fcv.getViewRect()
             remainingCellArea = self.layoutIconView(item, area: remainingCellArea)
             remainingCellArea = self.layoutAccessoryView(item, area: remainingCellArea)
-            self.layoutText(item, area: remainingCellArea)
+            self.layoutText(item, area: UIEdgeInsetsInsetRect(remainingCellArea, self.getCellAppearance().controlInsets))
         }
     }
 }

@@ -44,13 +44,16 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         cellAppearance.controlBorderWidth = 1.0
         cellAppearance.controlBorderColor = UIColor.MKColor.Brown.P500
         
-        // Simple Text
-        let item0 = FlexBaseCollectionItem(reference: "item0ref", text: NSAttributedString(string: "Simple Text"), icon: nil, accessoryImage: nil, title: NSAttributedString(string: "Item 0"))
+        // Quad Text
+        let item0 = FlexBaseCollectionItem(reference: "item0ref", text: NSAttributedString(string: "Text String"), icon: nil, accessoryImage: nil, title: NSAttributedString(string: "Item 0"))
+        item0.infoText = NSAttributedString(string: "Info")
+        item0.detailText = NSAttributedString(string: "Detail Text")
+        item0.auxText = NSAttributedString(string: "Aux Info")
         let i0App = FlexStyleCollectionCellAppearance()
+        i0App.controlInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         i0App.styleColor = UIColor.MKColor.Brown.P100
         i0App.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
         i0App.controlStyleColor = UIColor.MKColor.Brown.P100
-        i0App.textAppearance.insets = UIEdgeInsetsMake(0, 8, 0, 8)
         i0App.textAppearance.style = .Box
         item0.cellAppearance = i0App
         self.demoCollectionView.addItem(secRef, item: item0)
@@ -131,6 +134,19 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         iApp.controlInsets = UIEdgeInsetsMake(2, 2, 2, 2)
         imageItem.cellAppearance = iApp
         self.demoCollectionView.addItem(sec2Ref, item: imageItem)
+        
+        // Double Text
+        let item6 = FlexBaseCollectionItem(reference: "item6ref", text: NSAttributedString(string: "Text String"), icon: nil, accessoryImage: nil, title: NSAttributedString(string: "Item 6"))
+        item6.infoText = NSAttributedString(string: "Info Text")
+        let i6App = FlexStyleCollectionCellAppearance()
+        i6App.controlInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        i6App.styleColor = UIColor.MKColor.Brown.P100
+        i6App.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
+        i6App.controlStyleColor = UIColor.MKColor.Brown.P100
+        i6App.textAppearance.style = .Box
+        item6.cellAppearance = i6App
+        self.demoCollectionView.addItem(sec2Ref, item: item6)
+
     }
     
     // MARK: - FlexCollectionViewDelegate
