@@ -29,11 +29,5 @@
 
 import UIKit
 
-public class FlexTextViewCollectionItem: FlexCollectionItem {
-    public var title: NSAttributedString?
-    
-    public init(reference: String, text: NSAttributedString? = nil, title: NSAttributedString? = nil) {
-        self.title = title
-        super.init(reference: reference, text: text)
-    }
+public class FlexTextViewCollectionItem: FlexBaseCollectionItem {
 }

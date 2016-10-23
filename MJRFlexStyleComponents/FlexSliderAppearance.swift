@@ -1,8 +1,8 @@
 //
-//  FlexCollectionItem.swift
+//  FlexSliderAppearance.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 23.09.16.
+//  Created by Martin Rehder on 18.10.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -27,23 +27,11 @@
  *
  */
 
-
 import UIKit
 
-public class FlexCollectionItem: NSObject {
-    public var reference: String
+public class FlexSliderAppearance: FlexStyleBaseAppearance {
+    public var sliderMinimumTrackColor: UIColor = UIColor.redColor().darkerColor()
+    public var sliderMaximumTrackColor: UIColor = .clearColor()
+    public var sliderThumbColor: UIColor = .grayColor()
 
-    /// Use this to refer to other content or items. The auxReference is not used or altered by the FlexCollection.
-    public var auxReference: String?
-    
-    public var text: NSAttributedString?
-    public var sectionReference: String?
-    public var preferredCellSize: CGSize?
-    public var cellAppearance: FlexStyleCollectionCellAppearance?
-    public var canMoveItem: Bool = true
-    
-    public init(reference: String, text: NSAttributedString? = nil) {
-        self.reference = reference
-        self.text = text
-    }
 }

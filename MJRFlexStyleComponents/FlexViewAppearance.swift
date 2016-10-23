@@ -1,8 +1,8 @@
 //
-//  FlexCollectionItem.swift
+//  FlexViewAppearance.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 23.09.16.
+//  Created by Martin Rehder on 17.10.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -27,23 +27,18 @@
  *
  */
 
-
 import UIKit
+import StyledLabel
 
-public class FlexCollectionItem: NSObject {
-    public var reference: String
+public class FlexViewAppearance: FlexStyleContainerAppearance {
+    public var headerPosition: FlexViewHeaderPosition = .Top
+    public var headerAppearance = FlexLabelAppearance()
+    
+    public var footerAppearance = FlexLabelAppearance()
+    
+    public var contentInsets: UIEdgeInsets = UIEdgeInsetsZero
 
-    /// Use this to refer to other content or items. The auxReference is not used or altered by the FlexCollection.
-    public var auxReference: String?
-    
-    public var text: NSAttributedString?
-    public var sectionReference: String?
-    public var preferredCellSize: CGSize?
-    public var cellAppearance: FlexStyleCollectionCellAppearance?
-    public var canMoveItem: Bool = true
-    
-    public init(reference: String, text: NSAttributedString? = nil) {
-        self.reference = reference
-        self.text = text
+    public override init() {
+        super.init(style: .RoundedFixed(cornerRadius: 5.0), styleColor: .blackColor(), backgroundColor: .clearColor(), borderColor: .grayColor(), borderWidth: 0.0)
     }
 }

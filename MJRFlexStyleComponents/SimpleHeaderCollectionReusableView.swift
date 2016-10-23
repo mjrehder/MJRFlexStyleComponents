@@ -29,10 +29,9 @@
 
 
 import UIKit
-import StyledLabel
 
 class SimpleHeaderCollectionReusableView: UICollectionReusableView {
-    var title: StyledLabel?
+    var title: FlexLabel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,8 +44,13 @@ class SimpleHeaderCollectionReusableView: UICollectionReusableView {
     }
 
     func initView() {
-        self.title = StyledLabel()
+        self.title = FlexLabel()
         self.title?.frame = self.bounds
         self.addSubview(self.title!)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.title?.frame = self.bounds
     }
 }

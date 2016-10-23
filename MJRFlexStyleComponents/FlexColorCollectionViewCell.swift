@@ -57,12 +57,12 @@ public class FlexColorCollectionViewCell: FlexBaseCollectionViewCell {
         var remainingCellArea = area
         
         if let cv = self.colorView {
-            let appe = self.getAppearance()
-            let controlInsets = appe.cellAppearance.controlInsets
-            let controlSize = appe.cellAppearance.controlSize
+            let appe = self.getCellAppearance()
+            let controlInsets = appe.controlInsets
+            let controlSize = appe.controlSize
 
             let imageViewRect = CGRect(origin: CGPointZero, size: controlSize)
-            let colorLayer = StyledShapeLayer.createShape(appe.cellAppearance.controlStyle, bounds: imageViewRect, color: item.color, borderColor: appe.cellAppearance.controlBorderColor, borderWidth: appe.cellAppearance.controlBorderWidth)
+            let colorLayer = StyledShapeLayer.createShape(appe.controlStyle, bounds: imageViewRect, color: item.color, borderColor: appe.controlBorderColor, borderWidth: appe.controlBorderWidth)
 
             cv.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (controlInsets.right + controlSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - controlSize.height) * 0.5, controlSize.width, controlSize.height)
             cv.layer.sublayers?.removeAll()

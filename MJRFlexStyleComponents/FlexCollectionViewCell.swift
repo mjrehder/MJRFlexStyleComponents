@@ -46,13 +46,13 @@ public class FlexCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    public var appearance: FlexStyleAppearance? {
+    public var cellAppearance: FlexStyleCollectionCellAppearance? {
         didSet {
             self.refreshLayout()
         }
     }
-    public func getAppearance() -> FlexStyleAppearance {
-        return self.appearance ?? flexStyleAppearance
+    public func getCellAppearance() -> FlexStyleCollectionCellAppearance {
+        return self.cellAppearance ?? flexStyleAppearance.collectionViewAppearance.cellAppearance
     }
     
     public override var selected: Bool {
@@ -94,9 +94,9 @@ public class FlexCollectionViewCell: UICollectionViewCell {
     }
 
     public func assignBorderLayout() {
-        let appe = self.getAppearance()
-        self.layer.borderColor = self.selected ? appe.cellAppearance.selectedBorderColor.CGColor : appe.borderColor.CGColor
-        self.layer.borderWidth = self.selected ? appe.cellAppearance.selectedBorderWidth : appe.borderWidth
+        let appe = self.getCellAppearance()
+        self.layer.borderColor = self.selected ? appe.selectedBorderColor.CGColor : appe.borderColor.CGColor
+        self.layer.borderWidth = self.selected ? appe.selectedBorderWidth : appe.borderWidth
     }
 
 }

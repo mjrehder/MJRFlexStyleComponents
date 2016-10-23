@@ -95,6 +95,15 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         self.layoutComponents()
     }
     
+    public var sliderAppearance: FlexSliderAppearance? {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    public func getSliderAppearance() -> FlexSliderAppearance {
+        return self.sliderAppearance ?? flexStyleAppearance.sliderAppearance
+    }
+    
     /**
      Block to be notify when the value of the slider change.
      
@@ -427,8 +436,8 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     override func applyStyle(style: ShapeStyle) {
-        let bgColor: UIColor = self.styleColor ?? backgroundColor ?? self.getAppearance().backgroundColor
-        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets ?? self.getAppearance().backgroundInsets)
+        let bgColor: UIColor = self.styleColor ?? backgroundColor ?? self.getSliderAppearance().backgroundColor
+        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets ?? self.getSliderAppearance().backgroundInsets)
         let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
         
         let sepLayer = self.createSeparatorLayer(layerRect)
@@ -453,7 +462,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         if let font = label.font, text = label.text {
             let textString = text as NSString
             let textAttributes = [NSFontAttributeName: font]
-            return textString.boundingRectWithSize(self.marginsForRect(bounds, margins: backgroundInsets ?? self.getAppearance().backgroundInsets).size, options: .UsesLineFragmentOrigin, attributes: textAttributes, context: nil).size
+            return textString.boundingRectWithSize(self.marginsForRect(bounds, margins: backgroundInsets ?? self.getSliderAppearance().backgroundInsets).size, options: .UsesLineFragmentOrigin, attributes: textAttributes, context: nil).size
         }
         return nil
     }
@@ -514,7 +523,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     override func layoutComponents() {
-        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets ?? self.getAppearance().backgroundInsets)
+        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets ?? self.getSliderAppearance().backgroundInsets)
 
         self.thumbList.bounds = layerRect
         let thumbSize = self.getThumbSize()

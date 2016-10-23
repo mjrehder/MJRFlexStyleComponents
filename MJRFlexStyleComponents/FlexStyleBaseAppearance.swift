@@ -1,8 +1,8 @@
 //
-//  FlexCollectionItem.swift
+//  FlexStyleBaseAppearance.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 23.09.16.
+//  Created by Martin Rehder on 17.10.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -27,23 +27,26 @@
  *
  */
 
-
 import UIKit
+import StyledLabel
 
-public class FlexCollectionItem: NSObject {
-    public var reference: String
+public class FlexStyleBaseAppearance {
+    public var style: ShapeStyle = .Box
+    public var styleColor = UIColor.lightGrayColor()
+    public var backgroundColor = UIColor.clearColor()
+    public var backgroundInsets: UIEdgeInsets = UIEdgeInsetsZero
 
-    /// Use this to refer to other content or items. The auxReference is not used or altered by the FlexCollection.
-    public var auxReference: String?
+    public var borderWidth: CGFloat = 0
+    public var borderColor: UIColor = UIColor.blackColor()
     
-    public var text: NSAttributedString?
-    public var sectionReference: String?
-    public var preferredCellSize: CGSize?
-    public var cellAppearance: FlexStyleCollectionCellAppearance?
-    public var canMoveItem: Bool = true
+    public init() {
+    }
     
-    public init(reference: String, text: NSAttributedString? = nil) {
-        self.reference = reference
-        self.text = text
+    public init(style: ShapeStyle, styleColor: UIColor, backgroundColor: UIColor, borderColor: UIColor, borderWidth: CGFloat) {
+        self.style = style
+        self.styleColor = styleColor
+        self.borderColor = borderColor
+        self.borderWidth = borderWidth
+        self.backgroundColor = backgroundColor
     }
 }

@@ -1,8 +1,8 @@
 //
-//  FlexHeaderFooterAppearance.swift
+//  FlexStyleContainerAppearance.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 09.10.2016.
+//  Created by Martin Rehder on 18.10.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -28,24 +28,9 @@
  */
 
 import UIKit
-import StyledLabel
 
-public class FlexStyleHeaderFooterAppearance: NSObject {
-    public var style: ShapeStyle = .Box
-    public var textColor = UIColor.whiteColor()
-    public var textFont = UIFont.boldSystemFontOfSize(12.0)
-    public var size: CGFloat = 18
-    public var textAlignment: NSTextAlignment = .Center
-    public var insets: UIEdgeInsets = UIEdgeInsetsZero
-    public var backgroundColor: UIColor = .grayColor()
-    
-    public func setAppearance(style: ShapeStyle, textColor: UIColor, textFont: UIFont, textAlignment: NSTextAlignment, size: CGFloat, insets: UIEdgeInsets, backgroundColor: UIColor) {
-        self.style = style
-        self.textColor = textColor
-        self.textFont = textFont
-        self.size = size
-        self.textAlignment = textAlignment
-        self.insets = insets
-        self.backgroundColor = backgroundColor
-    }
+public class FlexStyleContainerAppearance: FlexStyleBaseAppearance {
+    public var sliderAppearance = FlexSliderAppearance()
+    public var textAppearance = FlexLabelAppearance(style: .Box, textColor: .blackColor(), textFont: UIFont.systemFontOfSize(14), textAlignment: .Left, size: 16, insets: UIEdgeInsetsZero, backgroundColor: .clearColor(), borderColor: .blackColor(), borderWidth: 0)
+    public var switchAppearance = FlexSwitchAppearance()
 }

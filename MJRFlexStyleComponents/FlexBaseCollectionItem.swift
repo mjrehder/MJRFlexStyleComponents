@@ -34,8 +34,18 @@ public class FlexBaseCollectionItem: FlexCollectionItem {
     public var accessoryImage: UIImage?
     public var title: NSAttributedString?
     
+    /// This will be shown below the text
+    public var detailText: NSAttributedString?
+    
+    /// This will be shown to the upper right of the cell
+    public var infoText: NSAttributedString?
+    
+    /// This will be shown to the lower right of the cell
+    public var auxText: NSAttributedString?
+
     /// Set this to true in order to hide the cell when the item is not selected.
     public var showAccessoryImageOnlyWhenSelected: Bool = false
+    
     /// Set this to true in order to also trigger a selection of the item, when the icon or the accessoryImage is touched
     public var contentInteractionWillSelectItem: Bool = false
     

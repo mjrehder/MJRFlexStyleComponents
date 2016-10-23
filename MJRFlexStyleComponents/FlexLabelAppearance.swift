@@ -1,8 +1,8 @@
 //
-//  FlexCollectionItem.swift
+//  FlexLabelAppearance.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 23.09.16.
+//  Created by Martin Rehder on 09.10.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -27,23 +27,27 @@
  *
  */
 
-
 import UIKit
+import StyledLabel
 
-public class FlexCollectionItem: NSObject {
-    public var reference: String
-
-    /// Use this to refer to other content or items. The auxReference is not used or altered by the FlexCollection.
-    public var auxReference: String?
+public class FlexLabelAppearance: FlexStyleBaseAppearance {
+    public var textColor = UIColor.whiteColor()
+    public var textFont = UIFont.boldSystemFontOfSize(12.0)
+    public var size: CGFloat = 18
+    public var textAlignment: NSTextAlignment = .Center
+    public var insets: UIEdgeInsets = UIEdgeInsetsZero
     
-    public var text: NSAttributedString?
-    public var sectionReference: String?
-    public var preferredCellSize: CGSize?
-    public var cellAppearance: FlexStyleCollectionCellAppearance?
-    public var canMoveItem: Bool = true
+    public override init() {
+        super.init(style: .Box, styleColor: .clearColor(), backgroundColor: .grayColor(), borderColor: .grayColor(), borderWidth: 0.0)
+    }
     
-    public init(reference: String, text: NSAttributedString? = nil) {
-        self.reference = reference
-        self.text = text
+    public init(style: ShapeStyle, textColor: UIColor, textFont: UIFont, textAlignment: NSTextAlignment, size: CGFloat, insets: UIEdgeInsets, backgroundColor: UIColor, borderColor: UIColor, borderWidth: CGFloat) {
+        self.textColor = textColor
+        self.textFont = textFont
+        self.size = size
+        self.textAlignment = textAlignment
+        self.insets = insets
+        
+        super.init(style: style, styleColor: .clearColor(), backgroundColor: backgroundColor, borderColor: borderColor, borderWidth: borderWidth)
     }
 }

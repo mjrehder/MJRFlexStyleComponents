@@ -297,28 +297,36 @@ A simple example from the demo project for using the FlexCollectionView
         
         // Setup demo style
         let collectionDemoStyle = FlexStyleAppearance()
-        collectionDemoStyle.styleColor = UIColor.MKColor.Brown.P50
-        collectionDemoStyle.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
+        collectionDemoStyle.viewAppearance.styleColor = UIColor.MKColor.Brown.P50
+        collectionDemoStyle.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
         collectionDemoStyle.cellAppearance.controlStyleColor = UIColor.MKColor.Brown.P100
+        collectionDemoStyle.sectionHeaderAppearance.styleColor = UIColor.MKColor.Brown.P300
+        collectionDemoStyle.sectionHeaderAppearance.insets = UIEdgeInsetsMake(2, 2, 2, 2)
+        collectionDemoStyle.sectionHeaderAppearance.style = .RoundedFixed(cornerRadius: 5)
+        collectionDemoStyle.sectionHeaderAppearance.textFont = UIFont.systemFontOfSize(10)
         self.demoCollectionView.appearance = collectionDemoStyle
         self.demoCollectionView.collectionCellAppearance = collectionDemoStyle
         
-        let secRef = self.demoCollectionView.addSection()
+        let secRef = self.demoCollectionView.addSection(NSAttributedString(string: "Section 1"))
 
-        // Simple Text
-        let item0 = FlexBaseCollectionItem(reference: "item0ref", text: NSAttributedString(string: "Simple Text"), icon: nil, accessoryImage: nil, title: NSAttributedString(string: "Item 0"))
-        let i0App = FlexStyleAppearance()
+        // Quad Text
+        let item0 = FlexBaseCollectionItem(reference: "item0ref", text: NSAttributedString(string: "Text String"), icon: nil, accessoryImage: nil, title: NSAttributedString(string: "Item 0"))
+        item0.infoText = NSAttributedString(string: "Info")
+        item0.detailText = NSAttributedString(string: "Detail Text")
+        item0.auxText = NSAttributedString(string: "Aux Info")
+        let i0App = FlexStyleCollectionCellAppearance()
+        i0App.controlInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         i0App.styleColor = UIColor.MKColor.Brown.P100
-        i0App.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
-        i0App.cellAppearance = FlexStyleCollectionCellAppearance()
-        i0App.cellAppearance.controlStyleColor = UIColor.MKColor.Brown.P100
-        i0App.cellAppearance.textInsets = UIEdgeInsetsMake(0, 8, 0, 8)
+        i0App.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
+        i0App.controlStyleColor = UIColor.MKColor.Brown.P100
+        i0App.textAppearance.style = .Box
         item0.cellAppearance = i0App
         self.demoCollectionView.addItem(secRef, item: item0)
+
     }
 ```
 
-Please note, that this example uses the new FlexStyleAppearance in order to make the styling and layout easier.
+Please note, that this example uses the ```FlexStyleAppearance``` in order to make the styling and layout easier.
 
 #### Collection delegate
 The FlexCollectionViewDelegate has two functions in order to react on selection and re-ordering:

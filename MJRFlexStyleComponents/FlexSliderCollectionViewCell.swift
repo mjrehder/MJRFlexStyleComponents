@@ -51,9 +51,9 @@ public class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
         }
     }
     
-    override public var appearance: FlexStyleAppearance? {
+    override public var cellAppearance: FlexStyleCollectionCellAppearance? {
         didSet {
-            self.flexContentView?.appearance = appearance
+            self.flexContentView?.flexViewAppearance = self.getCellAppearance().viewAppearance
             self.applyTextAppearance()
             self.applySliderAppearance()
             self.refreshLayout()
@@ -61,8 +61,8 @@ public class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
     }
     
     func applySliderAppearance() {
-        if self.flexSlider?.appearance == nil {
-            self.flexSlider?.appearance = self.appearance
+        if self.flexSlider?.sliderAppearance == nil {
+            self.flexSlider?.sliderAppearance = self.getCellAppearance().sliderAppearance
         }
     }
     
@@ -70,17 +70,17 @@ public class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
         var remainingCellArea = area
         
         if let fs = self.flexSlider {
-            let appe = self.getAppearance()
-            let imageViewRect = CGRect(origin: CGPointZero, size: appe.cellAppearance.controlSize)
+            let appe = self.getCellAppearance()
+            let imageViewRect = CGRect(origin: CGPointZero, size: appe.controlSize)
             
-            fs.appearance = appe
-            fs.style = appe.cellAppearance.controlStyle
-            fs.thumbStyle = appe.cellAppearance.controlStyle
-            fs.styleColor = appe.cellAppearance.controlStyleColor
-            fs.controlInsets = appe.cellAppearance.controlInsets
+            fs.sliderAppearance = appe.sliderAppearance
+            fs.style = appe.controlStyle
+            fs.thumbStyle = appe.controlStyle
+            fs.styleColor = appe.controlStyleColor
+            fs.controlInsets = appe.controlInsets
             
-            let controlInsets = appe.cellAppearance.controlInsets
-            let controlSize = CGSizeMake(remainingCellArea.width, appe.cellAppearance.controlSize.height)
+            let controlInsets = appe.controlInsets
+            let controlSize = UIEdgeInsetsInsetRect(CGRect(origin: CGPointZero, size: CGSizeMake(remainingCellArea.width, appe.controlSize.height)), controlInsets).size
             
             fs.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (controlInsets.right + controlSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - controlSize.height) * 0.5, controlSize.width, controlSize.height)
             fs.hidden = false

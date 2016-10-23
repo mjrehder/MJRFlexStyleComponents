@@ -32,15 +32,6 @@ import StyledLabel
 
 public class MJRFlexBaseControl: UIControl {
     var styleLayer = CAShapeLayer()
-
-    public var appearance: FlexStyleAppearance? {
-        didSet {
-            self.setNeedsLayout()
-        }
-    }
-    public func getAppearance() -> FlexStyleAppearance {
-        return self.appearance ?? flexStyleAppearance
-    }
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -67,7 +58,7 @@ public class MJRFlexBaseControl: UIControl {
     }
     /// Convenience for getting a valid style
     public func getStyle() -> ShapeStyle {
-        return self.style ?? self.getAppearance().style
+        return self.style ?? flexStyleAppearance.style
     }
     
     /// The view’s background color.
@@ -123,9 +114,9 @@ public class MJRFlexBaseControl: UIControl {
     }
     
     func createBorderLayer(style: ShapeStyle, layerRect: CGRect) -> CALayer? {
-        let borderWidth = self.borderWidth ?? self.getAppearance().borderWidth
+        let borderWidth = self.borderWidth ?? flexStyleAppearance.borderWidth
         if borderWidth > 0 {
-            let bLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: .clearColor(), borderColor: borderColor ?? self.getAppearance().borderColor, borderWidth: borderWidth)
+            let bLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: .clearColor(), borderColor: borderColor ?? flexStyleAppearance.borderColor, borderWidth: borderWidth)
             return bLayer
         }
         return nil
@@ -136,8 +127,8 @@ public class MJRFlexBaseControl: UIControl {
             self.layer.addSublayer(styleLayer)
         }
         
-        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets ?? self.getAppearance().backgroundInsets)
-        let bgColor: UIColor = self.styleColor ?? backgroundColor ?? self.getAppearance().backgroundColor
+        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets ?? flexStyleAppearance.backgroundInsets)
+        let bgColor: UIColor = self.styleColor ?? backgroundColor ?? flexStyleAppearance.backgroundColor
         let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
         
         // Add layer with border, if required

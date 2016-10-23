@@ -49,15 +49,19 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
     
     public var flexCollectionDelegate: FlexCollectionViewDelegate?
    
+    public var collectionViewAppearance: FlexCollectionViewAppearance? {
+        didSet {
+            self.flexViewAppearance = self.collectionViewAppearance?.viewAppearance
+            self._itemCollectionView?.reloadData()
+        }
+    }
+    public func getCollectionViewAppearance() -> FlexCollectionViewAppearance {
+        return self.collectionViewAppearance ?? flexStyleAppearance.collectionViewAppearance
+    }
+    
     public var itemCollectionView: UICollectionView {
         get {
             return _itemCollectionView!
-        }
-    }
-    
-    public var collectionCellAppearance: FlexStyleAppearance? {
-        didSet {
-            self._itemCollectionView?.reloadData()
         }
     }
     
@@ -152,6 +156,7 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         self.registerCell(FlexSwitchCollectionItem.classForCoder(), cellClass: FlexSwitchCollectionViewCell.classForCoder())
         self.registerCell(FlexSliderCollectionItem.classForCoder(), cellClass: FlexSliderCollectionViewCell.classForCoder())
         self.registerCell(FlexTextViewCollectionItem.classForCoder(), cellClass: FlexTextViewCollectionViewCell.classForCoder())
+        self.registerCell(FlexImageCollectionItem.classForCoder(), cellClass: FlexImageCollectionViewCell.classForCoder())
     }
     
     public func registerCell(itemClass: AnyClass, cellClass: AnyClass) {
@@ -175,7 +180,7 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         self.contentDic?.removeAll()
     }
     
-    public func addSection(title: String? = nil) -> String {
+    public func addSection(title: NSAttributedString? = nil) -> String {
         let s = FlexCollectionSection(reference: NSUUID().UUIDString, title: title)
         self.sections.append(s)
         self.contentDic?[s.reference] = []
@@ -229,7 +234,7 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         let row: Int = index.row
         let section: Int = index.section
         let sec = self.sections[section]
-        if let items = self.contentDic?[sec.reference] {
+        if let items = self.contentDic?[sec.reference] where row < items.count {
             return items[row]
         }
         return nil
@@ -275,7 +280,7 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
                     cell._item = item
                     cell.reference = item.reference
                     cell.flexCellTouchDelegate = self
-                    cell.appearance = item.cellAppearance ?? self.collectionCellAppearance
+                    cell.cellAppearance = item.cellAppearance ?? self.getCollectionViewAppearance().cellAppearance
                     return cell
                 }
             }
@@ -297,7 +302,8 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
             let sec = self.sections[indexPath.section]
             if let title = sec.title {
                 if let headerView = self.itemCollectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: simpleHeaderViewID, forIndexPath: indexPath) as? SimpleHeaderCollectionReusableView {
-                    headerView.title?.text = title
+                    headerView.title?.label.attributedText = title
+                    headerView.title?.labelAppearance = sec.sectionHeaderAppearance ?? self.getCollectionViewAppearance().sectionHeaderAppearance
                     return headerView
                 }
             }
@@ -337,12 +343,12 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
     
     public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let sec = self.sections[section]
-        return sec.size
+        return CGSizeMake(0, sec.sectionHeaderAppearance?.size ?? self.getCollectionViewAppearance().sectionHeaderAppearance.size)
     }
     
     public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         let sec = self.sections[section]
-        return sec.insets
+        return sec.sectionHeaderAppearance?.insets ?? self.getCollectionViewAppearance().sectionHeaderAppearance.insets
     }
     
     // MARK: - FlexCollectionViewCellTouchedDelegate

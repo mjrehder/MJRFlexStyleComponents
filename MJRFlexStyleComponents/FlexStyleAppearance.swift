@@ -32,34 +32,11 @@ import StyledLabel
 
 public let flexStyleAppearance = FlexStyleAppearance()
 
-public class FlexStyleAppearance {
+public class FlexStyleAppearance: FlexStyleContainerAppearance {
 	static var initialized: Bool = false
-
-    public var cellAppearance = FlexStyleCollectionCellAppearance()
-
-    public var headerPosition: FlexViewHeaderPosition = .Top
-    public var headerAppearance = FlexStyleHeaderFooterAppearance()
-
-    public var footerAppearance = FlexStyleHeaderFooterAppearance()
     
-    public var style: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
-    public var backgroundInsets: UIEdgeInsets = UIEdgeInsetsZero
-    public var contentInsets: UIEdgeInsets = UIEdgeInsetsZero
-
-    // Styles and colors.
-    public var borderWidth: CGFloat = 0
-	public var borderColor: UIColor = UIColor.grayColor()
-    public var styleColor = UIColor.lightGrayColor()
-    public var backgroundColor = UIColor.clearColor()
-
-    // Flex Switch
-    public var switchOnColor: UIColor = UIColor.redColor().darkerColor()
-    public var switchThumbColor: UIColor = .grayColor()
-    
-    // Flex Slider
-    public var sliderMinimumTrackColor: UIColor = UIColor.redColor().darkerColor()
-    public var sliderMaximumTrackColor: UIColor = .clearColor()
-    public var sliderThumbColor: UIColor = .grayColor()
+    public var viewAppearance = FlexViewAppearance()
+    public var collectionViewAppearance = FlexCollectionViewAppearance()
     
     // Menus
     public var menuBackgroundColor: UIColor = UIColor.blackColor()
@@ -69,6 +46,7 @@ public class FlexStyleAppearance {
     public var menuSize: CGSize = CGSizeMake(100, 18)
     public var menuStyle:FlexMenuStyle = .EquallySpaces(thumbPos: .Top)
 
-    public init() {
+    public override init() {
+        super.init(style: .RoundedFixed(cornerRadius: 5.0), styleColor: .blackColor(), backgroundColor: .clearColor(), borderColor: .grayColor(), borderWidth: 0)
     }
 }
