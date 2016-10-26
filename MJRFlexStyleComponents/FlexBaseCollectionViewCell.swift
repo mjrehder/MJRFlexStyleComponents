@@ -168,9 +168,6 @@ public class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     public func layoutText(item: FlexBaseCollectionItem, area: CGRect) {
         let appe = self.getCellAppearance()
 
-        //            let textRect =  UIEdgeInsetsInsetRect(area, appe.textAppearance.insets)
-        //            tl.frame = textRect
-
         self.setupTextLabel(self.textLabel, appearance: appe.textAppearance, text: item.text)
         self.setupTextLabel(self.detailTextLabel, appearance: appe.detailTextAppearance, text: item.detailText)
         self.setupTextLabel(self.infoTextLabel, appearance: appe.infoTextAppearance, text: item.infoText)

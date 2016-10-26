@@ -60,5 +60,6 @@ public class FlexStyleCollectionCellAppearance: FlexStyleContainerAppearance {
     
     public override init() {
         super.init(style: .RoundedFixed(cornerRadius: 5.0), styleColor: .grayColor(), backgroundColor: .lightGrayColor(), borderColor: .blackColor(), borderWidth: 0.0)
+        self.viewAppearance.styleColor = .clearColor()
     }
 }

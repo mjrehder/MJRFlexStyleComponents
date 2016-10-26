@@ -31,44 +31,36 @@ import UIKit
 import StyledLabel
 
 public class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell {
-    public var textContentView: FlexTextView?
-    
-    override public var cellAppearance: FlexStyleCollectionCellAppearance? {
-        didSet {
-            self.textContentView?.flexViewAppearance = cellAppearance?.viewAppearance
-            self.refreshLayout()
-        }
-    }
+    public var textView: UITextView?
     
     public override func initialize() {
         super.initialize()
-        let baseRect = self.bounds
         
-        self.textContentView = FlexTextView(frame: baseRect)
-        self.textContentView?.flexViewAppearance = self.getCellAppearance().viewAppearance
-        if let pcv = self.textContentView {
-            let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.cellTextAreaTouched(_:)))
-            pcv.addGestureRecognizer(tapGest)
-            self.contentView.addSubview(pcv)
+        self.textView = UITextView()
+        if let tv = self.textView, pcv = self.flexContentView {
+            tv.hidden = true
+            pcv.addSubview(tv)
+            let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.accessoryViewTouched(_:)))
+            tv.addGestureRecognizer(tapGest)
         }
     }
     
     public override func layoutText(item: FlexBaseCollectionItem, area: CGRect) {
         dispatch_async(dispatch_get_main_queue()) {
             if let text = item.text {
-                self.textContentView?.textView.attributedText = text
-                if let pcv = self.textContentView {
-                    pcv.textView.backgroundColor = .clearColor()
-                    self.prepareTextView(pcv.textView)
+                if let tv = self.textView {
+                    tv.attributedText = text
+                    tv.backgroundColor = .clearColor()
+                    self.prepareTextView(tv)
                     let appe = self.getCellAppearance()
                     let textRect =  UIEdgeInsetsInsetRect(area, appe.textAppearance.insets)
-                    pcv.frame = textRect
-                    pcv.hidden = false
-                    pcv.userInteractionEnabled = false
+                    tv.frame = textRect
+                    tv.hidden = false
+                    tv.userInteractionEnabled = false
                 }
             }
             else {
-                self.textLabel?.hidden = true
+                self.textView?.hidden = true
             }
         }
     }
