@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDelegate {
+class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDelegate, FlexCollectionItemSwipeDelegate {
     
     @IBOutlet weak var demoCollectionView: FlexCollectionView!
 
@@ -145,8 +145,39 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         i6App.controlStyleColor = UIColor.MKColor.Brown.P100
         i6App.textAppearance.style = .Box
         item6.cellAppearance = i6App
+        
+        let lsi = FlexLabel(frame: CGRectZero)
+        lsi.label.text = "Menu"
+        lsi.style = .Rounded
+        lsi.styleColor = UIColor.MKColor.Brown.P700
+        lsi.labelTextColor = .whiteColor()
+        lsi.labelTextAlignment = .Center
+        let lsi2 = FlexLabel(frame: CGRectZero)
+        lsi2.label.text = "Delete"
+        lsi2.style = .Rounded
+        lsi2.styleColor = UIColor.MKColor.Brown.P200
+        lsi2.labelTextColor = .whiteColor()
+        lsi2.labelTextAlignment = .Center
+        item6.swipeLeftMenuItems = [lsi, lsi2]
+        
+        let lsi3 = FlexLabel(frame: CGRectZero)
+        lsi3.label.text = "Options"
+        lsi3.style = .Rounded
+        lsi3.styleColor = UIColor.MKColor.Brown.P500
+        lsi3.labelTextColor = .whiteColor()
+        lsi3.labelTextAlignment = .Center
+        item6.swipeRightMenuItems = [lsi3]
+
+        item6.swipeMenuDelegate = self
+        
         self.demoCollectionView.addItem(sec2Ref, item: item6)
 
+    }
+    
+    // MARK: - FlexCollectionItemSwipeDelegate
+    
+    func swipeMenuSelected(item: FlexCollectionItem, menuItem: FlexLabel) {
+        NSLog("swipe menu item selected with text \(menuItem.label.text)")
     }
     
     // MARK: - FlexCollectionViewDelegate

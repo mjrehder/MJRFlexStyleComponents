@@ -30,6 +30,10 @@
 
 import UIKit
 
+public protocol FlexCollectionItemSwipeDelegate {
+    func swipeMenuSelected(item: FlexCollectionItem, menuItem: FlexLabel)
+}
+
 public class FlexCollectionItem: NSObject {
     public var reference: String
 
@@ -41,6 +45,13 @@ public class FlexCollectionItem: NSObject {
     public var preferredCellSize: CGSize?
     public var cellAppearance: FlexStyleCollectionCellAppearance?
     public var canMoveItem: Bool = true
+    
+    /// Swipe left menu items. A swipe gesture will be added to the cell when the menu items are set
+    public var swipeLeftMenuItems: [FlexLabel]?
+    /// Swipe right menu items. A swipe gesture will be added to the cell when the menu items are set
+    public var swipeRightMenuItems: [FlexLabel]?
+
+    public var swipeMenuDelegate: FlexCollectionItemSwipeDelegate?
     
     public init(reference: String, text: NSAttributedString? = nil) {
         self.reference = reference

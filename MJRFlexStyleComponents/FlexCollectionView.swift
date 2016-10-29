@@ -48,6 +48,8 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
     var sections : [FlexCollectionSection] = []
     
     public var flexCollectionDelegate: FlexCollectionViewDelegate?
+    
+    private var cellSwipeMenuActiveCell: NSIndexPath?
    
     public var collectionViewAppearance: FlexCollectionViewAppearance? {
         didSet {
@@ -281,11 +283,41 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
                     cell.reference = item.reference
                     cell.flexCellTouchDelegate = self
                     cell.cellAppearance = item.cellAppearance ?? self.getCollectionViewAppearance().cellAppearance
+                    if item.swipeLeftMenuItems != nil || item.swipeRightMenuItems != nil {
+                        let lswipe = UISwipeGestureRecognizer(target: self, action: #selector(self.swipeLeftGestureAction(_:)))
+                        lswipe.direction = .Left
+                        cell.addGestureRecognizer(lswipe)
+                        let rswipe = UISwipeGestureRecognizer(target: self, action: #selector(self.swipeRightGestureAction(_:)))
+                        rswipe.direction = .Right
+                        cell.addGestureRecognizer(rswipe)
+                    }
                     return cell
                 }
             }
         }
         return UICollectionViewCell()
+    }
+
+    func swipeLeftGestureAction(recognizer: UISwipeGestureRecognizer) {
+        if let cell = recognizer.view as? FlexCollectionViewCell {
+            cell.swipeLeft()
+            self.cellSwipeMenuActiveCell = self.itemCollectionView.indexPathForCell(cell)
+        }
+    }
+    
+    func swipeRightGestureAction(recognizer: UISwipeGestureRecognizer) {
+        if let cell = recognizer.view as? FlexCollectionViewCell {
+            cell.swipeRight()
+            self.cellSwipeMenuActiveCell = self.itemCollectionView.indexPathForCell(cell)
+        }
+    }
+
+    func resetSwipedCell() {
+        if let sip = self.cellSwipeMenuActiveCell {
+            if let cell = self.itemCollectionView.cellForItemAtIndexPath(sip) as? FlexCollectionViewCell {
+                cell.animateSwipeReset()
+            }
+        }
     }
     
     public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {

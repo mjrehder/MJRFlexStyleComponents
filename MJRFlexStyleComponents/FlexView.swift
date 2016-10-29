@@ -83,6 +83,10 @@ public class FlexView: MJRFlexBaseControl {
         return self.flexViewAppearance ?? flexStyleAppearance.viewAppearance
     }
     
+    public override func getStyle() -> ShapeStyle {
+        return self.flexViewAppearance?.style ?? super.getStyle()
+    }
+    
     /// The content view insets, also known as border margins.
     @IBInspectable public var contentViewMargins: UIEdgeInsets? {
         didSet {
