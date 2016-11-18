@@ -31,27 +31,27 @@
 import UIKit
 
 public protocol FlexSwitchDelegate {
-    func switchStateChanged(flexSwitch: FlexSwitch, on: Bool)
+    func switchStateChanged(_ flexSwitch: FlexSwitch, on: Bool)
 }
 
 // The FlexSwitch is only supporting horizontal layout
-@IBDesignable public class FlexSwitch: GenericStyleSlider, GenericStyleSliderDelegate, GenericStyleSliderTouchDelegate {
+@IBDesignable open class FlexSwitch: GenericStyleSlider, GenericStyleSliderDelegate, GenericStyleSliderTouchDelegate {
 
-    public var switchDelegate: FlexSwitchDelegate?
+    open var switchDelegate: FlexSwitchDelegate?
     
-    public var switchAppearance: FlexSwitchAppearance? {
+    open var switchAppearance: FlexSwitchAppearance? {
         didSet {
             self.setNeedsLayout()
         }
     }
-    public func getSwitchAppearance() -> FlexSwitchAppearance {
+    open func getSwitchAppearance() -> FlexSwitchAppearance {
         return self.switchAppearance ?? flexStyleAppearance.switchAppearance
     }
     
     public override init(frame: CGRect) {
         var targetFrame = frame
-        if CGRectIsNull(frame) || frame.size.height == 0 || frame.size.width == 0 {
-            targetFrame = CGRectMake(0,0,90,30)
+        if frame.isNull || frame.size.height == 0 || frame.size.width == 0 {
+            targetFrame = CGRect(x: 0,y: 0,width: 90,height: 30)
         }
         super.init(frame: targetFrame)
         self.setupSwitch()
@@ -64,40 +64,40 @@ public protocol FlexSwitchDelegate {
 
     func setupSwitch() {
         self.continuous = false
-        self.style = .Tube
-        self.thumbStyle = .Tube
-        self.separatorStyle = .Box
+        self.style = .tube
+        self.thumbStyle = .tube
+        self.separatorStyle = .box
         self.minimumValue = 0
         self.maximumValue = 1
-        self.borderColor = UIColor.blackColor()
+        self.borderColor = UIColor.black
         self.borderWidth = 1.0
-        self.thumbSnappingBehaviour = .SnapToLowerAndHigher
+        self.thumbSnappingBehaviour = .snapToLowerAndHigher
         self.values = [0]
         self.sliderDelegate = self
         self.thumbTouchDelegate = self
 
-        self.addTarget(self, action: #selector(FlexSwitch.switchChanged), forControlEvents: .ValueChanged)
+        self.addTarget(self, action: #selector(FlexSwitch.switchChanged), for: .valueChanged)
     }
 
-    @IBInspectable public var onTintColor: UIColor? {
+    @IBInspectable open var onTintColor: UIColor? {
         didSet {
             self.applySeparatorStyle(self.separatorStyle)
         }
     }
     
-    @IBInspectable public var thumbTintColor: UIColor? {
+    @IBInspectable open var thumbTintColor: UIColor? {
         didSet {
             self.applyThumbStyle(self.thumbStyle)
         }
     }
     
-    public var on: Bool {
+    open var on: Bool {
         get {
             return self.values[0] > 0.5
         }
     }
     
-    public func setOn(isOn: Bool) {
+    open func setOn(_ isOn: Bool) {
         let targetValue = isOn ? 1.0 : 0.0
         self.values = [targetValue]
     }
@@ -108,33 +108,33 @@ public protocol FlexSwitchDelegate {
     
     // MARK: - GenericStyleSliderDelegate
     
-    public func iconOfThumb(index: Int) -> UIImage? {
+    open func iconOfThumb(_ index: Int) -> UIImage? {
         return nil
     }
     
-    public func textOfThumb(index: Int) -> String? {
+    open func textOfThumb(_ index: Int) -> String? {
         return nil
     }
     
-    public func textOfSeparatorLabel(index: Int) -> String? {
+    open func textOfSeparatorLabel(_ index: Int) -> String? {
         return nil
     }
     
-    public func colorOfThumb(index: Int) -> UIColor? {
+    open func colorOfThumb(_ index: Int) -> UIColor? {
         return self.thumbTintColor ?? self.getSwitchAppearance().switchThumbColor
     }
     
-    public func colorOfSeparatorLabel(index: Int) -> UIColor? {
+    open func colorOfSeparatorLabel(_ index: Int) -> UIColor? {
         return index == 0 ? self.onTintColor ?? self.getSwitchAppearance().switchOnColor : self.styleColor
     }
     
-    public func behaviourOfThumb(index: Int) -> StyledSliderThumbBehaviour? {
+    open func behaviourOfThumb(_ index: Int) -> StyledSliderThumbBehaviour? {
         return nil
     }
     
     // MARK: - GenericStyleSliderTouchDelegate
     
-    public func onThumbTouchEnded(index: Int) {
+    open func onThumbTouchEnded(_ index: Int) {
         self.setOn(!self.on)
         self.switchChanged()
     }

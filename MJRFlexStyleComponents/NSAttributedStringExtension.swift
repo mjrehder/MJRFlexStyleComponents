@@ -9,16 +9,16 @@
 import UIKit
 
 extension NSAttributedString {
-    func heightWithConstrainedWidth(width: CGFloat) -> CGFloat {
-        let constraintRect = CGSize(width: width, height: .max)
-        let boundingBox = CGRectIntegral(self.boundingRectWithSize(constraintRect, options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil))
+    func heightWithConstrainedWidth(_ width: CGFloat) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).integral
         
         return boundingBox.height
     }
     
-    func widthWithConstrainedHeight(height: CGFloat) -> CGFloat {
-        let constraintRect = CGSize(width: .max, height: height)
-        let boundingBox = CGRectIntegral(self.boundingRectWithSize(constraintRect, options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil))
+    func widthWithConstrainedHeight(_ height: CGFloat) -> CGFloat {
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+        let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).integral
         
         return boundingBox.width
     }

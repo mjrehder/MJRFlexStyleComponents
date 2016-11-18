@@ -31,21 +31,21 @@ import UIKit
 import StyledLabel
 
 public enum FlexViewHeaderPosition {
-    case Top
-    case Left
-    case Right
+    case top
+    case left
+    case right
 }
 
-public class FlexView: MJRFlexBaseControl {
-    private var _headerLabel = FlexLabel()
-    public var header: FlexLabel {
+open class FlexView: MJRFlexBaseControl {
+    fileprivate var _headerLabel = FlexLabel()
+    open var header: FlexLabel {
         get {
             return _headerLabel
         }
     }
     
-    private var _footerLabel = FlexLabel()
-    public var footer: FlexLabel {
+    fileprivate var _footerLabel = FlexLabel()
+    open var footer: FlexLabel {
         get {
             return _footerLabel
         }
@@ -63,32 +63,32 @@ public class FlexView: MJRFlexBaseControl {
         self.initView()
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         self.layoutComponents()
     }
     
     func initView() {
         if self.styleLayer.superlayer == nil {
-            self.layer.insertSublayer(self.styleLayer, atIndex: 0)
+            self.layer.insertSublayer(self.styleLayer, at: 0)
         }
     }
     
-    public var flexViewAppearance: FlexViewAppearance? {
+    open var flexViewAppearance: FlexViewAppearance? {
         didSet {
             self.setNeedsLayout()
         }
     }
-    public func getFlexViewAppearance() -> FlexViewAppearance {
+    open func getFlexViewAppearance() -> FlexViewAppearance {
         return self.flexViewAppearance ?? flexStyleAppearance.viewAppearance
     }
     
-    public override func getStyle() -> ShapeStyle {
+    open override func getStyle() -> ShapeStyle {
         return self.flexViewAppearance?.style ?? super.getStyle()
     }
     
     /// The content view insets, also known as border margins.
-    @IBInspectable public var contentViewMargins: UIEdgeInsets? {
+    @IBInspectable open var contentViewMargins: UIEdgeInsets? {
         didSet {
             self.setNeedsLayout()
         }
@@ -97,35 +97,35 @@ public class FlexView: MJRFlexBaseControl {
     // MARK: - Header
     
     /// The position of the header. The footer, if used, is on the opposite end of the view.
-    @IBInspectable public var headerPosition: FlexViewHeaderPosition? {
+    @IBInspectable open var headerPosition: FlexViewHeaderPosition? {
         didSet {
             self.setNeedsLayout()
         }
     }
     
     /// The header text. Defaults to nil, which means no text.
-    @IBInspectable public var headerText: String? = nil {
+    @IBInspectable open var headerText: String? = nil {
         didSet {
             self.setNeedsLayout()
         }
     }
     
     /// The header text. Defaults to nil, which means no text.
-    @IBInspectable public var headerAttributedText: NSAttributedString? = nil {
+    @IBInspectable open var headerAttributedText: NSAttributedString? = nil {
         didSet {
             self.setNeedsLayout()
         }
     }
     
     /// The header size is either the height or the width of the header, depending on the header position.
-    @IBInspectable public var headerSize: CGFloat? {
+    @IBInspectable open var headerSize: CGFloat? {
         didSet {
             self.setNeedsLayout()
         }
     }
 
     /// The header will be clipped to the background shape. Defaults to true.
-    @IBInspectable public var headerClipToBackgroundShape: Bool = true {
+    @IBInspectable open var headerClipToBackgroundShape: Bool = true {
         didSet {
             self.setNeedsLayout()
         }
@@ -134,44 +134,44 @@ public class FlexView: MJRFlexBaseControl {
     // MARK: - Footer
     
     /// The footer text. Defaults to nil, which means no text.
-    @IBInspectable public var footerText: String? = nil {
+    @IBInspectable open var footerText: String? = nil {
         didSet {
             self.setNeedsLayout()
         }
     }
     
     /// The footer text. Defaults to nil, which means no text.
-    @IBInspectable public var footerAttributedText: NSAttributedString? = nil {
+    @IBInspectable open var footerAttributedText: NSAttributedString? = nil {
         didSet {
             self.setNeedsLayout()
         }
     }
     
     /// The footer size is either the height or the width of the footer, depending on the footer position.
-    @IBInspectable public var footerSize: CGFloat? {
+    @IBInspectable open var footerSize: CGFloat? {
         didSet {
             self.setNeedsLayout()
         }
     }
     
     /// The footer will be clipped to the background shape. Defaults to true.
-    @IBInspectable public var footerClipToBackgroundShape: Bool = true {
+    @IBInspectable open var footerClipToBackgroundShape: Bool = true {
         didSet {
             self.setNeedsLayout()
         }
     }
 
-    public func addMenu(menu: FlexViewMenu) {
+    open func addMenu(_ menu: FlexViewMenu) {
         self.menus.append(menu)
         self.addSubview(menu.menu)
         layoutComponents()
     }
     
-    public func removeMenu(menu: FlexViewMenu) {
-        if let idx = self.menus.indexOf({ (vmenu) -> Bool in
+    open func removeMenu(_ menu: FlexViewMenu) {
+        if let idx = self.menus.index(where: { (vmenu) -> Bool in
             menu.id == vmenu.id
         }) {
-            self.menus.removeAtIndex(idx)
+            self.menus.remove(at: idx)
             menu.menu.removeFromSuperview()
             layoutComponents()
         }
@@ -185,7 +185,7 @@ public class FlexView: MJRFlexBaseControl {
         return self.footerText != nil || self.footerAttributedText != nil
     }
     
-    public func getViewRect() -> CGRect {
+    open func getViewRect() -> CGRect {
         let appe = self.getFlexViewAppearance()
         var heightReduce: CGFloat = 0
         var topOffset: CGFloat = 0
@@ -201,12 +201,12 @@ public class FlexView: MJRFlexBaseControl {
         let headerPos = self.headerPosition ?? appe.headerPosition
         let margins = self.contentViewMargins ?? appe.contentInsets
         switch headerPos {
-        case .Top:
-            return UIEdgeInsetsInsetRect(CGRectMake(0, topOffset, self.bounds.size.width, self.bounds.size.height - heightReduce), margins)
-        case .Left:
-            return UIEdgeInsetsInsetRect(CGRectMake(topOffset, 0, self.bounds.size.width - heightReduce, self.bounds.size.height), margins)
-        case .Right:
-            return UIEdgeInsetsInsetRect(CGRectMake(bottomOffset, 0, self.bounds.size.width - heightReduce, self.bounds.size.height), margins)
+        case .top:
+            return UIEdgeInsetsInsetRect(CGRect(x: 0, y: topOffset, width: self.bounds.size.width, height: self.bounds.size.height - heightReduce), margins)
+        case .left:
+            return UIEdgeInsetsInsetRect(CGRect(x: topOffset, y: 0, width: self.bounds.size.width - heightReduce, height: self.bounds.size.height), margins)
+        case .right:
+            return UIEdgeInsetsInsetRect(CGRect(x: bottomOffset, y: 0, width: self.bounds.size.width - heightReduce, height: self.bounds.size.height), margins)
         }
     }
     
@@ -216,12 +216,12 @@ public class FlexView: MJRFlexBaseControl {
         let headerPos = self.headerPosition ?? self.getFlexViewAppearance().headerPosition
         let hSize = self.headerSize ?? self.getFlexViewAppearance().headerAppearance.size
         switch headerPos {
-        case .Top:
-            return CGRectMake(0, 0, self.bounds.size.width, hSize)
-        case .Left:
-            return CGRectMake(0, 0, hSize, self.bounds.size.height)
-        case .Right:
-            return CGRectMake(self.bounds.size.width - hSize, 0, hSize, self.bounds.size.height)
+        case .top:
+            return CGRect(x: 0, y: 0, width: self.bounds.size.width, height: hSize)
+        case .left:
+            return CGRect(x: 0, y: 0, width: hSize, height: self.bounds.size.height)
+        case .right:
+            return CGRect(x: self.bounds.size.width - hSize, y: 0, width: hSize, height: self.bounds.size.height)
         }
     }
     
@@ -229,24 +229,24 @@ public class FlexView: MJRFlexBaseControl {
         let headerPos = self.headerPosition ?? self.getFlexViewAppearance().headerPosition
         let fSize = self.footerSize ?? self.getFlexViewAppearance().footerAppearance.size
         switch headerPos {
-        case .Top:
-            return CGRectMake(0, self.bounds.size.height - fSize, self.bounds.size.width, fSize)
-        case .Left:
-            return CGRectMake(self.bounds.size.width - fSize, 0, fSize, self.bounds.size.height)
-        case .Right:
-            return CGRectMake(0, 0, fSize, self.bounds.size.height)
+        case .top:
+            return CGRect(x: 0, y: self.bounds.size.height - fSize, width: self.bounds.size.width, height: fSize)
+        case .left:
+            return CGRect(x: self.bounds.size.width - fSize, y: 0, width: fSize, height: self.bounds.size.height)
+        case .right:
+            return CGRect(x: 0, y: 0, width: fSize, height: self.bounds.size.height)
         }
     }
     
     func getHeaderFooterRotation() -> CGAffineTransform {
         let headerPos = self.headerPosition ?? self.getFlexViewAppearance().headerPosition
         switch headerPos {
-        case .Top:
-            return CGAffineTransformMakeRotation(0)
-        case .Left:
-            return CGAffineTransformMakeRotation(-CGFloat(M_PI_2))
-        case .Right:
-            return CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+        case .top:
+            return CGAffineTransform(rotationAngle: 0)
+        case .left:
+            return CGAffineTransform(rotationAngle: -CGFloat(M_PI_2))
+        case .right:
+            return CGAffineTransform(rotationAngle: CGFloat(M_PI_2))
         }
     }
     
@@ -300,19 +300,19 @@ public class FlexView: MJRFlexBaseControl {
         }
     }
     
-    override func applyStyle(style: ShapeStyle) {
+    override func applyStyle(_ style: ShapeStyle) {
         let bgColor: UIColor = self.styleColor ?? backgroundColor ?? self.getFlexViewAppearance().styleColor
         let layerRect = self.marginsForRect(bounds, margins: backgroundInsets ?? self.getFlexViewAppearance().backgroundInsets)
         let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
         let style = self.getStyle()
         
         if self.hasHeaderText() {
-            let headerShapeLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.header.getStyle(), shapeBounds: self.rectForHeader().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.header.labelBackgroundColor ?? .clearColor(), maskToBounds: self.headerClipToBackgroundShape)
+            let headerShapeLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.header.getStyle(), shapeBounds: self.rectForHeader().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.header.labelBackgroundColor ?? .clear, maskToBounds: self.headerClipToBackgroundShape)
             bgsLayer.addSublayer(headerShapeLayer)
         }
         
         if self.hasFooterText() {
-            let footerShapeLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.footer.getStyle(), shapeBounds: self.rectForFooter().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.footer.labelBackgroundColor ?? .clearColor(), maskToBounds: self.footerClipToBackgroundShape)
+            let footerShapeLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.footer.getStyle(), shapeBounds: self.rectForFooter().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.footer.labelBackgroundColor ?? .clear, maskToBounds: self.footerClipToBackgroundShape)
             bgsLayer.addSublayer(footerShapeLayer)
         }
 
@@ -330,31 +330,31 @@ public class FlexView: MJRFlexBaseControl {
 
     // MARK: - Menu Handling
     
-    func applyMenuLocationAndSize(menu: FlexViewMenu) {
+    func applyMenuLocationAndSize(_ menu: FlexViewMenu) {
         // Make sure that the menu is on top of the subviews
         menu.menu.removeFromSuperview()
         self.addSubview(menu.menu)
 
         let headerPos = self.headerPosition ?? self.getFlexViewAppearance().headerPosition
-        menu.menu.direction = headerPos == .Top ? .Horizontal : . Vertical
-        menu.menu.menuItemGravity = headerPos == .Top ? .Normal : (headerPos == .Left ? .Right : .Left)
+        menu.menu.direction = headerPos == .top ? .horizontal : . vertical
+        menu.menu.menuItemGravity = headerPos == .top ? .normal : (headerPos == .left ? .right : .left)
         let layerRect = self.marginsForRect(bounds, margins: backgroundInsets ?? self.getFlexViewAppearance().backgroundInsets)
         var msize = menu.size
         var mpos = layerRect.origin
         switch menu.hPos {
-        case .Fill:
+        case .fill:
             let pw = menu.menu.direction.principalSize(layerRect.size)
             let s = menu.menu.direction.nonPrincipalSize(menu.menu.direction.getSize(msize))
-            msize = menu.menu.direction.getSize(CGSizeMake(pw, s))
-        case .Center:
+            msize = menu.menu.direction.getSize(CGSize(width: pw, height: s))
+        case .center:
             let pw = menu.menu.direction.principalSize(layerRect.size)
             let pmw = menu.menu.direction.principalSize(menu.menu.direction.getSize(msize))
             let pp = (pw - pmw) * 0.5
             let npp = menu.menu.direction.nonPrincipalPosition(mpos)
-            mpos = menu.menu.direction.getPosition(CGPointMake(pp, npp))
+            mpos = menu.menu.direction.getPosition(CGPoint(x: pp, y: npp))
             msize = menu.menu.direction.getSize(msize)
-        case .Right:
-            if headerPos == .Left {
+        case .right:
+            if headerPos == .left {
                 msize = menu.menu.direction.getSize(msize)
             }
             else {
@@ -362,16 +362,16 @@ public class FlexView: MJRFlexBaseControl {
                 let pmw = menu.menu.direction.principalSize(menu.menu.direction.getSize(msize))
                 let pp = pw - pmw
                 let npp = menu.menu.direction.nonPrincipalPosition(mpos)
-                mpos = menu.menu.direction.getPosition(CGPointMake(pp, npp))
+                mpos = menu.menu.direction.getPosition(CGPoint(x: pp, y: npp))
                 msize = menu.menu.direction.getSize(msize)
             }
-        case .Left:
-            if headerPos == .Left {
+        case .left:
+            if headerPos == .left {
                 let pw = menu.menu.direction.principalSize(layerRect.size)
                 let pmw = menu.menu.direction.principalSize(menu.menu.direction.getSize(msize))
                 let pp = pw - pmw
                 let npp = menu.menu.direction.nonPrincipalPosition(mpos)
-                mpos = menu.menu.direction.getPosition(CGPointMake(pp, npp))
+                mpos = menu.menu.direction.getPosition(CGPoint(x: pp, y: npp))
                 msize = menu.menu.direction.getSize(msize)
             }
             else {
@@ -384,22 +384,22 @@ public class FlexView: MJRFlexBaseControl {
         let fSize = self.footerSize ?? self.getFlexViewAppearance().footerAppearance.size
         
         switch menu.vPos {
-        case .Top:
+        case .top:
             let npw = menu.menu.direction.nonPrincipalSize(layerRect.size)
             let ms = menu.menu.direction.nonPrincipalSize(msize)
-            npvp = headerPos == .Right ? npw - (hSize + ms) : hSize
-        case .Bottom:
+            npvp = headerPos == .right ? npw - (hSize + ms) : hSize
+        case .bottom:
             let npw = menu.menu.direction.nonPrincipalSize(layerRect.size)
             let ms = menu.menu.direction.nonPrincipalSize(msize)
-            npvp = headerPos == .Right ? fSize : npw - (fSize + ms)
-        case .Header:
+            npvp = headerPos == .right ? fSize : npw - (fSize + ms)
+        case .header:
             let npw = menu.menu.direction.nonPrincipalSize(layerRect.size)
-            npvp = headerPos == .Right ? npw - fSize : 0
-        case .Footer:
+            npvp = headerPos == .right ? npw - fSize : 0
+        case .footer:
             let npw = menu.menu.direction.nonPrincipalSize(layerRect.size)
-            npvp = headerPos == .Right ? 0 : npw - fSize
+            npvp = headerPos == .right ? 0 : npw - fSize
         }
-        mpos = menu.menu.direction.getPosition(CGPointMake(menu.menu.direction.principalPosition(mpos), npvp))
-        menu.menu.frame = CGRectMake(mpos.x, mpos.y, msize.width, msize.height)
+        mpos = menu.menu.direction.getPosition(CGPoint(x: menu.menu.direction.principalPosition(mpos), y: npvp))
+        menu.menu.frame = CGRect(x: mpos.x, y: mpos.y, width: msize.width, height: msize.height)
     }
 }

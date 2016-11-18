@@ -31,35 +31,35 @@ import UIKit
 import StyledLabel
 
 // Used for flex collection view cells
-public class FlexStyleCollectionCellAppearance: FlexStyleContainerAppearance {
-    public var viewAppearance = FlexViewAppearance()
+open class FlexStyleCollectionCellAppearance: FlexStyleContainerAppearance {
+    open var viewAppearance = FlexViewAppearance()
     
-    public var detailTextAppearance = FlexLabelAppearance(style: .Box, textColor: .blackColor(), textFont: UIFont.systemFontOfSize(10), textAlignment: .Left, size: 16, insets: UIEdgeInsetsZero, backgroundColor: .clearColor(), borderColor: .blackColor(), borderWidth: 0)
-    public var infoTextAppearance = FlexLabelAppearance(style: .Box, textColor: .blackColor(), textFont: UIFont.systemFontOfSize(12), textAlignment: .Left, size: 16, insets: UIEdgeInsetsZero, backgroundColor: .clearColor(), borderColor: .blackColor(), borderWidth: 0)
-    public var auxTextAppearance = FlexLabelAppearance(style: .Box, textColor: .blackColor(), textFont: UIFont.systemFontOfSize(8), textAlignment: .Left, size: 16, insets: UIEdgeInsetsZero, backgroundColor: .clearColor(), borderColor: .blackColor(), borderWidth: 0)
+    open var detailTextAppearance = FlexLabelAppearance(style: .box, textColor: .black, textFont: UIFont.systemFont(ofSize: 10), textAlignment: .left, size: 16, insets: UIEdgeInsets.zero, backgroundColor: .clear, borderColor: .black, borderWidth: 0)
+    open var infoTextAppearance = FlexLabelAppearance(style: .box, textColor: .black, textFont: UIFont.systemFont(ofSize: 12), textAlignment: .left, size: 16, insets: UIEdgeInsets.zero, backgroundColor: .clear, borderColor: .black, borderWidth: 0)
+    open var auxTextAppearance = FlexLabelAppearance(style: .box, textColor: .black, textFont: UIFont.systemFont(ofSize: 8), textAlignment: .left, size: 16, insets: UIEdgeInsets.zero, backgroundColor: .clear, borderColor: .black, borderWidth: 0)
     
-    public var selectedBorderWidth: CGFloat = 0
-    public var selectedBorderColor: UIColor = UIColor.blackColor()
-    public var selectedStyleColor = UIColor.lightGrayColor()
-    public var selectedBackgroundColor = UIColor.grayColor()
+    open var selectedBorderWidth: CGFloat = 0
+    open var selectedBorderColor: UIColor = UIColor.black
+    open var selectedStyleColor = UIColor.lightGray
+    open var selectedBackgroundColor = UIColor.gray
 
-    public var iconSize: CGSize = CGSizeMake(32, 32)
-    public var iconInsets: UIEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
-    public var iconStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
+    open var iconSize: CGSize = CGSize(width: 32, height: 32)
+    open var iconInsets: UIEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
+    open var iconStyle: ShapeStyle = .roundedFixed(cornerRadius: 5.0)
 
-    public var accessoryImageSize: CGSize = CGSizeMake(18, 18)
-    public var accessoryImageInsets: UIEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
-    public var accessoryStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
+    open var accessoryImageSize: CGSize = CGSize(width: 18, height: 18)
+    open var accessoryImageInsets: UIEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8)
+    open var accessoryStyle: ShapeStyle = .roundedFixed(cornerRadius: 5.0)
 
-    public var controlSize: CGSize = CGSizeMake(32, 32)
-    public var controlInsets: UIEdgeInsets = UIEdgeInsetsZero
-    public var controlStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
-    public var controlStyleColor = UIColor.lightGrayColor()
-    public var controlBorderWidth: CGFloat = 0
-    public var controlBorderColor: UIColor = UIColor.grayColor()
+    open var controlSize: CGSize = CGSize(width: 32, height: 32)
+    open var controlInsets: UIEdgeInsets = UIEdgeInsets.zero
+    open var controlStyle: ShapeStyle = .roundedFixed(cornerRadius: 5.0)
+    open var controlStyleColor = UIColor.lightGray
+    open var controlBorderWidth: CGFloat = 0
+    open var controlBorderColor: UIColor = UIColor.gray
     
     public override init() {
-        super.init(style: .RoundedFixed(cornerRadius: 5.0), styleColor: .grayColor(), backgroundColor: .lightGrayColor(), borderColor: .blackColor(), borderWidth: 0.0)
-        self.viewAppearance.styleColor = .clearColor()
+        super.init(style: .roundedFixed(cornerRadius: 5.0), styleColor: .gray, backgroundColor: .lightGray, borderColor: .black, borderWidth: 0.0)
+        self.viewAppearance.styleColor = .clear
     }
 }

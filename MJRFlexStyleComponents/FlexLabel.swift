@@ -32,16 +32,16 @@ import StyledLabel
 
 /// This class wraps a StyledLabel and adds features for placement, layout, etc.
 @IBDesignable
-public class FlexLabel: MJRFlexBaseControl {
-    private lazy var _label = LabelFactory.defaultStyledLabel()
+open class FlexLabel: MJRFlexBaseControl {
+    fileprivate lazy var _label = LabelFactory.defaultStyledLabel()
     
-    public var label: StyledLabel {
+    open var label: StyledLabel {
         get {
             return _label
         }
     }
     
-    public var labelAppearance: FlexLabelAppearance? {
+    open var labelAppearance: FlexLabelAppearance? {
         didSet {
             self.labelBackgroundColor = self.labelBackgroundColor ?? self.getLabelAppearance().backgroundColor
             self.style = self.style ?? self.getLabelAppearance().style
@@ -49,53 +49,53 @@ public class FlexLabel: MJRFlexBaseControl {
         }
     }
     /// The return of this is either the local labelAppearance or the getAppearance().labelAppearance.
-    public func getLabelAppearance() -> FlexLabelAppearance {
+    open func getLabelAppearance() -> FlexLabelAppearance {
         return self.labelAppearance ?? flexStyleAppearance.textAppearance
     }
     
     /// The background color. If nil the color will be clear color. Defaults to nil.
-    @IBInspectable public var labelBackgroundColor: UIColor? {
+    @IBInspectable open var labelBackgroundColor: UIColor? {
         didSet {
             self.applyStyle()
         }
     }
     
     /// The font of the label
-    @IBInspectable public var labelFont: UIFont? {
+    @IBInspectable open var labelFont: UIFont? {
         didSet {
             self.applyStyle()
         }
     }
     
     /// The text alignment of the label
-    @IBInspectable public var labelTextAlignment: NSTextAlignment? {
+    @IBInspectable open var labelTextAlignment: NSTextAlignment? {
         didSet {
             self.applyStyle()
         }
     }
     
     /// The text color.
-    @IBInspectable public var labelTextColor: UIColor? {
+    @IBInspectable open var labelTextColor: UIColor? {
         didSet {
             self.applyStyle()
         }
     }
     
     /// The border color.
-    @IBInspectable public var labelBorderColor: UIColor? {
+    @IBInspectable open var labelBorderColor: UIColor? {
         didSet {
             self.applyStyle()
         }
     }
     
     /// The border width
-    @IBInspectable public var labelBorderWidth: CGFloat? {
+    @IBInspectable open var labelBorderWidth: CGFloat? {
         didSet {
             self.applyStyle()
         }
     }
     
-    override func applyStyle(style: ShapeStyle) {
+    override func applyStyle(_ style: ShapeStyle) {
         if self.label.superview == nil {
             self.addSubview(self.label)
         }

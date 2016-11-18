@@ -30,8 +30,8 @@
 import Foundation
 
 class PositionUpdateTimer {
-    private var timer: NSTimer?
-    private var updateBlock: (() -> Void)?
+    fileprivate var timer: Timer?
+    fileprivate var updateBlock: (() -> Void)?
     
     deinit {
         stop()
@@ -43,20 +43,20 @@ class PositionUpdateTimer {
         timer?.invalidate()
     }
     
-    func start(frequency: NSTimeInterval, updateBlock block: () -> Void) {
-        if let _timer = timer where _timer.valid {
+    func start(_ frequency: TimeInterval, updateBlock block: @escaping () -> Void) {
+        if let _timer = timer, _timer.isValid {
             return
         }
         
         self.updateBlock = block
         repeatTick(nil)
         
-        let newTimer = NSTimer(timeInterval: frequency, target: self, selector: #selector(PositionUpdateTimer.repeatTick), userInfo: nil, repeats: true)
+        let newTimer = Timer(timeInterval: frequency, target: self, selector: #selector(PositionUpdateTimer.repeatTick), userInfo: nil, repeats: true)
         self.timer   = newTimer
-        NSRunLoop.currentRunLoop().addTimer(newTimer, forMode: NSRunLoopCommonModes)
+        RunLoop.current.add(newTimer, forMode: RunLoopMode.commonModes)
     }
     
-    @objc func repeatTick(sender: AnyObject?) {
+    @objc func repeatTick(_ sender: AnyObject?) {
         self.updateBlock?()
     }
 }

@@ -30,12 +30,12 @@
 import UIKit
 
 @IBDesignable
-public class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
+open class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
 
     public override init(frame: CGRect) {
         var targetFrame = frame
-        if CGRectIsNull(frame) || frame.size.height == 0 || frame.size.width == 0 {
-            targetFrame = CGRectMake(0,0,90,30)
+        if frame.isNull || frame.size.height == 0 || frame.size.width == 0 {
+            targetFrame = CGRect(x: 0,y: 0,width: 90,height: 30)
         }
         super.init(frame: targetFrame)
         self.setupSlider()
@@ -46,7 +46,7 @@ public class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
         self.setupSlider()
     }
     
-    public var value: Double {
+    open var value: Double {
         get {
             return self.values[0]
         }
@@ -55,25 +55,25 @@ public class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
         }
     }
     
-    @IBInspectable public var thumbTintColor: UIColor? {
+    @IBInspectable open var thumbTintColor: UIColor? {
         didSet {
             self.applyThumbStyle(self.thumbStyle)
         }
     }
     
-    @IBInspectable public var minimumTrackTintColor: UIColor? {
+    @IBInspectable open var minimumTrackTintColor: UIColor? {
         didSet {
             self.applyStyle(self.getStyle())
         }
     }
     
-    @IBInspectable public var maximumTrackTintColor: UIColor? {
+    @IBInspectable open var maximumTrackTintColor: UIColor? {
         didSet {
             self.applyStyle(self.getStyle())
         }
     }
 
-    @IBInspectable public var maximumTrackText: String? = nil {
+    @IBInspectable open var maximumTrackText: String? = nil {
         didSet {
             self.applyStyle(self.getStyle())
         }
@@ -81,44 +81,44 @@ public class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
 
     func setupSlider() {
         self.continuous = true
-        self.style = .Tube
-        self.thumbStyle = .Tube
-        self.separatorStyle = .Box
+        self.style = .tube
+        self.thumbStyle = .tube
+        self.separatorStyle = .box
         self.minimumValue = 0
         self.maximumValue = 1
-        self.borderColor = UIColor.blackColor()
+        self.borderColor = UIColor.black
         self.borderWidth = 1.0
-        self.thumbSnappingBehaviour = .Freeform
+        self.thumbSnappingBehaviour = .freeform
         self.values = [0]
         self.sliderDelegate = self
     }
     
     // MARK: - GenericStyleSliderDelegate
     
-    public func iconOfThumb(index: Int) -> UIImage? {
+    open func iconOfThumb(_ index: Int) -> UIImage? {
         return nil
     }
     
-    public func textOfThumb(index: Int) -> String? {
+    open func textOfThumb(_ index: Int) -> String? {
         return nil
     }
     
-    public func textOfSeparatorLabel(index: Int) -> String? {
+    open func textOfSeparatorLabel(_ index: Int) -> String? {
         if index == self.values.count {
             return self.maximumTrackText
         }
         return nil
     }
     
-    public func colorOfThumb(index: Int) -> UIColor? {
+    open func colorOfThumb(_ index: Int) -> UIColor? {
         return self.thumbTintColor ?? self.getSliderAppearance().sliderThumbColor
     }
     
-    public func colorOfSeparatorLabel(index: Int) -> UIColor? {
+    open func colorOfSeparatorLabel(_ index: Int) -> UIColor? {
         return index == 0 ? self.minimumTrackTintColor ?? self.getSliderAppearance().sliderMinimumTrackColor : self.maximumTrackTintColor ?? self.getSliderAppearance().sliderMaximumTrackColor
     }
 
-    public func behaviourOfThumb(index: Int) -> StyledSliderThumbBehaviour? {
+    open func behaviourOfThumb(_ index: Int) -> StyledSliderThumbBehaviour? {
         return nil
     }
 

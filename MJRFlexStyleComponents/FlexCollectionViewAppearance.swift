@@ -29,9 +29,9 @@
 
 import UIKit
 
-public class FlexCollectionViewAppearance: FlexViewAppearance {
-    public var sectionHeaderAppearance = FlexLabelAppearance()
-    public var cellAppearance = FlexStyleCollectionCellAppearance()
-    public var viewAppearance = FlexViewAppearance()
+open class FlexCollectionViewAppearance: FlexViewAppearance {
+    open var sectionHeaderAppearance = FlexLabelAppearance()
+    open var cellAppearance = FlexStyleCollectionCellAppearance()
+    open var viewAppearance = FlexViewAppearance()
 
 }

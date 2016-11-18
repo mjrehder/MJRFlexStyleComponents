@@ -32,21 +32,21 @@ import StyledLabel
 
 public let flexStyleAppearance = FlexStyleAppearance()
 
-public class FlexStyleAppearance: FlexStyleContainerAppearance {
+open class FlexStyleAppearance: FlexStyleContainerAppearance {
 	static var initialized: Bool = false
     
-    public var viewAppearance = FlexViewAppearance()
-    public var collectionViewAppearance = FlexCollectionViewAppearance()
+    open var viewAppearance = FlexViewAppearance()
+    open var collectionViewAppearance = FlexCollectionViewAppearance()
     
     // Menus
-    public var menuBackgroundColor: UIColor = UIColor.blackColor()
-    public var menuItemStyle: ShapeStyle = .RoundedFixed(cornerRadius: 5.0)
-    public var menuInterItemSpacing: CGFloat = 5.0
-    public var menuItemSize: CGSize = CGSizeMake(18, 18)
-    public var menuSize: CGSize = CGSizeMake(100, 18)
-    public var menuStyle:FlexMenuStyle = .EquallySpaces(thumbPos: .Top)
+    open var menuBackgroundColor: UIColor = UIColor.black
+    open var menuItemStyle: ShapeStyle = .roundedFixed(cornerRadius: 5.0)
+    open var menuInterItemSpacing: CGFloat = 5.0
+    open var menuItemSize: CGSize = CGSize(width: 18, height: 18)
+    open var menuSize: CGSize = CGSize(width: 100, height: 18)
+    open var menuStyle:FlexMenuStyle = .equallySpaces(thumbPos: .top)
 
     public override init() {
-        super.init(style: .RoundedFixed(cornerRadius: 5.0), styleColor: .blackColor(), backgroundColor: .clearColor(), borderColor: .grayColor(), borderWidth: 0)
+        super.init(style: .roundedFixed(cornerRadius: 5.0), styleColor: .black, backgroundColor: .clear, borderColor: .gray, borderWidth: 0)
     }
 }

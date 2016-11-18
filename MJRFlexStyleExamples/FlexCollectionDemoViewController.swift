@@ -21,7 +21,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         self.automaticallyAdjustsScrollViewInsets = false
 
         self.demoCollectionView.flexCollectionDelegate = self
-        self.demoCollectionView.defaultCellSize = CGSizeMake(250, 64)
+        self.demoCollectionView.defaultCellSize = CGSize(width: 250, height: 64)
         self.demoCollectionView.headerText = "Collection Demo"
         
         // Setup demo style
@@ -31,8 +31,8 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         collectionDemoStyle.cellAppearance.controlStyleColor = UIColor.MKColor.Brown.P100
         collectionDemoStyle.sectionHeaderAppearance.styleColor = UIColor.MKColor.Brown.P300
         collectionDemoStyle.sectionHeaderAppearance.insets = UIEdgeInsetsMake(2, 2, 2, 2)
-        collectionDemoStyle.sectionHeaderAppearance.style = .RoundedFixed(cornerRadius: 5)
-        collectionDemoStyle.sectionHeaderAppearance.textFont = UIFont.systemFontOfSize(10)
+        collectionDemoStyle.sectionHeaderAppearance.style = .roundedFixed(cornerRadius: 5)
+        collectionDemoStyle.sectionHeaderAppearance.textFont = UIFont.systemFont(ofSize: 10)
         self.demoCollectionView.collectionViewAppearance = collectionDemoStyle
         
         let secRef = self.demoCollectionView.addSection(NSAttributedString(string: "Section 1"))
@@ -40,7 +40,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
 
         let cellAppearance = FlexStyleCollectionCellAppearance()
         cellAppearance.controlStyleColor = UIColor.MKColor.Brown.P100
-        cellAppearance.controlSize = CGSizeMake(32,32)
+        cellAppearance.controlSize = CGSize(width: 32,height: 32)
         cellAppearance.controlBorderWidth = 1.0
         cellAppearance.controlBorderColor = UIColor.MKColor.Brown.P500
         
@@ -54,7 +54,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         i0App.styleColor = UIColor.MKColor.Brown.P100
         i0App.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
         i0App.controlStyleColor = UIColor.MKColor.Brown.P100
-        i0App.textAppearance.style = .Box
+        i0App.textAppearance.style = .box
         item0.cellAppearance = i0App
         self.demoCollectionView.addItem(secRef, item: item0)
         
@@ -81,10 +81,10 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         let i2App = FlexStyleCollectionCellAppearance()
         i2App.styleColor = UIColor.MKColor.Brown.P100
         i2App.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
-        i2App.viewAppearance.headerPosition = .Left
-        i2App.viewAppearance.headerAppearance.textFont = UIFont.systemFontOfSize(10)
+        i2App.viewAppearance.headerPosition = .left
+        i2App.viewAppearance.headerAppearance.textFont = UIFont.systemFont(ofSize: 10)
         i2App.viewAppearance.contentInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-        i2App.viewAppearance.styleColor = .clearColor()
+        i2App.viewAppearance.styleColor = .clear
         item2.cellAppearance = i2App
         self.demoCollectionView.addItem(secRef, item: item2)
         
@@ -106,7 +106,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         siApp.styleColor = UIColor.MKColor.Brown.P100
         siApp.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
         siApp.controlStyleColor = UIColor.MKColor.Brown.P100
-        siApp.controlSize = CGSizeMake(48,32)
+        siApp.controlSize = CGSize(width: 48,height: 32)
         siApp.switchAppearance.switchOnColor = UIColor.MKColor.Brown.P200
         siApp.switchAppearance.switchThumbColor = UIColor.MKColor.Brown.P700
         switchItem.cellAppearance = siApp
@@ -143,29 +143,29 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         i6App.styleColor = UIColor.MKColor.Brown.P100
         i6App.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
         i6App.controlStyleColor = UIColor.MKColor.Brown.P100
-        i6App.textAppearance.style = .Box
+        i6App.textAppearance.style = .box
         item6.cellAppearance = i6App
         
-        let lsi = FlexLabel(frame: CGRectZero)
+        let lsi = FlexLabel(frame: CGRect.zero)
         lsi.label.text = "Menu"
-        lsi.style = .Rounded
+        lsi.style = .rounded
         lsi.styleColor = UIColor.MKColor.Brown.P700
-        lsi.labelTextColor = .whiteColor()
-        lsi.labelTextAlignment = .Center
-        let lsi2 = FlexLabel(frame: CGRectZero)
+        lsi.labelTextColor = .white
+        lsi.labelTextAlignment = .center
+        let lsi2 = FlexLabel(frame: CGRect.zero)
         lsi2.label.text = "Delete"
-        lsi2.style = .Rounded
+        lsi2.style = .rounded
         lsi2.styleColor = UIColor.MKColor.Brown.P200
-        lsi2.labelTextColor = .whiteColor()
-        lsi2.labelTextAlignment = .Center
+        lsi2.labelTextColor = .white
+        lsi2.labelTextAlignment = .center
         item6.swipeLeftMenuItems = [lsi, lsi2]
         
-        let lsi3 = FlexLabel(frame: CGRectZero)
+        let lsi3 = FlexLabel(frame: CGRect.zero)
         lsi3.label.text = "Options"
-        lsi3.style = .Rounded
+        lsi3.style = .rounded
         lsi3.styleColor = UIColor.MKColor.Brown.P500
-        lsi3.labelTextColor = .whiteColor()
-        lsi3.labelTextAlignment = .Center
+        lsi3.labelTextColor = .white
+        lsi3.labelTextAlignment = .center
         item6.swipeRightMenuItems = [lsi3]
 
         item6.swipeMenuDelegate = self
@@ -176,16 +176,16 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
     
     // MARK: - FlexCollectionItemSwipeDelegate
     
-    func swipeMenuSelected(item: FlexCollectionItem, menuItem: FlexLabel) {
+    func swipeMenuSelected(_ item: FlexCollectionItem, menuItem: FlexLabel) {
         NSLog("swipe menu item selected with text \(menuItem.label.text)")
     }
     
     // MARK: - FlexCollectionViewDelegate
     
-    func onFlexCollectionItemMoved(view: FlexCollectionView, item: FlexCollectionItem) {
+    func onFlexCollectionItemMoved(_ view: FlexCollectionView, item: FlexCollectionItem) {
     }
     
-    func onFlexCollectionItemSelected(view: FlexCollectionView, item: FlexCollectionItem) {
+    func onFlexCollectionItemSelected(_ view: FlexCollectionView, item: FlexCollectionItem) {
         NSLog("Item \(item.reference) selected")
     }
 }

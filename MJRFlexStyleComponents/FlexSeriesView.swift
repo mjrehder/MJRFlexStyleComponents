@@ -30,20 +30,20 @@
 import UIKit
 
 public protocol FlexSeriesViewDataSource {
-    func numberOfSeries(flexSeries: FlexSeriesView) -> Int
-    func numberOfDataPoints(flexSeries: FlexSeriesView) -> Int
-    func dataOfSeriesAtPoint(flexSeries: FlexSeriesView, series: Int, point: Int) -> Double
-    func colorOfSeries(flexSeries: FlexSeriesView, series: Int) -> UIColor
-    func dataChangedOfSeriesAtPoint(flexSeries: FlexSeriesView, series: Int, point: Int, data: Double)
+    func numberOfSeries(_ flexSeries: FlexSeriesView) -> Int
+    func numberOfDataPoints(_ flexSeries: FlexSeriesView) -> Int
+    func dataOfSeriesAtPoint(_ flexSeries: FlexSeriesView, series: Int, point: Int) -> Double
+    func colorOfSeries(_ flexSeries: FlexSeriesView, series: Int) -> UIColor
+    func dataChangedOfSeriesAtPoint(_ flexSeries: FlexSeriesView, series: Int, point: Int, data: Double)
 }
 
 @IBDesignable
-public class FlexSeriesView: UIControl {
+open class FlexSeriesView: UIControl {
     var sliders: [GenericStyleSlider] = []
     
     var bgShape = CAShapeLayer()
     
-    public var dataSource: FlexSeriesViewDataSource? {
+    open var dataSource: FlexSeriesViewDataSource? {
         didSet {
             self.initFlexSeries()
         }
@@ -54,7 +54,7 @@ public class FlexSeriesView: UIControl {
      
      The default value for this property is 0.
      */
-    @IBInspectable public var minimumValue: Double = 0 {
+    @IBInspectable open var minimumValue: Double = 0 {
         didSet {
             if minimumValue > maximumValue {
                 maximumValue = minimumValue
@@ -68,7 +68,7 @@ public class FlexSeriesView: UIControl {
      
      The default value of this property is 100.
      */
-    @IBInspectable public var maximumValue: Double = 100 {
+    @IBInspectable open var maximumValue: Double = 100 {
         didSet {
             if maximumValue < minimumValue {
                 minimumValue = maximumValue
@@ -82,7 +82,7 @@ public class FlexSeriesView: UIControl {
      
      The default is horizontal
      */
-    @IBInspectable public var direction: StyledControlDirection = .Horizontal {
+    @IBInspectable open var direction: StyledControlDirection = .horizontal {
         didSet {
             for slider in self.sliders {
                 slider.direction = direction
@@ -97,13 +97,13 @@ public class FlexSeriesView: UIControl {
      
      The default value of this property is 32pt
      */
-    @IBInspectable public var itemSize: CGFloat = 32 {
+    @IBInspectable open var itemSize: CGFloat = 32 {
         didSet {
             self.layoutSliders()
         }
     }
     
-    @IBInspectable public var thumbTintColor: UIColor? = UIColor.grayColor() {
+    @IBInspectable open var thumbTintColor: UIColor? = UIColor.gray {
         didSet {
             for slider in self.sliders {
                 slider.thumbBackgroundColor = self.thumbTintColor
@@ -113,8 +113,8 @@ public class FlexSeriesView: UIControl {
     
     public override init(frame: CGRect) {
         var targetFrame = frame
-        if CGRectIsNull(frame) {
-            targetFrame = CGRectMake(0,0,90,30)
+        if frame.isNull {
+            targetFrame = CGRect(x: 0,y: 0,width: 90,height: 30)
         }
         super.init(frame: targetFrame)
         self.initComponent()
@@ -125,11 +125,11 @@ public class FlexSeriesView: UIControl {
         self.initComponent()
     }
     
-    public func reloadData() {
+    open func reloadData() {
         self.initFlexSeries()
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         self.layoutSliders()
         self.applyBackgroundLayer()
@@ -150,8 +150,8 @@ public class FlexSeriesView: UIControl {
         self.applyBackgroundLayer()
     }
     
-    func getCalculationSizeValue(s: CGSize) -> CGFloat {
-        return self.direction == .Vertical ? s.width: s.height
+    func getCalculationSizeValue(_ s: CGSize) -> CGFloat {
+        return self.direction == .vertical ? s.width: s.height
     }
     
     func initFlexSeries() {
@@ -160,7 +160,7 @@ public class FlexSeriesView: UIControl {
             assert(nod > 1, "Number of data points must be larger than 1")
             
             for n in 0..<nod {
-                let rect = CGRectMake(0,0,20,20)
+                let rect = CGRect(x: 0,y: 0,width: 20,height: 20)
                 let slider = GenericStyleSlider(frame: rect)
                 slider.direction = self.direction
                 self.sliders.append(slider)
@@ -178,7 +178,7 @@ public class FlexSeriesView: UIControl {
     }
     
     func layoutSliders() {
-        if let nos = self.dataSource?.numberOfSeries(self), nod = self.dataSource?.numberOfDataPoints(self) {
+        if let nos = self.dataSource?.numberOfSeries(self), let nod = self.dataSource?.numberOfDataPoints(self) {
             assert(nos > 0, "Number of series must be larger than 0")
             assert(nod > 1, "Number of data points must be larger than 1")
 
@@ -189,21 +189,21 @@ public class FlexSeriesView: UIControl {
                 let slider = self.sliders[n]
                 let sliderOffset = self.itemSize + tSpacing
                 let rect: CGRect
-                if self.direction == .Horizontal {
-                    rect = CGRectMake(0, sliderOffset * CGFloat(n), self.bounds.size.width, self.itemSize)
+                if self.direction == .horizontal {
+                    rect = CGRect(x: 0, y: sliderOffset * CGFloat(n), width: self.bounds.size.width, height: self.itemSize)
                 }
                 else {
-                    rect = CGRectMake(sliderOffset * CGFloat(n), 0, self.itemSize, self.bounds.size.height)
+                    rect = CGRect(x: sliderOffset * CGFloat(n), y: 0, width: self.itemSize, height: self.bounds.size.height)
                 }
                 slider.frame = rect
-                slider.thumbRatio = self.direction == .Horizontal ? rect.size.height / rect.size.width : rect.size.width / rect.size.height
+                slider.thumbRatio = self.direction == .horizontal ? rect.size.height / rect.size.width : rect.size.width / rect.size.height
                 slider.layoutComponents()
             }
         }
     }
     
     func updateDataInSliders() {
-        if let nos = self.dataSource?.numberOfSeries(self), nod = self.dataSource?.numberOfDataPoints(self) {
+        if let nos = self.dataSource?.numberOfSeries(self), let nod = self.dataSource?.numberOfDataPoints(self) {
             for n in 0..<nod {
                 let slider = self.sliders[n]
                 var values: [Double] = []
@@ -216,15 +216,15 @@ public class FlexSeriesView: UIControl {
         }
     }
     
-    func initSlider(slider: GenericStyleSlider) {
-        slider.backgroundColor = .clearColor()
+    func initSlider(_ slider: GenericStyleSlider) {
+        slider.backgroundColor = .clear
         slider.continuous = true
-        slider.style = .Thumb
-        slider.thumbStyle = .Thumb
-        slider.separatorStyle = .Box
+        slider.style = .thumb
+        slider.thumbStyle = .thumb
+        slider.separatorStyle = .box
         slider.minimumValue = self.minimumValue
         slider.maximumValue = self.maximumValue
-        slider.thumbSnappingBehaviour = .Freeform
+        slider.thumbSnappingBehaviour = .freeform
         slider.thumbBackgroundColor = self.thumbTintColor
     }
     
@@ -250,27 +250,27 @@ public class FlexSeriesView: UIControl {
         return CGFloat(d)
     }
     
-    func addValueToCalculationPoint(p: CGPoint, val: CGFloat) -> CGPoint {
-        return self.direction == .Horizontal ? CGPointMake(p.x, p.y + val) : CGPointMake(p.x + val, p.y)
+    func addValueToCalculationPoint(_ p: CGPoint, val: CGFloat) -> CGPoint {
+        return self.direction == .horizontal ? CGPoint(x: p.x, y: p.y + val) : CGPoint(x: p.x + val, y: p.y)
     }
     
-    func prevBezierPathLine(series: Int, path: UIBezierPath) {
-        if self.direction == .Horizontal {
-            path.addLineToPoint(CGPointZero)
+    func prevBezierPathLine(_ series: Int, path: UIBezierPath) {
+        if self.direction == .horizontal {
+            path.addLine(to: CGPoint.zero)
         }
         else {
-            path.addLineToPoint(CGPointMake(self.bounds.size.width, 0))
+            path.addLine(to: CGPoint(x: self.bounds.size.width, y: 0))
         }
     }
 
-    func currentBezierPathLine(series: Int, path: UIBezierPath) {
+    func currentBezierPathLine(_ series: Int, path: UIBezierPath) {
         var points: [CGPoint] = []
         if let nod = self.dataSource?.numberOfDataPoints(self) {
             let tSize = self.getCalculationSizeValue(self.bounds.size)
             let tSpacing = (tSize - (self.itemSize * CGFloat(nod))) / CGFloat(nod-1)
             
-            if self.direction == .Vertical {
-                for n in (0..<nod).reverse() {
+            if self.direction == .vertical {
+                for n in (0..<nod).reversed() {
                     let slider = self.sliders[n]
                     let sliderOffset = (self.itemSize + tSpacing)*CGFloat(n)
                     let p = slider.thumbList.thumbs[series].center
@@ -287,52 +287,52 @@ public class FlexSeriesView: UIControl {
             }
         }
         let sp: CGPoint
-        if self.direction == .Horizontal {
-            sp = CGPointMake(points[0].x, 0)
+        if self.direction == .horizontal {
+            sp = CGPoint(x: points[0].x, y: 0)
         }
         else {
-            sp = CGPointMake(self.bounds.size.width, points[0].y)
+            sp = CGPoint(x: self.bounds.size.width, y: points[0].y)
         }
-        path.addLineToPoint(sp)
+        path.addLine(to: sp)
         BezierPathHelper.addBezierCurveWithPoints(path, points: points)
         let ep: CGPoint
-        if self.direction == .Horizontal {
-            ep = CGPointMake(points[points.count-1].x, self.bounds.size.height)
+        if self.direction == .horizontal {
+            ep = CGPoint(x: points[points.count-1].x, y: self.bounds.size.height)
         }
         else {
-            ep = CGPointMake(0, points[points.count-1].y)
+            ep = CGPoint(x: 0, y: points[points.count-1].y)
         }
-        path.addLineToPoint(ep)
+        path.addLine(to: ep)
     }
     
-    func prevBezierPathStart(series: Int) -> CGPoint {
-        if self.direction == .Horizontal {
-            return CGPointMake(0, self.bounds.size.height)
+    func prevBezierPathStart(_ series: Int) -> CGPoint {
+        if self.direction == .horizontal {
+            return CGPoint(x: 0, y: self.bounds.size.height)
         }
         else {
-            return CGPointZero
+            return CGPoint.zero
         }
     }
     
-    func createBezierPath(series: Int) -> UIBezierPath {
+    func createBezierPath(_ series: Int) -> UIBezierPath {
         let path = UIBezierPath()
         
         let sp = self.prevBezierPathStart(series)
-        path.moveToPoint(sp)
+        path.move(to: sp)
         self.prevBezierPathLine(series, path: path)
         self.currentBezierPathLine(series, path: path)
-        path.addLineToPoint(sp)
+        path.addLine(to: sp)
         return path
     }
     
     func createShapeLayer() -> CAShapeLayer {
         let shape = CAShapeLayer()
         if let nos = self.dataSource?.numberOfSeries(self) {
-            for s in (0..<nos).reverse() {
+            for s in (0..<nos).reversed() {
                 let subShape = CAShapeLayer()
                 let path = self.createBezierPath(s)
-                subShape.path = path.CGPath
-                subShape.fillColor = self.dataSource?.colorOfSeries(self, series: s).CGColor ?? UIColor.clearColor().CGColor
+                subShape.path = path.cgPath
+                subShape.fillColor = self.dataSource?.colorOfSeries(self, series: s).cgColor ?? UIColor.clear.cgColor
                 shape.addSublayer(subShape)
             }
         }

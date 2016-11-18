@@ -30,15 +30,15 @@
 import UIKit
 import StyledLabel
 
-public class FlexLabelAppearance: FlexStyleBaseAppearance {
-    public var textColor = UIColor.whiteColor()
-    public var textFont = UIFont.boldSystemFontOfSize(12.0)
-    public var size: CGFloat = 18
-    public var textAlignment: NSTextAlignment = .Center
-    public var insets: UIEdgeInsets = UIEdgeInsetsZero
+open class FlexLabelAppearance: FlexStyleBaseAppearance {
+    open var textColor = UIColor.white
+    open var textFont = UIFont.boldSystemFont(ofSize: 12.0)
+    open var size: CGFloat = 18
+    open var textAlignment: NSTextAlignment = .center
+    open var insets: UIEdgeInsets = UIEdgeInsets.zero
     
     public override init() {
-        super.init(style: .Box, styleColor: .clearColor(), backgroundColor: .grayColor(), borderColor: .grayColor(), borderWidth: 0.0)
+        super.init(style: .box, styleColor: .clear, backgroundColor: .gray, borderColor: .gray, borderWidth: 0.0)
     }
     
     public init(style: ShapeStyle, textColor: UIColor, textFont: UIFont, textAlignment: NSTextAlignment, size: CGFloat, insets: UIEdgeInsets, backgroundColor: UIColor, borderColor: UIColor, borderWidth: CGFloat) {
@@ -48,6 +48,6 @@ public class FlexLabelAppearance: FlexStyleBaseAppearance {
         self.textAlignment = textAlignment
         self.insets = insets
         
-        super.init(style: style, styleColor: .clearColor(), backgroundColor: backgroundColor, borderColor: borderColor, borderWidth: borderWidth)
+        super.init(style: style, styleColor: .clear, backgroundColor: backgroundColor, borderColor: borderColor, borderWidth: borderWidth)
     }
 }

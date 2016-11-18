@@ -29,23 +29,23 @@
 
 import UIKit
 
-public class FlexSwitchCollectionViewCell: FlexBaseCollectionViewCell, FlexSwitchDelegate {
+open class FlexSwitchCollectionViewCell: FlexBaseCollectionViewCell, FlexSwitchDelegate {
     var flexSwitch: FlexSwitch?
 
-    public override func initialize() {
+    open override func initialize() {
         super.initialize()
         
         if let pcv = self.flexContentView {
             self.flexSwitch = FlexSwitch()
             if let fs = self.flexSwitch {
-                fs.hidden = true
+                fs.isHidden = true
                 fs.switchDelegate = self
                 pcv.addSubview(fs)
             }
         }
     }
     
-    override public var cellAppearance: FlexStyleCollectionCellAppearance? {
+    override open var cellAppearance: FlexStyleCollectionCellAppearance? {
         didSet {
             self.flexContentView?.flexViewAppearance = cellAppearance?.viewAppearance
             self.applyTextAppearance()
@@ -60,7 +60,7 @@ public class FlexSwitchCollectionViewCell: FlexBaseCollectionViewCell, FlexSwitc
         }
     }
     
-    public func layoutSwitchView(item: FlexSwitchCollectionItem, area: CGRect) -> CGRect {
+    open func layoutSwitchView(_ item: FlexSwitchCollectionItem, area: CGRect) -> CGRect {
         var remainingCellArea = area
         
         if let fs = self.flexSwitch {
@@ -68,27 +68,27 @@ public class FlexSwitchCollectionViewCell: FlexBaseCollectionViewCell, FlexSwitc
             let controlInsets = appe.controlInsets
             let controlSize = appe.controlSize
             
-            let imageViewRect = CGRect(origin: CGPointZero, size: controlSize)
+            let imageViewRect = CGRect(origin: CGPoint.zero, size: controlSize)
 
             fs.switchAppearance = appe.switchAppearance
             fs.style = appe.controlStyle
             fs.thumbStyle = appe.controlStyle
             fs.styleColor = appe.controlStyleColor
             
-            fs.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (controlInsets.right + controlSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - controlSize.height) * 0.5, controlSize.width, controlSize.height)
-            fs.hidden = false
+            fs.frame = CGRect(x: remainingCellArea.origin.x + (remainingCellArea.size.width - (controlInsets.right + controlSize.width)), y: remainingCellArea.origin.y + (remainingCellArea.size.height - controlSize.height) * 0.5, width: controlSize.width, height: controlSize.height)
+            fs.isHidden = false
             fs.setOn(item.value)
             let switchTotalWidth = imageViewRect.size.width + controlInsets.left + controlInsets.right
             remainingCellArea = remainingCellArea.insetBy(dx: switchTotalWidth*0.5, dy: 0).offsetBy(dx: -switchTotalWidth*0.5, dy: 0)
         }
         else {
-            self.flexSwitch?.hidden = true
+            self.flexSwitch?.isHidden = true
         }
         return remainingCellArea
     }
     
-    override public func applyStyles() {
-        if let item = self.item as? FlexSwitchCollectionItem, fcv = self.flexContentView {
+    override open func applyStyles() {
+        if let item = self.item as? FlexSwitchCollectionItem, let fcv = self.flexContentView {
             fcv.headerAttributedText = item.title
             self.applySelectionStyles(fcv)
             var remainingCellArea = fcv.getViewRect()
@@ -101,9 +101,9 @@ public class FlexSwitchCollectionViewCell: FlexBaseCollectionViewCell, FlexSwitc
     
     // MARK: - FlexSwitchDelegate
     
-    public func switchStateChanged(flexSwitch: FlexSwitch, on: Bool) {
+    open func switchStateChanged(_ flexSwitch: FlexSwitch, on: Bool) {
         if let item = self.item as? FlexSwitchCollectionItem {
-            item.valueChangedHandler?(value: on)
+            item.valueChangedHandler?(on)
         }
     }
 }

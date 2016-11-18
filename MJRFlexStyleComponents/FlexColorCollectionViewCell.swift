@@ -30,16 +30,16 @@
 import UIKit
 import StyledLabel
 
-public class FlexColorCollectionViewCell: FlexBaseCollectionViewCell {
+open class FlexColorCollectionViewCell: FlexBaseCollectionViewCell {
     var colorView: UIView?
 
-    public override func initialize() {
+    open override func initialize() {
         super.initialize()
         
         if let pcv = self.flexContentView {
             self.colorView = UIView()
             if let cv = self.colorView {
-                cv.hidden = true
+                cv.isHidden = true
                 pcv.addSubview(cv)
                 let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.colorViewTouched(_:)))
                 cv.addGestureRecognizer(tapGest)
@@ -47,13 +47,13 @@ public class FlexColorCollectionViewCell: FlexBaseCollectionViewCell {
         }
     }
     
-    public func colorViewTouched(recognizer: UITapGestureRecognizer) {
+    open func colorViewTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item as? FlexColorCollectionItem {
             item.colorActionHandler?()
         }
     }
     
-    public func layoutColorView(item: FlexColorCollectionItem, area: CGRect) -> CGRect {
+    open func layoutColorView(_ item: FlexColorCollectionItem, area: CGRect) -> CGRect {
         var remainingCellArea = area
         
         if let cv = self.colorView {
@@ -61,24 +61,24 @@ public class FlexColorCollectionViewCell: FlexBaseCollectionViewCell {
             let controlInsets = appe.controlInsets
             let controlSize = appe.controlSize
 
-            let imageViewRect = CGRect(origin: CGPointZero, size: controlSize)
+            let imageViewRect = CGRect(origin: CGPoint.zero, size: controlSize)
             let colorLayer = StyledShapeLayer.createShape(appe.controlStyle, bounds: imageViewRect, color: item.color, borderColor: appe.controlBorderColor, borderWidth: appe.controlBorderWidth)
 
-            cv.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (controlInsets.right + controlSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - controlSize.height) * 0.5, controlSize.width, controlSize.height)
+            cv.frame = CGRect(x: remainingCellArea.origin.x + (remainingCellArea.size.width - (controlInsets.right + controlSize.width)), y: remainingCellArea.origin.y + (remainingCellArea.size.height - controlSize.height) * 0.5, width: controlSize.width, height: controlSize.height)
             cv.layer.sublayers?.removeAll()
             cv.layer.addSublayer(colorLayer)
-            cv.hidden = false
+            cv.isHidden = false
             let colorLayerTotalWidth = imageViewRect.size.width + controlInsets.left + controlInsets.right
             remainingCellArea = remainingCellArea.insetBy(dx: colorLayerTotalWidth*0.5, dy: 0).offsetBy(dx: -colorLayerTotalWidth*0.5, dy: 0)
         }
         else {
-            self.colorView?.hidden = true
+            self.colorView?.isHidden = true
         }
         return remainingCellArea
     }
     
-    override public func applyStyles() {
-        if let item = self.item as? FlexColorCollectionItem, fcv = self.flexContentView {
+    override open func applyStyles() {
+        if let item = self.item as? FlexColorCollectionItem, let fcv = self.flexContentView {
             fcv.headerAttributedText = item.title
             self.applySelectionStyles(fcv)
             var remainingCellArea = fcv.getViewRect()

@@ -29,7 +29,7 @@
 
 import UIKit
 
-public class FlexMenuItem {
+open class FlexMenuItem {
     let title: String
     let titleShortcut: String
     let color: UIColor

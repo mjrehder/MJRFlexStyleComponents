@@ -29,9 +29,9 @@
 
 import UIKit
 
-public class FlexImageCollectionItem: FlexCollectionItem {
-    public var image: UIImage?
-    public var imageFit: FlexImageShapeFit = .ScaleToFit
+open class FlexImageCollectionItem: FlexCollectionItem {
+    open var image: UIImage?
+    open var imageFit: FlexImageShapeFit = .scaleToFit
 
     public init(reference: String, image: UIImage? = nil, title: NSAttributedString? = nil) {
         self.image = image

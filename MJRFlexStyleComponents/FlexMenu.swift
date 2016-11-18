@@ -31,35 +31,35 @@ import UIKit
 import StyledLabel
 
 public protocol FlexMenuDataSource {
-    func numberOfMenuItems(menu: FlexMenu) -> Int
-    func menuItemForIndex(menu: FlexMenu, index: Int) -> FlexMenuItem
-    func menuItemSelected(menu: FlexMenu, index: Int)
+    func numberOfMenuItems(_ menu: FlexMenu) -> Int
+    func menuItemForIndex(_ menu: FlexMenu, index: Int) -> FlexMenuItem
+    func menuItemSelected(_ menu: FlexMenu, index: Int)
 }
 
 public enum FlexMenuThumbPosition {
-    case Left
-    case Top
-    case Right
-    case Bottom
+    case left
+    case top
+    case right
+    case bottom
 }
 
 public enum FlexMenuItemGravity {
-    case Normal
-    case Left
-    case Right
+    case normal
+    case left
+    case right
 }
 
 public enum FlexMenuStyle {
-    case Compact
-    case EquallySpaces(thumbPos: FlexMenuThumbPosition)
-    case DynamicallySpaces(thumbPos: FlexMenuThumbPosition)
+    case compact
+    case equallySpaces(thumbPos: FlexMenuThumbPosition)
+    case dynamicallySpaces(thumbPos: FlexMenuThumbPosition)
 }
 
 @IBDesignable
-public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, GenericStyleSliderDelegate, GenericStyleSliderSeparatorTouchDelegate {
-    private var touchedMenuItem: Int?
+open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, GenericStyleSliderDelegate, GenericStyleSliderSeparatorTouchDelegate {
+    fileprivate var touchedMenuItem: Int?
     
-    public var menuDataSource: FlexMenuDataSource? {
+    open var menuDataSource: FlexMenuDataSource? {
         didSet {
             self.reloadMenu()
         }
@@ -68,7 +68,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
     /*
      Set the menu style. The default is the compact style, which uses sliding thumbs to reduce the size of the menu.
      */
-    @IBInspectable public var menuStyle: FlexMenuStyle = .Compact {
+    @IBInspectable open var menuStyle: FlexMenuStyle = .compact {
         didSet {
             self.reloadMenu()
         }
@@ -77,7 +77,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
     /*
      Set the menu item style. The default is the Box style. This is only applied when not using the Compact menu style
      */
-    @IBInspectable public var menuItemStyle: ShapeStyle = .Box {
+    @IBInspectable open var menuItemStyle: ShapeStyle = .box {
         didSet {
             self.setNeedsLayout()
         }
@@ -86,7 +86,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
     /*
      Set the menu inter item spacing. The default value is 0. This is only applied when not using the Compact menu style
      */
-    @IBInspectable public var menuInterItemSpacing: CGFloat = 0 {
+    @IBInspectable open var menuInterItemSpacing: CGFloat = 0 {
         didSet {
             self.setNeedsLayout()
         }
@@ -96,7 +96,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
      Set the menu item gravity. The default value is 'normal'. This is applied when using vertical direction to rotate the labels and
      should be set to other than 'normal' when the menu is in vertical orientation.
      */
-    @IBInspectable public var menuItemGravity: FlexMenuItemGravity = .Normal {
+    @IBInspectable open var menuItemGravity: FlexMenuItemGravity = .normal {
         didSet {
             self.setNeedsLayout()
         }
@@ -104,8 +104,8 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
     
     public override init(frame: CGRect) {
         var targetFrame = frame
-        if CGRectIsNull(frame) || frame.size.height == 0 || frame.size.width == 0 {
-            targetFrame = CGRectMake(0,0,90,30)
+        if frame.isNull || frame.size.height == 0 || frame.size.width == 0 {
+            targetFrame = CGRect(x: 0,y: 0,width: 90,height: 30)
         }
         super.init(frame: targetFrame)
         self.initMenu()
@@ -118,21 +118,21 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         self.setupMenuGestures()
     }
 
-    public func reloadMenu() {
+    open func reloadMenu() {
         self.setupMenu()
     }
     
     func initMenu() {
-        self.backgroundColor = .clearColor()
+        self.backgroundColor = .clear
         self.continuous = false
-        self.style = .Rounded
-        self.thumbStyle = .Rounded
-        self.separatorStyle = .Box
+        self.style = .rounded
+        self.thumbStyle = .rounded
+        self.separatorStyle = .box
         self.minimumValue = 0
         self.maximumValue = 1
-        self.thumbSnappingBehaviour = .SnapToLowerAndHigher
+        self.thumbSnappingBehaviour = .snapToLowerAndHigher
         
-        self.addTarget(self, action: #selector(FlexMenu.notifyValueChanged), forControlEvents: .ValueChanged)
+        self.addTarget(self, action: #selector(FlexMenu.notifyValueChanged), for: .valueChanged)
     }
     
     func notifyValueChanged() {
@@ -154,7 +154,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
     
     // MARK: - Public functions
     
-    public func selectedItem() -> Int {
+    open func selectedItem() -> Int {
         for idx in 1..<self.values.count {
             if self.values[idx] >= 0.5 {
                 return idx-1
@@ -163,7 +163,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         return self.values.count-1
     }
     
-    public func setSelectedItem(index: Int) {
+    open func setSelectedItem(_ index: Int) {
         let selIdx = self.selectedItem()
         if selIdx != index {
             var newVals: [Double] = []
@@ -181,13 +181,13 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
     
     override func layoutComponents() {
         switch self.menuStyle {
-        case .Compact:
+        case .compact:
             super.layoutComponents()
-        case .EquallySpaces(let thumbPos):
+        case .equallySpaces(let thumbPos):
             let miFrames = self.getEquallySpacedMenuItemFrames()
             self.layoutNonCompactMenuItems(thumbPos, menuItemFrames: miFrames)
             self.applyStylesAndText()
-        case .DynamicallySpaces(let thumbPos):
+        case .dynamicallySpaces(let thumbPos):
             let miFrames = self.getDynamicallySpacedMenuItemFrames()
             self.layoutNonCompactMenuItems(thumbPos, menuItemFrames: miFrames)
             self.applyStylesAndText()
@@ -212,11 +212,11 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
             let itemOffset = itemExt + self.menuInterItemSpacing
             for i in 0..<numSep {
                 let rect: CGRect
-                if self.direction == .Horizontal {
-                    rect = CGRectMake(CGFloat(i) * itemOffset, 0, itemExt, self.bounds.height)
+                if self.direction == .horizontal {
+                    rect = CGRect(x: CGFloat(i) * itemOffset, y: 0, width: itemExt, height: self.bounds.height)
                 }
                 else {
-                    rect = CGRectMake(0, CGFloat(i) * itemOffset, self.bounds.width, itemExt)
+                    rect = CGRect(x: 0, y: CGFloat(i) * itemOffset, width: self.bounds.width, height: itemExt)
                 }
                 rects.append(rect)
             }
@@ -224,7 +224,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         return rects
     }
     
-    private func getTotalTextWidth() -> CGFloat {
+    fileprivate func getTotalTextWidth() -> CGFloat {
         var totalWidth: CGFloat = 0
         if let ds = self.menuDataSource {
             let numSep = ds.numberOfMenuItems(self)
@@ -259,11 +259,11 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
                 }
                 
                 let rect: CGRect
-                if self.direction == .Horizontal {
-                    rect = CGRectMake(lastOffset, 0, itemExt, self.bounds.height)
+                if self.direction == .horizontal {
+                    rect = CGRect(x: lastOffset, y: 0, width: itemExt, height: self.bounds.height)
                 }
                 else {
-                    rect = CGRectMake(0, lastOffset, self.bounds.width, itemExt)
+                    rect = CGRect(x: 0, y: lastOffset, width: self.bounds.width, height: itemExt)
                 }
                 rects.append(rect)
                 
@@ -273,19 +273,19 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         return rects
     }
 
-    private func separatorLabelRotation() -> CGFloat {
+    fileprivate func separatorLabelRotation() -> CGFloat {
         switch self.menuItemGravity {
-        case .Normal:
+        case .normal:
             return 0
-        case .Left:
+        case .left:
             return CGFloat(M_PI_2)
-        case .Right:
+        case .right:
             return -CGFloat(M_PI_2)
             
         }
     }
     
-    func layoutNonCompactMenuItems(thumbPos: FlexMenuThumbPosition, menuItemFrames: [CGRect]) {
+    func layoutNonCompactMenuItems(_ thumbPos: FlexMenuThumbPosition, menuItemFrames: [CGRect]) {
         if let ds = self.menuDataSource {
             for idx in 0..<ds.numberOfMenuItems(self) {
                 let sep = self.separatorForThumb(idx)
@@ -294,7 +294,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
                 
                 let ts = self.getThumbSize()
                 let tp = self.thumbPosInsideSpacedRect(thumb, targetRect: miFrame, thumbPos: thumbPos)
-                let tr = CGRectMake(tp.x, tp.y, ts.width, ts.height)
+                let tr = CGRect(x: tp.x, y: tp.y, width: ts.width, height: ts.height)
                 thumb.frame = tr
                 
                 let sepRect = self.separatorRectInsideSpacedRect(thumb, targetRect: miFrame, thumbPos: thumbPos)
@@ -304,40 +304,40 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         }
     }
     
-    func thumbPosInsideSpacedRect(thumb: StyledSliderThumb, targetRect: CGRect, thumbPos: FlexMenuThumbPosition) -> CGPoint {
-        var tPos = CGPointZero
+    func thumbPosInsideSpacedRect(_ thumb: StyledSliderThumb, targetRect: CGRect, thumbPos: FlexMenuThumbPosition) -> CGPoint {
+        var tPos = CGPoint.zero
         let ts = self.getThumbSize()
         let sic = self.direction.principalSize(targetRect.size)
         let sicNP = self.direction.nonPrincipalSize(targetRect.size)
         let tSic = self.direction.principalSize(ts)
         let tSicNP = self.direction.nonPrincipalSize(ts)
         // Center the icon, if there is an empty text
-        if let sepText = self.sliderDelegate?.textOfSeparatorLabel(thumb.index+1) where sepText == "" {
-            tPos = CGPointMake((sic - tSic) * 0.5, (sicNP - tSicNP) * 0.5)
+        if let sepText = self.sliderDelegate?.textOfSeparatorLabel(thumb.index+1), sepText == "" {
+            tPos = CGPoint(x: (sic - tSic) * 0.5, y: (sicNP - tSicNP) * 0.5)
         }
         else {
             switch thumbPos {
-            case .Left:
-                tPos = CGPointMake(0, (sicNP - tSicNP) * 0.5)
-            case .Right:
-                tPos = CGPointMake(sic - tSic, (sicNP - tSicNP) * 0.5)
-            case .Top:
-                tPos = CGPointMake((sic - tSic) * 0.5, 0.0)
-            case .Bottom:
-                tPos = CGPointMake((sic - tSic) * 0.5, sicNP - tSicNP)
+            case .left:
+                tPos = CGPoint(x: 0, y: (sicNP - tSicNP) * 0.5)
+            case .right:
+                tPos = CGPoint(x: sic - tSic, y: (sicNP - tSicNP) * 0.5)
+            case .top:
+                tPos = CGPoint(x: (sic - tSic) * 0.5, y: 0.0)
+            case .bottom:
+                tPos = CGPoint(x: (sic - tSic) * 0.5, y: sicNP - tSicNP)
             }
         }
-        if self.direction == .Vertical && self.menuItemGravity == .Right {
-            tPos = CGPointMake(tPos.y, (sic - tSic) - tPos.x)
+        if self.direction == .vertical && self.menuItemGravity == .right {
+            tPos = CGPoint(x: tPos.y, y: (sic - tSic) - tPos.x)
         }
-        else if self.direction == .Vertical && self.menuItemGravity == .Left {
-            tPos = CGPointMake((sicNP - tSicNP) - tPos.y, tPos.x)
+        else if self.direction == .vertical && self.menuItemGravity == .left {
+            tPos = CGPoint(x: (sicNP - tSicNP) - tPos.y, y: tPos.x)
         }
-        tPos = CGPointMake(tPos.x + targetRect.origin.x, tPos.y + targetRect.origin.y)
+        tPos = CGPoint(x: tPos.x + targetRect.origin.x, y: tPos.y + targetRect.origin.y)
         return tPos
     }
     
-    func separatorRectInsideSpacedRect(thumb: StyledSliderThumb, targetRect: CGRect, thumbPos: FlexMenuThumbPosition) -> CGRect {
+    func separatorRectInsideSpacedRect(_ thumb: StyledSliderThumb, targetRect: CGRect, thumbPos: FlexMenuThumbPosition) -> CGRect {
         var tRect = targetRect
         let ts = self.getThumbSize()
         let tSic = self.direction.principalSize(ts)
@@ -347,39 +347,39 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
             return targetRect
         }
         else {
-            if self.direction == .Vertical && self.menuItemGravity == .Right {
+            if self.direction == .vertical && self.menuItemGravity == .right {
                 switch thumbPos {
-                case .Left:
+                case .left:
                     tRect = tRect.insetBy(dx: 0, dy: tSicNP * 0.5).offsetBy(dx: 0, dy: tSicNP * -0.5)
-                case .Right:
+                case .right:
                     tRect = tRect.insetBy(dx: 0, dy: tSicNP * 0.5).offsetBy(dx: 0, dy: tSicNP * 0.5)
-                case .Top:
+                case .top:
                     tRect = tRect.insetBy(dx: tSic * 0.5, dy: 0).offsetBy(dx: tSic * 0.5, dy: 0)
-                case .Bottom:
+                case .bottom:
                     tRect = tRect.insetBy(dx: tSic * 0.5, dy: 0).offsetBy(dx: tSic * -0.5, dy: 0)
                 }
             }
-            else if self.direction == .Vertical && self.menuItemGravity == .Left {
+            else if self.direction == .vertical && self.menuItemGravity == .left {
                 switch thumbPos {
-                case .Left:
+                case .left:
                     tRect = tRect.insetBy(dx: 0, dy: tSicNP * 0.5).offsetBy(dx: 0, dy: tSicNP * 0.5)
-                case .Right:
+                case .right:
                     tRect = tRect.insetBy(dx: 0, dy: tSicNP * 0.5).offsetBy(dx: 0, dy: tSicNP * -0.5)
-                case .Top:
+                case .top:
                     tRect = tRect.insetBy(dx: tSic * 0.5, dy: 0).offsetBy(dx: tSic * -0.5, dy: 0)
-                case .Bottom:
+                case .bottom:
                     tRect = tRect.insetBy(dx: tSic * 0.5, dy: 0).offsetBy(dx: tSic * 0.5, dy: 0)
                 }
             }
             else {
                 switch thumbPos {
-                case .Left:
+                case .left:
                     tRect = tRect.insetBy(dx: tSic * 0.5, dy: 0).offsetBy(dx: tSic * 0.5, dy: 0)
-                case .Right:
+                case .right:
                     tRect = tRect.insetBy(dx: tSic * 0.5, dy: 0).offsetBy(dx: tSic * -0.5, dy: 0)
-                case .Top:
+                case .top:
                     tRect = tRect.insetBy(dx: 0, dy: tSicNP * 0.5).offsetBy(dx: 0, dy: tSicNP * 0.5)
-                case .Bottom:
+                case .bottom:
                     tRect = tRect.insetBy(dx: 0, dy: tSicNP * 0.5).offsetBy(dx: 0, dy: tSicNP * -0.5)
                 }
             }
@@ -387,18 +387,18 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         return tRect
     }
     
-    private func getActiveMenuFrames() -> [CGRect]? {
+    fileprivate func getActiveMenuFrames() -> [CGRect]? {
         switch self.menuStyle {
-        case .Compact:
+        case .compact:
             return nil
-        case .EquallySpaces(_):
+        case .equallySpaces(_):
             return self.getEquallySpacedMenuItemFrames()
-        case .DynamicallySpaces(_):
+        case .dynamicallySpaces(_):
             return self.getDynamicallySpacedMenuItemFrames()
         }
     }
     
-    override func createSeparatorLayer(layerRect: CGRect) -> CAShapeLayer {
+    override func createSeparatorLayer(_ layerRect: CGRect) -> CAShapeLayer {
         var rectColors: [(CGRect, UIColor)] = []
         if let menuItemFrames = self.getActiveMenuFrames() {
             // Add layer with separator background colors
@@ -406,7 +406,7 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
                 for idx in 0..<ds.numberOfMenuItems(self) {
                     let miFrame = menuItemFrames[idx]
                     let bgColor = self.colorOfSeparatorLabel(idx+1) ?? separatorBackgroundColor
-                    rectColors.append((miFrame, bgColor ?? .clearColor()))
+                    rectColors.append((miFrame, bgColor ?? .clear))
                 }
             }
         }
@@ -418,9 +418,9 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         return sepLayer
     }
 
-    override func sliderPanned(sender: UIPanGestureRecognizer) {
+    override func sliderPanned(_ sender: UIPanGestureRecognizer) {
         switch self.menuStyle {
-        case .Compact:
+        case .compact:
             super.sliderPanned(sender)
         default:
             break
@@ -433,16 +433,16 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         
     }
 
-    public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if let menuFrames = self.getActiveMenuFrames(), touch = touches.first {
-            let p = touch.locationInView(self)
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let menuFrames = self.getActiveMenuFrames(), let touch = touches.first {
+            let p = touch.location(in: self)
             var index = 0
             for f in menuFrames {
-                if CGRectContainsPoint(f, p) {
+                if f.contains(p) {
                     self.touchedMenuItem = index
                     self.layoutComponents()
-                    let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
-                    dispatch_after(delayTime, dispatch_get_main_queue()) {
+                    let delayTime = DispatchTime.now() + Double(Int64(0.1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                    DispatchQueue.main.asyncAfter(deadline: delayTime) {
                         self.touchedMenuItem = nil
                         self.layoutComponents()
                     }
@@ -453,14 +453,14 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
         }
     }
     
-    func menuTouched(sender: UITapGestureRecognizer) {
+    func menuTouched(_ sender: UITapGestureRecognizer) {
         if let menuFrames = self.getActiveMenuFrames() {
-            let p = sender.locationInView(self)
+            let p = sender.location(in: self)
             var index = 0
             for f in menuFrames {
-                if CGRectContainsPoint(f, p) {
+                if f.contains(p) {
                     switch sender.state {
-                    case .Ended:
+                    case .ended:
                         self.onSeparatorTouchEnded(index+1)
                     default:
                         break
@@ -474,14 +474,14 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
     
     // MARK: - GenericStyleSliderTouchDelegate
     
-    public func onThumbTouchEnded(index: Int) {
+    open func onThumbTouchEnded(_ index: Int) {
         self.setSelectedItem(index)
         self.notifyValueChanged()
     }
     
     // MARK: - GenericStyleSliderSeparatorTouchDelegate
     
-    public func onSeparatorTouchEnded(index: Int) {
+    open func onSeparatorTouchEnded(_ index: Int) {
         if index > 0 {
             self.setSelectedItem(index-1)
             self.notifyValueChanged()
@@ -490,38 +490,38 @@ public class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Gene
     
     // MARK: - GenericStyleSliderDelegate
     
-    public func iconOfThumb(index: Int) -> UIImage? {
+    open func iconOfThumb(_ index: Int) -> UIImage? {
         return self.menuDataSource?.menuItemForIndex(self, index: index).thumbIcon
     }
     
-    public func textOfThumb(index: Int) -> String? {
+    open func textOfThumb(_ index: Int) -> String? {
         return self.menuDataSource?.menuItemForIndex(self, index: index).titleShortcut
     }
     
-    public func textOfSeparatorLabel(index: Int) -> String? {
+    open func textOfSeparatorLabel(_ index: Int) -> String? {
         if index > 0 {
             return self.menuDataSource?.menuItemForIndex(self, index: index-1).title
         }
         return nil
     }
     
-    public func colorOfThumb(index: Int) -> UIColor? {
+    open func colorOfThumb(_ index: Int) -> UIColor? {
         return self.menuDataSource?.menuItemForIndex(self, index: index).thumbColor
     }
     
-    public func colorOfSeparatorLabel(index: Int) -> UIColor? {
+    open func colorOfSeparatorLabel(_ index: Int) -> UIColor? {
         if index > 0 {
             let color = self.menuDataSource?.menuItemForIndex(self, index: index-1).color
-            if let si = self.touchedMenuItem where si == index - 1 {
-                return color?.lighterColor()
+            if let si = self.touchedMenuItem, si == index - 1 {
+                return color?.lighter()
             }
             return color
         }
         return nil
     }
     
-    public func behaviourOfThumb(index: Int) -> StyledSliderThumbBehaviour? {
-        return index == 0 ? .FixateToLower : .SnapToLowerAndHigher
+    open func behaviourOfThumb(_ index: Int) -> StyledSliderThumbBehaviour? {
+        return index == 0 ? .fixateToLower : .snapToLowerAndHigher
     }
 
 }

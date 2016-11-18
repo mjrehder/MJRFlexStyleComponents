@@ -30,13 +30,13 @@
 import UIKit
 import StyledLabel
 
-public class ImageShapeLayerFactory {
+open class ImageShapeLayerFactory {
 
-    public static func createImageShapeInView(imageViewRect: CGRect, viewBounds: CGRect, image: UIImage?, viewStyle: ShapeStyle, imageStyle: ShapeStyle, imageFitting: FlexImageShapeFit) -> CALayer {
+    open static func createImageShapeInView(_ imageViewRect: CGRect, viewBounds: CGRect, image: UIImage?, viewStyle: ShapeStyle, imageStyle: ShapeStyle, imageFitting: FlexImageShapeFit) -> CALayer {
         let bgLayer = CALayer()
         bgLayer.frame = imageViewRect
-        let clipRect = CGRectOffset(viewBounds, -imageViewRect.origin.x, -imageViewRect.origin.y)
-        let maskShapeLayer = StyledShapeLayer.createShape(viewStyle, bounds: clipRect, color: UIColor.blackColor())
+        let clipRect = viewBounds.offsetBy(dx: -imageViewRect.origin.x, dy: -imageViewRect.origin.y)
+        let maskShapeLayer = StyledShapeLayer.createShape(viewStyle, bounds: clipRect, color: UIColor.black)
         bgLayer.mask = maskShapeLayer
         
         if let img = image {
@@ -47,26 +47,26 @@ public class ImageShapeLayerFactory {
         return bgLayer
     }
     
-    public static func createImageShape(imageViewRect: CGRect, image: UIImage, imageStyle: ShapeStyle, imageFitting: FlexImageShapeFit) -> CALayer {
+    open static func createImageShape(_ imageViewRect: CGRect, image: UIImage, imageStyle: ShapeStyle, imageFitting: FlexImageShapeFit) -> CALayer {
         let imgLayer = CALayer()
-        var imgRect = CGRect(origin: CGPointZero, size: imageViewRect.size)
+        var imgRect = CGRect(origin: CGPoint.zero, size: imageViewRect.size)
         switch imageFitting {
-        case .Center:
+        case .center:
             let iSize = image.size
-            let bgOffset = CGPointMake((imgRect.size.width - iSize.width) * 0.5, (imgRect.size.height - iSize.height) * 0.5)
-            imgRect = CGRectMake(bgOffset.x, bgOffset.y, iSize.width, iSize.height)
-        case .ScaleToFill:
+            let bgOffset = CGPoint(x: (imgRect.size.width - iSize.width) * 0.5, y: (imgRect.size.height - iSize.height) * 0.5)
+            imgRect = CGRect(x: bgOffset.x, y: bgOffset.y, width: iSize.width, height: iSize.height)
+        case .scaleToFill:
             break
-        case .ScaleToFit:
-            let imageR = CGRect(origin: CGPointZero, size: image.size)
+        case .scaleToFit:
+            let imageR = CGRect(origin: CGPoint.zero, size: image.size)
             imgRect = CGRectHelper.AspectFitRectInRect(imageR, rtarget: imgRect)
         }
         imgLayer.bounds = imgRect
-        imgLayer.contents = image.CGImage
-        imgLayer.position = CGPointMake(CGRectGetMidX(imgRect), CGRectGetMidY(imgRect))
+        imgLayer.contents = image.cgImage
+        imgLayer.position = CGPoint(x: imgRect.midX, y: imgRect.midY)
         let maskPath = StyledShapeLayer.shapePathForStyle(imageStyle, bounds: imgRect)
         let maskLayer = CAShapeLayer()
-        maskLayer.path = maskPath.CGPath
+        maskLayer.path = maskPath.cgPath
         imgLayer.mask = maskLayer
         
         return imgLayer

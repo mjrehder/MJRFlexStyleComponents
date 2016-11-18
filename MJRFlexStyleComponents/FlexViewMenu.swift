@@ -30,25 +30,25 @@
 import UIKit
 
 public enum FlexViewMenuVerticalPosition {
-    case Top
-    case Bottom
-    case Header
-    case Footer
+    case top
+    case bottom
+    case header
+    case footer
 }
 
 public enum FlexViewMenuHorizontalPosition {
-    case Left
-    case Right
-    case Fill
-    case Center
+    case left
+    case right
+    case fill
+    case center
 }
 
-public class FlexViewMenu {
+open class FlexViewMenu {
     let hPos: FlexViewMenuHorizontalPosition
     let vPos: FlexViewMenuVerticalPosition
     let size: CGSize
     let menu: FlexMenu
-    public let id = NSUUID().UUIDString
+    open let id = UUID().uuidString
     
     public init(menu: FlexMenu, size: CGSize, hPos: FlexViewMenuHorizontalPosition, vPos: FlexViewMenuVerticalPosition) {
         self.menu = menu

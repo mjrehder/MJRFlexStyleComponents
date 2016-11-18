@@ -29,5 +29,5 @@
 
 import UIKit
 
-public class FlexTextViewCollectionItem: FlexBaseCollectionItem {
+open class FlexTextViewCollectionItem: FlexBaseCollectionItem {
 }

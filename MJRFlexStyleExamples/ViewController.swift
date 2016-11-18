@@ -48,12 +48,12 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
     }
     
     func setupMaxMinDataSlider() {
-        self.maxMinDataSlider.backgroundColor = UIColor.clearColor()
-        self.maxMinDataSlider.direction = .Vertical
+        self.maxMinDataSlider.backgroundColor = UIColor.clear
+        self.maxMinDataSlider.direction = .vertical
         self.maxMinDataSlider.minimumValue = 0
         self.maxMinDataSlider.maximumValue = 100
         self.maxMinDataSlider.thumbRatio = 0.1
-        self.maxMinDataSlider.hintStyle = .Rounded
+        self.maxMinDataSlider.hintStyle = .rounded
         self.maxMinDataSlider.thumbText = nil
         self.maxMinDataSlider.numberFormatString = "%.1f"
         self.maxMinDataSlider.value = 0
@@ -100,11 +100,11 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
     
     func setupSliderGraphView() {
         self.sliderGraphView.layer.borderWidth = 1.0
-        self.sliderGraphView.layer.borderColor = UIColor.blackColor().CGColor
+        self.sliderGraphView.layer.borderColor = UIColor.black.cgColor
         self.sliderGraphView.layer.masksToBounds = true
         self.sliderGraphView.layer.cornerRadius = 10
         self.sliderGraphView.itemSize = 24
-        self.sliderGraphView.backgroundColor = UIColor.clearColor()
+        self.sliderGraphView.backgroundColor = UIColor.clear
         self.sliderGraphView.dataSource = self
         self.sliderGraphView.reloadData()
     }
@@ -114,7 +114,7 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
     }
     
     func setupDataPointAndSeriesSelectors() {
-        self.numSeriesSelector.backgroundColor = .clearColor()
+        self.numSeriesSelector.backgroundColor = .clear
         self.numSeriesSelector.minimumValue = 1
         self.numSeriesSelector.maximumValue = 4
         self.numSeriesSelector.value = Double(numSeries)
@@ -128,7 +128,7 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
             self.sliderGraphView.reloadData()
         }
         
-        self.dataPointSelector.backgroundColor = .clearColor()
+        self.dataPointSelector.backgroundColor = .clear
         self.dataPointSelector.minimumValue = 2
         self.dataPointSelector.maximumValue = 7
         self.dataPointSelector.thumbText = nil
@@ -158,7 +158,7 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
         self.dataSeries = newDemoData
     }
     
-    func setStyleOfDemoControls(style: ShapeStyle) {
+    func setStyleOfDemoControls(_ style: ShapeStyle) {
         self.numSeriesSelector.thumbStyle = style
         self.dataPointSelector.thumbStyle = style
         self.maxMinDataSlider.thumbStyle = style
@@ -170,17 +170,17 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
     }
     
     func applyColorToDemoControls() {
-        self.dataPointSelector.minimumTrackTintColor = self.selectedColor.darkerColor()
-        self.dataPointSelector.maximumTrackTintColor = UIColor.clearColor()
+        self.dataPointSelector.minimumTrackTintColor = self.selectedColor.darkened()
+        self.dataPointSelector.maximumTrackTintColor = UIColor.clear
         self.dataPointSelector.thumbTintColor = self.selectedThumbColor
-        self.numSeriesSelector.minimumTrackTintColor = self.selectedColor.darkerColor()
-        self.numSeriesSelector.maximumTrackTintColor = UIColor.clearColor()
+        self.numSeriesSelector.minimumTrackTintColor = self.selectedColor.darkened()
+        self.numSeriesSelector.maximumTrackTintColor = UIColor.clear
         self.numSeriesSelector.thumbTintColor = self.selectedThumbColor
         self.vhSwitch.thumbTintColor = self.selectedThumbColor
         self.vhSwitch.onTintColor = self.selectedColor
-        self.maxMinDataSlider.minimumTrackTintColor = self.selectedColor.darkerColor()
+        self.maxMinDataSlider.minimumTrackTintColor = self.selectedColor.darkened()
         self.maxMinDataSlider.middleTrackTintColor = self.selectedColor
-        self.maxMinDataSlider.maximumTrackTintColor = UIColor.clearColor()
+        self.maxMinDataSlider.maximumTrackTintColor = UIColor.clear
         self.maxMinDataSlider.thumbTintColor = self.selectedThumbColor
         self.sliderGraphView.thumbTintColor = self.selectedThumbColor
         self.sliderGraphView.setNeedsLayout()
@@ -188,14 +188,14 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
     
     // MARK: - FlexSwitchDelegate
     
-    func switchStateChanged(flexSwitch: FlexSwitch, on: Bool) {
+    func switchStateChanged(_ flexSwitch: FlexSwitch, on: Bool) {
         let on = self.vhSwitch.on
-        self.sliderGraphView.direction = on ? .Vertical : .Horizontal
+        self.sliderGraphView.direction = on ? .vertical : .horizontal
     }
 
     // MARK: - FlexMenuDataSource
     
-    func numberOfMenuItems(menu: FlexMenu) -> Int {
+    func numberOfMenuItems(_ menu: FlexMenu) -> Int {
         if menu == self.colorMenuSelectionSlider {
             return self.colorMenuItems.count
         }
@@ -205,7 +205,7 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
         return 0
     }
     
-    func menuItemForIndex(menu: FlexMenu, index: Int) -> FlexMenuItem {
+    func menuItemForIndex(_ menu: FlexMenu, index: Int) -> FlexMenuItem {
         if menu == self.colorMenuSelectionSlider {
             return self.colorMenuItems[index]
         }
@@ -214,7 +214,7 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
         }
     }
     
-    func menuItemSelected(menu: FlexMenu, index: Int) {
+    func menuItemSelected(_ menu: FlexMenu, index: Int) {
         if menu == self.colorMenuSelectionSlider {
             switch index {
             case 0:
@@ -237,11 +237,11 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
         else {
             switch index {
             case 0:
-                self.setStyleOfDemoControls(.Box)
+                self.setStyleOfDemoControls(.box)
             case 1:
-                self.setStyleOfDemoControls(.Rounded)
+                self.setStyleOfDemoControls(.rounded)
             case 2:
-                self.setStyleOfDemoControls(.Tube)
+                self.setStyleOfDemoControls(.tube)
             default:
                 break
             }
@@ -250,26 +250,26 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
     
     // MARK: - FlexSeriesViewDataSource
     
-    func dataOfSeriesAtPoint(flexSeries: FlexSeriesView, series: Int, point: Int) -> Double {
+    func dataOfSeriesAtPoint(_ flexSeries: FlexSeriesView, series: Int, point: Int) -> Double {
         return self.dataSeries[series][point]
     }
     
-    func dataChangedOfSeriesAtPoint(flexSeries: FlexSeriesView, series: Int, point: Int, data: Double) {
+    func dataChangedOfSeriesAtPoint(_ flexSeries: FlexSeriesView, series: Int, point: Int, data: Double) {
         self.dataSeries[series][point] = data
     }
     
-    func numberOfSeries(flexSeries: FlexSeriesView) -> Int {
+    func numberOfSeries(_ flexSeries: FlexSeriesView) -> Int {
         return self.numSeries
     }
     
-    func numberOfDataPoints(flexSeries: FlexSeriesView) -> Int {
+    func numberOfDataPoints(_ flexSeries: FlexSeriesView) -> Int {
         return self.numDataPoints
     }
     
-    func colorOfSeries(flexSeries: FlexSeriesView, series: Int) -> UIColor {
+    func colorOfSeries(_ flexSeries: FlexSeriesView, series: Int) -> UIColor {
         var color = self.selectedColor
         for _ in 0..<series {
-            color = color.lightenColor(0.1)
+            color = color.lighter(amount: 0.1)
         }
         return color
     }

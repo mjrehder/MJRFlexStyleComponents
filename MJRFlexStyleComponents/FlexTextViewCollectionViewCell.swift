@@ -30,59 +30,59 @@
 import UIKit
 import StyledLabel
 
-public class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell {
-    public var textView: UITextView?
+open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell {
+    open var textView: UITextView?
     
-    public override func initialize() {
+    open override func initialize() {
         super.initialize()
         
         self.textView = UITextView()
-        if let tv = self.textView, pcv = self.flexContentView {
-            tv.hidden = true
+        if let tv = self.textView, let pcv = self.flexContentView {
+            tv.isHidden = true
             pcv.addSubview(tv)
             let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.accessoryViewTouched(_:)))
             tv.addGestureRecognizer(tapGest)
         }
     }
     
-    public override func layoutText(item: FlexBaseCollectionItem, area: CGRect) {
-        dispatch_async(dispatch_get_main_queue()) {
+    open override func layoutText(_ item: FlexBaseCollectionItem, area: CGRect) {
+        DispatchQueue.main.async {
             if let text = item.text {
                 if let tv = self.textView {
                     tv.attributedText = text
-                    tv.backgroundColor = .clearColor()
+                    tv.backgroundColor = .clear
                     self.prepareTextView(tv)
                     let appe = self.getCellAppearance()
                     let textRect =  UIEdgeInsetsInsetRect(area, appe.textAppearance.insets)
                     tv.frame = textRect
-                    tv.hidden = false
-                    tv.userInteractionEnabled = false
+                    tv.isHidden = false
+                    tv.isUserInteractionEnabled = false
                 }
             }
             else {
-                self.textView?.hidden = true
+                self.textView?.isHidden = true
             }
         }
     }
 
-    public func cellTextAreaTouched(recognizer: UITapGestureRecognizer) {
+    open func cellTextAreaTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item {
             self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item)
         }
     }
     
-    private func prepareTextView(textView: UITextView) {
-        textView.editable = false
-        textView.selectable = true
-        textView.userInteractionEnabled = true
-        textView.dataDetectorTypes = .None
+    fileprivate func prepareTextView(_ textView: UITextView) {
+        textView.isEditable = false
+        textView.isSelectable = true
+        textView.isUserInteractionEnabled = true
+        textView.dataDetectorTypes = UIDataDetectorTypes()
         textView.showsHorizontalScrollIndicator = false
         textView.showsVerticalScrollIndicator = false
-        textView.scrollEnabled = false
-        textView.contentInset = UIEdgeInsetsZero
-        textView.scrollIndicatorInsets = UIEdgeInsetsZero
-        textView.contentOffset = CGPointZero
-        textView.textContainerInset = UIEdgeInsetsZero
+        textView.isScrollEnabled = false
+        textView.contentInset = UIEdgeInsets.zero
+        textView.scrollIndicatorInsets = UIEdgeInsets.zero
+        textView.contentOffset = CGPoint.zero
+        textView.textContainerInset = UIEdgeInsets.zero
         textView.textContainer.lineFragmentPadding = 0
     }
 }

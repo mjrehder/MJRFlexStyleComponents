@@ -31,28 +31,28 @@ import UIKit
 import StyledLabel
 
 public enum FlexImageShapeFit {
-    case Center
-    case ScaleToFill
-    case ScaleToFit
+    case center
+    case scaleToFill
+    case scaleToFit
 }
 
-public class FlexImageShapeView: FlexView {
-    private var backgroundShape = CALayer()
-    private var imageShape = CALayer()
+open class FlexImageShapeView: FlexView {
+    fileprivate var backgroundShape = CALayer()
+    fileprivate var imageShape = CALayer()
     
-    public var image: UIImage? = nil {
+    open var image: UIImage? = nil {
         didSet {
             self.setNeedsLayout()
         }
     }
 
-    public var backgroundImageFit: FlexImageShapeFit = .ScaleToFit {
+    open var backgroundImageFit: FlexImageShapeFit = .scaleToFit {
         didSet {
             self.setNeedsLayout()
         }
     }
 
-    public var imageStyle: ShapeStyle = .Box {
+    open var imageStyle: ShapeStyle = .box {
         didSet {
             self.setNeedsLayout()
         }
@@ -72,7 +72,7 @@ public class FlexImageShapeView: FlexView {
         super.initView()
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         self.setupImageView()
     }
@@ -86,7 +86,7 @@ public class FlexImageShapeView: FlexView {
 
         let bgLayer = ImageShapeLayerFactory.createImageShapeInView(imageViewRect, viewBounds: self.bounds, image: self.image, viewStyle: self.getStyle(), imageStyle: self.imageStyle, imageFitting: self.backgroundImageFit)
         
-        self.styleLayer.insertSublayer(bgLayer, atIndex: 0)
+        self.styleLayer.insertSublayer(bgLayer, at: 0)
         self.backgroundShape = bgLayer
     }
 }

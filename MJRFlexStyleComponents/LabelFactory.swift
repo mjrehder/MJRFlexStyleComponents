@@ -33,15 +33,15 @@ import StyledLabel
 final class LabelFactory {
     static func defaultLabel() -> UILabel {
         let label                    = UILabel()
-        label.textAlignment          = .Center
-        label.userInteractionEnabled = true
+        label.textAlignment          = .center
+        label.isUserInteractionEnabled = true
         
         return label
     }
     
     static func defaultStyledLabel() -> StyledLabel {
         let label           = StyledLabel()
-        label.textAlignment = .Center
+        label.textAlignment = .center
         label.text          = ""
         
         return label
@@ -49,7 +49,7 @@ final class LabelFactory {
     
     static func defaultStyledThumb() -> StyledSliderThumb {
         let label           = StyledSliderThumb()
-        label.textAlignment = .Center
+        label.textAlignment = .center
         label.text          = ""
         
         return label
