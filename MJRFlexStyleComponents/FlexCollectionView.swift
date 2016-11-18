@@ -32,64 +32,64 @@ import UIKit
 import StyledLabel
 
 public protocol FlexCollectionViewDelegate {
-    func onFlexCollectionItemSelected(view: FlexCollectionView, item: FlexCollectionItem)
-    func onFlexCollectionItemMoved(view: FlexCollectionView, item: FlexCollectionItem)
+    func onFlexCollectionItemSelected(_ view: FlexCollectionView, item: FlexCollectionItem)
+    func onFlexCollectionItemMoved(_ view: FlexCollectionView, item: FlexCollectionItem)
 }
 
 @IBDesignable
-public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectionViewDelegate, FlexCollectionViewCellTouchedDelegate, UICollectionViewDelegateFlowLayout {
+open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectionViewDelegate, FlexCollectionViewCellTouchedDelegate, UICollectionViewDelegateFlowLayout {
     let simpleHeaderViewID = "SimpleHeaderView"
     let emptyHeaderViewID = "EmptyHeaderView"
     
-    private var _itemCollectionView: UICollectionView?
-    public var collectionItemTypeMap: [String:String] = [:]
+    fileprivate var _itemCollectionView: UICollectionView?
+    open var collectionItemTypeMap: [String:String] = [:]
     
-    public var contentDic : [String:[FlexCollectionItem]]?
+    open var contentDic : [String:[FlexCollectionItem]]?
     var sections : [FlexCollectionSection] = []
     
-    public var flexCollectionDelegate: FlexCollectionViewDelegate?
+    open var flexCollectionDelegate: FlexCollectionViewDelegate?
     
-    private var cellSwipeMenuActiveCell: NSIndexPath?
+    fileprivate var cellSwipeMenuActiveCell: IndexPath?
    
-    public var collectionViewAppearance: FlexCollectionViewAppearance? {
+    open var collectionViewAppearance: FlexCollectionViewAppearance? {
         didSet {
             self.flexViewAppearance = self.collectionViewAppearance?.viewAppearance
             self._itemCollectionView?.reloadData()
         }
     }
-    public func getCollectionViewAppearance() -> FlexCollectionViewAppearance {
+    open func getCollectionViewAppearance() -> FlexCollectionViewAppearance {
         return self.collectionViewAppearance ?? flexStyleAppearance.collectionViewAppearance
     }
     
-    public var itemCollectionView: UICollectionView {
+    open var itemCollectionView: UICollectionView {
         get {
             return _itemCollectionView!
         }
     }
     
     @IBInspectable
-    public var viewMargins: UIEdgeInsets = UIEdgeInsetsZero {
+    open var viewMargins: UIEdgeInsets = UIEdgeInsets.zero {
         didSet {
             self.setNeedsLayout()
         }
     }
     
     @IBInspectable
-    public var defaultCellSize: CGSize = CGSizeMake(120, 50) {
+    open var defaultCellSize: CGSize = CGSize(width: 120, height: 50) {
         didSet {
             self.setNeedsLayout()
         }
     }
     
     @IBInspectable
-    public var allowsMultipleSelection = false {
+    open var allowsMultipleSelection = false {
         didSet {
             self._itemCollectionView?.allowsMultipleSelection = self.allowsMultipleSelection
         }
     }
     
     @IBInspectable
-    public var allowsSelection = true {
+    open var allowsSelection = true {
         didSet {
             self._itemCollectionView?.allowsSelection = self.allowsSelection
         }
@@ -105,23 +105,23 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         self.createView()
     }
     
-    func handleLongGesture(gesture: UILongPressGestureRecognizer) {
+    func handleLongGesture(_ gesture: UILongPressGestureRecognizer) {
         switch(gesture.state) {
-        case UIGestureRecognizerState.Began:
-            guard let selectedIndexPath = self.itemCollectionView.indexPathForItemAtPoint(gesture.locationInView(self.itemCollectionView)) else {
+        case UIGestureRecognizerState.began:
+            guard let selectedIndexPath = self.itemCollectionView.indexPathForItem(at: gesture.location(in: self.itemCollectionView)) else {
                 break
             }
-            self.itemCollectionView.beginInteractiveMovementForItemAtIndexPath(selectedIndexPath)
-        case UIGestureRecognizerState.Changed:
-            self.itemCollectionView.updateInteractiveMovementTargetPosition(gesture.locationInView(gesture.view!))
-        case UIGestureRecognizerState.Ended:
+            self.itemCollectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
+        case UIGestureRecognizerState.changed:
+            self.itemCollectionView.updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
+        case UIGestureRecognizerState.ended:
             self.itemCollectionView.endInteractiveMovement()
         default:
             self.itemCollectionView.cancelInteractiveMovement()
         }
     }
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         self.setupView()
     }
@@ -129,10 +129,10 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
     func createView() {
         self.backgroundColor = nil
         
-        self._itemCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
+        self._itemCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
         self.itemCollectionView.dataSource = self
         self.itemCollectionView.delegate = self
-        self.itemCollectionView.backgroundColor = .clearColor()
+        self.itemCollectionView.backgroundColor = .clear
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(FlexCollectionView.handleLongGesture(_:)))
         self.itemCollectionView.addGestureRecognizer(longPressGesture)
@@ -143,8 +143,8 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         
         self.registerDefaultCells()
         
-        self.itemCollectionView.registerClass(SimpleHeaderCollectionReusableView.classForCoder(), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: simpleHeaderViewID)
-        self.itemCollectionView.registerClass(EmptyHeaderCollectionReusableView.classForCoder(), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: emptyHeaderViewID)
+        self.itemCollectionView.register(SimpleHeaderCollectionReusableView.classForCoder(), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: simpleHeaderViewID)
+        self.itemCollectionView.register(EmptyHeaderCollectionReusableView.classForCoder(), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: emptyHeaderViewID)
 
         self.itemCollectionView.allowsMultipleSelection = self.allowsMultipleSelection
         self.itemCollectionView.allowsSelection = self.allowsSelection
@@ -161,9 +161,9 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         self.registerCell(FlexImageCollectionItem.classForCoder(), cellClass: FlexImageCollectionViewCell.classForCoder())
     }
     
-    public func registerCell(itemClass: AnyClass, cellClass: AnyClass) {
+    open func registerCell(_ itemClass: AnyClass, cellClass: AnyClass) {
         self.collectionItemTypeMap[itemClass.description()] = cellClass.description()
-        self.itemCollectionView.registerClass(cellClass, forCellWithReuseIdentifier: cellClass.description())
+        self.itemCollectionView.register(cellClass, forCellWithReuseIdentifier: cellClass.description())
     }
     
     func setupView() {
@@ -177,19 +177,19 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
     
     // MARK: - public
     
-    public func removeAllSections() {
+    open func removeAllSections() {
         self.sections.removeAll()
         self.contentDic?.removeAll()
     }
     
-    public func addSection(title: NSAttributedString? = nil) -> String {
-        let s = FlexCollectionSection(reference: NSUUID().UUIDString, title: title)
+    open func addSection(_ title: NSAttributedString? = nil) -> String {
+        let s = FlexCollectionSection(reference: UUID().uuidString, title: title)
         self.sections.append(s)
         self.contentDic?[s.reference] = []
         return s.reference
     }
     
-    public func getSection(sectionReference: String) -> FlexCollectionSection? {
+    open func getSection(_ sectionReference: String) -> FlexCollectionSection? {
         for sec in self.sections {
             if sec.reference == sectionReference {
                 return sec
@@ -198,31 +198,31 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         return nil
     }
     
-    public func addItem(sectionReference: String, item: FlexCollectionItem) {
+    open func addItem(_ sectionReference: String, item: FlexCollectionItem) {
         self.contentDic?[sectionReference]?.append(item)
         item.sectionReference = sectionReference
     }
     
-    public func selectItem(itemReference: String) {
-        self.itemCollectionView.selectItemAtIndexPath(self.getIndexPathForItem(itemReference), animated: true, scrollPosition: .None)
+    open func selectItem(_ itemReference: String) {
+        self.itemCollectionView.selectItem(at: self.getIndexPathForItem(itemReference), animated: true, scrollPosition: UICollectionViewScrollPosition())
     }
     
-    public func updateCellForItem(itemReference: String) {
+    open func updateCellForItem(_ itemReference: String) {
         if let indexPath = self.getIndexPathForItem(itemReference) {
-            self.itemCollectionView.cellForItemAtIndexPath(indexPath)?.setNeedsLayout()
+            self.itemCollectionView.cellForItem(at: indexPath)?.setNeedsLayout()
         }
     }
     
     // MARK: - Collection View Callbacks
     
-    public func getIndexPathForItem(itemReference: String) -> NSIndexPath? {
+    open func getIndexPathForItem(_ itemReference: String) -> IndexPath? {
         var s: Int = 0
         for sec in self.sections {
             var row: Int = 0
             if let items = self.contentDic?[sec.reference] {
                 for item in items {
                     if item.reference == itemReference {
-                        return NSIndexPath(forRow: row, inSection: s)
+                        return IndexPath(row: row, section: s)
                     }
                     row += 1
                 }
@@ -232,17 +232,17 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         return nil
     }
     
-    public func getItemForIndexPath(index: NSIndexPath) -> FlexCollectionItem? {
+    open func getItemForIndexPath(_ index: IndexPath) -> FlexCollectionItem? {
         let row: Int = index.row
         let section: Int = index.section
         let sec = self.sections[section]
-        if let items = self.contentDic?[sec.reference] where row < items.count {
+        if let items = self.contentDic?[sec.reference], row < items.count {
             return items[row]
         }
         return nil
     }
 
-    public func getItemForReference(itemReference: String) -> FlexCollectionItem? {
+    open func getItemForReference(_ itemReference: String) -> FlexCollectionItem? {
         for sec in self.sections {
             if let items = self.contentDic?[sec.reference] {
                 for item in items {
@@ -255,19 +255,19 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         return nil
     }
     
-    public func removeItem(item: FlexCollectionItem) {
+    open func removeItem(_ item: FlexCollectionItem) {
         if let items = self.contentDic?[item.sectionReference!] {
-            if let idx = items.indexOf(item) {
-                self.contentDic?[item.sectionReference!]?.removeAtIndex(idx)
+            if let idx = items.index(of: item) {
+                self.contentDic?[item.sectionReference!]?.remove(at: idx)
             }
         }
     }
     
-    public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    open func numberOfSections(in collectionView: UICollectionView) -> Int {
         return self.sections.count
     }
     
-    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let sec = self.sections[section]
         if let items = self.contentDic?[sec.reference] {
             return items.count
@@ -275,20 +275,20 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         return 0
     }
     
-    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let item = self.getItemForIndexPath(indexPath) {
             if let cellClassStr = collectionItemTypeMap[item.classForCoder.description()] {
-                if let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellClassStr, forIndexPath:indexPath) as? FlexCollectionViewCell {
+                if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellClassStr, for:indexPath) as? FlexCollectionViewCell {
                     cell._item = item
                     cell.reference = item.reference
                     cell.flexCellTouchDelegate = self
                     cell.cellAppearance = item.cellAppearance ?? self.getCollectionViewAppearance().cellAppearance
                     if item.swipeLeftMenuItems != nil || item.swipeRightMenuItems != nil {
                         let lswipe = UISwipeGestureRecognizer(target: self, action: #selector(self.swipeLeftGestureAction(_:)))
-                        lswipe.direction = .Left
+                        lswipe.direction = .left
                         cell.addGestureRecognizer(lswipe)
                         let rswipe = UISwipeGestureRecognizer(target: self, action: #selector(self.swipeRightGestureAction(_:)))
-                        rswipe.direction = .Right
+                        rswipe.direction = .right
                         cell.addGestureRecognizer(rswipe)
                     }
                     return cell
@@ -298,29 +298,29 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         return UICollectionViewCell()
     }
 
-    func swipeLeftGestureAction(recognizer: UISwipeGestureRecognizer) {
+    func swipeLeftGestureAction(_ recognizer: UISwipeGestureRecognizer) {
         if let cell = recognizer.view as? FlexCollectionViewCell {
             cell.swipeLeft()
-            self.cellSwipeMenuActiveCell = self.itemCollectionView.indexPathForCell(cell)
+            self.cellSwipeMenuActiveCell = self.itemCollectionView.indexPath(for: cell)
         }
     }
     
-    func swipeRightGestureAction(recognizer: UISwipeGestureRecognizer) {
+    func swipeRightGestureAction(_ recognizer: UISwipeGestureRecognizer) {
         if let cell = recognizer.view as? FlexCollectionViewCell {
             cell.swipeRight()
-            self.cellSwipeMenuActiveCell = self.itemCollectionView.indexPathForCell(cell)
+            self.cellSwipeMenuActiveCell = self.itemCollectionView.indexPath(for: cell)
         }
     }
 
     func resetSwipedCell() {
         if let sip = self.cellSwipeMenuActiveCell {
-            if let cell = self.itemCollectionView.cellForItemAtIndexPath(sip) as? FlexCollectionViewCell {
+            if let cell = self.itemCollectionView.cellForItem(at: sip) as? FlexCollectionViewCell {
                 cell.animateSwipeReset()
             }
         }
     }
     
-    public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if let item = self.getItemForIndexPath(indexPath) {
             if let preferredSize = item.preferredCellSize {
                 return preferredSize
@@ -329,42 +329,42 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
         return self.defaultCellSize
     }
 
-    public func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionElementKindSectionHeader {
             let sec = self.sections[indexPath.section]
             if let title = sec.title {
-                if let headerView = self.itemCollectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: simpleHeaderViewID, forIndexPath: indexPath) as? SimpleHeaderCollectionReusableView {
+                if let headerView = self.itemCollectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: simpleHeaderViewID, for: indexPath) as? SimpleHeaderCollectionReusableView {
                     headerView.title?.label.attributedText = title
                     headerView.title?.labelAppearance = sec.sectionHeaderAppearance ?? self.getCollectionViewAppearance().sectionHeaderAppearance
                     return headerView
                 }
             }
-            if let headerView = self.itemCollectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: emptyHeaderViewID, forIndexPath: indexPath) as? EmptyHeaderCollectionReusableView {
+            if let headerView = self.itemCollectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: emptyHeaderViewID, for: indexPath) as? EmptyHeaderCollectionReusableView {
                 return headerView
             }
         }
         return UICollectionReusableView()
     }
 
-    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let item = self.getItemForIndexPath(indexPath) {
             self.flexCollectionDelegate?.onFlexCollectionItemSelected(self, item: item)
         }
     }
     
-    public func collectionView(collectionView: UICollectionView, moveItemAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+    open func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let ssec = self.sections[sourceIndexPath.section]
         let tsec = self.sections[destinationIndexPath.section]
         
         if let item = self.getItemForIndexPath(sourceIndexPath) {
-            self.contentDic?[ssec.reference]?.removeAtIndex(sourceIndexPath.row)
-            self.contentDic?[tsec.reference]?.insert(item, atIndex: destinationIndexPath.row)
+            self.contentDic?[ssec.reference]?.remove(at: sourceIndexPath.row)
+            self.contentDic?[tsec.reference]?.insert(item, at: destinationIndexPath.row)
             item.sectionReference = tsec.reference
             self.flexCollectionDelegate?.onFlexCollectionItemMoved(self, item: item)
         }
     }
     
-    public func collectionView(collectionView: UICollectionView, canMoveItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    open func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
         if let item = self.getItemForIndexPath(indexPath) {
             return item.canMoveItem
         }
@@ -373,22 +373,22 @@ public class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollect
     
     // MARK: - UICollectionViewDelegateFlowLayout
     
-    public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let sec = self.sections[section]
-        return CGSizeMake(0, sec.sectionHeaderAppearance?.size ?? self.getCollectionViewAppearance().sectionHeaderAppearance.size)
+        return CGSize(width: 0, height: sec.sectionHeaderAppearance?.size ?? self.getCollectionViewAppearance().sectionHeaderAppearance.size)
     }
     
-    public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let sec = self.sections[section]
         return sec.sectionHeaderAppearance?.insets ?? self.getCollectionViewAppearance().sectionHeaderAppearance.insets
     }
     
     // MARK: - FlexCollectionViewCellTouchedDelegate
     
-    public func onFlexCollectionViewCellTouched(item: FlexCollectionItem?) {
+    open func onFlexCollectionViewCellTouched(_ item: FlexCollectionItem?) {
         if let item = item {
             if let ip = self.getIndexPathForItem(item.reference) {
-                self.itemCollectionView.selectItemAtIndexPath(ip, animated: true, scrollPosition: .None)
+                self.itemCollectionView.selectItem(at: ip, animated: true, scrollPosition: UICollectionViewScrollPosition())
             }
             self.flexCollectionDelegate?.onFlexCollectionItemSelected(self, item: item)
         }

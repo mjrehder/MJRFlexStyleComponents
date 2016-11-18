@@ -31,36 +31,36 @@ import UIKit
 // Adopted from lanephillips/CGRectAspectFit.m (GitHub / Gist)
 
 class CGRectHelper {
-    class func ScaleToAspectFitRectInRect(rfit: CGRect, rtarget: CGRect) -> CGFloat {
+    class func ScaleToAspectFitRectInRect(_ rfit: CGRect, rtarget: CGRect) -> CGFloat {
         // first try to match width
-        let s = CGRectGetWidth(rtarget) / CGRectGetWidth(rfit)
+        let s = rtarget.width / rfit.width
         // if we scale the height to make the widths equal, does it still fit?
-        if CGRectGetHeight(rfit) * s <= CGRectGetHeight(rtarget) {
+        if rfit.height * s <= rtarget.height {
             return s
         }
         // no, match height instead
-        return CGRectGetHeight(rtarget) / CGRectGetHeight(rfit)
+        return rtarget.height / rfit.height
     }
     
-    class func AspectFitRectInRect(rfit: CGRect, rtarget: CGRect) -> CGRect {
+    class func AspectFitRectInRect(_ rfit: CGRect, rtarget: CGRect) -> CGRect {
         let s = ScaleToAspectFitRectInRect(rfit, rtarget: rtarget)
-        let w = CGRectGetWidth(rfit) * s
-        let h = CGRectGetHeight(rfit) * s
-        let x = CGRectGetMidX(rtarget) - w / 2
-        let y = CGRectGetMidY(rtarget) - h / 2
-        return CGRectMake(x, y, w, h)
+        let w = rfit.width * s
+        let h = rfit.height * s
+        let x = rtarget.midX - w / 2
+        let y = rtarget.midY - h / 2
+        return CGRect(x: x, y: y, width: w, height: h)
     }
     
-    class func ScaleToAspectFitRectAroundRect(rfit: CGRect, rtarget: CGRect) -> CGFloat {
+    class func ScaleToAspectFitRectAroundRect(_ rfit: CGRect, rtarget: CGRect) -> CGFloat {
         return 1.0 / ScaleToAspectFitRectInRect(rtarget, rtarget: rfit)
     }
     
-    class func AspectFitRectAroundRect(rfit: CGRect, rtarget: CGRect) -> CGRect {
+    class func AspectFitRectAroundRect(_ rfit: CGRect, rtarget: CGRect) -> CGRect {
         let s = ScaleToAspectFitRectAroundRect(rfit, rtarget: rtarget)
-        let w = CGRectGetWidth(rfit) * s
-        let h = CGRectGetHeight(rfit) * s
-        let x = CGRectGetMidX(rtarget) - w / 2
-        let y = CGRectGetMidY(rtarget) - h / 2
-        return CGRectMake(x, y, w, h)
+        let w = rfit.width * s
+        let h = rfit.height * s
+        let x = rtarget.midX - w / 2
+        let y = rtarget.midY - h / 2
+        return CGRect(x: x, y: y, width: w, height: h)
     }
 }

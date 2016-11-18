@@ -37,7 +37,7 @@ final internal class SnappingThumbBehaviour: UIDynamicBehavior {
             let dynamicItemBehavior = UIDynamicItemBehavior(items: [_item])
             dynamicItemBehavior.allowsRotation = false
             
-            let snapBehavior     = UISnapBehavior(item: _item, snapToPoint: point)
+            let snapBehavior     = UISnapBehavior(item: _item, snapTo: point)
             snapBehavior.damping = damping
             
             addChildBehavior(dynamicItemBehavior)

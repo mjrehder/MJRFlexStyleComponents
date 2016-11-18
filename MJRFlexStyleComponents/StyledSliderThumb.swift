@@ -30,32 +30,32 @@
 import UIKit
 import StyledLabel
 
-public class StyledSliderThumb: StyledLabel {
-    var snappingBehavior = SnappingThumbBehaviour(item: nil, snapToPoint: CGPointZero)
-    var behaviour: StyledSliderThumbBehaviour = .Freeform
+open class StyledSliderThumb: StyledLabel {
+    var snappingBehavior = SnappingThumbBehaviour(item: nil, snapToPoint: CGPoint.zero)
+    var behaviour: StyledSliderThumbBehaviour = .freeform
     var index = 0
     var backgroundIcon: UIImage?
     
-    private var backgroundShape = CALayer()
+    fileprivate var backgroundShape = CALayer()
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         
         if self.backgroundShape.superlayer == nil {
             // Insert this layer above the styled label style and below the text label
-            self.layer.insertSublayer(self.backgroundShape, atIndex: 1)
+            self.layer.insertSublayer(self.backgroundShape, at: 1)
         }
         
         let bgLayer = CALayer()
         if let bgi = self.backgroundIcon {
             let iSize = bgi.size
-            let bgOffset = CGPointMake((self.bounds.size.width - iSize.width) * 0.5, (self.bounds.size.height - iSize.height) * 0.5)
-            bgLayer.bounds = CGRectMake(bgOffset.x, bgOffset.y, iSize.width, iSize.height)
-            bgLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds))
-            bgLayer.contents = bgi.CGImage
+            let bgOffset = CGPoint(x: (self.bounds.size.width - iSize.width) * 0.5, y: (self.bounds.size.height - iSize.height) * 0.5)
+            bgLayer.bounds = CGRect(x: bgOffset.x, y: bgOffset.y, width: iSize.width, height: iSize.height)
+            bgLayer.position = CGPoint(x: (self.bounds).midX, y: (self.bounds).midY)
+            bgLayer.contents = bgi.cgImage
             let maskPath = StyledShapeLayer.shapePathForStyle(style, bounds: bounds)
             let maskLayer = CAShapeLayer()
-            maskLayer.path = maskPath.CGPath
+            maskLayer.path = maskPath.cgPath
             bgLayer.mask = maskLayer
         }
         self.layer.replaceSublayer(self.backgroundShape, with: bgLayer)

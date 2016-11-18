@@ -30,15 +30,15 @@
 import UIKit
 import StyledLabel
 
-public class FlexViewAppearance: FlexStyleContainerAppearance {
-    public var headerPosition: FlexViewHeaderPosition = .Top
-    public var headerAppearance = FlexLabelAppearance()
+open class FlexViewAppearance: FlexStyleContainerAppearance {
+    open var headerPosition: FlexViewHeaderPosition = .top
+    open var headerAppearance = FlexLabelAppearance()
     
-    public var footerAppearance = FlexLabelAppearance()
+    open var footerAppearance = FlexLabelAppearance()
     
-    public var contentInsets: UIEdgeInsets = UIEdgeInsetsZero
+    open var contentInsets: UIEdgeInsets = UIEdgeInsets.zero
 
     public override init() {
-        super.init(style: .RoundedFixed(cornerRadius: 5.0), styleColor: .blackColor(), backgroundColor: .clearColor(), borderColor: .grayColor(), borderWidth: 0.0)
+        super.init(style: .roundedFixed(cornerRadius: 5.0), styleColor: .black, backgroundColor: .clear, borderColor: .gray, borderWidth: 0.0)
     }
 }

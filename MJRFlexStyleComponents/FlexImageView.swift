@@ -31,10 +31,10 @@ import UIKit
 import StyledLabel
 
 @IBDesignable
-public class FlexImageView: FlexView {
-    private var _imageView: UIImageView?
+open class FlexImageView: FlexView {
+    fileprivate var _imageView: UIImageView?
     
-    public var imageView: UIImageView {
+    open var imageView: UIImageView {
         get {
             return _imageView!
         }
@@ -56,7 +56,7 @@ public class FlexImageView: FlexView {
         self.addSubview(self._imageView!)
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         self.setupImageView()
     }
@@ -65,8 +65,8 @@ public class FlexImageView: FlexView {
         let imageViewRect = self.getViewRect()
         self.imageView.frame = imageViewRect
 
-        let clipRect = CGRectOffset(self.bounds, -imageViewRect.origin.x, -imageViewRect.origin.y)
-        let maskShapeLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: clipRect, color: UIColor.blackColor())
+        let clipRect = self.bounds.offsetBy(dx: -imageViewRect.origin.x, dy: -imageViewRect.origin.y)
+        let maskShapeLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: clipRect, color: UIColor.black)
         
         self.imageView.layer.mask = maskShapeLayer
     }

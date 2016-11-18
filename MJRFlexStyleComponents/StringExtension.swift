@@ -9,27 +9,27 @@
 import UIKit
 
 extension String {
-    func heightWithConstrainedWidth(width: CGFloat, font: UIFont) -> CGFloat {
-        let constraintRect = CGSize(width: width, height: .max)
-        let boundingBox = CGRectIntegral(self.boundingRectWithSize(constraintRect, options: [.UsesLineFragmentOrigin, .UsesFontLeading], attributes: [NSFontAttributeName: font], context: nil))
+    func heightWithConstrainedWidth(_ width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSFontAttributeName: font], context: nil).integral
         return boundingBox.height
     }
 
-    func widthWithConstrainedHeight(height: CGFloat, font: UIFont) -> CGFloat {
-        let constraintRect = CGSize(width: .max, height: height)
-        let boundingBox = CGRectIntegral(self.boundingRectWithSize(constraintRect, options: [.UsesLineFragmentOrigin, .UsesFontLeading], attributes: [NSFontAttributeName: font], context: nil))
+    func widthWithConstrainedHeight(_ height: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+        let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSFontAttributeName: font], context: nil).integral
         return boundingBox.width
     }
 
-    func heightWithConstrainedWidthSize(width: CGFloat, font: UIFont) -> CGSize {
-        let constraintRect = CGSize(width: width, height: .max)
-        let boundingBox = CGRectIntegral(self.boundingRectWithSize(constraintRect, options: [.UsesLineFragmentOrigin, .UsesFontLeading], attributes: [NSFontAttributeName: font], context: nil))
+    func heightWithConstrainedWidthSize(_ width: CGFloat, font: UIFont) -> CGSize {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSFontAttributeName: font], context: nil).integral
         return boundingBox.size
     }
     
-    func widthWithConstrainedHeightSize(height: CGFloat, font: UIFont) -> CGSize {
-        let constraintRect = CGSize(width: .max, height: height)
-        let boundingBox = CGRectIntegral(self.boundingRectWithSize(constraintRect, options: [.UsesLineFragmentOrigin, .UsesFontLeading], attributes: [NSFontAttributeName: font], context: nil))
+    func widthWithConstrainedHeightSize(_ height: CGFloat, font: UIFont) -> CGSize {
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+        let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSFontAttributeName: font], context: nil).integral
         return boundingBox.size
     }
 }

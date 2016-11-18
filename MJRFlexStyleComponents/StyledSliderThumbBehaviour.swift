@@ -30,14 +30,14 @@
 import Foundation
 
 public enum StyledSliderThumbBehaviour {
-    case Freeform
-    case SnapToLower
-    case SnapToHigher
-    case SnapToCenter
-    case SnapToLowerAndHigher
-    case FixateToLower
-    case FixateToHigher
-    case FixateToCenter
+    case freeform
+    case snapToLower
+    case snapToHigher
+    case snapToCenter
+    case snapToLowerAndHigher
+    case fixateToLower
+    case fixateToHigher
+    case fixateToCenter
     
     // TODO: SnapToValue(v: Double)
 }

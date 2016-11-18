@@ -29,17 +29,17 @@
 
 import UIKit
 
-public class FlexImageCollectionViewCell: FlexCollectionViewCell {
-    public var flexContentView: FlexImageShapeView?
+open class FlexImageCollectionViewCell: FlexCollectionViewCell {
+    open var flexContentView: FlexImageShapeView?
     
-    override public var cellAppearance: FlexStyleCollectionCellAppearance? {
+    override open var cellAppearance: FlexStyleCollectionCellAppearance? {
         didSet {
             self.flexContentView?.flexViewAppearance = cellAppearance?.viewAppearance
             self.refreshLayout()
         }
     }
     
-    public override func initialize() {
+    open override func initialize() {
         super.initialize()
         let baseRect = self.bounds
         
@@ -52,31 +52,31 @@ public class FlexImageCollectionViewCell: FlexCollectionViewCell {
         }
     }
     
-    public override func prepareForReuse() {
+    open override func prepareForReuse() {
         super.prepareForReuse()
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
     }
     
-    public func cellTouched(recognizer: UITapGestureRecognizer) {
+    open func cellTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item as? FlexImageCollectionItem {
             self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item)
         }
     }
     
-    public func applySelectionStyles(fcv: FlexView) {
-        fcv.header.labelBackgroundColor = self.selected ? self.getCellAppearance().selectedBackgroundColor : self.getCellAppearance().viewAppearance.headerAppearance.backgroundColor
-        fcv.styleColor = self.selected ? self.getCellAppearance().selectedStyleColor : self.getCellAppearance().styleColor
-        fcv.borderColor = self.selected ? self.getCellAppearance().selectedBorderColor : self.getCellAppearance().borderColor
-        fcv.borderWidth = self.selected ? self.getCellAppearance().selectedBorderWidth : self.getCellAppearance().borderWidth
+    open func applySelectionStyles(_ fcv: FlexView) {
+        fcv.header.labelBackgroundColor = self.isSelected ? self.getCellAppearance().selectedBackgroundColor : self.getCellAppearance().viewAppearance.headerAppearance.backgroundColor
+        fcv.styleColor = self.isSelected ? self.getCellAppearance().selectedStyleColor : self.getCellAppearance().styleColor
+        fcv.borderColor = self.isSelected ? self.getCellAppearance().selectedBorderColor : self.getCellAppearance().borderColor
+        fcv.borderWidth = self.isSelected ? self.getCellAppearance().selectedBorderWidth : self.getCellAppearance().borderWidth
     }
     
-    override public func applyStyles() {
+    override open func applyStyles() {
         super.applyStyles()
         
-        if let item = self.item as? FlexImageCollectionItem, fcv = self.flexContentView {
+        if let item = self.item as? FlexImageCollectionItem, let fcv = self.flexContentView {
             fcv.image = item.image
             fcv.headerAttributedText = item.text
             fcv.imageStyle = self.getCellAppearance().controlStyle

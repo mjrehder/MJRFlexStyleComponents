@@ -29,28 +29,28 @@
 
 import UIKit
 
-public class FlexBaseCollectionItem: FlexCollectionItem {
-    public var icon: UIImage?
-    public var accessoryImage: UIImage?
-    public var title: NSAttributedString?
+open class FlexBaseCollectionItem: FlexCollectionItem {
+    open var icon: UIImage?
+    open var accessoryImage: UIImage?
+    open var title: NSAttributedString?
     
     /// This will be shown below the text
-    public var detailText: NSAttributedString?
+    open var detailText: NSAttributedString?
     
     /// This will be shown to the upper right of the cell
-    public var infoText: NSAttributedString?
+    open var infoText: NSAttributedString?
     
     /// This will be shown to the lower right of the cell
-    public var auxText: NSAttributedString?
+    open var auxText: NSAttributedString?
 
     /// Set this to true in order to hide the cell when the item is not selected.
-    public var showAccessoryImageOnlyWhenSelected: Bool = false
+    open var showAccessoryImageOnlyWhenSelected: Bool = false
     
     /// Set this to true in order to also trigger a selection of the item, when the icon or the accessoryImage is touched
-    public var contentInteractionWillSelectItem: Bool = false
+    open var contentInteractionWillSelectItem: Bool = false
     
-    public var accessoryImageActionHandler: (() -> Void)?
-    public var imageViewActionHandler: (() -> Void)?
+    open var accessoryImageActionHandler: (() -> Void)?
+    open var imageViewActionHandler: (() -> Void)?
     
     public init(reference: String, text: NSAttributedString? = nil, icon: UIImage? = nil, accessoryImage: UIImage? = nil, title: NSAttributedString? = nil, accessoryImageActionHandler: (() -> Void)? = nil) {
         self.icon = icon

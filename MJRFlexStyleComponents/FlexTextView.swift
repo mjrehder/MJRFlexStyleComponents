@@ -30,10 +30,10 @@
 import UIKit
 import StyledLabel
 
-public class FlexTextView: FlexView {
-    private var _textView: UITextView?
+open class FlexTextView: FlexView {
+    fileprivate var _textView: UITextView?
     
-    public var textView: UITextView {
+    open var textView: UITextView {
         get {
             return _textView!
         }
@@ -61,7 +61,7 @@ public class FlexTextView: FlexView {
         self.addSubview(self._textView!)
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         self.setupTextView()
     }
@@ -70,8 +70,8 @@ public class FlexTextView: FlexView {
         let textViewRect = self.getViewRect()
         self.textView.frame = textViewRect
         
-        let clipRect = CGRectOffset(self.bounds, -textViewRect.origin.x, -textViewRect.origin.y)
-        let maskShapeLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: clipRect, color: UIColor.blackColor())
+        let clipRect = self.bounds.offsetBy(dx: -textViewRect.origin.x, dy: -textViewRect.origin.y)
+        let maskShapeLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: clipRect, color: UIColor.black)
         
         self.textView.layer.mask = maskShapeLayer
     }}

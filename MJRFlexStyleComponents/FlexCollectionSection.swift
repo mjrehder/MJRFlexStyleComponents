@@ -29,10 +29,10 @@
 
 import UIKit
 
-public class FlexCollectionSection: NSObject {
+open class FlexCollectionSection: NSObject {
     var reference: String
     var title: NSAttributedString?
-    public var sectionHeaderAppearance: FlexLabelAppearance?
+    open var sectionHeaderAppearance: FlexLabelAppearance?
     
     public init(reference: String, title: NSAttributedString? = nil) {
         self.reference = reference

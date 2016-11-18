@@ -29,9 +29,9 @@
 
 import UIKit
 
-public class FlexSliderAppearance: FlexStyleBaseAppearance {
-    public var sliderMinimumTrackColor: UIColor = UIColor.redColor().darkerColor()
-    public var sliderMaximumTrackColor: UIColor = .clearColor()
-    public var sliderThumbColor: UIColor = .grayColor()
+open class FlexSliderAppearance: FlexStyleBaseAppearance {
+    open var sliderMinimumTrackColor: UIColor = UIColor.red.darkened()
+    open var sliderMaximumTrackColor: UIColor = .clear
+    open var sliderThumbColor: UIColor = .gray
 
 }

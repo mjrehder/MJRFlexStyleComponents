@@ -46,9 +46,9 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
         let ti1 = UIImage(named: "ThumbIcon1")
         let ti2 = UIImage(named: "ThumbIcon2")
         let ti3 = UIImage(named: "ThumbIcon3")
-        let scol1 = FlexMenuItem(title: "First", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clearColor(), thumbIcon: ti1)
-        let scol2 = FlexMenuItem(title: "Second Larger", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clearColor(), thumbIcon: ti2)
-        let scol3 = FlexMenuItem(title: "Third Med", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clearColor(), thumbIcon: ti3)
+        let scol1 = FlexMenuItem(title: "First", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clear, thumbIcon: ti1)
+        let scol2 = FlexMenuItem(title: "Second Larger", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clear, thumbIcon: ti2)
+        let scol3 = FlexMenuItem(title: "Third Med", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clear, thumbIcon: ti3)
         self.spacedMenuItems.append(scol1)
         self.spacedMenuItems.append(scol2)
         self.spacedMenuItems.append(scol3)
@@ -57,19 +57,19 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
         let fi = UIImage(named: "FillIcon")
         let li = UIImage(named: "LeftIcon")
         let ri = UIImage(named: "RightIcon")
-        let vih1 = FlexMenuItem(title: "Center", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clearColor(), thumbIcon: ci)
-        let vih2 = FlexMenuItem(title: "Fill", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clearColor(), thumbIcon: fi)
-        let vih3 = FlexMenuItem(title: "Left", titleShortcut: "", color:separatorColor, thumbColor: UIColor.clearColor(), thumbIcon: li)
-        let vih4 = FlexMenuItem(title: "Right", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clearColor(), thumbIcon: ri)
+        let vih1 = FlexMenuItem(title: "Center", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clear, thumbIcon: ci)
+        let vih2 = FlexMenuItem(title: "Fill", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clear, thumbIcon: fi)
+        let vih3 = FlexMenuItem(title: "Left", titleShortcut: "", color:separatorColor, thumbColor: UIColor.clear, thumbIcon: li)
+        let vih4 = FlexMenuItem(title: "Right", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clear, thumbIcon: ri)
         self.viewMenuHPosMenuItems.append(vih1)
         self.viewMenuHPosMenuItems.append(vih2)
         self.viewMenuHPosMenuItems.append(vih3)
         self.viewMenuHPosMenuItems.append(vih4)
         
-        let viv1 = FlexMenuItem(title: "Header", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clearColor())
-        let viv2 = FlexMenuItem(title: "Top", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clearColor())
-        let viv3 = FlexMenuItem(title: "Bottom", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clearColor())
-        let viv4 = FlexMenuItem(title: "Footer", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clearColor())
+        let viv1 = FlexMenuItem(title: "Header", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clear)
+        let viv2 = FlexMenuItem(title: "Top", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clear)
+        let viv3 = FlexMenuItem(title: "Bottom", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clear)
+        let viv4 = FlexMenuItem(title: "Footer", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clear)
         self.viewMenuVPosMenuItems.append(viv1)
         self.viewMenuVPosMenuItems.append(viv2)
         self.viewMenuVPosMenuItems.append(viv3)
@@ -80,62 +80,62 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
         
         self.eqSpacedMenu.menuDataSource = self
         self.eqSpacedMenu.thumbSize = ci?.size
-        self.eqSpacedMenu.separatorFont = UIFont.systemFontOfSize(12)
-        self.eqSpacedMenu.menuItemStyle = .Rounded
+        self.eqSpacedMenu.separatorFont = UIFont.systemFont(ofSize: 12)
+        self.eqSpacedMenu.menuItemStyle = .rounded
         self.eqSpacedMenu.menuInterItemSpacing = 10.0
 
         self.dynSpacedMenu.menuDataSource = self
         self.dynSpacedMenu.thumbSize = ti1?.size
-        self.dynSpacedMenu.menuItemStyle = .Rounded
+        self.dynSpacedMenu.menuItemStyle = .rounded
         self.dynSpacedMenu.menuInterItemSpacing = 10.0
 
         self.verticalDynSpacedMenu.menuDataSource = self
         self.verticalDynSpacedMenu.thumbSize = ti1?.size
-        self.verticalDynSpacedMenu.menuItemStyle = .Rounded
+        self.verticalDynSpacedMenu.menuItemStyle = .rounded
         self.verticalDynSpacedMenu.menuInterItemSpacing = 10.0
-        self.verticalDynSpacedMenu.direction = .Vertical
-        self.verticalDynSpacedMenu.separatorFont = UIFont.systemFontOfSize(12)
+        self.verticalDynSpacedMenu.direction = .vertical
+        self.verticalDynSpacedMenu.separatorFont = UIFont.systemFont(ofSize: 12)
 
-        self.eqSpacedMenu.menuStyle = .EquallySpaces(thumbPos: .Top)
-        self.dynSpacedMenu.menuStyle = .DynamicallySpaces(thumbPos: .Bottom)
-        self.verticalDynSpacedMenu.menuStyle = .DynamicallySpaces(thumbPos: .Top)
-        self.verticalDynSpacedMenu.menuItemGravity = .Right
+        self.eqSpacedMenu.menuStyle = .equallySpaces(thumbPos: .top)
+        self.dynSpacedMenu.menuStyle = .dynamicallySpaces(thumbPos: .bottom)
+        self.verticalDynSpacedMenu.menuStyle = .dynamicallySpaces(thumbPos: .top)
+        self.verticalDynSpacedMenu.menuItemGravity = .right
         
         // FlexView and FlexMenu Demo
-        let vm1 = FlexMenuItem(title: "", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clearColor(), thumbIcon: ti1)
-        let vm2 = FlexMenuItem(title: "", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clearColor(), thumbIcon: ti2)
+        let vm1 = FlexMenuItem(title: "", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clear, thumbIcon: ti1)
+        let vm2 = FlexMenuItem(title: "", titleShortcut: "", color: separatorColor, thumbColor: UIColor.clear, thumbIcon: ti2)
         self.viewMenuItems.append(vm1)
         self.viewMenuItems.append(vm2)
-        self.viewMenu = FlexMenu(frame: CGRectMake(0,0,10,10))
+        self.viewMenu = FlexMenu(frame: CGRect(x: 0,y: 0,width: 10,height: 10))
         self.viewMenu?.menuDataSource = self
-        self.viewMenu?.thumbSize = CGSizeMake(18, 18)
-        self.viewMenu?.menuItemStyle = .Rounded
+        self.viewMenu?.thumbSize = CGSize(width: 18, height: 18)
+        self.viewMenu?.menuItemStyle = .rounded
         self.viewMenu?.menuInterItemSpacing = 10.0
-        self.viewMenu?.menuStyle = .EquallySpaces(thumbPos: .Top)
-        self.flexViewMenu = FlexViewMenu(menu: self.viewMenu!, size: CGSizeMake(100, 18), hPos: .Fill, vPos: .Footer)
+        self.viewMenu?.menuStyle = .equallySpaces(thumbPos: .top)
+        self.flexViewMenu = FlexViewMenu(menu: self.viewMenu!, size: CGSize(width: 100, height: 18), hPos: .fill, vPos: .footer)
         
         self.flexView.headerText = "Header"
-        self.flexView.headerPosition = .Top
-        self.flexView.style = .RoundedFixed(cornerRadius: 10.0)
+        self.flexView.headerPosition = .top
+        self.flexView.style = .roundedFixed(cornerRadius: 10.0)
         self.flexView.styleColor = UIColor.MKColor.Teal.P500
         self.flexView.header.labelBackgroundColor = UIColor.MKColor.Teal.P700
-        self.flexView.header.labelFont = UIFont.boldSystemFontOfSize(14)
-        self.flexView.header.labelTextColor = UIColor.whiteColor()
+        self.flexView.header.labelFont = UIFont.boldSystemFont(ofSize: 14)
+        self.flexView.header.labelTextColor = UIColor.white
         
         self.flexView.addMenu(self.flexViewMenu!)
     }
     
     // MARK: - FlexMenuDataSource
     
-    func menuItemSelected(menu: FlexMenu, index: Int) {
+    func menuItemSelected(_ menu: FlexMenu, index: Int) {
         if menu == self.compactMenu {
             switch index {
             case 0:
-                self.flexView.headerPosition = .Top
+                self.flexView.headerPosition = .top
             case 1:
-                self.flexView.headerPosition = .Left
+                self.flexView.headerPosition = .left
             default:
-                self.flexView.headerPosition = .Right
+                self.flexView.headerPosition = .right
             }
         }
         else if menu == self.eqSpacedMenu {
@@ -144,15 +144,15 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
                 let hPos: FlexViewMenuHorizontalPosition
                 switch index {
                 case 0:
-                    hPos = .Center
+                    hPos = .center
                 case 1:
-                    hPos = .Fill
+                    hPos = .fill
                 case 2:
-                    hPos = .Left
+                    hPos = .left
                 default:
-                    hPos = .Right
+                    hPos = .right
                 }
-                self.flexViewMenu = FlexViewMenu(menu: self.viewMenu!, size: CGSizeMake(100, 18), hPos: hPos, vPos: fvm.vPos)
+                self.flexViewMenu = FlexViewMenu(menu: self.viewMenu!, size: CGSize(width: 100, height: 18), hPos: hPos, vPos: fvm.vPos)
                 self.flexView.addMenu(self.flexViewMenu!)
             }
         }
@@ -162,21 +162,21 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
                 let vPos: FlexViewMenuVerticalPosition
                 switch index {
                 case 0:
-                    vPos = .Header
+                    vPos = .header
                 case 1:
-                    vPos = .Top
+                    vPos = .top
                 case 2:
-                    vPos = .Bottom
+                    vPos = .bottom
                 default:
-                    vPos = .Footer
+                    vPos = .footer
                 }
-                self.flexViewMenu = FlexViewMenu(menu: self.viewMenu!, size: CGSizeMake(100, 18), hPos: fvm.hPos, vPos: vPos)
+                self.flexViewMenu = FlexViewMenu(menu: self.viewMenu!, size: CGSize(width: 100, height: 18), hPos: fvm.hPos, vPos: vPos)
                 self.flexView.addMenu(self.flexViewMenu!)
             }
         }
     }
     
-    func menuItemForIndex(menu: FlexMenu, index: Int) -> FlexMenuItem {
+    func menuItemForIndex(_ menu: FlexMenu, index: Int) -> FlexMenuItem {
         if menu == self.viewMenu {
             return self.viewMenuItems[index]
         }
@@ -194,7 +194,7 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
         }
     }
     
-    func numberOfMenuItems(menu: FlexMenu) -> Int {
+    func numberOfMenuItems(_ menu: FlexMenu) -> Int {
         if menu == self.viewMenu {
             return self.viewMenuItems.count
         }

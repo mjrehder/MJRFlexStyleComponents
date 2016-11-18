@@ -29,25 +29,25 @@
 
 import UIKit
 
-public class FlexControlLayoutHelper {
+open class FlexControlLayoutHelper {
     
-    public class func horizontallyAlignTwoFlexControls(upperControl: MJRFlexBaseControl, lowerControl: MJRFlexBaseControl, area: CGRect) {
-        let upperFrame = UIEdgeInsetsInsetRect(CGRectMake(area.origin.x, area.origin.y, area.size.width, area.size.height * 0.5), upperControl.controlInsets ?? UIEdgeInsetsZero)
-        let lowerFrame = UIEdgeInsetsInsetRect(CGRectMake(area.origin.x, area.origin.y + area.size.height * 0.5, area.size.width, area.size.height * 0.5), lowerControl.controlInsets ?? UIEdgeInsetsZero)
+    open class func horizontallyAlignTwoFlexControls(_ upperControl: MJRFlexBaseControl, lowerControl: MJRFlexBaseControl, area: CGRect) {
+        let upperFrame = UIEdgeInsetsInsetRect(CGRect(x: area.origin.x, y: area.origin.y, width: area.size.width, height: area.size.height * 0.5), upperControl.controlInsets ?? UIEdgeInsets.zero)
+        let lowerFrame = UIEdgeInsetsInsetRect(CGRect(x: area.origin.x, y: area.origin.y + area.size.height * 0.5, width: area.size.width, height: area.size.height * 0.5), lowerControl.controlInsets ?? UIEdgeInsets.zero)
         upperControl.frame = upperFrame
         lowerControl.frame = lowerFrame
     }
     
-    public class func layoutFourLabelsInArea(upperLeft: FlexLabel, lowerLeft: FlexLabel, upperRight: FlexLabel, lowerRight: FlexLabel, area: CGRect) {
-        let ciUL = upperLeft.controlInsets ?? UIEdgeInsetsZero
-        let ciUR = upperRight.controlInsets ?? UIEdgeInsetsZero
-        let ciLL = lowerLeft.controlInsets ?? UIEdgeInsetsZero
-        let ciLR = lowerRight.controlInsets ?? UIEdgeInsetsZero
+    open class func layoutFourLabelsInArea(_ upperLeft: FlexLabel, lowerLeft: FlexLabel, upperRight: FlexLabel, lowerRight: FlexLabel, area: CGRect) {
+        let ciUL = upperLeft.controlInsets ?? UIEdgeInsets.zero
+        let ciUR = upperRight.controlInsets ?? UIEdgeInsets.zero
+        let ciLL = lowerLeft.controlInsets ?? UIEdgeInsets.zero
+        let ciLR = lowerRight.controlInsets ?? UIEdgeInsets.zero
         
-        let upperLeftFrame = UIEdgeInsetsInsetRect(CGRectMake(area.origin.x, area.origin.y, area.size.width, area.size.height * 0.5), ciUL)
-        let lowerLeftFrame = UIEdgeInsetsInsetRect(CGRectMake(area.origin.x, area.origin.y + area.size.height * 0.5, area.size.width, area.size.height * 0.5), ciLL)
-        let upperRightFrame = UIEdgeInsetsInsetRect(CGRectMake(area.origin.x, area.origin.y, area.size.width, area.size.height * 0.5), ciUR)
-        let lowerRightFrame = UIEdgeInsetsInsetRect(CGRectMake(area.origin.x, area.origin.y + area.size.height * 0.5, area.size.width, area.size.height * 0.5), ciLR)
+        let upperLeftFrame = UIEdgeInsetsInsetRect(CGRect(x: area.origin.x, y: area.origin.y, width: area.size.width, height: area.size.height * 0.5), ciUL)
+        let lowerLeftFrame = UIEdgeInsetsInsetRect(CGRect(x: area.origin.x, y: area.origin.y + area.size.height * 0.5, width: area.size.width, height: area.size.height * 0.5), ciLL)
+        let upperRightFrame = UIEdgeInsetsInsetRect(CGRect(x: area.origin.x, y: area.origin.y, width: area.size.width, height: area.size.height * 0.5), ciUR)
+        let lowerRightFrame = UIEdgeInsetsInsetRect(CGRect(x: area.origin.x, y: area.origin.y + area.size.height * 0.5, width: area.size.width, height: area.size.height * 0.5), ciLR)
 
         let ulFont = upperLeft.label.font ?? upperLeft.getLabelAppearance().textFont
         let urFont = upperRight.label.font ?? upperRight.getLabelAppearance().textFont
@@ -60,10 +60,10 @@ public class FlexControlLayoutHelper {
         let lrText = lowerRight.label.attributedText?.string ?? upperLeft.label.text
         
         // Width calculations
-        let prefSizeUL = ulText?.widthWithConstrainedHeightSize(upperLeftFrame.size.height, font: ulFont) ?? CGSizeZero
-        let prefSizeLL = llText?.widthWithConstrainedHeightSize(lowerLeftFrame.size.height, font: llFont) ?? CGSizeZero
-        let prefSizeUR = urText?.widthWithConstrainedHeightSize(upperRightFrame.size.height, font: urFont) ?? CGSizeZero
-        let prefSizeLR = lrText?.widthWithConstrainedHeightSize(lowerRightFrame.size.height, font: lrFont) ?? CGSizeZero
+        let prefSizeUL = ulText?.widthWithConstrainedHeightSize(upperLeftFrame.size.height, font: ulFont) ?? CGSize.zero
+        let prefSizeLL = llText?.widthWithConstrainedHeightSize(lowerLeftFrame.size.height, font: llFont) ?? CGSize.zero
+        let prefSizeUR = urText?.widthWithConstrainedHeightSize(upperRightFrame.size.height, font: urFont) ?? CGSize.zero
+        let prefSizeLR = lrText?.widthWithConstrainedHeightSize(lowerRightFrame.size.height, font: lrFont) ?? CGSize.zero
         
         let totalUpperWidth = area.size.width - (ciUR.left + ciUR.right + ciUL.left + ciUL.right)
         let totalLowerWidth = area.size.width - (ciLR.left + ciLR.right + ciLL.left + ciLL.right)
@@ -113,9 +113,9 @@ public class FlexControlLayoutHelper {
         
         // TODO: Place vertically aligned to top and bottom
         
-        upperLeft.frame = CGRectMake(upperLeftFrame.origin.x, finalYOffsetUL, finalULWidth, finalULHeight)
-        upperRight.frame = CGRectMake(upperRightFrame.origin.x + totalUpperWidth - finalURWidth, finalYOffsetUR, finalURWidth, finalURHeight)
-        lowerLeft.frame = CGRectMake(lowerLeftFrame.origin.x, finalYOffsetLL, finalLLWidth, finalLLHeight)
-        lowerRight.frame = CGRectMake(lowerRightFrame.origin.x + totalLowerWidth - finalLRWidth, finalYOffsetLR, finalLRWidth, finalLRHeight)
+        upperLeft.frame = CGRect(x: upperLeftFrame.origin.x, y: finalYOffsetUL, width: finalULWidth, height: finalULHeight)
+        upperRight.frame = CGRect(x: upperRightFrame.origin.x + totalUpperWidth - finalURWidth, y: finalYOffsetUR, width: finalURWidth, height: finalURHeight)
+        lowerLeft.frame = CGRect(x: lowerLeftFrame.origin.x, y: finalYOffsetLL, width: finalLLWidth, height: finalLLHeight)
+        lowerRight.frame = CGRect(x: lowerRightFrame.origin.x + totalLowerWidth - finalLRWidth, y: finalYOffsetLR, width: finalLRWidth, height: finalLRHeight)
     }
 }

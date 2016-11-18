@@ -31,41 +31,41 @@
 import UIKit
 
 public protocol FlexCollectionViewCellTouchedDelegate {
-    func onFlexCollectionViewCellTouched(item : FlexCollectionItem?)
+    func onFlexCollectionViewCellTouched(_ item : FlexCollectionItem?)
 }
 
 enum FlexCollectionViewCellSwipeState {
-    case None
-    case Left
-    case Right
-    case Swiping
+    case none
+    case left
+    case right
+    case swiping
 }
 
-public class FlexCollectionViewCell: UICollectionViewCell {
-    public var reference : String?
+open class FlexCollectionViewCell: UICollectionViewCell {
+    open var reference : String?
     
-    public var flexCellTouchDelegate: FlexCollectionViewCellTouchedDelegate?
+    open var flexCellTouchDelegate: FlexCollectionViewCellTouchedDelegate?
     
     var _item: FlexCollectionItem? = nil
-    public var item: FlexCollectionItem? {
+    open var item: FlexCollectionItem? {
         get {
             return _item
         }
     }
     
-    var swipeLeftRightState: FlexCollectionViewCellSwipeState = .None
+    var swipeLeftRightState: FlexCollectionViewCellSwipeState = .none
     var swipeMenuTapRecognizer: UITapGestureRecognizer?
     
-    public var cellAppearance: FlexStyleCollectionCellAppearance? {
+    open var cellAppearance: FlexStyleCollectionCellAppearance? {
         didSet {
             self.refreshLayout()
         }
     }
-    public func getCellAppearance() -> FlexStyleCollectionCellAppearance {
+    open func getCellAppearance() -> FlexStyleCollectionCellAppearance {
         return self.cellAppearance ?? flexStyleAppearance.collectionViewAppearance.cellAppearance
     }
     
-    public override var selected: Bool {
+    open override var isSelected: Bool {
         didSet {
             self.setNeedsLayout()
         }
@@ -81,22 +81,22 @@ public class FlexCollectionViewCell: UICollectionViewCell {
         self.initialize()
     }
     
-    public func initialize() {
+    open func initialize() {
         if self.backgroundView == nil {
             self.backgroundView = UIView(frame: self.bounds)
         }
     }
     
-    public override func prepareForReuse() {
+    open override func prepareForReuse() {
         super.prepareForReuse()
         self.gestureRecognizers?.removeAll()
-        swipeLeftRightState = .None
+        swipeLeftRightState = .none
     }
 
     // MARK: - Swipe Left / Right Menu
     
     func swipeLeft() {
-        if self.swipeLeftRightState != .None {
+        if self.swipeLeftRightState != .none {
             self.animateSwipeReset()
             return
         }
@@ -104,64 +104,64 @@ public class FlexCollectionViewCell: UICollectionViewCell {
     }
     
     func swipeRight() {
-        if self.swipeLeftRightState != .None {
+        if self.swipeLeftRightState != .none {
             self.animateSwipeReset()
             return
         }
         self.animateSwipeRight()
     }
     
-    private func animateSwipeLeft() {
-        self.swipeLeftRightState = .Swiping
+    fileprivate func animateSwipeLeft() {
+        self.swipeLeftRightState = .swiping
         let swipeLength = self.layoutRightSideMenu()
         if let items = item?.swipeLeftMenuItems {
             self.showSwipeMenuItems(items, visible: true)
         }
         let cellContentViewRect = self.contentView.bounds.offsetBy(dx: swipeLength, dy: 0)
-        UIView.animateWithDuration(0.4, animations: {
+        UIView.animate(withDuration: 0.4, animations: {
             self.contentView.bounds = cellContentViewRect
-        }) { (completed) in
-            self.swipeLeftRightState = .Left
+        }, completion: { (completed) in
+            self.swipeLeftRightState = .left
             self.swipeMenuTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.swipeMenuRightTapped(_:)))
             self.addGestureRecognizer(self.swipeMenuTapRecognizer!)
-        }
+        }) 
     }
 
-    private func animateSwipeRight() {
-        self.swipeLeftRightState = .Swiping
+    fileprivate func animateSwipeRight() {
+        self.swipeLeftRightState = .swiping
         let swipeLength = self.layoutLeftSideMenu()
         if let items = item?.swipeRightMenuItems {
             self.showSwipeMenuItems(items, visible: true)
         }
         let cellContentViewRect = self.contentView.bounds.offsetBy(dx: -swipeLength, dy: 0)
-        UIView.animateWithDuration(0.4, animations: {
+        UIView.animate(withDuration: 0.4, animations: {
             self.contentView.bounds = cellContentViewRect
-        }) { (completed) in
-            self.swipeLeftRightState = .Right
+        }, completion: { (completed) in
+            self.swipeLeftRightState = .right
             self.swipeMenuTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.swipeMenuLeftTapped(_:)))
             self.addGestureRecognizer(self.swipeMenuTapRecognizer!)
-        }
+        }) 
     }
     
     func animateSwipeReset() {
         if let mtr = self.swipeMenuTapRecognizer {
             self.removeGestureRecognizer(mtr)
         }
-        let cellContentViewRect = CGRectMake(0, 0, self.contentView.bounds.width, self.contentView.bounds.height)
-        UIView.animateWithDuration(0.3, animations: {
+        let cellContentViewRect = CGRect(x: 0, y: 0, width: self.contentView.bounds.width, height: self.contentView.bounds.height)
+        UIView.animate(withDuration: 0.3, animations: {
             self.contentView.bounds = cellContentViewRect
-        }) { (completed) in
-            self.swipeLeftRightState = .None
+        }, completion: { (completed) in
+            self.swipeLeftRightState = .none
             if let items = self.item?.swipeRightMenuItems {
                 self.showSwipeMenuItems(items, visible: false)
             }
             if let items = self.item?.swipeLeftMenuItems {
                 self.showSwipeMenuItems(items, visible: false)
             }
-        }
+        }) 
     }
 
-    private func layoutRightSideMenu() -> CGFloat {
+    fileprivate func layoutRightSideMenu() -> CGFloat {
         if let rsm = self.item?.swipeLeftMenuItems {
             self.addSwipeMenuItems(rsm)
             let maxWidth = self.bounds.size.width * 0.8
@@ -169,8 +169,8 @@ public class FlexCollectionViewCell: UICollectionViewCell {
             let wScale:CGFloat = totalMenuRequestedWidth > maxWidth ? maxWidth / totalMenuRequestedWidth : 1
             var curPos = totalMenuRequestedWidth * wScale
             for mi in rsm {
-                let pos = CGPointMake(self.bounds.size.width - curPos, 0)
-                mi.frame = CGRect(origin: pos, size: CGSizeMake(wScale * self.bounds.size.height, self.bounds.size.height))
+                let pos = CGPoint(x: self.bounds.size.width - curPos, y: 0)
+                mi.frame = CGRect(origin: pos, size: CGSize(width: wScale * self.bounds.size.height, height: self.bounds.size.height))
                 curPos -= wScale * self.bounds.size.height
             }
             return totalMenuRequestedWidth * wScale
@@ -178,7 +178,7 @@ public class FlexCollectionViewCell: UICollectionViewCell {
         return 0
     }
     
-    private func layoutLeftSideMenu() -> CGFloat {
+    fileprivate func layoutLeftSideMenu() -> CGFloat {
         if let rsm = self.item?.swipeRightMenuItems {
             self.addSwipeMenuItems(rsm)
             let maxWidth = self.bounds.size.width * 0.8
@@ -186,8 +186,8 @@ public class FlexCollectionViewCell: UICollectionViewCell {
             let wScale:CGFloat = totalMenuRequestedWidth > maxWidth ? maxWidth / totalMenuRequestedWidth : 1
             var curPos:CGFloat = 0
             for mi in rsm {
-                let pos = CGPointMake(curPos, 0)
-                mi.frame = CGRect(origin: pos, size: CGSizeMake(wScale * self.bounds.size.height, self.bounds.size.height))
+                let pos = CGPoint(x: curPos, y: 0)
+                mi.frame = CGRect(origin: pos, size: CGSize(width: wScale * self.bounds.size.height, height: self.bounds.size.height))
                 curPos += wScale * self.bounds.size.height
             }
             return totalMenuRequestedWidth * wScale
@@ -195,26 +195,26 @@ public class FlexCollectionViewCell: UICollectionViewCell {
         return 0
     }
     
-    private func addSwipeMenuItems(items: [FlexLabel]) {
+    fileprivate func addSwipeMenuItems(_ items: [FlexLabel]) {
         for mi in items {
-            mi.hidden = true
+            mi.isHidden = true
             if mi.superview == nil {
                 self.backgroundView!.addSubview(mi)
             }
         }
     }
     
-    private func showSwipeMenuItems(items: [FlexLabel], visible: Bool) {
+    fileprivate func showSwipeMenuItems(_ items: [FlexLabel], visible: Bool) {
         for mi in items {
-            mi.hidden = !visible
+            mi.isHidden = !visible
         }
     }
 
-    func swipeMenuLeftTapped(recognizer: UITapGestureRecognizer) {
-        let touchedViewPos = recognizer.locationInView(self)
-        if let item = self.item, rsm = item.swipeRightMenuItems {
+    func swipeMenuLeftTapped(_ recognizer: UITapGestureRecognizer) {
+        let touchedViewPos = recognizer.location(in: self)
+        if let item = self.item, let rsm = item.swipeRightMenuItems {
             for mi in rsm {
-                if CGRectContainsPoint(mi.frame, touchedViewPos) {
+                if mi.frame.contains(touchedViewPos) {
                     self.item?.swipeMenuDelegate?.swipeMenuSelected(item, menuItem: mi)
                 }
             }
@@ -222,11 +222,11 @@ public class FlexCollectionViewCell: UICollectionViewCell {
         self.animateSwipeReset()
     }
     
-    func swipeMenuRightTapped(recognizer: UITapGestureRecognizer) {
-        let touchedViewPos = recognizer.locationInView(self)
-        if let item = self.item, rsm = item.swipeLeftMenuItems {
+    func swipeMenuRightTapped(_ recognizer: UITapGestureRecognizer) {
+        let touchedViewPos = recognizer.location(in: self)
+        if let item = self.item, let rsm = item.swipeLeftMenuItems {
             for mi in rsm {
-                if CGRectContainsPoint(mi.frame, touchedViewPos) {
+                if mi.frame.contains(touchedViewPos) {
                     self.item?.swipeMenuDelegate?.swipeMenuSelected(item, menuItem: mi)
                 }
             }
@@ -236,27 +236,27 @@ public class FlexCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Layout
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         self.refreshLayout()
     }
     
-    public func refreshLayout() {
+    open func refreshLayout() {
         self.assignBorderLayout()
         self.applyStyles()
         self.backgroundView?.frame = self.bounds
-        if self.swipeLeftRightState != .Swiping {
+        if self.swipeLeftRightState != .swiping {
             self.animateSwipeReset()
         }
     }
     
-    public func applyStyles() {
+    open func applyStyles() {
     }
 
-    public func assignBorderLayout() {
+    open func assignBorderLayout() {
         let appe = self.getCellAppearance()
-        self.layer.borderColor = self.selected ? appe.selectedBorderColor.CGColor : appe.borderColor.CGColor
-        self.layer.borderWidth = self.selected ? appe.selectedBorderWidth : appe.borderWidth
+        self.layer.borderColor = self.isSelected ? appe.selectedBorderColor.cgColor : appe.borderColor.cgColor
+        self.layer.borderWidth = self.isSelected ? appe.selectedBorderWidth : appe.borderWidth
     }
 
 }

@@ -29,8 +29,8 @@
 
 import UIKit
 
-public class FlexStyleContainerAppearance: FlexStyleBaseAppearance {
-    public var sliderAppearance = FlexSliderAppearance()
-    public var textAppearance = FlexLabelAppearance(style: .Box, textColor: .blackColor(), textFont: UIFont.systemFontOfSize(14), textAlignment: .Left, size: 16, insets: UIEdgeInsetsZero, backgroundColor: .clearColor(), borderColor: .blackColor(), borderWidth: 0)
-    public var switchAppearance = FlexSwitchAppearance()
+open class FlexStyleContainerAppearance: FlexStyleBaseAppearance {
+    open var sliderAppearance = FlexSliderAppearance()
+    open var textAppearance = FlexLabelAppearance(style: .box, textColor: .black, textFont: UIFont.systemFont(ofSize: 14), textAlignment: .left, size: 16, insets: UIEdgeInsets.zero, backgroundColor: .clear, borderColor: .black, borderWidth: 0)
+    open var switchAppearance = FlexSwitchAppearance()
 }

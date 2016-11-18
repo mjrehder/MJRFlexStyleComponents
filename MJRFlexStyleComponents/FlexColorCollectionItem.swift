@@ -29,9 +29,9 @@
 
 import UIKit
 
-public class FlexColorCollectionItem: FlexBaseCollectionItem {
-    public var color: UIColor = UIColor.blackColor()
-    public var colorActionHandler: (() -> Void)?
+open class FlexColorCollectionItem: FlexBaseCollectionItem {
+    open var color: UIColor = UIColor.black
+    open var colorActionHandler: (() -> Void)?
 
     public init(reference: String, color: UIColor, text: NSAttributedString? = nil, icon: UIImage? = nil, accessoryImage: UIImage? = nil, title: NSAttributedString? = nil, colorActionHandler: (() -> Void)? = nil) {
         self.color = color

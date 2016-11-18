@@ -30,14 +30,14 @@
 import UIKit
 import StyledLabel
 
-public class FlexStyleBaseAppearance {
-    public var style: ShapeStyle = .Box
-    public var styleColor = UIColor.lightGrayColor()
-    public var backgroundColor = UIColor.clearColor()
-    public var backgroundInsets: UIEdgeInsets = UIEdgeInsetsZero
+open class FlexStyleBaseAppearance {
+    open var style: ShapeStyle = .box
+    open var styleColor = UIColor.lightGray
+    open var backgroundColor = UIColor.clear
+    open var backgroundInsets: UIEdgeInsets = UIEdgeInsets.zero
 
-    public var borderWidth: CGFloat = 0
-    public var borderColor: UIColor = UIColor.blackColor()
+    open var borderWidth: CGFloat = 0
+    open var borderColor: UIColor = UIColor.black
     
     public init() {
     }

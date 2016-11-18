@@ -29,7 +29,7 @@
 
 import UIKit
 
-public class FlexSwitchAppearance: FlexStyleBaseAppearance {
-    public var switchOnColor: UIColor = UIColor.redColor().darkerColor()
-    public var switchThumbColor: UIColor = .grayColor()
+open class FlexSwitchAppearance: FlexStyleBaseAppearance {
+    open var switchOnColor: UIColor = UIColor.red.darkened()
+    open var switchThumbColor: UIColor = .gray
 }

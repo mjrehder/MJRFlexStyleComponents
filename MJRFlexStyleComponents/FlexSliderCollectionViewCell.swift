@@ -29,21 +29,21 @@
 
 import UIKit
 
-public class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
+open class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
     var flexSlider: FlexSlider?
     
-    public override func initialize() {
+    open override func initialize() {
         super.initialize()
         
         if let pcv = self.flexContentView {
             self.flexSlider = FlexSlider()
             if let fs = self.flexSlider {
-                fs.hidden = true
+                fs.isHidden = true
                 fs.valueChangedBlock = {
                     (value, index) in
                     if let item = self.item as? FlexSliderCollectionItem {
                         item.value = value
-                        item.valueChangedHandler?(value: value)
+                        item.valueChangedHandler?(value)
                     }
                 }
                 pcv.addSubview(fs)
@@ -51,7 +51,7 @@ public class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
         }
     }
     
-    override public var cellAppearance: FlexStyleCollectionCellAppearance? {
+    override open var cellAppearance: FlexStyleCollectionCellAppearance? {
         didSet {
             self.flexContentView?.flexViewAppearance = self.getCellAppearance().viewAppearance
             self.applyTextAppearance()
@@ -66,12 +66,12 @@ public class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
         }
     }
     
-    public func layoutSliderView(item: FlexSliderCollectionItem, area: CGRect) -> CGRect {
+    open func layoutSliderView(_ item: FlexSliderCollectionItem, area: CGRect) -> CGRect {
         var remainingCellArea = area
         
         if let fs = self.flexSlider {
             let appe = self.getCellAppearance()
-            let imageViewRect = CGRect(origin: CGPointZero, size: appe.controlSize)
+            let imageViewRect = CGRect(origin: CGPoint.zero, size: appe.controlSize)
             
             fs.sliderAppearance = appe.sliderAppearance
             fs.style = appe.controlStyle
@@ -80,10 +80,10 @@ public class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
             fs.controlInsets = appe.controlInsets
             
             let controlInsets = appe.controlInsets
-            let controlSize = UIEdgeInsetsInsetRect(CGRect(origin: CGPointZero, size: CGSizeMake(remainingCellArea.width, appe.controlSize.height)), controlInsets).size
+            let controlSize = UIEdgeInsetsInsetRect(CGRect(origin: CGPoint.zero, size: CGSize(width: remainingCellArea.width, height: appe.controlSize.height)), controlInsets).size
             
-            fs.frame = CGRectMake(remainingCellArea.origin.x + (remainingCellArea.size.width - (controlInsets.right + controlSize.width)), remainingCellArea.origin.y + (remainingCellArea.size.height - controlSize.height) * 0.5, controlSize.width, controlSize.height)
-            fs.hidden = false
+            fs.frame = CGRect(x: remainingCellArea.origin.x + (remainingCellArea.size.width - (controlInsets.right + controlSize.width)), y: remainingCellArea.origin.y + (remainingCellArea.size.height - controlSize.height) * 0.5, width: controlSize.width, height: controlSize.height)
+            fs.isHidden = false
             fs.minimumValue = item.minValue
             fs.maximumValue = item.maxValue
             fs.value = item.value
@@ -91,13 +91,13 @@ public class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
             remainingCellArea = remainingCellArea.insetBy(dx: switchTotalWidth*0.5, dy: 0).offsetBy(dx: -switchTotalWidth*0.5, dy: 0)
         }
         else {
-            self.flexSlider?.hidden = true
+            self.flexSlider?.isHidden = true
         }
         return remainingCellArea
     }
     
-    override public func applyStyles() {
-        if let item = self.item as? FlexSliderCollectionItem, fcv = self.flexContentView {
+    override open func applyStyles() {
+        if let item = self.item as? FlexSliderCollectionItem, let fcv = self.flexContentView {
             fcv.headerAttributedText = item.title
             self.applySelectionStyles(fcv)
             var remainingCellArea = fcv.getViewRect()
@@ -107,7 +107,7 @@ public class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
             if item.text != nil {
                 self.layoutSliderView(item, area: remainingCellArea)
                 self.layoutText(item, area: remainingCellArea)
-                if let fs = self.flexSlider, tc = self.textLabel {
+                if let fs = self.flexSlider, let tc = self.textLabel {
                     FlexControlLayoutHelper.horizontallyAlignTwoFlexControls(tc, lowerControl: fs, area: remainingCellArea)
                 }
             }

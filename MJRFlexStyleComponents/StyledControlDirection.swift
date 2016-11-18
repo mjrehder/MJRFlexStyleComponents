@@ -30,17 +30,17 @@
 import UIKit
 
 public enum StyledControlDirection {
-    case Horizontal
-    case Vertical
+    case horizontal
+    case vertical
     
     /**
      The principal size is the axis of the direction. Width when the direction is horizontal and height when the direction is vertical.
      */
-    public func principalSize(size: CGSize) -> CGFloat {
+    public func principalSize(_ size: CGSize) -> CGFloat {
         switch self {
-        case .Horizontal:
+        case .horizontal:
             return size.width
-        case .Vertical:
+        case .vertical:
             return size.height
         }
     }
@@ -48,11 +48,11 @@ public enum StyledControlDirection {
     /**
      The non-principal size is the perpendicular axis of the direction. Height when the direction is horizontal and width when the direction is vertical.
      */
-    public func nonPrincipalSize(size: CGSize) -> CGFloat {
+    public func nonPrincipalSize(_ size: CGSize) -> CGFloat {
         switch self {
-        case .Horizontal:
+        case .horizontal:
             return size.height
-        case .Vertical:
+        case .vertical:
             return size.width
         }
     }
@@ -60,11 +60,11 @@ public enum StyledControlDirection {
     /**
      The principal position is on the axis of the direction. X when the direction is horizontal and Y when the direction is vertical.
      */
-    public func principalPosition(p: CGPoint) -> CGFloat {
+    public func principalPosition(_ p: CGPoint) -> CGFloat {
         switch self {
-        case .Horizontal:
+        case .horizontal:
             return p.x
-        case .Vertical:
+        case .vertical:
             return p.y
         }
     }
@@ -72,11 +72,11 @@ public enum StyledControlDirection {
     /**
      The non-principal position is on the perpendicular axis of the direction. Y when the direction is horizontal and X when the direction is vertical.
      */
-    public func nonPrincipalPosition(p: CGPoint) -> CGFloat {
+    public func nonPrincipalPosition(_ p: CGPoint) -> CGFloat {
         switch self {
-        case .Horizontal:
+        case .horizontal:
             return p.y
-        case .Vertical:
+        case .vertical:
             return p.x
         }
     }
@@ -84,24 +84,24 @@ public enum StyledControlDirection {
     /**
      The principal size of the direction is applied. Vertical direction will flip the width and the height in the size.
      */
-    public func getSize(size: CGSize) -> CGSize {
+    public func getSize(_ size: CGSize) -> CGSize {
         switch self {
-        case .Horizontal:
+        case .horizontal:
             return size
-        case .Vertical:
-            return CGSizeMake(size.height, size.width)
+        case .vertical:
+            return CGSize(width: size.height, height: size.width)
         }
     }
     
     /**
      The principal position of the direction is applied. Vertical direction will flip the X and the Y in the point.
      */
-    public func getPosition(p: CGPoint) -> CGPoint {
+    public func getPosition(_ p: CGPoint) -> CGPoint {
         switch self {
-        case .Horizontal:
+        case .horizontal:
             return p
-        case .Vertical:
-            return CGPointMake(p.y, p.x)
+        case .vertical:
+            return CGPoint(x: p.y, y: p.x)
         }
     }
 }

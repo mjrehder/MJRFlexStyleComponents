@@ -32,22 +32,22 @@
 import UIKit
 
 class BezierPathHelper {
-    class func addBezierCurveWithPoints(path: UIBezierPath, points: [CGPoint]) {
+    class func addBezierCurveWithPoints(_ path: UIBezierPath, points: [CGPoint]) {
         if points.count < 2 {
             return
         }
         
-        var CP1 = CGPointZero
-        var CP2 = CGPointZero
+        var CP1 = CGPoint.zero
+        var CP2 = CGPoint.zero
         
-        var p0 = CGPointZero
-        var p1 = CGPointZero
-        var p2 = CGPointZero
-        var p3 = CGPointZero
+        var p0 = CGPoint.zero
+        var p1 = CGPoint.zero
+        var p2 = CGPoint.zero
+        var p3 = CGPoint.zero
         var tensionBezier1:CGFloat = 0.3
         var tensionBezier2:CGFloat = 0.3
         
-        var previousPoint1 = CGPointZero
+        var previousPoint1 = CGPoint.zero
         
         for i in 0..<points.count-1 {
             p1 = points[i]
@@ -86,12 +86,12 @@ class BezierPathHelper {
             }
             
             // First control point
-            CP1 = CGPointMake(p1.x + (p2.x - p1.x)/3, p1.y - (p1.y - p2.y)/3 - (p0.y - p1.y)*tensionBezier1)
+            CP1 = CGPoint(x: p1.x + (p2.x - p1.x)/3, y: p1.y - (p1.y - p2.y)/3 - (p0.y - p1.y)*tensionBezier1)
             
             // Second control point
-            CP2 = CGPointMake(p1.x + 2*(p2.x - p1.x)/3, (p1.y - 2*(p1.y - p2.y)/3) + (p2.y - p3.y) * tensionBezier2)
+            CP2 = CGPoint(x: p1.x + 2*(p2.x - p1.x)/3, y: (p1.y - 2*(p1.y - p2.y)/3) + (p2.y - p3.y) * tensionBezier2)
             
-            path.addCurveToPoint(p2, controlPoint1: CP1, controlPoint2: CP2)
+            path.addCurve(to: p2, controlPoint1: CP1, controlPoint2: CP2)
             
             previousPoint1 = p1
         }

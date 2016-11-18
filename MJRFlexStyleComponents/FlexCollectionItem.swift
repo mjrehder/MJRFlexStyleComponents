@@ -31,27 +31,27 @@
 import UIKit
 
 public protocol FlexCollectionItemSwipeDelegate {
-    func swipeMenuSelected(item: FlexCollectionItem, menuItem: FlexLabel)
+    func swipeMenuSelected(_ item: FlexCollectionItem, menuItem: FlexLabel)
 }
 
-public class FlexCollectionItem: NSObject {
-    public var reference: String
+open class FlexCollectionItem: NSObject {
+    open var reference: String
 
     /// Use this to refer to other content or items. The auxReference is not used or altered by the FlexCollection.
-    public var auxReference: String?
+    open var auxReference: String?
     
-    public var text: NSAttributedString?
-    public var sectionReference: String?
-    public var preferredCellSize: CGSize?
-    public var cellAppearance: FlexStyleCollectionCellAppearance?
-    public var canMoveItem: Bool = true
+    open var text: NSAttributedString?
+    open var sectionReference: String?
+    open var preferredCellSize: CGSize?
+    open var cellAppearance: FlexStyleCollectionCellAppearance?
+    open var canMoveItem: Bool = true
     
     /// Swipe left menu items. A swipe gesture will be added to the cell when the menu items are set
-    public var swipeLeftMenuItems: [FlexLabel]?
+    open var swipeLeftMenuItems: [FlexLabel]?
     /// Swipe right menu items. A swipe gesture will be added to the cell when the menu items are set
-    public var swipeRightMenuItems: [FlexLabel]?
+    open var swipeRightMenuItems: [FlexLabel]?
 
-    public var swipeMenuDelegate: FlexCollectionItemSwipeDelegate?
+    open var swipeMenuDelegate: FlexCollectionItemSwipeDelegate?
     
     public init(reference: String, text: NSAttributedString? = nil) {
         self.reference = reference
