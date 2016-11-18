@@ -26,7 +26,7 @@ $ cd /path/to/MyProject
 $ touch Podfile
 $ edit Podfile
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, ‘9.0’
+platform :ios, ‘10.0’
 
 use_frameworks!
 pod ‘MJRFlexStyleComponents’
@@ -76,7 +76,7 @@ A slider very similar to UISlider
 Example:
 ```swift
 	let slider = FlexSlider()
-        slider.backgroundColor = .clearColor()
+        slider.backgroundColor = .clear
         slider.minimumValue = 1
         slider.maximumValue = 4
         slider.value = 2
@@ -96,12 +96,12 @@ This is a slider with two thumbs instead of one. The lower value cannot be large
 Example:
 ```swift
 	let slider = FlexDoubleSlider()
-        slider.backgroundColor = UIColor.clearColor()
-        slider.direction = .Vertical
+        slider.backgroundColor = UIColor.clear
+        slider.direction = .vertical
         slider.minimumValue = 0
         slider.maximumValue = 100
         slider.thumbRatio = 0.1
-        slider.hintStyle = .Rounded
+        slider.hintStyle = .rounded
         slider.thumbText = nil
         slider.numberFormatString = "%.1f"
         slider.value = 0
@@ -133,7 +133,7 @@ The equally and dynamically spaced layouts are similar to the familiar Toolbar o
 
 All menu layouts support vertical layout and you can specify the gravity of the text labels in order to rotate the text
 ```swift
-    flexMenuExample.menuItemGravity: FlexMenuItemGravity = .Normal // .Left or .Right
+    flexMenuExample.menuItemGravity: FlexMenuItemGravity = .normal // .left or .right
 ```
 
 Simple example for the compact style (from the example project):
@@ -165,11 +165,11 @@ Simple example for the compact style (from the example project):
     func menuItemSelected(menu: FlexMenu, index: Int) {
         switch index {
             case 0:
-                self.setStyleOfDemoControls(.Box)
+                self.setStyleOfDemoControls(.box)
             case 1:
-                self.setStyleOfDemoControls(.Rounded)
+                self.setStyleOfDemoControls(.rounded)
             case 2:
-                self.setStyleOfDemoControls(.Tube)
+                self.setStyleOfDemoControls(.tube)
             default:
                 break
         }
@@ -187,13 +187,13 @@ Example (from the example project):
     func setupSliderGraphView() {
         // Standard iOS UI
         self.sliderGraphView.layer.borderWidth = 1.0
-        self.sliderGraphView.layer.borderColor = UIColor.blackColor().CGColor
+        self.sliderGraphView.layer.borderColor = UIColor.black.cgColor
         self.sliderGraphView.layer.masksToBounds = true
         self.sliderGraphView.layer.cornerRadius = 10
 
         // The graph setup
         self.sliderGraphView.itemSize = 24
-        self.sliderGraphView.backgroundColor = UIColor.clearColor()
+        self.sliderGraphView.backgroundColor = UIColor.clear
         self.sliderGraphView.dataSource = self
         self.sliderGraphView.reloadData()
     }
@@ -227,7 +227,7 @@ Margins allow the header and footer to be detached of the background, if that is
 The FlexView can have FlexViewMenu menus, which are added by using:
 ```swift
     viewMenu = ... (Omitted the code. See example from the FlexMenu section)
-    flexViewMenu = FlexViewMenu(menu: viewMenu, size: CGSizeMake(100, 18), hPos: .Center, vPos: .Top)
+    flexViewMenu = FlexViewMenu(menu: viewMenu, size: CGSize(width: 100, height: 18), hPos: .center, vPos: .top)
     flexView.addMenu(flexViewMenu)
 ```
 The size of the FlexViewMenu is relevant, if you do not fill the menu. The height in the size will be the height of the menu.
@@ -236,19 +236,19 @@ The vertical position (vPos) can be .Header, .Top, .Bottom and .Footer and place
 
 Example (from the example project):
 ```swift
-        rightFlexView.headerPosition = .Right
-        rightFlexView.backgroundMargins = UIEdgeInsetsMake(0, 15, 0, 20)
+        rightFlexView.headerPosition = .right
+        rightFlexView.backgroundMargins = UIEdgeInsets(top: 0, left:15, bottom:0, right:20)
         rightFlexView.headerText = "Right"
         rightFlexView.footerText = "Right Footer"
         rightFlexView.styleColor = UIColor.MKColor.Amber.P100
         rightFlexView.header.labelBackgroundColor = UIColor.MKColor.Amber.P500
         rightFlexView.headerSize = 16
-        rightFlexView.header.style = .Tube
+        rightFlexView.header.style = .tube
         rightFlexView.headerClipToBackgroundShape = false
-        rightFlexView.header.labelFont = UIFont.boldSystemFontOfSize(10)
-        rightFlexView.footer.labelFont = UIFont.systemFontOfSize(10)
+        rightFlexView.header.labelFont = UIFont.boldSystemFont(ofSize: 10)
+        rightFlexView.footer.labelFont = UIFont.systemFont(ofSize: 10)
         rightFlexView.footerClipToBackgroundShape = false
-        rightFlexView.header.labelTextColor = UIColor.whiteColor()
+        rightFlexView.header.labelTextColor = UIColor.white
         rightFlexView.style = .Custom(path: UIBezierPath(roundedRect: rightFlexView.bounds, cornerRadius: 10))
 ```
 
@@ -263,7 +263,7 @@ The FlexImageView is a specialisation of the FlexView. This is both a lightweigh
 Beside the FlexView features, the FlexImageView exposes a simple interface directly to the contained UIImageView in order to set and layout the image:
 ```swift
         flexView.imageView.image = UIImage(named: "DemoImage")
-        flexView.imageView.contentMode = .ScaleAspectFit
+        flexView.imageView.contentMode = .scaleAspectFit
 ```
 Use ```imageViewMargins: UIEdgeInsets``` to add insets to the image inside the display rect of the FlexView.
 
@@ -292,7 +292,7 @@ A simple example from the demo project for using the FlexCollectionView
         self.automaticallyAdjustsScrollViewInsets = false
 
         self.demoCollectionView.flexCollectionDelegate = self
-        self.demoCollectionView.defaultCellSize = CGSizeMake(250, 64)
+        self.demoCollectionView.defaultCellSize = CGSize(width: 250, height: 64)
         self.demoCollectionView.headerText = "Collection Demo"
         
         // Setup demo style
@@ -301,9 +301,9 @@ A simple example from the demo project for using the FlexCollectionView
         collectionDemoStyle.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
         collectionDemoStyle.cellAppearance.controlStyleColor = UIColor.MKColor.Brown.P100
         collectionDemoStyle.sectionHeaderAppearance.styleColor = UIColor.MKColor.Brown.P300
-        collectionDemoStyle.sectionHeaderAppearance.insets = UIEdgeInsetsMake(2, 2, 2, 2)
-        collectionDemoStyle.sectionHeaderAppearance.style = .RoundedFixed(cornerRadius: 5)
-        collectionDemoStyle.sectionHeaderAppearance.textFont = UIFont.systemFontOfSize(10)
+        collectionDemoStyle.sectionHeaderAppearance.insets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+        collectionDemoStyle.sectionHeaderAppearance.style = .roundedFixed(cornerRadius: 5)
+        collectionDemoStyle.sectionHeaderAppearance.textFont = UIFont.systemFont(ofSize: 10)
         self.demoCollectionView.appearance = collectionDemoStyle
         self.demoCollectionView.collectionCellAppearance = collectionDemoStyle
         
@@ -319,7 +319,7 @@ A simple example from the demo project for using the FlexCollectionView
         i0App.styleColor = UIColor.MKColor.Brown.P100
         i0App.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
         i0App.controlStyleColor = UIColor.MKColor.Brown.P100
-        i0App.textAppearance.style = .Box
+        i0App.textAppearance.style = .box
         item0.cellAppearance = i0App
         self.demoCollectionView.addItem(secRef, item: item0)
 
