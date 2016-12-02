@@ -2,9 +2,7 @@
 
 Sliding components and containers with easy layout options written in Swift.
 
-<p align="center">
 ![screen shot 2016-10-10 at 09 16 47](https://cloud.githubusercontent.com/assets/476994/19233537/5b6891e8-8ee6-11e6-8513-99a55d511d02.png)
-</p>
 
 ## Installation
 
