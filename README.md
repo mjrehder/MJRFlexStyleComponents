@@ -2,11 +2,8 @@
 
 Sliding components and containers with easy layout options written in Swift.
 
-The example shows the sliding components, where the components themselves are used to manipulate the others in order to see many of the features.
-Any component can of course be used separately.
-
 <p align="center">
-  <img src="http://www.rehsco.com/resources/MJRFlexStyleComponentsDemo.gif" alt="screenshot" />
+![screen shot 2016-10-10 at 09 16 47](https://cloud.githubusercontent.com/assets/476994/19233537/5b6891e8-8ee6-11e6-8513-99a55d511d02.png)
 </p>
 
 ## Installation
@@ -54,6 +51,13 @@ There is an example project included in the source, which shows many of the feat
 
 Each component has styling options, which are configured in the same way and with the same values, in order to easily have the same look and feel for the entire UI.
 The goal for these components was to have very compact and still flexible components for designing a UI with a minimum amount of explaining labels.
+
+The example shows the sliding components, where the components themselves are used to manipulate the others in order to see many of the features.
+Any component can of course be used separately.
+
+<p align="center">
+  <img src="http://www.rehsco.com/resources/MJRFlexStyleComponentsDemo.gif" alt="screenshot" />
+</p>
 
 ### FlexSwitch
 
@@ -272,8 +276,6 @@ Use ```imageViewMargins: UIEdgeInsets``` to add insets to the image inside the d
 This is another lightweight component of a UITextView inside a FlexView.
 
 ### FlexCollectionView
-
-![screen shot 2016-10-10 at 09 16 47](https://cloud.githubusercontent.com/assets/476994/19233537/5b6891e8-8ee6-11e6-8513-99a55d511d02.png)
 
 The specialised collection view is a larger extension and consists not only of a FlexView extension embedding a collection view, but also of a number of cells and an collection item model.
 You can register new FlexCollectionItem and FlexCollectionViewCell in order to use your own model and cells. The example contained in the project results in the view shown above. These are the cells currently available in the FlexCollectionView.
