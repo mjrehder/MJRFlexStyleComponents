@@ -44,11 +44,14 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
         self.menuItems.append(col3)
 
         let ti1 = UIImage(named: "ThumbIcon1")
+        let ti1d = UIImage(named: "ThumbIcon1")?.tint(.gray)
         let ti2 = UIImage(named: "ThumbIcon2")
+        let ti2d = UIImage(named: "ThumbIcon2")?.tint(.gray)
         let ti3 = UIImage(named: "ThumbIcon3")
-        let scol1 = FlexMenuItem(title: "First", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clear, thumbIcon: ti1)
-        let scol2 = FlexMenuItem(title: "Second Larger", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clear, thumbIcon: ti2)
-        let scol3 = FlexMenuItem(title: "Third Med", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clear, thumbIcon: ti3)
+        let ti3d = UIImage(named: "ThumbIcon3")?.tint(.gray)
+        let scol1 = FlexMenuItem(title: "First", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clear, thumbIcon: ti1, disabledThumbIcon: ti1d)
+        let scol2 = FlexMenuItem(title: "Second Larger", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clear, thumbIcon: ti2, disabledThumbIcon: ti2d)
+        let scol3 = FlexMenuItem(title: "Third Med", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clear, thumbIcon: ti3, disabledThumbIcon: ti3d)
         self.spacedMenuItems.append(scol1)
         self.spacedMenuItems.append(scol2)
         self.spacedMenuItems.append(scol3)
@@ -173,6 +176,9 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
                 self.flexViewMenu = FlexViewMenu(menu: self.viewMenu!, size: CGSize(width: 100, height: 18), hPos: fvm.hPos, vPos: vPos)
                 self.flexView.addMenu(self.flexViewMenu!)
             }
+        }
+        else if menu == self.verticalDynSpacedMenu {
+            self.spacedMenuItems[index].enabled = !self.spacedMenuItems[index].enabled
         }
     }
     

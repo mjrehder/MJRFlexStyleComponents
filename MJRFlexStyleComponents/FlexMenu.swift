@@ -491,7 +491,7 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     // MARK: - GenericStyleSliderDelegate
     
     open func iconOfThumb(_ index: Int) -> UIImage? {
-        return self.menuDataSource?.menuItemForIndex(self, index: index).thumbIcon
+        return self.menuDataSource?.menuItemForIndex(self, index: index).activeThumbIcon()
     }
     
     open func textOfThumb(_ index: Int) -> String? {

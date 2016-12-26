@@ -20,6 +20,7 @@
 		5B1A81101DAA6C1F008A4F28 /* FlexLabelAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1A810E1DAA6C1F008A4F28 /* FlexLabelAppearance.swift */; };
 		5B1EFC7A1D7047250040AD50 /* FlexViewMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1EFC791D7047250040AD50 /* FlexViewMenu.swift */; };
 		5B1EFC7B1D7047250040AD50 /* FlexViewMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1EFC791D7047250040AD50 /* FlexViewMenu.swift */; };
+		5B3FF71F1E1136A10077A106 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FF71E1E1136A10077A106 /* UIImageExtensions.swift */; };
 		5B49AAF31D8E6CB0003C062E /* FlexLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B49AAF21D8E6CB0003C062E /* FlexLabel.swift */; };
 		5B49AAF41D8E6CB0003C062E /* FlexLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B49AAF21D8E6CB0003C062E /* FlexLabel.swift */; };
 		5B53D0F31D5372010068BF04 /* FlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B53D0F21D5372010068BF04 /* FlexView.swift */; };
@@ -142,6 +143,7 @@
 		5B1A810B1DAA5C1E008A4F28 /* FlexStyleCollectionCellAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexStyleCollectionCellAppearance.swift; sourceTree = "<group>"; };
 		5B1A810E1DAA6C1F008A4F28 /* FlexLabelAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexLabelAppearance.swift; sourceTree = "<group>"; };
 		5B1EFC791D7047250040AD50 /* FlexViewMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexViewMenu.swift; sourceTree = "<group>"; };
+		5B3FF71E1E1136A10077A106 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		5B49AAF21D8E6CB0003C062E /* FlexLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexLabel.swift; sourceTree = "<group>"; };
 		5B53D0F21D5372010068BF04 /* FlexView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexView.swift; sourceTree = "<group>"; };
 		5B53D0F51D5393520068BF04 /* ViewsDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewsDemoViewController.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 		5B9936FD1D3A9E210043E573 /* MJRFlexStyleExamples */ = {
 			isa = PBXGroup;
 			children = (
+				5B3FF71E1E1136A10077A106 /* UIImageExtensions.swift */,
 				5B6CF1581D48E8DD00291D8B /* MKColor.swift */,
 				5B9936FE1D3A9E210043E573 /* AppDelegate.swift */,
 				5B9937001D3A9E210043E573 /* ViewController.swift */,
@@ -504,7 +507,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Martin Rehder";
 				TargetAttributes = {
 					5B9936FB1D3A9E210043E573 = {
@@ -674,6 +677,7 @@
 				5BB91C991DA3955900A94D12 /* FlexCollectionView.swift in Sources */,
 				5B9937101D3A9E5B0043E573 /* StyledSliderThumb.swift in Sources */,
 				5BE4485E1D44C8D80011E5AE /* FlexMenuItem.swift in Sources */,
+				5B3FF71F1E1136A10077A106 /* UIImageExtensions.swift in Sources */,
 				5BE4484A1D41F6DB0011E5AE /* PositionUpdateTimer.swift in Sources */,
 				5BADFC5D1DA8C9DA004A5D12 /* FlexSliderCollectionItem.swift in Sources */,
 				5BD460481DA10A56001FA9B3 /* FlexImageShapeView.swift in Sources */,
