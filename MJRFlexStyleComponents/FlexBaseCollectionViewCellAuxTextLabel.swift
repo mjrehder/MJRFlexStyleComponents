@@ -1,8 +1,8 @@
 //
-//  FlexCollectionViewAppearance.swift
+//  FlexBaseCollectionViewCellAuxTextLabel.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 18.10.2016.
+//  Created by Martin Rehder on 28.12.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -29,9 +29,5 @@
 
 import UIKit
 
-open class FlexCollectionViewAppearance: FlexViewAppearance {
-    open var sectionHeaderAppearance = FlexLabelAppearance()
-    open var cellAppearance = FlexStyleCollectionCellAppearance()
-    open var viewAppearance = FlexViewAppearance()
-
+open class FlexBaseCollectionViewCellAuxTextLabel: FlexLabel {
 }

@@ -1,8 +1,8 @@
 //
-//  FlexViewAppearance.swift
+//  FlexCellView.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 17.10.2016.
+//  Created by Martin Rehder on 29.12.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -28,17 +28,6 @@
  */
 
 import UIKit
-import StyledLabel
 
-open class FlexViewAppearance: FlexStyleContainerAppearance {
-    open var headerPosition: FlexViewHeaderPosition = .top
-    open var headerAppearance = FlexLabelAppearance()
-    
-    open var footerAppearance = FlexLabelAppearance()
-    
-    open var contentInsets: UIEdgeInsets = UIEdgeInsets.zero
-
-    public override init() {
-        super.init(style: .roundedFixed(cornerRadius: 5.0), styleColor: .black, backgroundColor: .clear, borderColor: .gray, borderWidth: 0.0)
-    }
+open class FlexCellView: FlexView {
 }

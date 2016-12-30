@@ -57,11 +57,12 @@ class ImageViewDemoViewController: UIViewController, FlexMenuDataSource {
         // FlexView
         self.flexView.headerText = "Image"
         self.flexView.headerPosition = .top
-        self.flexView.style = .roundedFixed(cornerRadius: 10.0)
+        self.flexView.style = FlexShapeStyle(style: .roundedFixed(cornerRadius: 10.0))
         self.flexView.styleColor = UIColor.MKColor.Teal.P500
-        self.flexView.header.labelBackgroundColor = UIColor.MKColor.Teal.P700
-        self.flexView.header.labelFont = UIFont.boldSystemFont(ofSize: 14)
-        self.flexView.header.labelTextColor = UIColor.white
+        self.flexView.header.styleColor = UIColor.MKColor.Teal.P700
+        self.flexView.header.caption.labelFont = UIFont.boldSystemFont(ofSize: 14)
+        self.flexView.header.caption.labelTextColor = UIColor.white
+        self.flexView.header.caption.labelTextAlignment = .center
         
         self.flexView.imageView.image = UIImage(named: "DemoImage")
         self.flexView.imageView.contentMode = .scaleAspectFit
@@ -83,13 +84,13 @@ class ImageViewDemoViewController: UIViewController, FlexMenuDataSource {
         else if menu == self.imageViewStyle {
             switch index {
             case 0:
-                self.flexView.style = .box
+                self.flexView.style = FlexShapeStyle(style: .box)
             case 1:
-                self.flexView.style = .roundedFixed(cornerRadius: 10.0)
+                self.flexView.style = FlexShapeStyle(style: .roundedFixed(cornerRadius: 10.0))
             case 2:
-                self.flexView.style = .thumb
+                self.flexView.style = FlexShapeStyle(style: .thumb)
             default:
-                self.flexView.style = .tube
+                self.flexView.style = FlexShapeStyle(style: .tube)
             }
         }
     }

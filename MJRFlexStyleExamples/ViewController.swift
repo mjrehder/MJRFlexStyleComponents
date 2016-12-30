@@ -41,6 +41,7 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
         self.setupDataPointAndSeriesSelectors()
         self.setupMaxMinDataSlider()
         self.applyColorToDemoControls()
+        self.setStyleOfDemoControls(.tube)
     }
 
     override func didReceiveMemoryWarning() {
@@ -159,14 +160,15 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
     }
     
     func setStyleOfDemoControls(_ style: ShapeStyle) {
-        self.numSeriesSelector.thumbStyle = style
-        self.dataPointSelector.thumbStyle = style
-        self.maxMinDataSlider.thumbStyle = style
-        self.vhSwitch.thumbStyle = style
-        self.numSeriesSelector.style = style
-        self.dataPointSelector.style = style
-        self.maxMinDataSlider.style = style
-        self.vhSwitch.style = style
+        let st = FlexShapeStyle(style: style)
+        self.numSeriesSelector.thumbStyle = st
+        self.dataPointSelector.thumbStyle = st
+        self.maxMinDataSlider.thumbStyle = st
+        self.vhSwitch.thumbStyle = st
+        self.numSeriesSelector.style = st
+        self.dataPointSelector.style = st
+        self.maxMinDataSlider.style = st
+        self.vhSwitch.style = st
     }
     
     func applyColorToDemoControls() {

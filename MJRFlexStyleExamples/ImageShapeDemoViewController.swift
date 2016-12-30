@@ -58,14 +58,15 @@ class ImageShapeDemoViewController: UIViewController, FlexMenuDataSource {
         // FlexView
         self.imageShapeView.headerText = "Image"
         self.imageShapeView.headerPosition = .top
-        self.imageShapeView.style = .roundedFixed(cornerRadius: 10.0)
+        self.imageShapeView.style = FlexShapeStyle(style: .roundedFixed(cornerRadius: 10.0))
         self.imageShapeView.styleColor = UIColor.MKColor.Teal.P500
-        self.imageShapeView.header.labelBackgroundColor = UIColor.MKColor.Teal.P700
-        self.imageShapeView.header.labelFont = UIFont.boldSystemFont(ofSize: 14)
-        self.imageShapeView.header.labelTextColor = UIColor.white
+        self.imageShapeView.header.styleColor = UIColor.MKColor.Teal.P700
+        self.imageShapeView.header.caption.labelFont = UIFont.boldSystemFont(ofSize: 14)
+        self.imageShapeView.header.caption.labelTextColor = UIColor.white
+        self.imageShapeView.header.caption.labelTextAlignment = .center
         
         self.imageShapeView.image = UIImage(named: "DemoImage")
-        self.imageShapeView.imageStyle = .roundedFixed(cornerRadius: 10.0)
+        self.imageShapeView.imageStyle = FlexShapeStyle(style: .roundedFixed(cornerRadius: 10.0))
         self.imageShapeView.backgroundImageFit = .scaleToFit
         self.imageShapeView.contentViewMargins = UIEdgeInsetsMake(10, 10, 10, 10)
     }
@@ -86,13 +87,13 @@ class ImageShapeDemoViewController: UIViewController, FlexMenuDataSource {
         else if menu == self.imageViewStyle {
             switch index {
             case 0:
-                self.imageShapeView.imageStyle = .box
+                self.imageShapeView.imageStyle = FlexShapeStyle(style: .box)
             case 1:
-                self.imageShapeView.imageStyle = .roundedFixed(cornerRadius: 10.0)
+                self.imageShapeView.imageStyle = FlexShapeStyle(style: .roundedFixed(cornerRadius: 10.0))
             case 2:
-                self.imageShapeView.imageStyle = .thumb
+                self.imageShapeView.imageStyle = FlexShapeStyle(style: .thumb)
             default:
-                self.imageShapeView.imageStyle = .tube
+                self.imageShapeView.imageStyle = FlexShapeStyle(style: .tube)
             }
         }
     }

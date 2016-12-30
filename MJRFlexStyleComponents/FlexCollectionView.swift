@@ -50,17 +50,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     open var flexCollectionDelegate: FlexCollectionViewDelegate?
     
     fileprivate var cellSwipeMenuActiveCell: IndexPath?
-   
-    open var collectionViewAppearance: FlexCollectionViewAppearance? {
-        didSet {
-            self.flexViewAppearance = self.collectionViewAppearance?.viewAppearance
-            self._itemCollectionView?.reloadData()
-        }
-    }
-    open func getCollectionViewAppearance() -> FlexCollectionViewAppearance {
-        return self.collectionViewAppearance ?? flexStyleAppearance.collectionViewAppearance
-    }
-    
+
     open var itemCollectionView: UICollectionView {
         get {
             return _itemCollectionView!
@@ -68,14 +58,14 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     }
     
     @IBInspectable
-    open var viewMargins: UIEdgeInsets = UIEdgeInsets.zero {
+    open dynamic var viewMargins: UIEdgeInsets = UIEdgeInsets.zero {
         didSet {
             self.setNeedsLayout()
         }
     }
     
     @IBInspectable
-    open var defaultCellSize: CGSize = CGSize(width: 120, height: 50) {
+    open dynamic var defaultCellSize: CGSize = CGSize(width: 120, height: 50) {
         didSet {
             self.setNeedsLayout()
         }
@@ -182,8 +172,14 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         self.contentDic?.removeAll()
     }
     
-    open func addSection(_ title: NSAttributedString? = nil) -> String {
+    open func addSection(_ title: NSAttributedString? = nil, height: CGFloat? = nil, insets: UIEdgeInsets? = nil) -> String {
         let s = FlexCollectionSection(reference: UUID().uuidString, title: title)
+        if let h = height {
+            s.height = h
+        }
+        if let ins = insets {
+            s.insets = ins
+        }
         self.sections.append(s)
         self.contentDic?[s.reference] = []
         return s.reference
@@ -282,7 +278,6 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
                     cell._item = item
                     cell.reference = item.reference
                     cell.flexCellTouchDelegate = self
-                    cell.cellAppearance = item.cellAppearance ?? self.getCollectionViewAppearance().cellAppearance
                     if item.swipeLeftMenuItems != nil || item.swipeRightMenuItems != nil {
                         let lswipe = UISwipeGestureRecognizer(target: self, action: #selector(self.swipeLeftGestureAction(_:)))
                         lswipe.direction = .left
@@ -335,7 +330,6 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
             if let title = sec.title {
                 if let headerView = self.itemCollectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: simpleHeaderViewID, for: indexPath) as? SimpleHeaderCollectionReusableView {
                     headerView.title?.label.attributedText = title
-                    headerView.title?.labelAppearance = sec.sectionHeaderAppearance ?? self.getCollectionViewAppearance().sectionHeaderAppearance
                     return headerView
                 }
             }
@@ -375,12 +369,12 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let sec = self.sections[section]
-        return CGSize(width: 0, height: sec.sectionHeaderAppearance?.size ?? self.getCollectionViewAppearance().sectionHeaderAppearance.size)
+        return CGSize(width: 0, height: sec.height)
     }
     
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let sec = self.sections[section]
-        return sec.sectionHeaderAppearance?.insets ?? self.getCollectionViewAppearance().sectionHeaderAppearance.insets
+        return sec.insets
     }
     
     // MARK: - FlexCollectionViewCellTouchedDelegate

@@ -32,19 +32,11 @@ import UIKit
 open class FlexImageCollectionViewCell: FlexCollectionViewCell {
     open var flexContentView: FlexImageShapeView?
     
-    override open var cellAppearance: FlexStyleCollectionCellAppearance? {
-        didSet {
-            self.flexContentView?.flexViewAppearance = cellAppearance?.viewAppearance
-            self.refreshLayout()
-        }
-    }
-    
     open override func initialize() {
         super.initialize()
         let baseRect = self.bounds
         
         self.flexContentView = FlexImageShapeView(frame: baseRect)
-        self.flexContentView?.flexViewAppearance = self.getCellAppearance().viewAppearance
         if let pcv = self.flexContentView {
             let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.cellTouched(_:)))
             pcv.addGestureRecognizer(tapGest)
@@ -67,10 +59,9 @@ open class FlexImageCollectionViewCell: FlexCollectionViewCell {
     }
     
     open func applySelectionStyles(_ fcv: FlexView) {
-        fcv.header.labelBackgroundColor = self.isSelected ? self.getCellAppearance().selectedBackgroundColor : self.getCellAppearance().viewAppearance.headerAppearance.backgroundColor
-        fcv.styleColor = self.isSelected ? self.getCellAppearance().selectedStyleColor : self.getCellAppearance().styleColor
-        fcv.borderColor = self.isSelected ? self.getCellAppearance().selectedBorderColor : self.getCellAppearance().borderColor
-        fcv.borderWidth = self.isSelected ? self.getCellAppearance().selectedBorderWidth : self.getCellAppearance().borderWidth
+        fcv.styleColor = self.isSelected ? self.selectedStyleColor : self.styleColor
+        fcv.borderColor = self.isSelected ? self.selectedBorderColor : self.borderColor
+        fcv.borderWidth = self.isSelected ? self.selectedBorderWidth : self.borderWidth
     }
     
     override open func applyStyles() {
@@ -79,9 +70,11 @@ open class FlexImageCollectionViewCell: FlexCollectionViewCell {
         if let item = self.item as? FlexImageCollectionItem, let fcv = self.flexContentView {
             fcv.image = item.image
             fcv.headerAttributedText = item.text
-            fcv.imageStyle = self.getCellAppearance().controlStyle
-            fcv.contentViewMargins = self.getCellAppearance().controlInsets
             fcv.backgroundImageFit = item.imageFit
+            fcv.contentViewMargins = item.controlInsets
+            if let hp = item.headerPosition {
+                fcv.headerPosition = hp
+            }
             self.applySelectionStyles(fcv)
         }
     }

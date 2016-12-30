@@ -45,36 +45,15 @@ open class FlexSwitchCollectionViewCell: FlexBaseCollectionViewCell, FlexSwitchD
         }
     }
     
-    override open var cellAppearance: FlexStyleCollectionCellAppearance? {
-        didSet {
-            self.flexContentView?.flexViewAppearance = cellAppearance?.viewAppearance
-            self.applyTextAppearance()
-            self.applySwitchAppearance()
-            self.refreshLayout()
-        }
-    }
-
-    func applySwitchAppearance() {
-        if self.flexSwitch?.switchAppearance == nil {
-            self.flexSwitch?.switchAppearance = self.getCellAppearance().switchAppearance
-        }
-    }
-    
     open func layoutSwitchView(_ item: FlexSwitchCollectionItem, area: CGRect) -> CGRect {
         var remainingCellArea = area
         
         if let fs = self.flexSwitch {
-            let appe = self.getCellAppearance()
-            let controlInsets = appe.controlInsets
-            let controlSize = appe.controlSize
+            let controlInsets = item.controlInsets ?? self.controlInsets
+            let controlSize = self.getControlArea().size
             
             let imageViewRect = CGRect(origin: CGPoint.zero, size: controlSize)
 
-            fs.switchAppearance = appe.switchAppearance
-            fs.style = appe.controlStyle
-            fs.thumbStyle = appe.controlStyle
-            fs.styleColor = appe.controlStyleColor
-            
             fs.frame = CGRect(x: remainingCellArea.origin.x + (remainingCellArea.size.width - (controlInsets.right + controlSize.width)), y: remainingCellArea.origin.y + (remainingCellArea.size.height - controlSize.height) * 0.5, width: controlSize.width, height: controlSize.height)
             fs.isHidden = false
             fs.setOn(item.value)

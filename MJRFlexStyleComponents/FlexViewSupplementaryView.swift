@@ -1,8 +1,8 @@
 //
-//  FlexLabelAppearance.swift
+//  FlexViewSupplementaryView.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 09.10.2016.
+//  Created by Martin Rehder on 29.12.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -28,26 +28,22 @@
  */
 
 import UIKit
-import StyledLabel
 
-open class FlexLabelAppearance: FlexStyleBaseAppearance {
-    open var textColor = UIColor.white
-    open var textFont = UIFont.boldSystemFont(ofSize: 12.0)
-    open var size: CGFloat = 18
-    open var textAlignment: NSTextAlignment = .center
-    open var insets: UIEdgeInsets = UIEdgeInsets.zero
-    
-    public override init() {
-        super.init(style: .box, styleColor: .clear, backgroundColor: .gray, borderColor: .gray, borderWidth: 0.0)
+open class FlexViewSupplementaryView: FlexBaseStylingControl {
+    fileprivate var _caption = FlexLabel()
+    open var caption: FlexLabel {
+        get {
+            return _caption
+        }
+    }
+
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.addSubview(self.caption)
     }
     
-    public init(style: ShapeStyle, textColor: UIColor, textFont: UIFont, textAlignment: NSTextAlignment, size: CGFloat, insets: UIEdgeInsets, backgroundColor: UIColor, borderColor: UIColor, borderWidth: CGFloat) {
-        self.textColor = textColor
-        self.textFont = textFont
-        self.size = size
-        self.textAlignment = textAlignment
-        self.insets = insets
-        
-        super.init(style: style, styleColor: .clear, backgroundColor: backgroundColor, borderColor: borderColor, borderWidth: borderWidth)
-    }
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.addSubview(self.caption)
+    }    
 }

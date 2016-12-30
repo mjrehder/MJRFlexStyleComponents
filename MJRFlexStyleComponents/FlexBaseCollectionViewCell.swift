@@ -32,48 +32,78 @@ import StyledLabel
 
 open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     var imageView: UIView?
-    var textLabel: FlexLabel?
-    var detailTextLabel: FlexLabel?
-    var infoTextLabel: FlexLabel?
-    var auxTextLabel: FlexLabel?
+    var textLabel: FlexBaseCollectionViewCellTextLabel?
+    var detailTextLabel: FlexBaseCollectionViewCellDetailTextLabel?
+    var infoTextLabel: FlexBaseCollectionViewCellInfoTextLabel?
+    var auxTextLabel: FlexBaseCollectionViewCellAuxTextLabel?
     var accessoryView: UIView?
 
-    open var flexContentView: FlexView?
-    
-    override open var cellAppearance: FlexStyleCollectionCellAppearance? {
+    open var flexContentView: FlexCellView?
+
+    open dynamic var controlInsets: UIEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5) {
         didSet {
-            self.flexContentView?.flexViewAppearance = cellAppearance?.viewAppearance
-            self.applyTextAppearance()
-            self.refreshLayout()
+            self.setNeedsLayout()
+        }
+    }
+    
+    open dynamic var controlSize: CGSize = .zero {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    open dynamic var imageViewInsets: UIEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 0) {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    open dynamic var imageViewSize: CGSize = CGSize(width: 64, height: 64) {
+        didSet {
+            self.setNeedsLayout()
         }
     }
 
-    func applyTextAppearance() {
-        self.textLabel?.labelAppearance = self.textLabel?.labelAppearance ?? self.getCellAppearance().textAppearance
-        self.detailTextLabel?.labelAppearance = self.detailTextLabel?.labelAppearance ?? self.getCellAppearance().detailTextAppearance
-        self.infoTextLabel?.labelAppearance = self.infoTextLabel?.labelAppearance ?? self.getCellAppearance().infoTextAppearance
-        self.auxTextLabel?.labelAppearance = self.auxTextLabel?.labelAppearance ?? self.getCellAppearance().auxTextAppearance
+    open dynamic var imageViewStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
+        didSet {
+            self.setNeedsLayout()
+        }
     }
     
+    open dynamic var accessoryViewInsets: UIEdgeInsets = UIEdgeInsetsMake(5, 0, 5, 5) {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+
+    open dynamic var accessoryViewSize: CGSize = CGSize(width: 32, height: 32) {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    open dynamic var accessoryViewStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+
     open override func initialize() {
         super.initialize()
         let baseRect = self.bounds
         
-        self.flexContentView = FlexView(frame: baseRect)
-        self.flexContentView?.flexViewAppearance = self.getCellAppearance().viewAppearance
+        self.flexContentView = FlexCellView(frame: baseRect)
         if let pcv = self.flexContentView {
             let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.cellTouched(_:)))
             pcv.addGestureRecognizer(tapGest)
             self.contentView.addSubview(pcv)
 
-            self.applyTextAppearance()
-
             // Just allocate and hide subviews for now, in order to avoid re-creating this all the time
             
-            self.textLabel = self.createTextLabel()
-            self.detailTextLabel = self.createTextLabel()
-            self.infoTextLabel = self.createTextLabel()
-            self.auxTextLabel = self.createTextLabel()
+            self.textLabel = self.createTextLabel(label: FlexBaseCollectionViewCellTextLabel(frame: .zero))
+            self.detailTextLabel = self.createTextLabel(label: FlexBaseCollectionViewCellDetailTextLabel(frame: .zero))
+            self.infoTextLabel = self.createTextLabel(label: FlexBaseCollectionViewCellInfoTextLabel(frame: .zero))
+            self.auxTextLabel = self.createTextLabel(label: FlexBaseCollectionViewCellAuxTextLabel(frame: .zero))
             
             self.accessoryView = UIView()
             if let av = self.accessoryView {
@@ -117,16 +147,44 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         }
     }
     
+    /// This is the area that remains when the image view area and the accessory view area is subtracted from the total view area
+    open func getControlArea() -> CGRect {
+        if let item = self.item as? FlexBaseCollectionItem, let fcv = self.flexContentView {
+            var remainingCellArea = fcv.getViewRect()
+            if item.icon != nil {
+                let iconInsets = self.imageViewInsets
+                let iconSize = self.imageViewSize
+                let imageViewRect = CGRect(origin: CGPoint.zero, size: iconSize)
+                let imageLayerTotalWidth = imageViewRect.size.width + iconInsets.left + iconInsets.right
+                remainingCellArea = remainingCellArea.insetBy(dx: imageLayerTotalWidth*0.5, dy: 0).offsetBy(dx: imageLayerTotalWidth * 0.5, dy: 0)
+            }
+            if item.accessoryImage != nil {
+                let accessoryImageInsets = self.accessoryViewInsets
+                let accessoryImageSize = self.accessoryViewSize
+                let imageViewRect = CGRect(origin: CGPoint.zero, size: accessoryImageSize)
+                let imageLayerTotalWidth = imageViewRect.size.width + accessoryImageInsets.left + accessoryImageInsets.right
+                remainingCellArea = remainingCellArea.insetBy(dx: imageLayerTotalWidth*0.5, dy: 0).offsetBy(dx: -imageLayerTotalWidth*0.5, dy: 0)
+            }
+            if let s = item.controlSize {
+                return CGRect(x: remainingCellArea.origin.x, y: remainingCellArea.origin.y, width: s.width, height: s.height)
+            }
+            if self.controlSize.width != 0 && self.controlSize.height != 0 {
+                return CGRect(x: remainingCellArea.origin.x, y: remainingCellArea.origin.y, width: self.controlSize.width, height: self.controlSize.height)
+            }
+            return remainingCellArea
+        }
+        return .zero
+    }
+    
     open func layoutIconView(_ item: FlexBaseCollectionItem, area: CGRect) -> CGRect {
         var remainingCellArea = area
         
         if let icon = item.icon, let iv = self.imageView {
-            let appe = self.getCellAppearance()
-            let iconInsets = appe.iconInsets
-            let iconSize = appe.iconSize
+            let iconInsets = self.imageViewInsets
+            let iconSize = self.imageViewSize
 
             let imageViewRect = CGRect(origin: CGPoint.zero, size: iconSize)
-            let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: icon, imageStyle: appe.iconStyle, imageFitting: .scaleToFit)
+            let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: icon, imageStyle: self.imageViewStyle.style, imageFitting: .scaleToFit)
             
             iv.frame = CGRect(x: remainingCellArea.origin.x + iconInsets.left, y: remainingCellArea.origin.y + (remainingCellArea.size.height - iconSize.height) * 0.5, width: iconSize.width, height: iconSize.height)
             iv.layer.sublayers?.removeAll()
@@ -145,12 +203,11 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         var remainingCellArea = area
         
         if let aim = item.accessoryImage, let av = self.accessoryView {
-            let appe = self.getCellAppearance()
-            let accessoryImageInsets = appe.accessoryImageInsets
-            let accessoryImageSize = appe.accessoryImageSize
+            let accessoryImageInsets = self.accessoryViewInsets
+            let accessoryImageSize = self.accessoryViewSize
             
             let imageViewRect = CGRect(origin: CGPoint.zero, size: accessoryImageSize)
-            let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: aim, imageStyle: appe.accessoryStyle, imageFitting: .scaleToFit)
+            let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: aim, imageStyle: self.accessoryViewStyle.style, imageFitting: .scaleToFit)
             
             av.frame = CGRect(x: remainingCellArea.origin.x + (remainingCellArea.size.width - (accessoryImageInsets.right + accessoryImageSize.width)), y: remainingCellArea.origin.y + (remainingCellArea.size.height - accessoryImageSize.height) * 0.5, width: accessoryImageSize.width, height: accessoryImageSize.height)
             av.layer.sublayers?.removeAll()
@@ -166,33 +223,29 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     }
     
     open func layoutText(_ item: FlexBaseCollectionItem, area: CGRect) {
-        let appe = self.getCellAppearance()
-
-        self.setupTextLabel(self.textLabel, appearance: appe.textAppearance, text: item.text)
-        self.setupTextLabel(self.detailTextLabel, appearance: appe.detailTextAppearance, text: item.detailText)
-        self.setupTextLabel(self.infoTextLabel, appearance: appe.infoTextAppearance, text: item.infoText)
-        self.setupTextLabel(self.auxTextLabel, appearance: appe.auxTextAppearance, text: item.auxText)
+        self.setupTextLabel(self.textLabel, text: item.text)
+        self.setupTextLabel(self.detailTextLabel, text: item.detailText)
+        self.setupTextLabel(self.infoTextLabel, text: item.infoText)
+        self.setupTextLabel(self.auxTextLabel, text: item.auxText)
         
         if let ul = self.textLabel, let ll = self.detailTextLabel, let ur = self.infoTextLabel, let lr = self.auxTextLabel {
             FlexControlLayoutHelper.layoutFourLabelsInArea(ul, lowerLeft: ll, upperRight: ur, lowerRight: lr, area: area)
         }
     }
     
-    func createTextLabel() -> FlexLabel {
-        let fl = FlexLabel(frame: CGRect.zero)
+    func createTextLabel<T: FlexLabel>(label: T) -> T {
         if let fcv = self.flexContentView {
-            fl.isHidden = true
-            fcv.addSubview(fl)
+            label.isHidden = true
+            fcv.addSubview(label)
         }
-        return fl
+        return label
     }
     
-    func setupTextLabel(_ label: FlexLabel?, appearance: FlexLabelAppearance, text: NSAttributedString?) {
+    func setupTextLabel(_ label: FlexLabel?, text: NSAttributedString?) {
         if let label = label {
             if let aText = text {
                 label.isHidden = false
                 label.label.attributedText = aText
-                label.labelAppearance = label.labelAppearance ?? appearance
             }
             else {
                 label.isHidden = true
@@ -201,10 +254,9 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     }
     
     open func applySelectionStyles(_ fcv: FlexView) {
-        fcv.header.labelBackgroundColor = self.isSelected ? self.getCellAppearance().selectedBackgroundColor : self.getCellAppearance().viewAppearance.headerAppearance.backgroundColor
-        fcv.styleColor = self.isSelected ? self.getCellAppearance().selectedStyleColor : self.getCellAppearance().styleColor
-        fcv.borderColor = self.isSelected ? self.getCellAppearance().selectedBorderColor : self.getCellAppearance().borderColor
-        fcv.borderWidth = self.isSelected ? self.getCellAppearance().selectedBorderWidth : self.getCellAppearance().borderWidth
+        fcv.styleColor = self.isSelected ? self.selectedStyleColor : self.styleColor
+        fcv.borderColor = self.isSelected ? self.selectedBorderColor : self.borderColor
+        fcv.borderWidth = self.isSelected ? self.selectedBorderWidth : self.borderWidth
     }
     
     override open func applyStyles() {
@@ -212,11 +264,17 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
   
         if let item = self.item as? FlexBaseCollectionItem, let fcv = self.flexContentView {
             fcv.headerAttributedText = item.title
+            if let hp = item.headerPosition {
+                fcv.headerPosition = hp
+            }
             self.applySelectionStyles(fcv)
             var remainingCellArea = fcv.getViewRect()
             remainingCellArea = self.layoutIconView(item, area: remainingCellArea)
-            remainingCellArea = self.layoutAccessoryView(item, area: remainingCellArea)
-            self.layoutText(item, area: UIEdgeInsetsInsetRect(remainingCellArea, self.getCellAppearance().controlInsets))
+            let _ = self.layoutAccessoryView(item, area: remainingCellArea)
+            remainingCellArea = self.getControlArea()
+            
+            let controlInsets = item.controlInsets ?? self.controlInsets
+            self.layoutText(item, area: UIEdgeInsetsInsetRect(remainingCellArea, controlInsets))
         }
     }
 }

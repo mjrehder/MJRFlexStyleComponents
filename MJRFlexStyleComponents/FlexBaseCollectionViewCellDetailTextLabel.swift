@@ -1,8 +1,8 @@
 //
-//  FlexStyleBaseAppearance.swift
+//  FlexBaseCollectionViewCellDetailTextLabel.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 17.10.2016.
+//  Created by Martin Rehder on 28.12.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -28,25 +28,6 @@
  */
 
 import UIKit
-import StyledLabel
 
-open class FlexStyleBaseAppearance {
-    open var style: ShapeStyle = .box
-    open var styleColor = UIColor.lightGray
-    open var backgroundColor = UIColor.clear
-    open var backgroundInsets: UIEdgeInsets = UIEdgeInsets.zero
-
-    open var borderWidth: CGFloat = 0
-    open var borderColor: UIColor = UIColor.black
-    
-    public init() {
-    }
-    
-    public init(style: ShapeStyle, styleColor: UIColor, backgroundColor: UIColor, borderColor: UIColor, borderWidth: CGFloat) {
-        self.style = style
-        self.styleColor = styleColor
-        self.borderColor = borderColor
-        self.borderWidth = borderWidth
-        self.backgroundColor = backgroundColor
-    }
+open class FlexBaseCollectionViewCellDetailTextLabel: FlexLabel {
 }

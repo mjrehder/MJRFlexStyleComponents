@@ -1,8 +1,8 @@
 //
-//  FlexStyleContainerAppearance.swift
+//  FlexBaseCollectionViewCellTextLabel.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 18.10.2016.
+//  Created by Martin Rehder on 28.12.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -29,8 +29,5 @@
 
 import UIKit
 
-open class FlexStyleContainerAppearance: FlexStyleBaseAppearance {
-    open var sliderAppearance = FlexSliderAppearance()
-    open var textAppearance = FlexLabelAppearance(style: .box, textColor: .black, textFont: UIFont.systemFont(ofSize: 14), textAlignment: .left, size: 16, insets: UIEdgeInsets.zero, backgroundColor: .clear, borderColor: .black, borderWidth: 0)
-    open var switchAppearance = FlexSwitchAppearance()
+open class FlexBaseCollectionViewCellTextLabel: FlexLabel {
 }

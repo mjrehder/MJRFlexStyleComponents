@@ -52,6 +52,13 @@ open class FlexBaseCollectionItem: FlexCollectionItem {
     open var accessoryImageActionHandler: (() -> Void)?
     open var imageViewActionHandler: (() -> Void)?
     
+    open var headerPosition: FlexViewHeaderPosition?
+    
+    // This is used for specifying the size of the area not used for the icon and accessory image. The entire remaining space is used, when this size or the cell controlSize is not set.
+    open var controlSize: CGSize?
+    
+    open var controlInsets: UIEdgeInsets?
+
     public init(reference: String, text: NSAttributedString? = nil, icon: UIImage? = nil, accessoryImage: UIImage? = nil, title: NSAttributedString? = nil, accessoryImageActionHandler: (() -> Void)? = nil) {
         self.icon = icon
         self.accessoryImage = accessoryImage

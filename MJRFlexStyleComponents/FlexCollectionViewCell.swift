@@ -56,16 +56,59 @@ open class FlexCollectionViewCell: UICollectionViewCell {
     var swipeLeftRightState: FlexCollectionViewCellSwipeState = .none
     var swipeMenuTapRecognizer: UITapGestureRecognizer?
     
-    open var cellAppearance: FlexStyleCollectionCellAppearance? {
+    open override var isSelected: Bool {
         didSet {
-            self.refreshLayout()
+            self.setNeedsLayout()
         }
     }
-    open func getCellAppearance() -> FlexStyleCollectionCellAppearance {
-        return self.cellAppearance ?? flexStyleAppearance.collectionViewAppearance.cellAppearance
+    
+    open dynamic var style: FlexShapeStyle = FlexShapeStyle(style: .box) {
+        didSet {
+            self.setNeedsLayout()
+            style.styleChangeHandler = {
+                newStyle in
+                self.setNeedsLayout()
+            }
+        }
     }
     
-    open override var isSelected: Bool {
+    open dynamic var styleColor: UIColor = .gray {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+
+    open dynamic var selectedStyleColor: UIColor = .lightGray {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+
+    open dynamic var selectedBackgroundColor: UIColor = .lightGray {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+
+    open dynamic var selectedBorderColor: UIColor? {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+
+    open dynamic var borderColor: UIColor? {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+
+    open dynamic var borderWidth: CGFloat = 1.0 {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+
+    open dynamic var selectedBorderWidth: CGFloat = 1.0 {
         didSet {
             self.setNeedsLayout()
         }
@@ -254,9 +297,14 @@ open class FlexCollectionViewCell: UICollectionViewCell {
     }
 
     open func assignBorderLayout() {
-        let appe = self.getCellAppearance()
-        self.layer.borderColor = self.isSelected ? appe.selectedBorderColor.cgColor : appe.borderColor.cgColor
-        self.layer.borderWidth = self.isSelected ? appe.selectedBorderWidth : appe.borderWidth
+        let borderColor = self.isSelected ? self.selectedBorderColor?.cgColor : self.borderColor?.cgColor
+        self.layer.borderColor = borderColor
+        if borderColor != nil {
+            self.layer.borderWidth = self.isSelected ? self.selectedBorderWidth : self.borderWidth
+        }
+        else {
+            self.layer.borderWidth = 0
+        }
     }
 
 }
