@@ -63,7 +63,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
  
  On top of the separator text labels are the thumbs
  */
-@IBDesignable open class GenericStyleSlider: MJRFlexBaseControl {
+@IBDesignable open class GenericStyleSlider: FlexBaseControl {
     var touchesBeganPoint = CGPoint.zero
 
     var thumbList = StyledSliderThumbList()
@@ -93,15 +93,6 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     open override func layoutSubviews() {
         super.layoutSubviews()        
         self.layoutComponents()
-    }
-    
-    open var sliderAppearance: FlexSliderAppearance? {
-        didSet {
-            self.setNeedsLayout()
-        }
-    }
-    open func getSliderAppearance() -> FlexSliderAppearance {
-        return self.sliderAppearance ?? flexStyleAppearance.sliderAppearance
     }
     
     /**
@@ -250,14 +241,18 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     /// The thumb's style. Default's to box
-    @IBInspectable open var thumbStyle: ShapeStyle = .box {
+    @IBInspectable open dynamic var thumbStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
         didSet {
             self.applyThumbStyle(thumbStyle)
+            thumbStyle.styleChangeHandler = {
+                newStyle in
+                self.applyThumbStyle(self.thumbStyle)
+            }
         }
     }
     
     /// The font of the thumb labels
-    @IBInspectable open var thumbFont = UIFont(name: "TrebuchetMS-Bold", size: 20) {
+    @IBInspectable open dynamic var thumbFont = UIFont(name: "TrebuchetMS-Bold", size: 20) {
         didSet {
             for thumb in self.thumbList.thumbs {
                 thumb.font = thumbFont
@@ -266,7 +261,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
 
     /// The thumbs text colors. Default's to black
-    @IBInspectable open var thumbTextColor: UIColor = .black {
+    @IBInspectable open dynamic var thumbTextColor: UIColor = .black {
         didSet {
             for thumb in self.thumbList.thumbs {
                 thumb.textColor = thumbTextColor
@@ -275,14 +270,14 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     /// The thumbs border color.
-    @IBInspectable open var thumbBorderColor: UIColor? {
+    @IBInspectable open dynamic var thumbBorderColor: UIColor? {
         didSet {
             self.applyThumbStyle(thumbStyle)
         }
     }
     
     /// The thumbs border width. Default's to 1.0
-    @IBInspectable open var thumbBorderWidth: CGFloat = 1.0 {
+    @IBInspectable open dynamic var thumbBorderWidth: CGFloat = 1.0 {
         didSet {
             self.applyThumbStyle(thumbStyle)
         }
@@ -299,7 +294,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     // MARK: - Separators
     
     /// The separator represented as a ratio of the component. Defaults to 1.
-    @IBInspectable open var separatorRatio: CGFloat = 1.0 {
+    @IBInspectable open dynamic var separatorRatio: CGFloat = 1.0 {
         didSet {
             self.setNeedsLayout()
         }
@@ -307,14 +302,14 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
 
     /// The separator's background colors. If nil the separator color will be clear color. Defaults to nil.
     /// Use the delegate to get fine grained control over each separator
-    @IBInspectable open var separatorBackgroundColor: UIColor? {
+    @IBInspectable open dynamic var separatorBackgroundColor: UIColor? {
         didSet {
             self.applySeparatorStyle(separatorStyle)
         }
     }
     
     /// The font of the separators labels
-    @IBInspectable open var separatorFont = UIFont(name: "TrebuchetMS-Bold", size: 20) {
+    @IBInspectable open dynamic var separatorFont = UIFont(name: "TrebuchetMS-Bold", size: 20) {
         didSet {
             for sep in self.separatorLabels {
                 sep.font = separatorFont
@@ -323,7 +318,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     /// The separators's text colors. Default's to black
-    @IBInspectable open var separatorTextColor: UIColor = .black {
+    @IBInspectable open dynamic var separatorTextColor: UIColor = .black {
         didSet {
             for sep in self.separatorLabels {
                 sep.textColor = separatorTextColor
@@ -331,21 +326,25 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         }
     }
 
-    @IBInspectable open var separatorStyle: ShapeStyle = .box {
+    @IBInspectable open var separatorStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
         didSet {
             self.applySeparatorStyle(separatorStyle)
+            separatorStyle.styleChangeHandler = {
+                newStyle in
+                self.applySeparatorStyle(self.separatorStyle)
+            }
         }
     }
 
     /// The separators border color.
-    @IBInspectable open var separatorBorderColor: UIColor? {
+    @IBInspectable open dynamic var separatorBorderColor: UIColor? {
         didSet {
             self.applySeparatorStyle(separatorStyle)
         }
     }
     
     /// The thumbs's border width. Default's to 1.0
-    @IBInspectable open var separatorBorderWidth: CGFloat = 1.0 {
+    @IBInspectable open dynamic var separatorBorderWidth: CGFloat = 1.0 {
         didSet {
             self.applySeparatorStyle(separatorStyle)
         }
@@ -361,7 +360,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     // MARK: - Control Style
     
     /// The view’s background color.
-    @IBInspectable override open var styleColor: UIColor? {
+    @IBInspectable override open dynamic var styleColor: UIColor? {
         didSet {
             self.applyStyle(self.getStyle())
             
@@ -374,7 +373,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     /// The view’s background color.
-    override open var backgroundColor: UIColor? {
+    override open dynamic var backgroundColor: UIColor? {
         didSet {
             self.applyStyle(self.getStyle())
             
@@ -388,19 +387,19 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     
     // MARK: - Private Style
 
-    func applyThumbStyle(_ style: ShapeStyle) {
+    func applyThumbStyle(_ style: FlexShapeStyle) {
         for thumb in self.thumbList.thumbs {
             thumb.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index) ?? thumbBackgroundColor ?? backgroundColor?.lighter()
-            thumb.style       = style
+            thumb.style       = style.style
             thumb.borderColor = thumbBorderColor
             thumb.borderWidth = thumbBorderWidth
             thumb.backgroundIcon = self.sliderDelegate?.iconOfThumb(thumb.index)
         }
     }
 
-    func applySeparatorStyle(_ style: ShapeStyle) {
+    func applySeparatorStyle(_ style: FlexShapeStyle) {
         for sep in self.separatorLabels {
-            sep.style = style
+            sep.style = style.style
             sep.backgroundColor = .clear
             sep.borderColor = separatorBorderColor
             sep.borderWidth = separatorBorderWidth
@@ -416,7 +415,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             rectColors.append((sep.frame, bgColor ?? .clear))
             idx += 1
         }
-        let sepLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: layerRect, shapeStyle: self.separatorStyle, colorRects: rectColors)
+        let sepLayer = StyledShapeLayer.createShape(self.getStyle(), bounds: layerRect, shapeStyle: self.separatorStyle.style, colorRects: rectColors)
         return sepLayer
     }
     
@@ -436,8 +435,8 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     override func applyStyle(_ style: ShapeStyle) {
-        let bgColor: UIColor = self.styleColor ?? backgroundColor ?? self.getSliderAppearance().backgroundColor
-        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets ?? self.getSliderAppearance().backgroundInsets)
+        let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clear
+        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
         let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
         
         let sepLayer = self.createSeparatorLayer(layerRect)
@@ -462,7 +461,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         if let font = label.font, let text = label.text {
             let textString = text as NSString
             let textAttributes = [NSFontAttributeName: font]
-            return textString.boundingRect(with: self.marginsForRect(bounds, margins: backgroundInsets ?? self.getSliderAppearance().backgroundInsets).size, options: .usesLineFragmentOrigin, attributes: textAttributes, context: nil).size
+            return textString.boundingRect(with: self.marginsForRect(bounds, margins: backgroundInsets).size, options: .usesLineFragmentOrigin, attributes: textAttributes, context: nil).size
         }
         return nil
     }
@@ -523,7 +522,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     override func layoutComponents() {
-        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets ?? self.getSliderAppearance().backgroundInsets)
+        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
 
         self.thumbList.bounds = layerRect
         let thumbSize = self.getThumbSize()

@@ -219,9 +219,9 @@ open class FlexSeriesView: UIControl {
     func initSlider(_ slider: GenericStyleSlider) {
         slider.backgroundColor = .clear
         slider.continuous = true
-        slider.style = .thumb
-        slider.thumbStyle = .thumb
-        slider.separatorStyle = .box
+        slider.style = FlexShapeStyle(style: .thumb)
+        slider.thumbStyle = FlexShapeStyle(style: .thumb)
+        slider.separatorStyle = FlexShapeStyle(style: .box)
         slider.minimumValue = self.minimumValue
         slider.maximumValue = self.maximumValue
         slider.thumbSnappingBehaviour = .freeform

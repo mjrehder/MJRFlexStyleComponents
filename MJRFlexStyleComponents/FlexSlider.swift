@@ -55,19 +55,19 @@ open class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
         }
     }
     
-    @IBInspectable open var thumbTintColor: UIColor? {
+    @IBInspectable open dynamic var thumbTintColor: UIColor? {
         didSet {
             self.applyThumbStyle(self.thumbStyle)
         }
     }
     
-    @IBInspectable open var minimumTrackTintColor: UIColor? {
+    @IBInspectable open dynamic var minimumTrackTintColor: UIColor? {
         didSet {
             self.applyStyle(self.getStyle())
         }
     }
     
-    @IBInspectable open var maximumTrackTintColor: UIColor? {
+    @IBInspectable open dynamic var maximumTrackTintColor: UIColor? {
         didSet {
             self.applyStyle(self.getStyle())
         }
@@ -81,9 +81,9 @@ open class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
 
     func setupSlider() {
         self.continuous = true
-        self.style = .tube
-        self.thumbStyle = .tube
-        self.separatorStyle = .box
+        self.style = FlexShapeStyle(style: .tube)
+        self.thumbStyle = FlexShapeStyle(style: .tube)
+        self.separatorStyle = FlexShapeStyle(style: .box)
         self.minimumValue = 0
         self.maximumValue = 1
         self.borderColor = UIColor.black
@@ -111,11 +111,11 @@ open class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
     }
     
     open func colorOfThumb(_ index: Int) -> UIColor? {
-        return self.thumbTintColor ?? self.getSliderAppearance().sliderThumbColor
+        return self.thumbTintColor ?? .lightGray
     }
     
     open func colorOfSeparatorLabel(_ index: Int) -> UIColor? {
-        return index == 0 ? self.minimumTrackTintColor ?? self.getSliderAppearance().sliderMinimumTrackColor : self.maximumTrackTintColor ?? self.getSliderAppearance().sliderMaximumTrackColor
+        return index == 0 ? self.minimumTrackTintColor ?? UIColor.red.darkened(amount: 0.2) : self.maximumTrackTintColor ?? .clear
     }
 
     open func behaviourOfThumb(_ index: Int) -> StyledSliderThumbBehaviour? {

@@ -1,8 +1,8 @@
 //
-//  FlexSliderAppearance.swift
+//  FlexBaseCollectionViewCellInfoTextLabel.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 18.10.2016.
+//  Created by Martin Rehder on 28.12.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -29,9 +29,5 @@
 
 import UIKit
 
-open class FlexSliderAppearance: FlexStyleBaseAppearance {
-    open var sliderMinimumTrackColor: UIColor = UIColor.red.darkened()
-    open var sliderMaximumTrackColor: UIColor = .clear
-    open var sliderThumbColor: UIColor = .gray
-
+open class FlexBaseCollectionViewCellInfoTextLabel: FlexLabel {
 }

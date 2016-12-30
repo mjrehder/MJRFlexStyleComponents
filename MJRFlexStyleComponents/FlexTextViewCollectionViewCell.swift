@@ -52,8 +52,8 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell {
                     tv.attributedText = text
                     tv.backgroundColor = .clear
                     self.prepareTextView(tv)
-                    let appe = self.getCellAppearance()
-                    let textRect =  UIEdgeInsetsInsetRect(area, appe.textAppearance.insets)
+                    let controlInsets = item.controlInsets ?? self.controlInsets
+                    let textRect =  UIEdgeInsetsInsetRect(area, controlInsets)
                     tv.frame = textRect
                     tv.isHidden = false
                     tv.isUserInteractionEnabled = false

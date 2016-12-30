@@ -29,6 +29,7 @@
 
 
 import UIKit
+import DynamicColor
 
 public protocol FlexSwitchDelegate {
     func switchStateChanged(_ flexSwitch: FlexSwitch, on: Bool)
@@ -38,15 +39,6 @@ public protocol FlexSwitchDelegate {
 @IBDesignable open class FlexSwitch: GenericStyleSlider, GenericStyleSliderDelegate, GenericStyleSliderTouchDelegate {
 
     open var switchDelegate: FlexSwitchDelegate?
-    
-    open var switchAppearance: FlexSwitchAppearance? {
-        didSet {
-            self.setNeedsLayout()
-        }
-    }
-    open func getSwitchAppearance() -> FlexSwitchAppearance {
-        return self.switchAppearance ?? flexStyleAppearance.switchAppearance
-    }
     
     public override init(frame: CGRect) {
         var targetFrame = frame
@@ -64,9 +56,9 @@ public protocol FlexSwitchDelegate {
 
     func setupSwitch() {
         self.continuous = false
-        self.style = .tube
-        self.thumbStyle = .tube
-        self.separatorStyle = .box
+        self.style = FlexShapeStyle(style: .tube)
+        self.thumbStyle = FlexShapeStyle(style: .tube)
+        self.separatorStyle = FlexShapeStyle(style: .box)
         self.minimumValue = 0
         self.maximumValue = 1
         self.borderColor = UIColor.black
@@ -79,13 +71,13 @@ public protocol FlexSwitchDelegate {
         self.addTarget(self, action: #selector(FlexSwitch.switchChanged), for: .valueChanged)
     }
 
-    @IBInspectable open var onTintColor: UIColor? {
+    @IBInspectable open dynamic var onTintColor: UIColor? {
         didSet {
             self.applySeparatorStyle(self.separatorStyle)
         }
     }
     
-    @IBInspectable open var thumbTintColor: UIColor? {
+    @IBInspectable open dynamic var thumbTintColor: UIColor? {
         didSet {
             self.applyThumbStyle(self.thumbStyle)
         }
@@ -121,11 +113,11 @@ public protocol FlexSwitchDelegate {
     }
     
     open func colorOfThumb(_ index: Int) -> UIColor? {
-        return self.thumbTintColor ?? self.getSwitchAppearance().switchThumbColor
+        return self.thumbTintColor ?? .lightGray
     }
     
     open func colorOfSeparatorLabel(_ index: Int) -> UIColor? {
-        return index == 0 ? self.onTintColor ?? self.getSwitchAppearance().switchOnColor : self.styleColor
+        return index == 0 ? self.onTintColor ?? UIColor.red.darkened(amount: 0.2) : self.styleColor
     }
     
     open func behaviourOfThumb(_ index: Int) -> StyledSliderThumbBehaviour? {

@@ -50,45 +50,25 @@ open class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
             }
         }
     }
-    
-    override open var cellAppearance: FlexStyleCollectionCellAppearance? {
-        didSet {
-            self.flexContentView?.flexViewAppearance = self.getCellAppearance().viewAppearance
-            self.applyTextAppearance()
-            self.applySliderAppearance()
-            self.refreshLayout()
-        }
-    }
-    
-    func applySliderAppearance() {
-        if self.flexSlider?.sliderAppearance == nil {
-            self.flexSlider?.sliderAppearance = self.getCellAppearance().sliderAppearance
-        }
-    }
-    
+
     open func layoutSliderView(_ item: FlexSliderCollectionItem, area: CGRect) -> CGRect {
         var remainingCellArea = area
         
         if let fs = self.flexSlider {
-            let appe = self.getCellAppearance()
-            let imageViewRect = CGRect(origin: CGPoint.zero, size: appe.controlSize)
+            let controlInsets = item.controlInsets ?? self.controlInsets
+            let imageViewRect = self.getControlArea()
+
+//            let controlSize = UIEdgeInsetsInsetRect(CGRect(origin: CGPoint.zero, size: CGSize(width: remainingCellArea.width, height: imageViewRect.size.height)), controlInsets).size
             
-            fs.sliderAppearance = appe.sliderAppearance
-            fs.style = appe.controlStyle
-            fs.thumbStyle = appe.controlStyle
-            fs.styleColor = appe.controlStyleColor
-            fs.controlInsets = appe.controlInsets
-            
-            let controlInsets = appe.controlInsets
-            let controlSize = UIEdgeInsetsInsetRect(CGRect(origin: CGPoint.zero, size: CGSize(width: remainingCellArea.width, height: appe.controlSize.height)), controlInsets).size
-            
-            fs.frame = CGRect(x: remainingCellArea.origin.x + (remainingCellArea.size.width - (controlInsets.right + controlSize.width)), y: remainingCellArea.origin.y + (remainingCellArea.size.height - controlSize.height) * 0.5, width: controlSize.width, height: controlSize.height)
+//            let fr = CGRect(x: remainingCellArea.origin.x + (remainingCellArea.size.width - (controlInsets.right + controlSize.width)), y: remainingCellArea.origin.y + (remainingCellArea.size.height - controlSize.height) * 0.5, width: controlSize.width, height: controlSize.height)
+//            fs.frame = CGRect(x: 0, y: 0, width: 60, height: 30)  //fr
             fs.isHidden = false
             fs.minimumValue = item.minValue
             fs.maximumValue = item.maxValue
             fs.value = item.value
-            let switchTotalWidth = imageViewRect.size.width + controlInsets.left + controlInsets.right
-            remainingCellArea = remainingCellArea.insetBy(dx: switchTotalWidth*0.5, dy: 0).offsetBy(dx: -switchTotalWidth*0.5, dy: 0)
+            fs.controlInsets = controlInsets
+            let sliderTotalWidth = imageViewRect.size.width + controlInsets.left + controlInsets.right
+            remainingCellArea = remainingCellArea.insetBy(dx: sliderTotalWidth*0.5, dy: 0).offsetBy(dx: -sliderTotalWidth*0.5, dy: 0)
         }
         else {
             self.flexSlider?.isHidden = true
@@ -105,14 +85,14 @@ open class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
             remainingCellArea = self.layoutAccessoryView(item, area: remainingCellArea)
             // TODO: missing case for text inside slider
             if item.text != nil {
-                self.layoutSliderView(item, area: remainingCellArea)
+                let _ = self.layoutSliderView(item, area: remainingCellArea)
                 self.layoutText(item, area: remainingCellArea)
                 if let fs = self.flexSlider, let tc = self.textLabel {
                     FlexControlLayoutHelper.horizontallyAlignTwoFlexControls(tc, lowerControl: fs, area: remainingCellArea)
                 }
             }
             else {
-                self.layoutSliderView(item, area: remainingCellArea)
+                let _ = self.layoutSliderView(item, area: remainingCellArea)
             }
         }
     }

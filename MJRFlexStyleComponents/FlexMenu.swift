@@ -125,9 +125,9 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     func initMenu() {
         self.backgroundColor = .clear
         self.continuous = false
-        self.style = .rounded
-        self.thumbStyle = .rounded
-        self.separatorStyle = .box
+        self.style = FlexShapeStyle(style: .rounded)
+        self.thumbStyle = FlexShapeStyle(style: .rounded)
+        self.separatorStyle = FlexShapeStyle(style: .box)
         self.minimumValue = 0
         self.maximumValue = 1
         self.thumbSnappingBehaviour = .snapToLowerAndHigher

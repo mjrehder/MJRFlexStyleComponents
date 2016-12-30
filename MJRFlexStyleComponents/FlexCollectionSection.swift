@@ -32,7 +32,8 @@ import UIKit
 open class FlexCollectionSection: NSObject {
     var reference: String
     var title: NSAttributedString?
-    open var sectionHeaderAppearance: FlexLabelAppearance?
+    open var height: CGFloat = 0
+    open var insets: UIEdgeInsets = .zero
     
     public init(reference: String, title: NSAttributedString? = nil) {
         self.reference = reference

@@ -1,8 +1,8 @@
 //
-//  FlexSwitchAppearance.swift
+//  FlexShapeStyle.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 18.10.2016.
+//  Created by Martin Rehder on 28.12.2016.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -28,8 +28,19 @@
  */
 
 import UIKit
+import StyledLabel
 
-open class FlexSwitchAppearance: FlexStyleBaseAppearance {
-    open var switchOnColor: UIColor = UIColor.red.darkened()
-    open var switchThumbColor: UIColor = .gray
+open class FlexShapeStyle: NSObject {
+    open var styleChangeHandler: ((_ style: ShapeStyle) -> Void)?
+    
+    open var style: ShapeStyle = .box {
+        didSet {
+            self.styleChangeHandler?(style)
+        }
+    }
+    
+    init(style: ShapeStyle) {
+        self.style = style
+        super.init()
+    }
 }

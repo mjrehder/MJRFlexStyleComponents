@@ -33,6 +33,10 @@ open class FlexImageCollectionItem: FlexCollectionItem {
     open var image: UIImage?
     open var imageFit: FlexImageShapeFit = .scaleToFit
 
+    open var headerPosition: FlexViewHeaderPosition?
+
+    open var controlInsets: UIEdgeInsets = .zero
+
     public init(reference: String, image: UIImage? = nil, title: NSAttributedString? = nil) {
         self.image = image
         super.init(reference: reference, text: title)

@@ -52,9 +52,13 @@ open class FlexImageShapeView: FlexView {
         }
     }
 
-    open var imageStyle: ShapeStyle = .box {
+    open dynamic var imageStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
         didSet {
             self.setNeedsLayout()
+            imageStyle.styleChangeHandler = {
+                newStyle in
+                self.setNeedsLayout()
+            }
         }
     }
     
@@ -84,7 +88,7 @@ open class FlexImageShapeView: FlexView {
             self.backgroundShape.removeFromSuperlayer()
         }
 
-        let bgLayer = ImageShapeLayerFactory.createImageShapeInView(imageViewRect, viewBounds: self.bounds, image: self.image, viewStyle: self.getStyle(), imageStyle: self.imageStyle, imageFitting: self.backgroundImageFit)
+        let bgLayer = ImageShapeLayerFactory.createImageShapeInView(imageViewRect, viewBounds: self.bounds, image: self.image, viewStyle: self.getStyle(), imageStyle: self.imageStyle.style, imageFitting: self.backgroundImageFit)
         
         self.styleLayer.insertSublayer(bgLayer, at: 0)
         self.backgroundShape = bgLayer

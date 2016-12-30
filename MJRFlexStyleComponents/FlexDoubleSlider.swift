@@ -54,7 +54,7 @@ open class FlexDoubleSlider: FlexSlider {
         }
     }
 
-    @IBInspectable open var middleTrackTintColor: UIColor? = UISlider.appearance().minimumTrackTintColor {
+    @IBInspectable open dynamic var middleTrackTintColor: UIColor? {
         didSet {
             self.applyStyle(self.getStyle())
         }
@@ -62,9 +62,9 @@ open class FlexDoubleSlider: FlexSlider {
 
     override func setupSlider() {
         self.continuous = true
-        self.style = .tube
-        self.thumbStyle = .tube
-        self.separatorStyle = .box
+        self.style = FlexShapeStyle(style: .tube)
+        self.thumbStyle = FlexShapeStyle(style: .thumb)
+        self.separatorStyle = FlexShapeStyle(style: .box)
         self.minimumValue = 0
         self.maximumValue = 1
         self.borderColor = UIColor.black

@@ -33,6 +33,24 @@ import StyledLabel
 open class FlexColorCollectionViewCell: FlexBaseCollectionViewCell {
     var colorView: UIView?
 
+    open dynamic var controlStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+
+    open dynamic var controlBorderColor: UIColor? {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    open dynamic var controlBorderWidth: CGFloat = 1.0 {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+
     open override func initialize() {
         super.initialize()
         
@@ -57,13 +75,17 @@ open class FlexColorCollectionViewCell: FlexBaseCollectionViewCell {
         var remainingCellArea = area
         
         if let cv = self.colorView {
-            let appe = self.getCellAppearance()
-            let controlInsets = appe.controlInsets
-            let controlSize = appe.controlSize
+            let controlInsets = item.controlInsets ?? self.controlInsets
+            let controlSize = self.getControlArea().size
 
             let imageViewRect = CGRect(origin: CGPoint.zero, size: controlSize)
-            let colorLayer = StyledShapeLayer.createShape(appe.controlStyle, bounds: imageViewRect, color: item.color, borderColor: appe.controlBorderColor, borderWidth: appe.controlBorderWidth)
-
+            let colorLayer: CAShapeLayer
+            if let bc = self.controlBorderColor {
+                colorLayer = StyledShapeLayer.createShape(self.controlStyle.style, bounds: imageViewRect, color: item.color, borderColor: bc, borderWidth: self.controlBorderWidth)
+            }
+            else {
+                colorLayer = StyledShapeLayer.createShape(self.controlStyle.style, bounds: imageViewRect, color: item.color)
+            }
             cv.frame = CGRect(x: remainingCellArea.origin.x + (remainingCellArea.size.width - (controlInsets.right + controlSize.width)), y: remainingCellArea.origin.y + (remainingCellArea.size.height - controlSize.height) * 0.5, width: controlSize.width, height: controlSize.height)
             cv.layer.sublayers?.removeAll()
             cv.layer.addSublayer(colorLayer)

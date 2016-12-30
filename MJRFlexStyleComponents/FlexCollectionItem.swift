@@ -43,7 +43,6 @@ open class FlexCollectionItem: NSObject {
     open var text: NSAttributedString?
     open var sectionReference: String?
     open var preferredCellSize: CGSize?
-    open var cellAppearance: FlexStyleCollectionCellAppearance?
     open var canMoveItem: Bool = true
     
     /// Swipe left menu items. A swipe gesture will be added to the cell when the menu items are set
