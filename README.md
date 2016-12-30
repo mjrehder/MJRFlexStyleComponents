@@ -41,7 +41,7 @@ $ open MyProject.xcworkspace
 
 You can now `import MJRFlexStyleComponents` framework into your files.
 
-Note: If you need to use the ShapeStyle class in your project, then remember to ‘import SnappingStepper’ as well
+Note: If you need to use the ShapeStyle class in your project, then remember to ‘import StyledShape’ as well
 
 ## The Components
 
@@ -239,19 +239,23 @@ The vertical position (vPos) can be .Header, .Top, .Bottom and .Footer and place
 Example (from the example project):
 ```swift
         rightFlexView.headerPosition = .right
-        rightFlexView.backgroundMargins = UIEdgeInsets(top: 0, left:15, bottom:0, right:20)
+        rightFlexView.backgroundInsets = UIEdgeInsetsMake(0, 15, 0, 20)
         rightFlexView.headerText = "Right"
         rightFlexView.footerText = "Right Footer"
         rightFlexView.styleColor = UIColor.MKColor.Amber.P100
-        rightFlexView.header.labelBackgroundColor = UIColor.MKColor.Amber.P500
+        rightFlexView.header.styleColor = UIColor.MKColor.Amber.P500
         rightFlexView.headerSize = 16
-        rightFlexView.header.style = .tube
+        rightFlexView.header.style = FlexShapeStyle(style: .tube)
         rightFlexView.headerClipToBackgroundShape = false
-        rightFlexView.header.labelFont = UIFont.boldSystemFont(ofSize: 10)
-        rightFlexView.footer.labelFont = UIFont.systemFont(ofSize: 10)
+        rightFlexView.header.caption.labelFont = UIFont.boldSystemFont(ofSize: 10)
+        rightFlexView.footer.caption.labelFont = UIFont.systemFont(ofSize: 10)
+        rightFlexView.header.caption.labelTextAlignment = .center
+        rightFlexView.footer.caption.labelTextAlignment = .center
         rightFlexView.footerClipToBackgroundShape = false
-        rightFlexView.header.labelTextColor = UIColor.white
-        rightFlexView.style = .Custom(path: UIBezierPath(roundedRect: rightFlexView.bounds, cornerRadius: 10))
+        rightFlexView.footer.styleColor = .clear
+        rightFlexView.header.caption.labelTextColor = UIColor.white
+        rightFlexView.footer.caption.labelTextColor = UIColor.black
+        rightFlexView.style = FlexShapeStyle(style: .custom(path: UIBezierPath(roundedRect: rightFlexView.bounds, cornerRadius: 10)))
 ```
 
 This example also shows the custom style option, where an arbitrary UIBezierPath is used to define the background style.
@@ -275,58 +279,11 @@ This is another lightweight component of a UITextView inside a FlexView.
 
 ### FlexCollectionView
 
-The specialised collection view is a larger extension and consists not only of a FlexView extension embedding a collection view, but also of a number of cells and an collection item model.
+The specialised collection view is a larger extension and consists not only of a FlexView extension embedding a collection view, but also of a number of cells and a collection item model.
 You can register new FlexCollectionItem and FlexCollectionViewCell in order to use your own model and cells. The example contained in the project results in the view shown above. These are the cells currently available in the FlexCollectionView.
 Images and text are all optional in these cells. The layout will adjust accordingly. The cells contain a FlexView as the container view. The flex style with the header is also configurable. Just don’t set the header text if you do not want a cell header.
 
-A simple example from the demo project for using the FlexCollectionView
-``` swift
-    @IBOutlet weak var demoCollectionView: FlexCollectionView!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.setupView()
-    }
-    
-    func setupView() {
-        self.automaticallyAdjustsScrollViewInsets = false
-
-        self.demoCollectionView.flexCollectionDelegate = self
-        self.demoCollectionView.defaultCellSize = CGSize(width: 250, height: 64)
-        self.demoCollectionView.headerText = "Collection Demo"
-        
-        // Setup demo style
-        let collectionDemoStyle = FlexStyleAppearance()
-        collectionDemoStyle.viewAppearance.styleColor = UIColor.MKColor.Brown.P50
-        collectionDemoStyle.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
-        collectionDemoStyle.cellAppearance.controlStyleColor = UIColor.MKColor.Brown.P100
-        collectionDemoStyle.sectionHeaderAppearance.styleColor = UIColor.MKColor.Brown.P300
-        collectionDemoStyle.sectionHeaderAppearance.insets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
-        collectionDemoStyle.sectionHeaderAppearance.style = .roundedFixed(cornerRadius: 5)
-        collectionDemoStyle.sectionHeaderAppearance.textFont = UIFont.systemFont(ofSize: 10)
-        self.demoCollectionView.appearance = collectionDemoStyle
-        self.demoCollectionView.collectionCellAppearance = collectionDemoStyle
-        
-        let secRef = self.demoCollectionView.addSection(NSAttributedString(string: "Section 1"))
-
-        // Quad Text
-        let item0 = FlexBaseCollectionItem(reference: "item0ref", text: NSAttributedString(string: "Text String"), icon: nil, accessoryImage: nil, title: NSAttributedString(string: "Item 0"))
-        item0.infoText = NSAttributedString(string: "Info")
-        item0.detailText = NSAttributedString(string: "Detail Text")
-        item0.auxText = NSAttributedString(string: "Aux Info")
-        let i0App = FlexStyleCollectionCellAppearance()
-        i0App.controlInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        i0App.styleColor = UIColor.MKColor.Brown.P100
-        i0App.viewAppearance.headerAppearance.backgroundColor = UIColor.MKColor.Brown.P500
-        i0App.controlStyleColor = UIColor.MKColor.Brown.P100
-        i0App.textAppearance.style = .box
-        item0.cellAppearance = i0App
-        self.demoCollectionView.addItem(secRef, item: item0)
-
-    }
-```
-
-Please note, that this example uses the ```FlexStyleAppearance``` in order to make the styling and layout easier.
+An example for the FlexCollectionView can be found in the demo project class ```FlexCollectionDemoViewController```
 
 #### Collection delegate
 The FlexCollectionViewDelegate has two functions in order to react on selection and re-ordering:
