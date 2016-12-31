@@ -31,12 +31,12 @@ import UIKit
 import StyledLabel
 
 open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
-    var imageView: UIView?
-    var textLabel: FlexBaseCollectionViewCellTextLabel?
-    var detailTextLabel: FlexBaseCollectionViewCellDetailTextLabel?
-    var infoTextLabel: FlexBaseCollectionViewCellInfoTextLabel?
-    var auxTextLabel: FlexBaseCollectionViewCellAuxTextLabel?
-    var accessoryView: UIView?
+    public var imageView: UIView?
+    public var textLabel: FlexBaseCollectionViewCellTextLabel?
+    public var detailTextLabel: FlexBaseCollectionViewCellDetailTextLabel?
+    public var infoTextLabel: FlexBaseCollectionViewCellInfoTextLabel?
+    public var auxTextLabel: FlexBaseCollectionViewCellAuxTextLabel?
+    public var accessoryView: UIView?
 
     open var flexContentView: FlexCellView?
 

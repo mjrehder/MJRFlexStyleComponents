@@ -39,7 +39,7 @@ open class FlexShapeStyle: NSObject {
         }
     }
     
-    init(style: ShapeStyle) {
+    public init(style: ShapeStyle) {
         self.style = style
         super.init()
     }
