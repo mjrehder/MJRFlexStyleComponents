@@ -30,6 +30,6 @@
 
 import UIKit
 
-class EmptyHeaderCollectionReusableView: UICollectionReusableView {
+open class EmptyHeaderCollectionReusableView: UICollectionReusableView {
         
 }

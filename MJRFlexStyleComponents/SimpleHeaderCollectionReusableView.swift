@@ -30,15 +30,15 @@
 
 import UIKit
 
-class SimpleHeaderCollectionReusableView: UICollectionReusableView {
-    var title: FlexLabel?
+open class SimpleHeaderCollectionReusableView: UICollectionReusableView {
+    open var title: FlexLabel?
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         self.initView()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.initView()
     }
@@ -49,7 +49,7 @@ class SimpleHeaderCollectionReusableView: UICollectionReusableView {
         self.addSubview(self.title!)
     }
     
-    override func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         self.title?.frame = self.bounds
     }
