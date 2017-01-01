@@ -324,8 +324,7 @@ open class FlexView: FlexBaseControl {
         let headerPos = self.headerPosition
         menu.menu.direction = headerPos == .top ? .horizontal : . vertical
         menu.menu.menuItemGravity = headerPos == .top ? .normal : (headerPos == .left ? .right : .left)
-        let totalInsets = UIEdgeInsetsMake(backgroundInsets.top + menu.menu.controlInsets.top, backgroundInsets.left + menu.menu.controlInsets.left, backgroundInsets.bottom + menu.menu.controlInsets.bottom, backgroundInsets.right + menu.menu.controlInsets.right)
-        let layerRect = self.marginsForRect(bounds, margins: totalInsets)
+        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
         var msize = menu.size
         var mpos = layerRect.origin
         switch menu.hPos {
@@ -387,6 +386,6 @@ open class FlexView: FlexBaseControl {
             npvp = headerPos == .right ? 0 : npw - fSize
         }
         mpos = menu.menu.direction.getPosition(CGPoint(x: menu.menu.direction.principalPosition(mpos), y: npvp))
-        menu.menu.frame = CGRect(x: mpos.x, y: mpos.y, width: msize.width, height: msize.height)
+        menu.menu.frame = UIEdgeInsetsInsetRect(CGRect(x: mpos.x, y: mpos.y, width: msize.width, height: msize.height), menu.menu.controlInsets)
     }
 }
