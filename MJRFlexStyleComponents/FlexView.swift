@@ -244,8 +244,8 @@ open class FlexView: FlexBaseControl {
                 self.addSubview(self.header)
             }
             self.header.frame = self.rectForHeader()
-            self.header.caption.frame = self.header.bounds
             let headerBounds = UIEdgeInsetsInsetRect(self.header.bounds, self.header.controlInsets)
+            self.header.caption.frame = headerBounds
             self.header.caption.label.frame = headerBounds
             self.header.caption.label.transform = self.getHeaderFooterRotation()
             self.header.caption.label.frame = headerBounds
@@ -265,8 +265,8 @@ open class FlexView: FlexBaseControl {
                 self.addSubview(self.footer)
             }
             self.footer.frame = self.rectForFooter()
-            self.footer.caption.frame = self.footer.bounds
             let footerBounds = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.controlInsets)
+            self.footer.caption.frame = footerBounds
             self.footer.caption.label.frame = footerBounds
             self.footer.caption.label.transform = self.getHeaderFooterRotation()
             self.footer.caption.label.frame = footerBounds
@@ -324,7 +324,8 @@ open class FlexView: FlexBaseControl {
         let headerPos = self.headerPosition
         menu.menu.direction = headerPos == .top ? .horizontal : . vertical
         menu.menu.menuItemGravity = headerPos == .top ? .normal : (headerPos == .left ? .right : .left)
-        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
+        let totalInsets = UIEdgeInsetsMake(backgroundInsets.top + menu.menu.controlInsets.top, backgroundInsets.left + menu.menu.controlInsets.left, backgroundInsets.bottom + menu.menu.controlInsets.bottom, backgroundInsets.right + menu.menu.controlInsets.right)
+        let layerRect = self.marginsForRect(bounds, margins: totalInsets)
         var msize = menu.size
         var mpos = layerRect.origin
         switch menu.hPos {
