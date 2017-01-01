@@ -63,7 +63,7 @@ open class FlexBaseStylingControl: UIControl {
     }
     
     /// The view's border width.
-    @IBInspectable open dynamic var borderWidth: CGFloat = 1.0 {
+    @IBInspectable open dynamic var borderWidth: CGFloat = 0.0 {
         didSet {
             self.setNeedsLayout()
         }
