@@ -88,6 +88,13 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         }
     }
 
+    
+    open var imageViewFitting: FlexImageShapeFit = .scaleToFit {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
     open override func initialize() {
         super.initialize()
         let baseRect = self.bounds
@@ -182,9 +189,10 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         if let icon = item.icon, let iv = self.imageView {
             let iconInsets = self.imageViewInsets
             let iconSize = self.imageViewSize
-
+            
             let imageViewRect = CGRect(origin: CGPoint.zero, size: iconSize)
-            let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: icon, imageStyle: self.imageViewStyle.style, imageFitting: .scaleToFit)
+            let sizeFit = item.imageViewFitting ?? self.imageViewFitting
+            let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: icon, imageStyle: self.imageViewStyle.style, imageFitting: sizeFit)
             
             iv.frame = CGRect(x: remainingCellArea.origin.x + iconInsets.left, y: remainingCellArea.origin.y + (remainingCellArea.size.height - iconSize.height) * 0.5, width: iconSize.width, height: iconSize.height)
             iv.layer.sublayers?.removeAll()

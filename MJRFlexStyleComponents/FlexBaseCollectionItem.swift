@@ -51,6 +51,7 @@ open class FlexBaseCollectionItem: FlexCollectionItem {
     
     open var accessoryImageActionHandler: (() -> Void)?
     open var imageViewActionHandler: (() -> Void)?
+    open var imageViewFitting: FlexImageShapeFit?
     
     open var headerPosition: FlexViewHeaderPosition?
     
