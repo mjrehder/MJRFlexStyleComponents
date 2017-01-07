@@ -246,9 +246,9 @@ open class FlexView: FlexBaseControl {
             self.header.frame = self.rectForHeader()
             let headerBounds = UIEdgeInsetsInsetRect(self.header.bounds, self.header.controlInsets)
             self.header.caption.frame = headerBounds
-            self.header.caption.label.frame = headerBounds
+            self.header.caption.label.frame = self.header.caption.bounds
             self.header.caption.label.transform = self.getHeaderFooterRotation()
-            self.header.caption.label.frame = headerBounds
+            self.header.caption.label.frame = self.header.caption.bounds
             if self.headerText != nil {
                 self.header.caption.label.text = headerText
             }
@@ -267,9 +267,9 @@ open class FlexView: FlexBaseControl {
             self.footer.frame = self.rectForFooter()
             let footerBounds = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.controlInsets)
             self.footer.caption.frame = footerBounds
-            self.footer.caption.label.frame = footerBounds
+            self.footer.caption.label.frame = self.footer.caption.bounds
             self.footer.caption.label.transform = self.getHeaderFooterRotation()
-            self.footer.caption.label.frame = footerBounds
+            self.footer.caption.label.frame = self.footer.caption.bounds
             if self.footerText != nil {
                 self.footer.caption.label.text = footerText
             }
