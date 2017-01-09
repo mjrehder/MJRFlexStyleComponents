@@ -66,7 +66,7 @@ open class FlexTextView: FlexView {
         self.setupTextView()
     }
     
-    func setupTextView() {
+    open func setupTextView() {
         let textViewRect = self.getViewRect()
         self.textView.frame = textViewRect
         
