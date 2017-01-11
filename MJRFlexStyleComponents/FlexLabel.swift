@@ -84,7 +84,9 @@ open class FlexLabel: FlexBaseControl {
         self.label.backgroundColor = styleColor
         self.label.borderColor = labelBorderColor
         self.label.borderWidth = labelBorderWidth
-        self.label.textColor = labelTextColor ?? .clear
+        if let tcolor = self.labelTextColor {
+            self.label.textColor = tcolor
+        }
         self.label.font = labelFont
         self.label.textAlignment = labelTextAlignment
         
