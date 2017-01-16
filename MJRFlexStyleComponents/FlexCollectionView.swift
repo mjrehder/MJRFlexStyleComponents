@@ -149,6 +149,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         self.registerCell(FlexSliderCollectionItem.classForCoder(), cellClass: FlexSliderCollectionViewCell.classForCoder())
         self.registerCell(FlexTextViewCollectionItem.classForCoder(), cellClass: FlexTextViewCollectionViewCell.classForCoder())
         self.registerCell(FlexImageCollectionItem.classForCoder(), cellClass: FlexImageCollectionViewCell.classForCoder())
+        self.registerCell(FlexButtonCollectionItem.classForCoder(), cellClass: FlexButtonCollectionViewCell.classForCoder())
     }
     
     open func registerCell(_ itemClass: AnyClass, cellClass: AnyClass) {
@@ -383,8 +384,14 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         if let item = item {
             if let ip = self.getIndexPathForItem(item.reference) {
                 self.itemCollectionView.selectItem(at: ip, animated: true, scrollPosition: UICollectionViewScrollPosition())
+                self.flexCollectionDelegate?.onFlexCollectionItemSelected(self, item: item)
+                item.itemSelectionActionHandler?()
+                if let autoDeselectTime = item.autoDeselectCellAfter {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + autoDeselectTime, execute: {
+                        self.itemCollectionView.deselectItem(at: ip, animated: true)
+                    })
+                }
             }
-            self.flexCollectionDelegate?.onFlexCollectionItemSelected(self, item: item)
         }
     }
 }

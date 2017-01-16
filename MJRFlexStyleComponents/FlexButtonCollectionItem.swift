@@ -1,8 +1,8 @@
 //
-//  FlexCollectionItem.swift
+//  FlexButtonCollectionItem.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 23.09.16.
+//  Created by Martin Rehder on 16.01.2017.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -27,37 +27,15 @@
  *
  */
 
-
 import UIKit
 
-public protocol FlexCollectionItemSwipeDelegate {
-    func swipeMenuSelected(_ item: FlexCollectionItem, menuItem: FlexLabel)
-}
-
-open class FlexCollectionItem: NSObject {
-    open var reference: String
-
-    /// Use this to refer to other content or items. The auxReference is not used or altered by the FlexCollection.
-    open var auxReference: String?
+open class FlexButtonCollectionItem: FlexCollectionItem {
+    open var title: NSAttributedString?
+    open var headerPosition: FlexViewHeaderPosition?
+    open var controlInsets: UIEdgeInsets?
     
-    open var text: NSAttributedString?
-    open var sectionReference: String?
-    open var preferredCellSize: CGSize?
-    open var canMoveItem: Bool = true
-    
-    /// Swipe left menu items. A swipe gesture will be added to the cell when the menu items are set
-    open var swipeLeftMenuItems: [FlexLabel]?
-    /// Swipe right menu items. A swipe gesture will be added to the cell when the menu items are set
-    open var swipeRightMenuItems: [FlexLabel]?
-
-    open var swipeMenuDelegate: FlexCollectionItemSwipeDelegate?
-    
-    open var itemSelectionActionHandler: (() -> Void)?
-
-    open var autoDeselectCellAfter: DispatchTimeInterval?
-    
-    public init(reference: String, text: NSAttributedString? = nil) {
-        self.reference = reference
-        self.text = text
+    override public init(reference: String, text: NSAttributedString?) {
+        super.init(reference: reference, text: text)
+        self.autoDeselectCellAfter = .milliseconds(100)
     }
 }

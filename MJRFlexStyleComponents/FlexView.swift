@@ -37,15 +37,15 @@ public enum FlexViewHeaderPosition {
 }
 
 open class FlexView: FlexBaseControl {
-    fileprivate var _header = FlexViewSupplementaryView()
-    open var header: FlexViewSupplementaryView {
+    fileprivate var _header = FlexHeaderView()
+    open var header: FlexHeaderView {
         get {
             return _header
         }
     }
     
-    fileprivate var _footer = FlexViewSupplementaryView()
-    open var footer: FlexViewSupplementaryView {
+    fileprivate var _footer = FlexFooterView()
+    open var footer: FlexFooterView {
         get {
             return _footer
         }
@@ -198,7 +198,7 @@ open class FlexView: FlexBaseControl {
     
     // MARK: - Private Style
 
-    func rectForHeader() -> CGRect {
+    open func rectForHeader() -> CGRect {
         let headerPos = self.headerPosition
         let hSize = self.headerSize
         switch headerPos {
@@ -211,7 +211,7 @@ open class FlexView: FlexBaseControl {
         }
     }
     
-    func rectForFooter() -> CGRect {
+    open func rectForFooter() -> CGRect {
         let headerPos = self.headerPosition
         let fSize = self.footerSize
         switch headerPos {
@@ -224,7 +224,7 @@ open class FlexView: FlexBaseControl {
         }
     }
     
-    func getHeaderFooterRotation() -> CGAffineTransform {
+    open func getHeaderFooterRotation() -> CGAffineTransform {
         let headerPos = self.headerPosition
         switch headerPos {
         case .top:
@@ -236,7 +236,7 @@ open class FlexView: FlexBaseControl {
         }
     }
     
-    override func layoutComponents() {
+    override open func layoutComponents() {
         super.layoutComponents()
         
         if self.hasHeaderText() {

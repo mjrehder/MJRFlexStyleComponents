@@ -88,7 +88,6 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         }
     }
 
-    
     open var imageViewFitting: FlexImageShapeFit = .scaleToFit {
         didSet {
             self.setNeedsLayout()

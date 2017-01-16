@@ -162,7 +162,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         
         // Image view
         let imageCellHeaderAppearance = FlexLabel.appearance(whenContainedInInstancesOf: [FlexViewSupplementaryView.self, FlexImageCollectionViewCell.self])
-        imageCellHeaderAppearance.labelFont = UIFont.boldSystemFont(ofSize: 8)
+        imageCellHeaderAppearance.labelFont = UIFont.boldSystemFont(ofSize: 10)
         imageCellHeaderAppearance.labelTextAlignment = .center
         imageCellHeaderAppearance.labelTextColor = .white
 
@@ -203,6 +203,19 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         item6.swipeMenuDelegate = self
         
         self.demoCollectionView.addItem(sec2Ref, item: item6)
+        
+        
+        // Button cell
+        let buttonCellLabelAppearance = FlexLabel.appearance(whenContainedInInstancesOf: [FlexButtonCollectionViewCell.self])
+        buttonCellLabelAppearance.labelFont = UIFont.boldSystemFont(ofSize: 14)
+        buttonCellLabelAppearance.labelTextAlignment = .center
+
+        let item7 = FlexButtonCollectionItem(reference: "item7ref", text: NSAttributedString(string: "Press Me"))
+        item7.itemSelectionActionHandler = {
+            NSLog("Cell button pressed!")
+        }
+        item7.preferredCellSize = CGSize(width: 250, height: 30)
+        self.demoCollectionView.addItem(sec2Ref, item: item7)
 
     }
     
