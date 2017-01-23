@@ -266,11 +266,16 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         fcv.borderWidth = self.isSelected ? self.selectedBorderWidth : self.borderWidth
     }
     
+    open override func assignBorderLayout() {
+        // Intentionally left blank
+    }
+    
     override open func applyStyles() {
         super.applyStyles()
   
         if let item = self.item as? FlexBaseCollectionItem, let fcv = self.flexContentView {
             fcv.headerAttributedText = item.title
+            fcv.footerAttributedText = item.subTitle
             if let hp = item.headerPosition {
                 fcv.headerPosition = hp
             }

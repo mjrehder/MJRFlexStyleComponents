@@ -1,8 +1,8 @@
 //
-//  FlexSliderCollectionViewCell.swift
+//  FlexMenuCollectionViewCell.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 08.10.2016.
+//  Created by Martin Rehder on 21.01.2017.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -29,52 +29,51 @@
 
 import UIKit
 
-open class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
-    var flexSlider: FlexSlider?
+open class FlexMenuCollectionViewCell: FlexBaseCollectionViewCell {
+    var flexMenu: FlexMenu?
     
     open override func initialize() {
         super.initialize()
         
         if let pcv = self.flexContentView {
-            self.flexSlider = FlexSlider()
-            if let fs = self.flexSlider {
+            self.flexMenu = FlexMenu()
+            if let fs = self.flexMenu {
                 fs.isHidden = true
-                fs.valueChangedBlock = {
-                    (value, index) in
-                    if let item = self.item as? FlexSliderCollectionItem {
-                        item.value = value
-                        item.valueChangedHandler?(value)
-                    }
+                if let item = self.item as? FlexMenuCollectionItem {
+                    fs.menuDataSource = item.menuDataSource
                 }
                 pcv.addSubview(fs)
             }
         }
     }
-
-    open func layoutSliderView(_ item: FlexSliderCollectionItem, area: CGRect) -> CGRect {
+    
+    open func layoutSliderView(_ item: FlexMenuCollectionItem, area: CGRect) -> CGRect {
         var remainingCellArea = area
         
-        if let fs = self.flexSlider {
+        if let fs = self.flexMenu {
             let controlInsets = item.controlInsets ?? self.controlInsets
             let imageViewRect = self.getControlArea()
             fs.isHidden = false
-            fs.minimumValue = item.minValue
-            fs.maximumValue = item.maxValue
-            fs.value = item.value
             fs.controlInsets = controlInsets
             fs.frame = UIEdgeInsetsInsetRect(imageViewRect, controlInsets)
             let sliderTotalWidth = imageViewRect.size.width + controlInsets.left + controlInsets.right
             remainingCellArea = remainingCellArea.insetBy(dx: sliderTotalWidth*0.5, dy: 0).offsetBy(dx: -sliderTotalWidth*0.5, dy: 0)
         }
         else {
-            self.flexSlider?.isHidden = true
+            self.flexMenu?.isHidden = true
         }
         return remainingCellArea
     }
     
     override open func applyStyles() {
-        if let item = self.item as? FlexSliderCollectionItem, let fcv = self.flexContentView {
+        if let item = self.item as? FlexMenuCollectionItem, let fcv = self.flexContentView {
+            if let flexMenu = self.flexMenu {
+                if flexMenu.menuDataSource == nil {
+                    flexMenu.menuDataSource = item.menuDataSource
+                }
+            }
             fcv.headerAttributedText = item.title
+            fcv.headerPosition = item.headerPosition ?? .top
             self.applySelectionStyles(fcv)
             var remainingCellArea = fcv.getViewRect()
             remainingCellArea = self.layoutIconView(item, area: remainingCellArea)
@@ -83,7 +82,7 @@ open class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
             if item.text != nil {
                 let _ = self.layoutSliderView(item, area: remainingCellArea)
                 self.layoutText(item, area: remainingCellArea)
-                if let fs = self.flexSlider, let tc = self.textLabel {
+                if let fs = self.flexMenu, let tc = self.textLabel {
                     FlexControlLayoutHelper.horizontallyAlignTwoFlexControls(tc, lowerControl: fs, area: remainingCellArea)
                 }
             }
@@ -92,5 +91,5 @@ open class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
             }
         }
     }
-
+    
 }

@@ -1,8 +1,8 @@
 //
-//  FlexMenuItem.swift
+//  FlexMenuCollectionItem.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 24.07.16.
+//  Created by Martin Rehder on 21.01.2017.
 /*
  * Copyright 2016-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -29,25 +29,12 @@
 
 import UIKit
 
-open class FlexMenuItem {
-    public var title: String
-    let titleShortcut: String
-    let color: UIColor
-    let thumbColor: UIColor
-    public var thumbIcon: UIImage?
-    public var disabledThumbIcon: UIImage?
-    public var enabled = true
+open class FlexMenuCollectionItem: FlexBaseCollectionItem {
+    open var menuDataSource: FlexMenuDataSource
     
-    public init(title: String, titleShortcut: String, color: UIColor, thumbColor: UIColor, thumbIcon: UIImage? = nil, disabledThumbIcon: UIImage? = nil) {
-        self.title = title
-        self.titleShortcut = titleShortcut
-        self.color = color
-        self.thumbColor = thumbColor
-        self.thumbIcon = thumbIcon
-        self.disabledThumbIcon = disabledThumbIcon
+    public init(reference: String, menuDataSource: FlexMenuDataSource, text: NSAttributedString? = nil, icon: UIImage? = nil, accessoryImage: UIImage? = nil, title: NSAttributedString? = nil) {
+        self.menuDataSource = menuDataSource
+        super.init(reference: reference, text: text, icon: icon, accessoryImage: accessoryImage, title: title, accessoryImageActionHandler: nil)
     }
-    
-    public func activeThumbIcon() -> UIImage? {
-        return self.enabled ? self.thumbIcon : (self.disabledThumbIcon ?? self.thumbIcon)
-    }
+
 }

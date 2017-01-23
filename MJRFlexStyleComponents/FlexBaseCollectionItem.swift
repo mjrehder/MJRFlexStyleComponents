@@ -33,6 +33,7 @@ open class FlexBaseCollectionItem: FlexCollectionItem {
     open var icon: UIImage?
     open var accessoryImage: UIImage?
     open var title: NSAttributedString?
+    open var subTitle: NSAttributedString?
     
     /// This will be shown below the text
     open var detailText: NSAttributedString?
