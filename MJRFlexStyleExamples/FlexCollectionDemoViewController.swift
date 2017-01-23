@@ -38,6 +38,11 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
          One can also use overrides of the collection view function, such as cellForItemAtIndexPath or by subclassing the cells and supplementary views
          */
 
+        let uiviewApp = UIImageView.appearance(whenContainedInInstancesOf: [FlexViewSupplementaryView.self])
+        uiviewApp.contentScaleFactor = UIScreen().scale + 1.5
+        uiviewApp.contentMode = .center
+        uiviewApp.backgroundColor = UIColor.MKColor.Brown.P50
+
         // Create sections with a title. Remember to set the height and if needed also the insets, as these parameters are otherwise 0 and .zero
         let secRef = self.demoCollectionView.addSection(NSAttributedString(string: "Section 1"), height: 18, insets: UIEdgeInsetsMake(2, 2, 2, 2))
         let sec2Ref = self.demoCollectionView.addSection(NSAttributedString(string: "Section 2"), height: 18, insets: UIEdgeInsetsMake(2, 2, 2, 2))
@@ -100,6 +105,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         item0.infoText = NSAttributedString(string: "Info")
         item0.detailText = NSAttributedString(string: "Detail Text")
         item0.auxText = NSAttributedString(string: "Aux Info")
+        
         self.demoCollectionView.addItem(secRef, item: item0)
         
         // Simple Image,Text,Accessory Item. Accessory will only show on selection. Selection is triggered also for pressing icon and accessory image in this cell.

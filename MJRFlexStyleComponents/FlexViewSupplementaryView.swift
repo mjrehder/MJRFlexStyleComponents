@@ -36,14 +36,58 @@ open class FlexViewSupplementaryView: FlexBaseStylingControl {
             return _caption
         }
     }
+    
+    fileprivate var _imageView = UIImageView()
+    open var imageView: UIImageView {
+        get {
+            return _imageView
+        }
+    }
+    
+    open dynamic var imageViewPosition: NSTextAlignment = .left {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    open dynamic var imageViewInsets: UIEdgeInsets = .zero {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
         self.addSubview(self.caption)
+        self.imageView.isHidden = true
+        self.addSubview(self.imageView)
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.addSubview(self.caption)
-    }    
+        self.imageView.isHidden = true
+        self.addSubview(self.imageView)
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if !self.imageView.isHidden {
+            if let imgSize = self.imageView.image?.size {
+                let totalRect = UIEdgeInsetsInsetRect(self.bounds, self.imageViewInsets)
+                let xOffset: CGFloat
+                switch self.imageViewPosition {
+                case .center:
+                    xOffset = totalRect.origin.x + (totalRect.size.width - imgSize.width) * 0.5
+                case .right:
+                    xOffset = (totalRect.origin.x + totalRect.size.width) - imgSize.width
+                default:
+                    xOffset = totalRect.origin.x
+                }
+                let yOffset = totalRect.origin.y + (totalRect.size.height - imgSize.height) * 0.5
+                imageView.frame = CGRect(x: xOffset, y: yOffset, width: imgSize.width, height: imgSize.height)
+            }
+        }
+    }
 }

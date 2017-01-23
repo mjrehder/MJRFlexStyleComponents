@@ -276,6 +276,25 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         if let item = self.item as? FlexBaseCollectionItem, let fcv = self.flexContentView {
             fcv.headerAttributedText = item.title
             fcv.footerAttributedText = item.subTitle
+            if let hImage = item.headerImage {
+                fcv.header.imageView.image = hImage
+                fcv.header.imageView.isHidden = false
+                fcv.header.imageViewPosition = item.headerImagePosition ?? fcv.header.imageViewPosition
+                fcv.header.imageViewInsets = item.headerImageInsets ?? fcv.header.imageViewInsets
+                
+                if let cr = item.headerImageCornerRadius {
+                    fcv.header.imageView.layer.cornerRadius = cr
+                }
+                if let mtb = item.headerImageMasksToBounds {
+                    fcv.header.imageView.layer.masksToBounds = mtb
+                }
+                if let bw = item.headerImageBorderWidth {
+                    fcv.header.imageView.layer.borderWidth = bw
+                }
+                if let bc = item.headerImageBorderColor {
+                    fcv.header.imageView.layer.borderColor = bc.cgColor
+                }
+            }
             if let hp = item.headerPosition {
                 fcv.headerPosition = hp
             }

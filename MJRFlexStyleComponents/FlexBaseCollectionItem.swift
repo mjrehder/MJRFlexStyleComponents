@@ -61,6 +61,14 @@ open class FlexBaseCollectionItem: FlexCollectionItem {
     
     open var controlInsets: UIEdgeInsets?
 
+    open var headerImage: UIImage?
+    open var headerImageInsets: UIEdgeInsets?
+    open var headerImagePosition: NSTextAlignment?
+    open var headerImageCornerRadius: CGFloat?
+    open var headerImageMasksToBounds: Bool?
+    open var headerImageBorderWidth: CGFloat?
+    open var headerImageBorderColor: UIColor?
+
     public init(reference: String, text: NSAttributedString? = nil, icon: UIImage? = nil, accessoryImage: UIImage? = nil, title: NSAttributedString? = nil, accessoryImageActionHandler: (() -> Void)? = nil) {
         self.icon = icon
         self.accessoryImage = accessoryImage
