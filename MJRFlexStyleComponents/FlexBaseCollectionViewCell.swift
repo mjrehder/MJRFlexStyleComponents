@@ -230,6 +230,9 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     }
     
     open func layoutText(_ item: FlexBaseCollectionItem, area: CGRect) {
+        if area.size.width < 0 || area.size.height < 0 {
+            return
+        }
         self.setupTextLabel(self.textLabel, text: item.text)
         self.setupTextLabel(self.detailTextLabel, text: item.detailText)
         self.setupTextLabel(self.infoTextLabel, text: item.infoText)
