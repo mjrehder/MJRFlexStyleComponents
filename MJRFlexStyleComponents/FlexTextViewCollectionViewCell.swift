@@ -30,7 +30,7 @@
 import UIKit
 import StyledLabel
 
-open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell {
+open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextViewDelegate {
     open var textView: UITextView?
     
     open override func initialize() {
@@ -47,16 +47,20 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell {
     
     open override func layoutControl(_ item: FlexBaseCollectionItem, area: CGRect) {
         DispatchQueue.main.async {
-            if let text = item.text {
+            if let text = item.text, let tvItem = item as? FlexTextViewCollectionItem {
                 if let tv = self.textView {
                     tv.attributedText = text
                     tv.backgroundColor = .clear
+                    tv.delegate = self
                     self.prepareTextView(tv)
+                    tv.isEditable = tvItem.textIsMutable
                     let controlInsets = item.controlInsets ?? self.controlInsets
                     let textRect =  UIEdgeInsetsInsetRect(area, controlInsets)
                     tv.frame = textRect
                     tv.isHidden = false
-                    tv.isUserInteractionEnabled = false
+                    tv.isUserInteractionEnabled = tvItem.textIsMutable
+                    tv.showsVerticalScrollIndicator = tvItem.textIsMutable
+                    tv.isScrollEnabled = tvItem.textIsMutable
                 }
             }
             else {
@@ -84,5 +88,20 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell {
         textView.contentOffset = CGPoint.zero
         textView.textContainerInset = UIEdgeInsets.zero
         textView.textContainer.lineFragmentPadding = 0
+    }
+    
+    // MARK: - UITextViewDelegate
+    
+    public func textViewDidEndEditing(_ textView: UITextView) {
+        if let item = self.item as? FlexTextViewCollectionItem {
+            item.attributedTextChangedHandler?(textView.attributedText)
+            item.textChangedHandler?(textView.text)
+        }
+    }
+    
+    public func textViewDidChange(_ textView: UITextView) {
+        if let item = self.item as? FlexTextViewCollectionItem {
+            item.text = textView.attributedText
+        }
     }
 }

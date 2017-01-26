@@ -126,6 +126,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         let item2 = FlexTextViewCollectionItem(reference: "item2ref", text: NSAttributedString(string: "This is a longer text in order to test the TextView"), title: NSAttributedString(string: "Item 1.1"))
         item2.canMoveItem = false
         item2.headerPosition = .left
+        item2.textIsMutable = true
         self.demoCollectionView.addItem(secRef, item: item2)
         
         
