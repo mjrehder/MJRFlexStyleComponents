@@ -107,7 +107,7 @@ open class FlexColorCollectionViewCell: FlexBaseCollectionViewCell {
             remainingCellArea = self.layoutIconView(item, area: remainingCellArea)
             remainingCellArea = self.layoutAccessoryView(item, area: remainingCellArea)
             remainingCellArea = self.layoutColorView(item, area: remainingCellArea)
-            self.layoutText(item, area: remainingCellArea)
+            self.layoutControl(item, area: remainingCellArea)
         }
     }
 }

@@ -229,7 +229,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         return remainingCellArea
     }
     
-    open func layoutText(_ item: FlexBaseCollectionItem, area: CGRect) {
+    open func layoutControl(_ item: FlexBaseCollectionItem, area: CGRect) {
         if area.size.width < 0 || area.size.height < 0 {
             return
         }
@@ -308,7 +308,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
             remainingCellArea = self.getControlArea()
             
             let controlInsets = item.controlInsets ?? self.controlInsets
-            self.layoutText(item, area: UIEdgeInsetsInsetRect(remainingCellArea, controlInsets))
+            self.layoutControl(item, area: UIEdgeInsetsInsetRect(remainingCellArea, controlInsets))
         }
     }
 }

@@ -29,16 +29,14 @@
 
 import UIKit
 
-open class FlexImageCollectionItem: FlexCollectionItem {
+open class FlexImageCollectionItem: FlexBaseCollectionItem {
     open var image: UIImage?
     open var imageFit: FlexImageShapeFit = .scaleToFit
-
-    open var headerPosition: FlexViewHeaderPosition?
-
-    open var controlInsets: UIEdgeInsets = .zero
+    open var imageStyle: FlexShapeStyle = FlexShapeStyle(style: .box)
 
     public init(reference: String, image: UIImage? = nil, title: NSAttributedString? = nil) {
         self.image = image
-        super.init(reference: reference, text: title)
+        super.init(reference: reference)
+        super.title = title
     }
 }

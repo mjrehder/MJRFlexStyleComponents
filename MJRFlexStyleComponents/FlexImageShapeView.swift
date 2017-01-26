@@ -38,7 +38,6 @@ public enum FlexImageShapeFit {
 
 open class FlexImageShapeView: FlexView {
     fileprivate var backgroundShape = CALayer()
-    fileprivate var imageShape = CALayer()
     
     open var image: UIImage? = nil {
         didSet {

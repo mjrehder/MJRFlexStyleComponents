@@ -29,53 +29,22 @@
 
 import UIKit
 
-open class FlexImageCollectionViewCell: FlexCollectionViewCell {
-    open var flexContentView: FlexImageShapeView?
+open class FlexImageCollectionViewCell: FlexBaseCollectionViewCell {
+    fileprivate var backgroundShape = CALayer()
     
-    open override func initialize() {
-        super.initialize()
-        let baseRect = self.bounds
-        
-        self.flexContentView = FlexImageShapeView(frame: baseRect)
-        if let pcv = self.flexContentView {
-            let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.cellTouched(_:)))
-            pcv.addGestureRecognizer(tapGest)
-            self.contentView.addSubview(pcv)
-        }
-    }
-    
-    open override func prepareForReuse() {
-        super.prepareForReuse()
-    }
-    
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-    
-    open func cellTouched(_ recognizer: UITapGestureRecognizer) {
-        if let item = self.item as? FlexImageCollectionItem {
-            self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item)
-        }
-    }
-    
-    open func applySelectionStyles(_ fcv: FlexView) {
-        fcv.styleColor = self.isSelected ? self.selectedStyleColor : self.styleColor
-        fcv.borderColor = self.isSelected ? self.selectedBorderColor : self.borderColor
-        fcv.borderWidth = self.isSelected ? self.selectedBorderWidth : self.borderWidth
-    }
-    
-    override open func applyStyles() {
-        super.applyStyles()
-        
+    open override func layoutControl(_ item: FlexBaseCollectionItem, area: CGRect) {
         if let item = self.item as? FlexImageCollectionItem, let fcv = self.flexContentView {
-            fcv.image = item.image
-            fcv.headerAttributedText = item.text
-            fcv.backgroundImageFit = item.imageFit
-            fcv.contentViewMargins = item.controlInsets
-            if let hp = item.headerPosition {
-                fcv.headerPosition = hp
+            let controlInsets = item.controlInsets ?? self.controlInsets
+            let imageRect =  UIEdgeInsetsInsetRect(area, controlInsets)
+
+            if self.backgroundShape.superlayer != nil {
+                self.backgroundShape.removeFromSuperlayer()
             }
-            self.applySelectionStyles(fcv)
+            
+            let bgLayer = ImageShapeLayerFactory.createImageShapeInView(imageRect, viewBounds: self.bounds, image: item.image, viewStyle: self.style.style, imageStyle: item.imageStyle.style, imageFitting: item.imageFit)
+            
+            fcv.layer.addSublayer(bgLayer)
+            self.backgroundShape = bgLayer
         }
     }
 }

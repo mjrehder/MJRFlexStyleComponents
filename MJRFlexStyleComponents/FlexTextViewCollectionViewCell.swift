@@ -40,12 +40,12 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell {
         if let tv = self.textView, let pcv = self.flexContentView {
             tv.isHidden = true
             pcv.addSubview(tv)
-            let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.accessoryViewTouched(_:)))
+            let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.cellTextAreaTouched(_:)))
             tv.addGestureRecognizer(tapGest)
         }
     }
     
-    open override func layoutText(_ item: FlexBaseCollectionItem, area: CGRect) {
+    open override func layoutControl(_ item: FlexBaseCollectionItem, area: CGRect) {
         DispatchQueue.main.async {
             if let text = item.text {
                 if let tv = self.textView {

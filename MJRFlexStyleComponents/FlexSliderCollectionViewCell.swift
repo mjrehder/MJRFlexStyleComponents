@@ -82,7 +82,7 @@ open class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
             // TODO: missing case for text inside slider
             if item.text != nil {
                 let _ = self.layoutSliderView(item, area: remainingCellArea)
-                self.layoutText(item, area: remainingCellArea)
+                self.layoutControl(item, area: remainingCellArea)
                 if let fs = self.flexSlider, let tc = self.textLabel {
                     FlexControlLayoutHelper.horizontallyAlignTwoFlexControls(tc, lowerControl: fs, area: remainingCellArea)
                 }

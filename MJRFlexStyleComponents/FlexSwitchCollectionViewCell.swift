@@ -74,7 +74,7 @@ open class FlexSwitchCollectionViewCell: FlexBaseCollectionViewCell, FlexSwitchD
             remainingCellArea = self.layoutIconView(item, area: remainingCellArea)
             remainingCellArea = self.layoutAccessoryView(item, area: remainingCellArea)
             remainingCellArea = self.layoutSwitchView(item, area: remainingCellArea)
-            self.layoutText(item, area: remainingCellArea)
+            self.layoutControl(item, area: remainingCellArea)
         }
     }
     
