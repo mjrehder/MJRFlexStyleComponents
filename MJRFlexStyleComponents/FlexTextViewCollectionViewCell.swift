@@ -51,7 +51,7 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
                 if let tv = self.textView {
                     tv.attributedText = text
                     tv.backgroundColor = .clear
-                    tv.delegate = self
+                    tv.delegate = tvItem.textViewDelegate ?? self
                     self.prepareTextView(tv)
                     tv.isEditable = tvItem.textIsMutable
                     let controlInsets = item.controlInsets ?? self.controlInsets

@@ -33,4 +33,5 @@ open class FlexTextViewCollectionItem: FlexBaseCollectionItem {
     open var textIsMutable: Bool = false
     open var textChangedHandler: ((String) -> Void)?
     open var attributedTextChangedHandler: ((NSAttributedString) -> Void)?
+    open var textViewDelegate: UITextViewDelegate?
 }
