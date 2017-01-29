@@ -34,15 +34,10 @@ open class FlexImageCollectionViewCell: FlexBaseCollectionViewCell {
     
     open override func layoutControl(_ item: FlexBaseCollectionItem, area: CGRect) {
         if let item = self.item as? FlexImageCollectionItem, let fcv = self.flexContentView {
-            let controlInsets = item.controlInsets ?? self.controlInsets
-            let imageRect =  UIEdgeInsetsInsetRect(area, controlInsets)
-
             if self.backgroundShape.superlayer != nil {
                 self.backgroundShape.removeFromSuperlayer()
             }
-            
-            let bgLayer = ImageShapeLayerFactory.createImageShapeInView(imageRect, viewBounds: self.bounds, image: item.image, viewStyle: self.style.style, imageStyle: item.imageStyle.style, imageFitting: item.imageFit)
-            
+            let bgLayer = ImageShapeLayerFactory.createImageShapeInView(area, viewBounds: self.bounds, image: item.image, viewStyle: self.style.style, imageStyle: item.imageStyle.style, imageFitting: item.imageFit)
             fcv.layer.addSublayer(bgLayer)
             self.backgroundShape = bgLayer
         }

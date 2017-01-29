@@ -32,6 +32,12 @@ import StyledLabel
 
 open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextViewDelegate {
     open var textView: UITextView?
+
+    open dynamic var textViewBackgroundColor: UIColor = .clear {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
     
     open override func initialize() {
         super.initialize()
@@ -50,13 +56,11 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
             if let text = item.text, let tvItem = item as? FlexTextViewCollectionItem {
                 if let tv = self.textView {
                     tv.attributedText = text
-                    tv.backgroundColor = .clear
+                    tv.backgroundColor = self.textViewBackgroundColor
                     tv.delegate = tvItem.textViewDelegate ?? self
                     self.prepareTextView(tv)
                     tv.isEditable = tvItem.textIsMutable
-                    let controlInsets = item.controlInsets ?? self.controlInsets
-                    let textRect =  UIEdgeInsetsInsetRect(area, controlInsets)
-                    tv.frame = textRect
+                    tv.frame = area
                     tv.isHidden = false
                     tv.isUserInteractionEnabled = tvItem.textIsMutable
                     tv.showsVerticalScrollIndicator = tvItem.textIsMutable

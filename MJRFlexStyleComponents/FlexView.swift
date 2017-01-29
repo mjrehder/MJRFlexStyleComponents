@@ -75,7 +75,7 @@ open class FlexView: FlexBaseControl {
     }
     
     /// The content view insets, also known as border margins.
-    @IBInspectable open dynamic var contentViewMargins: UIEdgeInsets = UIEdgeInsets.zero {
+    @IBInspectable open dynamic var contentViewMargins: UIEdgeInsets = .zero {
         didSet {
             self.setNeedsLayout()
         }

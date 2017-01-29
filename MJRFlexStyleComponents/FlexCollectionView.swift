@@ -384,14 +384,19 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     open func onFlexCollectionViewCellTouched(_ item: FlexCollectionItem?) {
         if let item = item {
             if let ip = self.getIndexPathForItem(item.reference) {
-                self.itemCollectionView.selectItem(at: ip, animated: true, scrollPosition: UICollectionViewScrollPosition())
-                self.flexCollectionDelegate?.onFlexCollectionItemSelected(self, item: item)
-                item.itemSelectionActionHandler?()
-                if let autoDeselectTime = item.autoDeselectCellAfter {
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + autoDeselectTime, execute: {
-                        self.itemCollectionView.deselectItem(at: ip, animated: true)
-                    })
+                if let selIP = self.itemCollectionView.indexPathsForSelectedItems, selIP.contains(ip) {
+                    self.itemCollectionView.deselectItem(at: ip, animated: true)
                 }
+                else {
+                    self.itemCollectionView.selectItem(at: ip, animated: true, scrollPosition: UICollectionViewScrollPosition())
+                    self.flexCollectionDelegate?.onFlexCollectionItemSelected(self, item: item)
+                    item.itemSelectionActionHandler?()
+                    if let autoDeselectTime = item.autoDeselectCellAfter {
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + autoDeselectTime, execute: {
+                            self.itemCollectionView.deselectItem(at: ip, animated: true)
+                        })
+                    }
+                }                
             }
         }
     }
