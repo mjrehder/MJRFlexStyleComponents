@@ -53,6 +53,7 @@ open class FlexCollectionItem: NSObject {
     open var swipeMenuDelegate: FlexCollectionItemSwipeDelegate?
     
     open var itemSelectionActionHandler: (() -> Void)?
+    open var itemDeselectionActionHandler: (() -> Void)?
 
     open var autoDeselectCellAfter: DispatchTimeInterval?
     

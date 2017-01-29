@@ -204,7 +204,13 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     open func selectItem(_ itemReference: String) {
         self.itemCollectionView.selectItem(at: self.getIndexPathForItem(itemReference), animated: true, scrollPosition: UICollectionViewScrollPosition())
     }
-    
+
+    open func deselectItem(_ itemReference: String) {
+        if let ip = self.getIndexPathForItem(itemReference) {
+            self.itemCollectionView.deselectItem(at: ip, animated: true)
+        }
+    }
+
     open func updateCellForItem(_ itemReference: String) {
         if let indexPath = self.getIndexPathForItem(itemReference) {
             self.itemCollectionView.cellForItem(at: indexPath)?.setNeedsLayout()
@@ -386,6 +392,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
             if let ip = self.getIndexPathForItem(item.reference) {
                 if let selIP = self.itemCollectionView.indexPathsForSelectedItems, selIP.contains(ip) {
                     self.itemCollectionView.deselectItem(at: ip, animated: true)
+                    item.itemDeselectionActionHandler?()
                 }
                 else {
                     self.itemCollectionView.selectItem(at: ip, animated: true, scrollPosition: UICollectionViewScrollPosition())
