@@ -38,7 +38,13 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
             self.setNeedsLayout()
         }
     }
-    
+
+    open dynamic var textColor: UIColor? {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+
     open override func initialize() {
         super.initialize()
         
@@ -56,15 +62,18 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
             if let text = item.text, let tvItem = item as? FlexTextViewCollectionItem {
                 if let tv = self.textView {
                     tv.attributedText = text
+                    if let textColor = self.textColor {
+                        tv.textColor = textColor
+                    }
                     tv.backgroundColor = self.textViewBackgroundColor
                     tv.delegate = tvItem.textViewDelegate ?? self
                     self.prepareTextView(tv)
                     tv.isEditable = tvItem.textIsMutable
                     tv.frame = area
                     tv.isHidden = false
-                    tv.isUserInteractionEnabled = tvItem.textIsMutable
-                    tv.showsVerticalScrollIndicator = tvItem.textIsMutable
-                    tv.isScrollEnabled = tvItem.textIsMutable
+                    tv.isUserInteractionEnabled = tvItem.textIsMutable || tvItem.textIsScrollable
+                    tv.showsVerticalScrollIndicator = tvItem.textIsMutable || tvItem.textIsScrollable
+                    tv.isScrollEnabled = tvItem.textIsMutable || tvItem.textIsScrollable
                 }
             }
             else {
