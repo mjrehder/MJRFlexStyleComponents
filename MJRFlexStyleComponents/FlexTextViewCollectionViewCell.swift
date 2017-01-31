@@ -74,6 +74,9 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
                     tv.isUserInteractionEnabled = tvItem.textIsMutable || tvItem.textIsScrollable
                     tv.showsVerticalScrollIndicator = tvItem.textIsMutable || tvItem.textIsScrollable
                     tv.isScrollEnabled = tvItem.textIsMutable || tvItem.textIsScrollable
+                    if tvItem.autodetectRTLTextAlignment {
+                        self.applyTextAlignmentForTextView(tv)
+                    }
                 }
             }
             else {
@@ -101,6 +104,32 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
         textView.contentOffset = CGPoint.zero
         textView.textContainerInset = UIEdgeInsets.zero
         textView.textContainer.lineFragmentPadding = 0
+    }
+    
+    fileprivate func applyTextAlignmentForTextView(_ textView: UITextView) {
+        let ta: NSTextAlignment
+        if let t = textView.text {
+            ta = self.alignmentForString(t as NSString)
+        }
+        else if let at = textView.attributedText {
+            ta = self.alignmentForString(at.string as NSString)
+        }
+        else {
+            ta = .left
+        }
+        textView.textAlignment = ta
+    }
+    
+    fileprivate func alignmentForString(_ astring: NSString) -> NSTextAlignment {
+        if astring.length > 0 {
+            let rightLeftLanguages = ["ar","arc","bcc","bqi","ckb","dv","fa","glk","he","ku","mzn","pnb","ps","sd","ug","ur","yi"]
+            if let lang = CFStringTokenizerCopyBestStringLanguage(astring,CFRangeMake(0,astring.length)) {
+                if rightLeftLanguages.contains(lang as String) {
+                    return .right
+                }
+            }
+        }
+        return .left
     }
     
     // MARK: - UITextViewDelegate
