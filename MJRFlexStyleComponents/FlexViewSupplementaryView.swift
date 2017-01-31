@@ -28,6 +28,7 @@
  */
 
 import UIKit
+import StyledLabel
 
 open class FlexViewSupplementaryView: FlexBaseStylingControl {
     fileprivate var _caption = FlexLabel()

@@ -293,13 +293,21 @@ open class FlexView: FlexBaseControl {
         let style = self.getStyle()
         
         if self.hasHeaderText() {
-            let headerShapeLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.header.getStyle(), shapeBounds: self.rectForHeader().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.header.styleColor ?? .clear, maskToBounds: self.headerClipToBackgroundShape)
+            let hBounds = self.rectForHeader().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y)
+            let headerShapeLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.header.getStyle(), shapeBounds: hBounds, shapeColor: self.header.styleColor ?? .clear, maskToBounds: self.headerClipToBackgroundShape)
             bgsLayer.addSublayer(headerShapeLayer)
+            if let bLayer = self.header.createBorderLayer(self.header.getStyle(), layerRect: hBounds) {
+                bgsLayer.addSublayer(bLayer)
+            }
         }
         
         if self.hasFooterText() {
-            let footerShapeLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.footer.getStyle(), shapeBounds: self.rectForFooter().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y), shapeColor: self.footer.styleColor ?? .clear, maskToBounds: self.footerClipToBackgroundShape)
+            let fBounds = self.rectForFooter().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y)
+            let footerShapeLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.footer.getStyle(), shapeBounds: fBounds, shapeColor: self.footer.styleColor ?? .clear, maskToBounds: self.footerClipToBackgroundShape)
             bgsLayer.addSublayer(footerShapeLayer)
+            if let bLayer = self.footer.createBorderLayer(self.header.getStyle(), layerRect: fBounds) {
+                bgsLayer.addSublayer(bLayer)
+            }
         }
 
         // Add layer with border, if required

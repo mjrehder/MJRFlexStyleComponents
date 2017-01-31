@@ -89,4 +89,13 @@ open class FlexBaseStylingControl: UIControl {
             self.setNeedsLayout()
         }
     }
+    
+    func createBorderLayer(_ style: ShapeStyle, layerRect: CGRect) -> CALayer? {
+        let borderWidth = self.borderWidth
+        if borderWidth > 0 && borderColor != nil {
+            let bLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: .clear, borderColor: borderColor ?? .clear, borderWidth: borderWidth)
+            return bLayer
+        }
+        return nil
+    }
 }
