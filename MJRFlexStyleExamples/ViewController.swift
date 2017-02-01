@@ -180,6 +180,8 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
         self.numSeriesSelector.thumbTintColor = self.selectedThumbColor
         self.vhSwitch.thumbTintColor = self.selectedThumbColor
         self.vhSwitch.onTintColor = self.selectedColor
+        self.vhSwitch.borderColor = .black
+        self.vhSwitch.borderWidth = 0.5
         self.maxMinDataSlider.minimumTrackTintColor = self.selectedColor.darkened()
         self.maxMinDataSlider.middleTrackTintColor = self.selectedColor
         self.maxMinDataSlider.maximumTrackTintColor = UIColor.clear

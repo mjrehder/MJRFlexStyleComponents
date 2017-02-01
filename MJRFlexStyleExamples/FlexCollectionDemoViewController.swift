@@ -147,6 +147,10 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         let flexSwitchAppearance = FlexSwitch.appearance(whenContainedInInstancesOf: [FlexSwitchCollectionViewCell.self])
         flexSwitchAppearance.thumbTintColor = UIColor.MKColor.Brown.P700
         flexSwitchAppearance.onTintColor = UIColor.MKColor.Brown.P200
+        flexSwitchAppearance.borderWidth = 0.5
+        flexSwitchAppearance.borderColor = .black
+        flexSwitchAppearance.style = FlexShapeStyle(style: .roundedFixed(cornerRadius: 5))
+        flexSwitchAppearance.thumbStyle = FlexShapeStyle(style: .roundedFixed(cornerRadius: 5))
 
         let switchItem = FlexSwitchCollectionItem(reference: "switch", value: true, text: NSAttributedString(string: "Switch"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 3")) { (value) in
             NSLog("The switch is now \(value)")

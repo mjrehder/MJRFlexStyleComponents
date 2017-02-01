@@ -56,13 +56,8 @@ public protocol FlexSwitchDelegate {
 
     func setupSwitch() {
         self.continuous = false
-        self.style = FlexShapeStyle(style: .tube)
-        self.thumbStyle = FlexShapeStyle(style: .tube)
-        self.separatorStyle = FlexShapeStyle(style: .box)
         self.minimumValue = 0
         self.maximumValue = 1
-        self.borderColor = UIColor.black
-        self.borderWidth = 1.0
         self.thumbSnappingBehaviour = .snapToLowerAndHigher
         self.values = [0]
         self.sliderDelegate = self
