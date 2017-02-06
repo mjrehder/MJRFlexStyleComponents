@@ -32,6 +32,7 @@ import UIKit
 open class FlexTextViewCollectionItem: FlexBaseCollectionItem {
     open var textIsMutable: Bool = false
     open var textIsScrollable: Bool = false
+    open var textChangingHandler: ((String) -> Void)?
     open var textChangedHandler: ((String) -> Void)?
     open var attributedTextChangedHandler: ((NSAttributedString) -> Void)?
     open var textViewDelegate: UITextViewDelegate?

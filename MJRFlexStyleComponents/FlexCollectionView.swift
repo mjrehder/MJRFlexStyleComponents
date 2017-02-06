@@ -196,6 +196,14 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         return nil
     }
     
+    open func sectionReference(atIndex: Int) -> String? {
+        if atIndex < self.sections.count {
+            let sec = self.sections[atIndex]
+            return sec.reference
+        }
+        return nil
+    }
+    
     open func addItem(_ sectionReference: String, item: FlexCollectionItem) {
         self.contentDic?[sectionReference]?.append(item)
         item.sectionReference = sectionReference

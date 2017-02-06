@@ -144,6 +144,7 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
     public func textViewDidChange(_ textView: UITextView) {
         if let item = self.item as? FlexTextViewCollectionItem {
             item.text = textView.attributedText
+            item.textChangingHandler?(textView.text)
         }
     }
 }
