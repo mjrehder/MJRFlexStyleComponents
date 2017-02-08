@@ -32,6 +32,7 @@ import UIKit
 open class FlexTextFieldCollectionItem: FlexBaseCollectionItem {
     open var textIsMutable: Bool = false
     open var placeholderText: NSAttributedString? = nil
+    open var isPasswordField: Bool = false
     open var textChangingHandler: ((NSAttributedString) -> Void)?
     open var textChangedHandler: ((NSAttributedString) -> Void)?
     open var textFieldDelegate: UITextFieldDelegate?

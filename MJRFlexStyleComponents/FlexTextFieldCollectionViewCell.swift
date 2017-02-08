@@ -67,6 +67,7 @@ open class FlexTextFieldCollectionViewCell: FlexBaseCollectionViewCell, UITextFi
                     if let textColor = self.textColor {
                         tv.textColor = textColor
                     }
+                    tv.isSecureTextEntry = tvItem.isPasswordField
                     tv.backgroundColor = self.textFieldBackgroundColor
                     tv.delegate = tvItem.textFieldDelegate ?? self
                     tv.frame = area
