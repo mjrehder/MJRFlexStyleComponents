@@ -148,6 +148,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         self.registerCell(FlexSwitchCollectionItem.classForCoder(), cellClass: FlexSwitchCollectionViewCell.classForCoder())
         self.registerCell(FlexSliderCollectionItem.classForCoder(), cellClass: FlexSliderCollectionViewCell.classForCoder())
         self.registerCell(FlexTextViewCollectionItem.classForCoder(), cellClass: FlexTextViewCollectionViewCell.classForCoder())
+        self.registerCell(FlexTextFieldCollectionItem.classForCoder(), cellClass: FlexTextFieldCollectionViewCell.classForCoder())
         self.registerCell(FlexImageCollectionItem.classForCoder(), cellClass: FlexImageCollectionViewCell.classForCoder())
         self.registerCell(FlexButtonCollectionItem.classForCoder(), cellClass: FlexButtonCollectionViewCell.classForCoder())
         self.registerCell(FlexMenuCollectionItem.classForCoder(), cellClass: FlexMenuCollectionViewCell.classForCoder())
