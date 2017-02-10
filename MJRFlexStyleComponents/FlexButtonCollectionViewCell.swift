@@ -90,6 +90,10 @@ open class FlexButtonCollectionViewCell: FlexCollectionViewCell {
         fcv.borderWidth = self.isSelected ? self.selectedBorderWidth : self.borderWidth
     }
     
+    open override func assignBorderLayout() {
+        // Intentionally left blank
+    }
+    
     override open func applyStyles() {
         super.applyStyles()
         
