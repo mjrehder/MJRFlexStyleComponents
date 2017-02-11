@@ -93,7 +93,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
             self.setNeedsLayout()
         }
     }
-    
+
     open override func initialize() {
         super.initialize()
         let baseRect = self.bounds
@@ -259,6 +259,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
             }
             else {
                 label.isHidden = true
+                label.label.attributedText = nil
             }
         }
     }

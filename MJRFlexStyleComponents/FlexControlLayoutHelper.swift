@@ -48,12 +48,12 @@ open class FlexControlLayoutHelper {
         let lowerLeftFrame = UIEdgeInsetsInsetRect(CGRect(x: area.origin.x, y: area.origin.y + area.size.height * 0.5, width: area.size.width, height: area.size.height * 0.5), ciLL)
         let upperRightFrame = UIEdgeInsetsInsetRect(CGRect(x: area.origin.x, y: area.origin.y, width: area.size.width, height: area.size.height * 0.5), ciUR)
         let lowerRightFrame = UIEdgeInsetsInsetRect(CGRect(x: area.origin.x, y: area.origin.y + area.size.height * 0.5, width: area.size.width, height: area.size.height * 0.5), ciLR)
-
+        
         let ulFont = upperLeft.label.font ?? UIFont.systemFont(ofSize: 12)
         let urFont = upperRight.label.font ?? UIFont.systemFont(ofSize: 12)
         let llFont = lowerLeft.label.font ?? UIFont.systemFont(ofSize: 12)
         let lrFont = lowerRight.label.font ?? UIFont.systemFont(ofSize: 12)
-
+        
         let ulText = upperLeft.label.attributedText?.string ?? upperLeft.label.text
         let llText = lowerLeft.label.attributedText?.string ?? upperLeft.label.text
         let urText = upperRight.label.attributedText?.string ?? upperLeft.label.text
@@ -65,6 +65,11 @@ open class FlexControlLayoutHelper {
         let prefSizeUR = urText?.widthWithConstrainedHeightSize(upperRightFrame.size.height, font: urFont) ?? CGSize.zero
         let prefSizeLR = lrText?.widthWithConstrainedHeightSize(lowerRightFrame.size.height, font: lrFont) ?? CGSize.zero
         
+        let minHeightUL = ulText?.heightWithConstrainedWidthSize(prefSizeUL.width, font: ulFont).height ?? upperLeftFrame.size.height
+        let minHeightLL = llText?.heightWithConstrainedWidthSize(prefSizeLL.width, font: llFont).height ?? lowerLeftFrame.size.height
+        let minHeightUR = urText?.heightWithConstrainedWidthSize(prefSizeUR.width, font: urFont).height ?? upperRightFrame.size.height
+        let minHeightLR = lrText?.heightWithConstrainedWidthSize(prefSizeLR.width, font: lrFont).height ?? lowerRightFrame.size.height
+        
         let totalUpperWidth = area.size.width - (ciUR.left + ciUR.right + ciUL.left + ciUL.right)
         let totalLowerWidth = area.size.width - (ciLR.left + ciLR.right + ciLL.left + ciLL.right)
         
@@ -72,7 +77,7 @@ open class FlexControlLayoutHelper {
         var finalURWidth = prefSizeUL.width == 0 ? totalUpperWidth : prefSizeUR.width
         var finalLLWidth = prefSizeLR.width == 0 ? totalLowerWidth : prefSizeLL.width
         var finalLRWidth = prefSizeLL.width == 0 ? totalLowerWidth : prefSizeLR.width
-
+        
         if prefSizeUL.width + prefSizeUR.width > totalUpperWidth {
             let delta = totalUpperWidth / (prefSizeUL.width + prefSizeUR.width)
             finalULWidth = delta * prefSizeUL.width
@@ -84,28 +89,28 @@ open class FlexControlLayoutHelper {
             finalLLWidth = delta * prefSizeLL.width
             finalLRWidth = delta * prefSizeLR.width
         }
-
+        
         // Height calculations
         let totalRightHeight = area.size.height - (ciUR.top + ciUR.bottom + ciLR.top + ciLR.bottom)
         let totalLeftHeight = area.size.height - (ciUL.top + ciUL.bottom + ciLL.top + ciLL.bottom)
-
-        var finalULHeight = prefSizeLL.width == 0 ? totalLeftHeight : prefSizeUL.height
-        var finalURHeight = prefSizeLR.width == 0 ? totalRightHeight : prefSizeUR.height
-        var finalLLHeight = prefSizeUL.width == 0 ? totalLeftHeight : prefSizeLL.height
-        var finalLRHeight = prefSizeUR.width == 0 ? totalRightHeight : prefSizeLR.height
+        
+        var finalULHeight = max(prefSizeUL.height,prefSizeLL.width == 0 ? totalLeftHeight : minHeightUL)
+        var finalURHeight = max(prefSizeUR.height,prefSizeLR.width == 0 ? totalRightHeight : minHeightUR)
+        var finalLLHeight = max(prefSizeLL.height,prefSizeUL.width == 0 ? totalLeftHeight : minHeightLL)
+        var finalLRHeight = max(prefSizeLR.height,prefSizeUR.width == 0 ? totalRightHeight : minHeightLR)
         
         if prefSizeUL.height + prefSizeLL.height > totalLeftHeight {
             let delta = totalLeftHeight / (prefSizeUL.height + prefSizeLL.height)
-            finalULHeight = delta * prefSizeUL.height
-            finalLLHeight = delta * prefSizeLL.height
+            finalULHeight = max(delta * prefSizeUL.height, minHeightUL)
+            finalLLHeight = max(delta * prefSizeLL.height, minHeightLL)
         }
         
         if prefSizeUR.height + prefSizeLR.height > totalRightHeight {
             let delta = totalRightHeight / (prefSizeUR.height + prefSizeLR.height)
-            finalURHeight = delta * prefSizeUR.height
-            finalLRHeight = delta * prefSizeLR.height
+            finalURHeight = max(delta * prefSizeUR.height, minHeightUR)
+            finalLRHeight = max(delta * prefSizeLR.height, minHeightLR)
         }
-
+        
         let finalYOffsetUL = prefSizeLL.width == 0 ? area.origin.y + (area.size.height - finalULHeight) * 0.5 : upperLeftFrame.origin.y
         let finalYOffsetUR = prefSizeLR.width == 0 ? area.origin.y + (area.size.height - finalURHeight) * 0.5 : upperRightFrame.origin.y
         let finalYOffsetLL = prefSizeUL.width == 0 ? area.origin.y + (area.size.height - finalLLHeight) * 0.5 : area.origin.y + area.size.height - (finalLLHeight + ciLL.bottom)

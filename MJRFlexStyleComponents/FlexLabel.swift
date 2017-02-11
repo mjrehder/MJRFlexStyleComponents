@@ -76,6 +76,20 @@ open class FlexLabel: FlexBaseControl {
         }
     }
     
+    /// Left offset
+    @IBInspectable dynamic open var labelLeftOffset: CGFloat = 0.0 {
+        didSet {
+            self.applyStyle()
+        }
+    }
+    
+    /// Right offset
+    @IBInspectable dynamic open var labelRightOffset: CGFloat = 0.0 {
+        didSet {
+            self.applyStyle()
+        }
+    }
+    
     override func applyStyle(_ style: ShapeStyle) {
         if self.label.superview == nil {
             self.addSubview(self.label)
@@ -90,7 +104,7 @@ open class FlexLabel: FlexBaseControl {
         self.label.font = labelFont
         self.label.textAlignment = labelTextAlignment
         
-        self.label.frame = UIEdgeInsetsInsetRect(self.bounds, self.controlInsets)
+        self.label.frame = UIEdgeInsetsInsetRect(self.bounds, UIEdgeInsetsMake(0, self.labelLeftOffset, 0, self.labelRightOffset))
     }
     
     func applyStyle() {
