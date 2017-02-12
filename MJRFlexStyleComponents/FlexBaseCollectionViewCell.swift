@@ -153,10 +153,23 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         }
     }
     
+    /// This is the rect for placing base controls. Normally equals the getViewRect(). Override to change default.
+    open func getBaseViewRect() -> CGRect {
+        return self.getViewRect()
+    }
+    
+    /// This is the total rect inside the FlexCellView
+    open func getViewRect() -> CGRect {
+        if let fcv = self.flexContentView {
+            return fcv.getViewRect()
+        }
+        return self.bounds
+    }
+    
     /// This is the area that remains when the image view area and the accessory view area is subtracted from the total view area
     open func getControlArea() -> CGRect {
-        if let item = self.item as? FlexBaseCollectionItem, let fcv = self.flexContentView {
-            var remainingCellArea = fcv.getViewRect()
+        if let item = self.item as? FlexBaseCollectionItem {
+            var remainingCellArea = self.getBaseViewRect()
             if item.icon != nil {
                 let iconInsets = self.imageViewInsets
                 let iconSize = self.imageViewSize
@@ -303,7 +316,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
                 fcv.headerPosition = hp
             }
             self.applySelectionStyles(fcv)
-            var remainingCellArea = fcv.getViewRect()
+            var remainingCellArea = self.getBaseViewRect()
             remainingCellArea = self.layoutIconView(item, area: remainingCellArea)
             let _ = self.layoutAccessoryView(item, area: remainingCellArea)
             remainingCellArea = self.getControlArea()

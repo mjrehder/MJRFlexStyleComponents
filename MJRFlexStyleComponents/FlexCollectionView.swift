@@ -152,6 +152,8 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         self.registerCell(FlexImageCollectionItem.classForCoder(), cellClass: FlexImageCollectionViewCell.classForCoder())
         self.registerCell(FlexButtonCollectionItem.classForCoder(), cellClass: FlexButtonCollectionViewCell.classForCoder())
         self.registerCell(FlexMenuCollectionItem.classForCoder(), cellClass: FlexMenuCollectionViewCell.classForCoder())
+        self.registerCell(FlexCardViewCollectionItem.classForCoder(), cellClass: FlexCardViewCollectionViewCell.classForCoder())
+        self.registerCell(FlexCardTextViewCollectionItem.classForCoder(), cellClass: FlexCardTextViewCollectionViewCell.classForCoder())
     }
     
     open func registerCell(_ itemClass: AnyClass, cellClass: AnyClass) {

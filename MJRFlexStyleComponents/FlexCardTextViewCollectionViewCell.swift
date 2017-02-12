@@ -1,10 +1,10 @@
 //
-//  FlexTextViewCollectionViewCell.swift
+//  FlexCardTextViewCollectionViewCell.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 23.09.16.
+//  Created by Martin Rehder on 12.02.2017.
 /*
- * Copyright 2016-present Martin Jacob Rehder.
+ * Copyright 2017-present Martin Jacob Rehder.
  * http://www.rehsco.com
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,23 +28,21 @@
  */
 
 import UIKit
-import StyledLabel
 
-open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextViewDelegate {
-    open var textView: UITextView?
+open class FlexCardTextViewCollectionViewCell: FlexCardViewCollectionViewCell, UITextViewDelegate {
 
     open dynamic var textViewBackgroundColor: UIColor = .clear {
         didSet {
             self.setNeedsLayout()
         }
     }
-
+    
     open dynamic var textColor: UIColor? {
         didSet {
             self.setNeedsLayout()
         }
     }
-
+    
     open dynamic var textContainerInsets: UIEdgeInsets = .zero {
         didSet {
             self.setNeedsLayout()
@@ -54,19 +52,27 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
     open override func initialize() {
         super.initialize()
         
-        self.textView = UITextView()
-        if let tv = self.textView, let pcv = self.flexContentView {
+        self.bodyView = FlexTextView(frame: .zero)
+        if let tv = self.bodyView as? FlexTextView, let pcv = self.flexContentView {
             tv.isHidden = true
             pcv.addSubview(tv)
             let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.cellTextAreaTouched(_:)))
-            tv.addGestureRecognizer(tapGest)
+            tv.textView.addGestureRecognizer(tapGest)
+        }
+    }
+    
+    open func cellTextAreaTouched(_ recognizer: UITapGestureRecognizer) {
+        if let item = self.item {
+            self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item)
         }
     }
     
     open override func layoutControl(_ item: FlexBaseCollectionItem, area: CGRect) {
+        super.layoutControl(item, area: area)
         DispatchQueue.main.async {
-            if let text = item.text, let tvItem = item as? FlexTextViewCollectionItem {
-                if let tv = self.textView {
+            if let tvItem = item as? FlexCardTextViewCollectionItem, let text = tvItem.cardText {
+                if let bv = self.bodyView as? FlexTextView {
+                    let tv = bv.textView
                     tv.attributedText = text
                     if let textColor = self.textColor {
                         tv.textColor = textColor
@@ -75,8 +81,6 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
                     tv.delegate = tvItem.textViewDelegate ?? self
                     tv.prepareDefault()
                     tv.isEditable = tvItem.textIsMutable
-                    tv.frame = area
-                    tv.isHidden = false
                     tv.isUserInteractionEnabled = tvItem.textIsMutable || tvItem.textIsScrollable
                     tv.showsVerticalScrollIndicator = tvItem.textIsMutable || tvItem.textIsScrollable
                     tv.isScrollEnabled = tvItem.textIsMutable || tvItem.textIsScrollable
@@ -84,33 +88,27 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
                         tv.applyAutoTextAlignment()
                     }
                     tv.textContainerInset = self.textContainerInsets
+                    bv.isHidden = false
                 }
             }
             else {
-                self.textView?.isHidden = true
+                self.bodyView?.isHidden = true
             }
-        }
-    }
-
-    open func cellTextAreaTouched(_ recognizer: UITapGestureRecognizer) {
-        if let item = self.item {
-            self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item)
         }
     }
     
     // MARK: - UITextViewDelegate
     
     public func textViewDidEndEditing(_ textView: UITextView) {
-        if let item = self.item as? FlexTextViewCollectionItem {
-            item.attributedTextChangedHandler?(textView.attributedText)
-            item.textChangedHandler?(textView.text)
+        if let item = self.item as? FlexCardTextViewCollectionItem {
+            item.textChangedHandler?(textView.attributedText.string)
         }
     }
     
     public func textViewDidChange(_ textView: UITextView) {
-        if let item = self.item as? FlexTextViewCollectionItem {
+        if let item = self.item as? FlexCardTextViewCollectionItem {
             item.text = textView.attributedText
-            item.textChangingHandler?(textView.text)
+            item.textChangingHandler?(textView.attributedText.string)
         }
     }
 }

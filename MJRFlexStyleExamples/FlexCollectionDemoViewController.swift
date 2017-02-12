@@ -67,6 +67,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         cellBaseAppearance.imageViewSize = CGSize(width: 48,height: 32)
         cellBaseAppearance.imageViewStyle = FlexShapeStyle(style: .roundedFixed(cornerRadius: 5))
         cellBaseAppearance.accessoryViewSize = CGSize(width: 18,height: 18)
+        cellBaseAppearance.controlInsets = UIEdgeInsetsMake(5, 5, 5, 10)
 
         // Set the supplementary (header) of cells style
         let cellHeaderViewAppearance = FlexViewSupplementaryView.appearance(whenContainedInInstancesOf: [FlexCollectionViewCell.self])
@@ -227,6 +228,29 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         }
         item7.preferredCellSize = CGSize(width: 250, height: 30)
         self.demoCollectionView.addItem(sec2Ref, item: item7)
+        
+        
+        // Card Text View
+        let ftvApp = FlexTextView.appearance(whenContainedInInstancesOf: [FlexCardTextViewCollectionViewCell.self])
+        ftvApp.controlInsets = UIEdgeInsetsMake(0, 10, 5, 10)
+        ftvApp.style = FlexShapeStyle(style: .roundedFixed(cornerRadius: 10))
+        ftvApp.styleColor = UIColor.MKColor.Brown.P50
+        ftvApp.contentViewMargins = UIEdgeInsetsMake(2, 0, 1, 0)
+        
+        let cardApp = FlexCardTextViewCollectionViewCell.appearance()
+        cardApp.textColor = UIColor.MKColor.Grey.P800
+        cardApp.textContainerInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+        
+        let item8 = FlexCardTextViewCollectionItem(reference: "item7ref", text: NSAttributedString(string: "Text String"), icon: ti1, accessoryImage: nil, title: NSAttributedString(string: "Item 8"))
+        item8.infoText = NSAttributedString(string: "Info")
+        item8.detailText = NSAttributedString(string: "Detail Text")
+        item8.auxText = NSAttributedString(string: "Aux Info")
+        item8.preferredCellSize = CGSize(width: 250, height: 200)
+        item8.cardHeaderHeight = 48
+        item8.cardText = NSAttributedString(string: "This is a demo text for the FlexTextView. What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.")
+        item8.textIsScrollable = true
+        
+        self.demoCollectionView.addItem(sec2Ref, item: item8)
 
     }
     

@@ -1,10 +1,10 @@
 //
-//  FlexTextView.swift
+//  FlexCardViewCollectionItem.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 06.09.16.
+//  Created by Martin Rehder on 12.02.2017.
 /*
- * Copyright 2016-present Martin Jacob Rehder.
+ * Copyright 2017-present Martin Jacob Rehder.
  * http://www.rehsco.com
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,46 +28,7 @@
  */
 
 import UIKit
-import StyledLabel
 
-open class FlexTextView: FlexView {
-    fileprivate var _textView: UITextView?
-    
-    open var textView: UITextView {
-        get {
-            return _textView!
-        }
-        set {
-            self._textView?.removeFromSuperview()
-            self._textView = newValue
-            self.addSubview(self._textView!)
-            self.setupTextView()
-        }
-    }
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.initView()
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.initView()
-    }
-    
-    override func initView() {
-        super.initView()
-        self._textView = UITextView()
-        self.addSubview(self._textView!)
-    }
-    
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        self.setupTextView()
-    }
-    
-    open func setupTextView() {
-        let textViewRect = self.getViewRect()
-        self.textView.frame = textViewRect
-    }
+open class FlexCardViewCollectionItem: FlexBaseCollectionItem {
+    open var cardHeaderHeight: CGFloat?
 }

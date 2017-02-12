@@ -1,10 +1,10 @@
 //
-//  FlexTextView.swift
+//  UITextView+Alignment.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 06.09.16.
+//  Created by Martin Rehder on 12.02.2017.
 /*
- * Copyright 2016-present Martin Jacob Rehder.
+ * Copyright 2017-present Martin Jacob Rehder.
  * http://www.rehsco.com
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,46 +28,33 @@
  */
 
 import UIKit
-import StyledLabel
 
-open class FlexTextView: FlexView {
-    fileprivate var _textView: UITextView?
+public extension UITextView {
     
-    open var textView: UITextView {
-        get {
-            return _textView!
+    /// Applies the UITextView text alignment based on detected contents language
+    public func applyAutoTextAlignment() {
+        let ta: NSTextAlignment
+        if let t = self.text {
+            ta = self.alignmentForString(t as NSString)
         }
-        set {
-            self._textView?.removeFromSuperview()
-            self._textView = newValue
-            self.addSubview(self._textView!)
-            self.setupTextView()
+        else if let at = self.attributedText {
+            ta = self.alignmentForString(at.string as NSString)
         }
+        else {
+            ta = .left
+        }
+        self.textAlignment = ta
     }
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.initView()
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.initView()
-    }
-    
-    override func initView() {
-        super.initView()
-        self._textView = UITextView()
-        self.addSubview(self._textView!)
-    }
-    
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        self.setupTextView()
-    }
-    
-    open func setupTextView() {
-        let textViewRect = self.getViewRect()
-        self.textView.frame = textViewRect
+    public func alignmentForString(_ astring: NSString) -> NSTextAlignment {
+        if astring.length > 0 {
+            let rightLeftLanguages = ["ar","arc","bcc","bqi","ckb","dv","fa","glk","he","ku","mzn","pnb","ps","sd","ug","ur","yi"]
+            if let lang = CFStringTokenizerCopyBestStringLanguage(astring,CFRangeMake(0,astring.length)) {
+                if rightLeftLanguages.contains(lang as String) {
+                    return .right
+                }
+            }
+        }
+        return .left
     }
 }
