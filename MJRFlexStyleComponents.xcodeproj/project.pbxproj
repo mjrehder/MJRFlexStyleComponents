@@ -79,6 +79,8 @@
 		5BAD34F41E5069BB0078FEE8 /* FlexCardTextViewCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD34F21E5069BB0078FEE8 /* FlexCardTextViewCollectionItem.swift */; };
 		5BAD34FD1E51B3C70078FEE8 /* FlexSecondaryLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD34FC1E51B3C70078FEE8 /* FlexSecondaryLabel.swift */; };
 		5BAD34FE1E51B3C70078FEE8 /* FlexSecondaryLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD34FC1E51B3C70078FEE8 /* FlexSecondaryLabel.swift */; };
+		5BAD35001E51B8120078FEE8 /* FlexPrimaryLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD34FF1E51B8120078FEE8 /* FlexPrimaryLabel.swift */; };
+		5BAD35011E51B8120078FEE8 /* FlexPrimaryLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD34FF1E51B8120078FEE8 /* FlexPrimaryLabel.swift */; };
 		5BADC33E1DACDFF7009B899E /* FlexTextViewCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BADC33D1DACDFF7009B899E /* FlexTextViewCollectionItem.swift */; };
 		5BADC33F1DACDFF7009B899E /* FlexTextViewCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BADC33D1DACDFF7009B899E /* FlexTextViewCollectionItem.swift */; };
 		5BADC3411DACE23D009B899E /* FlexTextViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BADC3401DACE23D009B899E /* FlexTextViewCollectionViewCell.swift */; };
@@ -206,6 +208,7 @@
 		5BAD34EF1E5068840078FEE8 /* FlexCardTextViewCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCardTextViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BAD34F21E5069BB0078FEE8 /* FlexCardTextViewCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCardTextViewCollectionItem.swift; sourceTree = "<group>"; };
 		5BAD34FC1E51B3C70078FEE8 /* FlexSecondaryLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSecondaryLabel.swift; sourceTree = "<group>"; };
+		5BAD34FF1E51B8120078FEE8 /* FlexPrimaryLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexPrimaryLabel.swift; sourceTree = "<group>"; };
 		5BADC33D1DACDFF7009B899E /* FlexTextViewCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexTextViewCollectionItem.swift; sourceTree = "<group>"; };
 		5BADC3401DACE23D009B899E /* FlexTextViewCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexTextViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BADFC5B1DA8C9DA004A5D12 /* FlexSliderCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSliderCollectionItem.swift; sourceTree = "<group>"; };
@@ -311,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				5B3FF7351E15126C0077A106 /* FlexViewSupplementaryView.swift */,
+				5BAD34FF1E51B8120078FEE8 /* FlexPrimaryLabel.swift */,
 				5BAD34FC1E51B3C70078FEE8 /* FlexSecondaryLabel.swift */,
 				5B7234821E2CE49B0089A4E7 /* FlexHeaderView.swift */,
 				5B7234851E2CE4AC0089A4E7 /* FlexFooterView.swift */,
@@ -775,6 +779,7 @@
 				5B53D0F71D5393520068BF04 /* ViewsDemoViewController.swift in Sources */,
 				5BB91C931DA3955900A94D12 /* FlexCollectionItem.swift in Sources */,
 				5B7234841E2CE49B0089A4E7 /* FlexHeaderView.swift in Sources */,
+				5BAD35011E51B8120078FEE8 /* FlexPrimaryLabel.swift in Sources */,
 				5B7234811E2CC0A60089A4E7 /* FlexButtonCollectionViewCell.swift in Sources */,
 				5BE64CE71E4B280E00CD0271 /* FlexTextFieldCollectionItem.swift in Sources */,
 				5BEAF3231D6851B600BF5D83 /* MenusDemoViewController.swift in Sources */,
@@ -847,6 +852,7 @@
 				5BD460471DA10A56001FA9B3 /* FlexImageShapeView.swift in Sources */,
 				5BB91CA61DA3D8F600A94D12 /* FlexBaseCollectionViewCell.swift in Sources */,
 				5B3FF7251E13BD9A0077A106 /* FlexShapeStyle.swift in Sources */,
+				5BAD35001E51B8120078FEE8 /* FlexPrimaryLabel.swift in Sources */,
 				5BAD34F31E5069BB0078FEE8 /* FlexCardTextViewCollectionItem.swift in Sources */,
 				5BAD34F01E5068840078FEE8 /* FlexCardTextViewCollectionViewCell.swift in Sources */,
 				5BADFC621DA8E151004A5D12 /* FlexControlLayoutHelper.swift in Sources */,

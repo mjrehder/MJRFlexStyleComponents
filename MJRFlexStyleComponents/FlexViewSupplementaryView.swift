@@ -31,8 +31,8 @@ import UIKit
 import StyledLabel
 
 open class FlexViewSupplementaryView: FlexBaseStylingControl {
-    fileprivate var _caption = FlexLabel()
-    open var caption: FlexLabel {
+    fileprivate var _caption = FlexPrimaryLabel()
+    open var caption: FlexPrimaryLabel {
         get {
             return _caption
         }
