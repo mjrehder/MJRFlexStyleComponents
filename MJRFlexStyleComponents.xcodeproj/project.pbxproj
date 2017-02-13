@@ -77,6 +77,8 @@
 		5BAD34F11E5068840078FEE8 /* FlexCardTextViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD34EF1E5068840078FEE8 /* FlexCardTextViewCollectionViewCell.swift */; };
 		5BAD34F31E5069BB0078FEE8 /* FlexCardTextViewCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD34F21E5069BB0078FEE8 /* FlexCardTextViewCollectionItem.swift */; };
 		5BAD34F41E5069BB0078FEE8 /* FlexCardTextViewCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD34F21E5069BB0078FEE8 /* FlexCardTextViewCollectionItem.swift */; };
+		5BAD34FD1E51B3C70078FEE8 /* FlexSecondaryLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD34FC1E51B3C70078FEE8 /* FlexSecondaryLabel.swift */; };
+		5BAD34FE1E51B3C70078FEE8 /* FlexSecondaryLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD34FC1E51B3C70078FEE8 /* FlexSecondaryLabel.swift */; };
 		5BADC33E1DACDFF7009B899E /* FlexTextViewCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BADC33D1DACDFF7009B899E /* FlexTextViewCollectionItem.swift */; };
 		5BADC33F1DACDFF7009B899E /* FlexTextViewCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BADC33D1DACDFF7009B899E /* FlexTextViewCollectionItem.swift */; };
 		5BADC3411DACE23D009B899E /* FlexTextViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BADC3401DACE23D009B899E /* FlexTextViewCollectionViewCell.swift */; };
@@ -203,6 +205,7 @@
 		5BAD34EC1E5059470078FEE8 /* UITextView+Alignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Alignment.swift"; sourceTree = "<group>"; };
 		5BAD34EF1E5068840078FEE8 /* FlexCardTextViewCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCardTextViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BAD34F21E5069BB0078FEE8 /* FlexCardTextViewCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCardTextViewCollectionItem.swift; sourceTree = "<group>"; };
+		5BAD34FC1E51B3C70078FEE8 /* FlexSecondaryLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSecondaryLabel.swift; sourceTree = "<group>"; };
 		5BADC33D1DACDFF7009B899E /* FlexTextViewCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexTextViewCollectionItem.swift; sourceTree = "<group>"; };
 		5BADC3401DACE23D009B899E /* FlexTextViewCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexTextViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BADFC5B1DA8C9DA004A5D12 /* FlexSliderCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSliderCollectionItem.swift; sourceTree = "<group>"; };
@@ -308,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				5B3FF7351E15126C0077A106 /* FlexViewSupplementaryView.swift */,
+				5BAD34FC1E51B3C70078FEE8 /* FlexSecondaryLabel.swift */,
 				5B7234821E2CE49B0089A4E7 /* FlexHeaderView.swift */,
 				5B7234851E2CE4AC0089A4E7 /* FlexFooterView.swift */,
 				5B53D0F21D5372010068BF04 /* FlexView.swift */,
@@ -711,6 +715,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BE448681D474DFD0011E5AE /* BezierPathHelper.swift in Sources */,
+				5BAD34FE1E51B3C70078FEE8 /* FlexSecondaryLabel.swift in Sources */,
 				5B99370F1D3A9E5B0043E573 /* SnappingThumbBehaviour.swift in Sources */,
 				5BE4484E1D42160E0011E5AE /* StyledSliderThumbBehaviour.swift in Sources */,
 				5B12A8E21D72EBE50072D1E1 /* FlexImageView.swift in Sources */,
@@ -813,6 +818,7 @@
 				5BADC33E1DACDFF7009B899E /* FlexTextViewCollectionItem.swift in Sources */,
 				5BB91C901DA3955900A94D12 /* FlexCollectionSection.swift in Sources */,
 				5BE4486A1D4760EE0011E5AE /* FlexSlider.swift in Sources */,
+				5BAD34FD1E51B3C70078FEE8 /* FlexSecondaryLabel.swift in Sources */,
 				5BF702151D3116AC0011555A /* GenericStyleSlider.swift in Sources */,
 				5B3FF7291E13EDA50077A106 /* FlexBaseCollectionViewCellTextLabel.swift in Sources */,
 				5BB366101DBA382500C26FC0 /* StringExtension.swift in Sources */,

@@ -37,8 +37,8 @@ open class FlexViewSupplementaryView: FlexBaseStylingControl {
             return _caption
         }
     }
-    fileprivate var _secondaryCaption = FlexLabel()
-    open var secondaryCaption: FlexLabel {
+    fileprivate var _secondaryCaption = FlexSecondaryLabel()
+    open var secondaryCaption: FlexSecondaryLabel {
         get {
             return _secondaryCaption
         }
