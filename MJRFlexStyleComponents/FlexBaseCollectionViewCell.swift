@@ -293,6 +293,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         if let item = self.item as? FlexBaseCollectionItem, let fcv = self.flexContentView {
             fcv.headerAttributedText = item.title
             fcv.footerAttributedText = item.subTitle
+            fcv.footerSecondaryAttributedText = item.secondarySubTitle
             if let hImage = item.headerImage {
                 fcv.header.imageView.image = hImage
                 fcv.header.imageView.isHidden = false

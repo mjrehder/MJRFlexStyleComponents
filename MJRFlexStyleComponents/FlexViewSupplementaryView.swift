@@ -37,6 +37,12 @@ open class FlexViewSupplementaryView: FlexBaseStylingControl {
             return _caption
         }
     }
+    fileprivate var _secondaryCaption = FlexLabel()
+    open var secondaryCaption: FlexLabel {
+        get {
+            return _secondaryCaption
+        }
+    }
     
     fileprivate var _imageView = UIImageView()
     open var imageView: UIImageView {
@@ -59,14 +65,17 @@ open class FlexViewSupplementaryView: FlexBaseStylingControl {
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        self.addSubview(self.caption)
-        self.imageView.isHidden = true
-        self.addSubview(self.imageView)
+        self.initView()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.initView()
+    }
+
+    open func initView() {
         self.addSubview(self.caption)
+        self.addSubview(self.secondaryCaption)
         self.imageView.isHidden = true
         self.addSubview(self.imageView)
     }
