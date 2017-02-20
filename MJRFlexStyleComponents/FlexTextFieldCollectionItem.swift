@@ -36,6 +36,9 @@ open class FlexTextFieldCollectionItem: FlexBaseCollectionItem {
     open var textChangingHandler: ((NSAttributedString) -> Void)?
     open var textChangedHandler: ((NSAttributedString) -> Void)?
     open var textFieldDelegate: UITextFieldDelegate?
+    
+    open var textFieldShouldReturn: ((UITextField) ->Bool)?
+    
     /// Auto detect language and set text alignment accordingly. Default is true
     open var autodetectRTLTextAlignment: Bool = true
 }

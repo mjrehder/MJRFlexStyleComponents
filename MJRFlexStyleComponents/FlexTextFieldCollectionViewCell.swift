@@ -118,22 +118,32 @@ open class FlexTextFieldCollectionViewCell: FlexBaseCollectionViewCell, UITextFi
     
     // MARK: - UITextViewDelegate
     
-    public func textFieldDidEndEditing(_ textField: UITextField) {
+    open func textFieldDidEndEditing(_ textField: UITextField) {
         if let item = self.item as? FlexTextFieldCollectionItem, let text = textField.attributedText {
             item.textChangedHandler?(text)
         }
     }
     
-    public func textFieldDidChange(_ textField: UITextField) {
+    open func textFieldDidChange(_ textField: UITextField) {
         if let item = self.item as? FlexTextFieldCollectionItem, let text = textField.attributedText {
             item.text = textField.attributedText
             item.textChangingHandler?(text)
         }
     }
     
-    public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    open func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if let item = self.item as? FlexTextFieldCollectionItem {
             return item.textIsMutable
+        }
+        return false
+    }
+    
+    open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let item = self.item as? FlexTextFieldCollectionItem, let returnHandler = item.textFieldShouldReturn {
+            if returnHandler(textField) {
+                self.textField?.resignFirstResponder()
+                return true
+            }
         }
         return false
     }
