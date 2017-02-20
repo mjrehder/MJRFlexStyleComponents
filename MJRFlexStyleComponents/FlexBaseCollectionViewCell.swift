@@ -37,9 +37,9 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     public var infoTextLabel: FlexBaseCollectionViewCellInfoTextLabel?
     public var auxTextLabel: FlexBaseCollectionViewCellAuxTextLabel?
     public var accessoryView: UIView?
-
+    
     open var flexContentView: FlexCellView?
-
+    
     open dynamic var controlInsets: UIEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5) {
         didSet {
             self.setNeedsLayout()
@@ -63,7 +63,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
             self.setNeedsLayout()
         }
     }
-
+    
     open dynamic var imageViewStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
         didSet {
             self.setNeedsLayout()
@@ -75,7 +75,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
             self.setNeedsLayout()
         }
     }
-
+    
     open dynamic var accessoryViewSize: CGSize = CGSize(width: 32, height: 32) {
         didSet {
             self.setNeedsLayout()
@@ -87,13 +87,13 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
             self.setNeedsLayout()
         }
     }
-
+    
     open var imageViewFitting: FlexImageShapeFit = .scaleToFit {
         didSet {
             self.setNeedsLayout()
         }
     }
-
+    
     open override func initialize() {
         super.initialize()
         let baseRect = self.bounds
@@ -103,7 +103,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
             let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.cellTouched(_:)))
             pcv.addGestureRecognizer(tapGest)
             self.contentView.addSubview(pcv)
-
+            
             // Just allocate and hide subviews for now, in order to avoid re-creating this all the time
             
             self.textLabel = self.createTextLabel(label: FlexBaseCollectionViewCellTextLabel(frame: .zero))
@@ -118,7 +118,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
                 let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.accessoryViewTouched(_:)))
                 av.addGestureRecognizer(tapGest)
             }
-
+            
             self.imageView = UIView()
             if let iv = self.imageView {
                 iv.isHidden = true
@@ -128,7 +128,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
             }
         }
     }
-
+    
     open func cellTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item as? FlexBaseCollectionItem {
             self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item)
@@ -219,6 +219,26 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         return remainingCellArea
     }
     
+    open func layoutIconifiedIconView(_ item: FlexBaseCollectionItem, area: CGRect) {
+        if let icon = item.icon, let iv = self.imageView {
+            let iconSize = self.imageViewSize
+            let imageViewRect = CGRect(origin: CGPoint.zero, size: iconSize)
+            let sizeFit = item.imageViewFitting ?? self.imageViewFitting
+            let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: icon, imageStyle: self.imageViewStyle.style, imageFitting: sizeFit)
+            
+            let xo = area.origin.x + (area.size.width - iconSize.width) * 0.5
+            let yo = area.origin.y + (area.size.height - iconSize.height) * 0.5
+            
+            iv.frame = CGRect(x: xo, y: yo, width: iconSize.width, height: iconSize.height)
+            iv.layer.sublayers?.removeAll()
+            iv.layer.addSublayer(imgLayer)
+            iv.isHidden = false
+        }
+        else {
+            self.imageView?.isHidden = true
+        }
+    }
+    
     open func layoutAccessoryView(_ item: FlexBaseCollectionItem, area: CGRect) -> CGRect {
         var remainingCellArea = area
         
@@ -289,41 +309,51 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     
     override open func applyStyles() {
         super.applyStyles()
-  
+        
         if let item = self.item as? FlexBaseCollectionItem, let fcv = self.flexContentView {
             fcv.headerAttributedText = item.title
             fcv.footerAttributedText = item.subTitle
             fcv.footerSecondaryAttributedText = item.secondarySubTitle
-            if let hImage = item.headerImage {
-                fcv.header.imageView.image = hImage
-                fcv.header.imageView.isHidden = false
-                fcv.header.imageViewPosition = item.headerImagePosition ?? fcv.header.imageViewPosition
-                fcv.header.imageViewInsets = item.headerImageInsets ?? fcv.header.imageViewInsets
-                
-                if let cr = item.headerImageCornerRadius {
-                    fcv.header.imageView.layer.cornerRadius = cr
-                }
-                if let mtb = item.headerImageMasksToBounds {
-                    fcv.header.imageView.layer.masksToBounds = mtb
-                }
-                if let bw = item.headerImageBorderWidth {
-                    fcv.header.imageView.layer.borderWidth = bw
-                }
-                if let bc = item.headerImageBorderColor {
-                    fcv.header.imageView.layer.borderColor = bc.cgColor
-                }
-            }
+            self.applyHeaderImage(fcv: fcv, item: item)
             if let hp = item.headerPosition {
                 fcv.headerPosition = hp
             }
             self.applySelectionStyles(fcv)
-            var remainingCellArea = self.getBaseViewRect()
-            remainingCellArea = self.layoutIconView(item, area: remainingCellArea)
-            let _ = self.layoutAccessoryView(item, area: remainingCellArea)
-            remainingCellArea = self.getControlArea()
             
-            let controlInsets = item.controlInsets ?? self.controlInsets
-            self.layoutControl(item, area: UIEdgeInsetsInsetRect(remainingCellArea, controlInsets))
+            switch self.displayMode {
+            case .normal:
+                var remainingCellArea = self.getBaseViewRect()
+                remainingCellArea = self.layoutIconView(item, area: remainingCellArea)
+                let _ = self.layoutAccessoryView(item, area: remainingCellArea)
+                remainingCellArea = self.getControlArea()
+                
+                let controlInsets = item.controlInsets ?? self.controlInsets
+                self.layoutControl(item, area: UIEdgeInsetsInsetRect(remainingCellArea, controlInsets))
+            case .iconified(_):
+                self.layoutIconifiedIconView(item, area: self.getBaseViewRect())
+            }
+        }
+    }
+    
+    open func applyHeaderImage(fcv: FlexCellView, item: FlexBaseCollectionItem) {
+        if let hImage = item.headerImage {
+            fcv.header.imageView.image = hImage
+            fcv.header.imageView.isHidden = false
+            fcv.header.imageViewPosition = item.headerImagePosition ?? fcv.header.imageViewPosition
+            fcv.header.imageViewInsets = item.headerImageInsets ?? fcv.header.imageViewInsets
+            
+            if let cr = item.headerImageCornerRadius {
+                fcv.header.imageView.layer.cornerRadius = cr
+            }
+            if let mtb = item.headerImageMasksToBounds {
+                fcv.header.imageView.layer.masksToBounds = mtb
+            }
+            if let bw = item.headerImageBorderWidth {
+                fcv.header.imageView.layer.borderWidth = bw
+            }
+            if let bc = item.headerImageBorderColor {
+                fcv.header.imageView.layer.borderColor = bc.cgColor
+            }
         }
     }
 }

@@ -36,6 +36,11 @@ public protocol FlexCollectionViewDelegate {
     func onFlexCollectionItemMoved(_ view: FlexCollectionView, item: FlexCollectionItem)
 }
 
+public enum FlexCollectionCellDisplayMode {
+    case normal
+    case iconified(size: CGSize)
+}
+
 @IBDesignable
 open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectionViewDelegate, FlexCollectionViewCellTouchedDelegate, UICollectionViewDelegateFlowLayout {
     let simpleHeaderViewID = "SimpleHeaderView"
@@ -50,10 +55,23 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     open var flexCollectionDelegate: FlexCollectionViewDelegate?
     
     fileprivate var cellSwipeMenuActiveCell: IndexPath?
-
+    
     open var itemCollectionView: UICollectionView {
         get {
             return _itemCollectionView!
+        }
+    }
+    
+    open var cellDisplayMode: FlexCollectionCellDisplayMode = .normal {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    @IBInspectable
+    open dynamic var centerCellsHorizontally: Bool = false {
+        didSet {
+            self.setNeedsLayout()
         }
     }
     
@@ -84,7 +102,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
             self._itemCollectionView?.allowsSelection = self.allowsSelection
         }
     }
-
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         self.createView()
@@ -126,7 +144,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(FlexCollectionView.handleLongGesture(_:)))
         self.itemCollectionView.addGestureRecognizer(longPressGesture)
-
+        
         if self.contentDic == nil {
             self.contentDic = [:]
         }
@@ -135,7 +153,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         
         self.itemCollectionView.register(SimpleHeaderCollectionReusableView.classForCoder(), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: simpleHeaderViewID)
         self.itemCollectionView.register(EmptyHeaderCollectionReusableView.classForCoder(), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: emptyHeaderViewID)
-
+        
         self.itemCollectionView.allowsMultipleSelection = self.allowsMultipleSelection
         self.itemCollectionView.allowsSelection = self.allowsSelection
         
@@ -215,13 +233,13 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     open func selectItem(_ itemReference: String) {
         self.itemCollectionView.selectItem(at: self.getIndexPathForItem(itemReference), animated: true, scrollPosition: UICollectionViewScrollPosition())
     }
-
+    
     open func deselectItem(_ itemReference: String) {
         if let ip = self.getIndexPathForItem(itemReference) {
             self.itemCollectionView.deselectItem(at: ip, animated: true)
         }
     }
-
+    
     open func updateCellForItem(_ itemReference: String) {
         if let indexPath = self.getIndexPathForItem(itemReference) {
             self.itemCollectionView.cellForItem(at: indexPath)?.setNeedsLayout()
@@ -256,7 +274,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         }
         return nil
     }
-
+    
     open func getItemForReference(_ itemReference: String) -> FlexCollectionItem? {
         for sec in self.sections {
             if let items = self.contentDic?[sec.reference] {
@@ -297,6 +315,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
                     cell._item = item
                     cell.reference = item.reference
                     cell.flexCellTouchDelegate = self
+                    cell.displayMode = self.cellDisplayMode
                     if item.swipeLeftMenuItems != nil || item.swipeRightMenuItems != nil {
                         let lswipe = UISwipeGestureRecognizer(target: self, action: #selector(self.swipeLeftGestureAction(_:)))
                         lswipe.direction = .left
@@ -311,7 +330,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         }
         return UICollectionViewCell()
     }
-
+    
     func swipeLeftGestureAction(_ recognizer: UISwipeGestureRecognizer) {
         if let cell = recognizer.view as? FlexCollectionViewCell {
             cell.swipeLeft()
@@ -325,7 +344,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
             self.cellSwipeMenuActiveCell = self.itemCollectionView.indexPath(for: cell)
         }
     }
-
+    
     func resetSwipedCell() {
         if let sip = self.cellSwipeMenuActiveCell {
             if let cell = self.itemCollectionView.cellForItem(at: sip) as? FlexCollectionViewCell {
@@ -335,14 +354,33 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     }
     
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if let item = self.getItemForIndexPath(indexPath) {
-            if let preferredSize = item.preferredCellSize {
-                return preferredSize
+        return self.getCellSize(indexPath: indexPath)
+    }
+    
+    open func getCellSize(indexPath: IndexPath?) -> CGSize {
+        if let ip = indexPath {
+            if let item = self.getItemForIndexPath(ip) {
+                switch self.cellDisplayMode {
+                case .normal:
+                    if let preferredSize = item.preferredCellSize {
+                        return preferredSize
+                    }
+                case .iconified(let size):
+                    return size
+                }
+            }
+        }
+        else {
+            switch self.cellDisplayMode {
+            case .normal:
+                return self.defaultCellSize
+            case .iconified(let size):
+                return size
             }
         }
         return self.defaultCellSize
     }
-
+    
     open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionElementKindSectionHeader {
             let sec = self.sections[indexPath.section]
@@ -358,7 +396,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         }
         return UICollectionReusableView()
     }
-
+    
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let item = self.getItemForIndexPath(indexPath) {
             self.flexCollectionDelegate?.onFlexCollectionItemSelected(self, item: item)
@@ -392,8 +430,29 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     }
     
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let sec = self.sections[section]
-        return sec.insets
+        if self.centerCellsHorizontally {
+            if let secRef = self.sectionReference(atIndex: section), let itemCount = self.contentDic?[secRef]?.count, let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout {
+                let cellCount = CGFloat(itemCount)
+                
+                if cellCount > 0 {
+                    let spacing:CGFloat = flowLayout.minimumInteritemSpacing * 0.5
+                    let cellWidth = self.getCellSize(indexPath: nil).width + spacing
+                    let totalCellWidth = cellWidth*cellCount + spacing * (cellCount-1)
+                    let ci = self.viewMargins.left + self.viewMargins.right
+                    let contentWidth = collectionView.frame.size.width - ci
+                    
+                    if (totalCellWidth < contentWidth) {
+                        let padding = (contentWidth - totalCellWidth) / 2.0
+                        return UIEdgeInsetsMake(2, padding, 0, padding)
+                    }
+                }
+            }
+            return .zero
+        }
+        else {
+            let sec = self.sections[section]
+            return sec.insets
+        }
     }
     
     // MARK: - FlexCollectionViewCellTouchedDelegate
@@ -414,7 +473,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
                             self.itemCollectionView.deselectItem(at: ip, animated: true)
                         })
                     }
-                }                
+                }
             }
         }
     }

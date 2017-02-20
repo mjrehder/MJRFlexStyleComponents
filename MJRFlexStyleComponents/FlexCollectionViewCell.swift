@@ -46,6 +46,12 @@ open class FlexCollectionViewCell: UICollectionViewCell {
     
     open var flexCellTouchDelegate: FlexCollectionViewCellTouchedDelegate?
     
+    open var displayMode: FlexCollectionCellDisplayMode = .normal {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
     var _item: FlexCollectionItem? = nil
     open var item: FlexCollectionItem? {
         get {
@@ -77,37 +83,37 @@ open class FlexCollectionViewCell: UICollectionViewCell {
             self.setNeedsLayout()
         }
     }
-
+    
     open dynamic var selectedStyleColor: UIColor = .lightGray {
         didSet {
             self.setNeedsLayout()
         }
     }
-
+    
     open dynamic var selectedBackgroundColor: UIColor = .lightGray {
         didSet {
             self.setNeedsLayout()
         }
     }
-
+    
     open dynamic var selectedBorderColor: UIColor? {
         didSet {
             self.setNeedsLayout()
         }
     }
-
+    
     open dynamic var borderColor: UIColor? {
         didSet {
             self.setNeedsLayout()
         }
     }
-
+    
     open dynamic var borderWidth: CGFloat = 1.0 {
         didSet {
             self.setNeedsLayout()
         }
     }
-
+    
     open dynamic var selectedBorderWidth: CGFloat = 1.0 {
         didSet {
             self.setNeedsLayout()
@@ -135,7 +141,7 @@ open class FlexCollectionViewCell: UICollectionViewCell {
         self.gestureRecognizers?.removeAll()
         swipeLeftRightState = .none
     }
-
+    
     // MARK: - Swipe Left / Right Menu
     
     func swipeLeft() {
@@ -167,9 +173,9 @@ open class FlexCollectionViewCell: UICollectionViewCell {
             self.swipeLeftRightState = .left
             self.swipeMenuTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.swipeMenuRightTapped(_:)))
             self.addGestureRecognizer(self.swipeMenuTapRecognizer!)
-        }) 
+        })
     }
-
+    
     fileprivate func animateSwipeRight() {
         self.swipeLeftRightState = .swiping
         let swipeLength = self.layoutLeftSideMenu()
@@ -183,7 +189,7 @@ open class FlexCollectionViewCell: UICollectionViewCell {
             self.swipeLeftRightState = .right
             self.swipeMenuTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.swipeMenuLeftTapped(_:)))
             self.addGestureRecognizer(self.swipeMenuTapRecognizer!)
-        }) 
+        })
     }
     
     func animateSwipeReset() {
@@ -201,9 +207,9 @@ open class FlexCollectionViewCell: UICollectionViewCell {
             if let items = self.item?.swipeLeftMenuItems {
                 self.showSwipeMenuItems(items, visible: false)
             }
-        }) 
+        })
     }
-
+    
     fileprivate func layoutRightSideMenu() -> CGFloat {
         if let rsm = self.item?.swipeLeftMenuItems {
             self.addSwipeMenuItems(rsm)
@@ -252,7 +258,7 @@ open class FlexCollectionViewCell: UICollectionViewCell {
             mi.isHidden = !visible
         }
     }
-
+    
     func swipeMenuLeftTapped(_ recognizer: UITapGestureRecognizer) {
         let touchedViewPos = recognizer.location(in: self)
         if let item = self.item, let rsm = item.swipeRightMenuItems {
@@ -295,7 +301,7 @@ open class FlexCollectionViewCell: UICollectionViewCell {
     
     open func applyStyles() {
     }
-
+    
     open func assignBorderLayout() {
         let borderColor = self.isSelected ? self.selectedBorderColor?.cgColor : self.borderColor?.cgColor
         self.layer.borderColor = borderColor
@@ -306,5 +312,5 @@ open class FlexCollectionViewCell: UICollectionViewCell {
             self.layer.borderWidth = 0
         }
     }
-
+    
 }
