@@ -374,20 +374,15 @@ open class FlexView: FlexBaseControl {
                 return CGRect(x: nx, y: oFrame.origin.y, width: oFrame.size.width - (nx - oFrame.origin.x), height: oFrame.size.height)
             }
             else {
-                let nw = interFrame.minX - oFrame.minX
+                let inters = oFrame.intersection(interFrame)
+                let nw = oFrame.width - inters.width
                 return CGRect(x: oFrame.origin.x, y: oFrame.origin.y, width: nw, height: oFrame.size.height)
             }
         }
         else {
             // If the menu is either to the left or the right, then still try to center the oFrame by insetting
-            if interFrame.origin.x < hw {
-                let nx = (interFrame.maxX - oFrame.minX) * 0.5
-                return oFrame.insetBy(dx: nx, dy: 0)
-            }
-            else {
-                let nx = (interFrame.minX - oFrame.minX) * 0.5
-                return oFrame.insetBy(dx: nx, dy: 0)
-            }
+            let inters = oFrame.intersection(interFrame)
+            return oFrame.insetBy(dx: inters.width, dy: 0)
         }
     }
     
