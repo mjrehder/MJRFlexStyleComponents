@@ -23,7 +23,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         self.demoCollectionView.flexCollectionDelegate = self
         self.demoCollectionView.defaultCellSize = CGSize(width: 250, height: 64)
         self.demoCollectionView.headerText = "Collection Demo"
-        self.demoCollectionView.subHeaderText = "Version 2.7.6"
+        self.demoCollectionView.subHeaderText = "Sub Header"
 
         // The style for the collection view
         self.demoCollectionView.headerSize = 30

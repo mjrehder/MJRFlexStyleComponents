@@ -332,8 +332,8 @@ open class FlexView: FlexBaseControl {
             let hth = ht.heightWithConstrainedWidth(stRect.width)
             let shth = sht.heightWithConstrainedWidth(stRect.width)
             let totalHeight = hth + shth
-            let headerFrame = CGRect(x: rfh.minX, y: rfh.minY, width: rfh.width, height: (hth / totalHeight) * stRect.height)
-            let subHeaderFrame = CGRect(x: rfh.minX, y: headerFrame.maxY, width: rfh.width, height: (shth / totalHeight) * stRect.height)
+            let headerFrame = CGRect(x: stRect.minX, y: stRect.minY, width: stRect.width, height: (hth / totalHeight) * stRect.height)
+            let subHeaderFrame = CGRect(x: stRect.minX, y: headerFrame.maxY, width: stRect.width, height: (shth / totalHeight) * stRect.height)
             self.layoutSupplementaryTextLabels(self.header.caption, frame: headerFrame, attributedText: self.getHeaderText())
             self.layoutSupplementaryTextLabels(self.header.subCaption, frame: subHeaderFrame, attributedText: self.getSubHeaderText())
         }
@@ -341,6 +341,7 @@ open class FlexView: FlexBaseControl {
             self.layoutSupplementaryView(self.header, frame: rfh)
             let stRect = UIEdgeInsetsInsetRect(self.header.bounds, self.header.controlInsets)
             self.layoutSupplementaryTextLabels(self.header.caption, frame: stRect, attributedText: self.getHeaderText())
+            self.header.subCaption.label.attributedText = nil
         }
         else {
             self.header.removeFromSuperview()
@@ -353,14 +354,14 @@ open class FlexView: FlexBaseControl {
             self.layoutSupplementaryTextLabels(self.footer.caption, frame: stRect, attributedText: self.getFooterText())
             hasFooterText = true
         }
-
+        
         if self.hasSecondaryFooterText() {
             self.layoutSupplementaryView(self.footer, frame: rff)
             let stRect = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.controlInsets)
             self.layoutSupplementaryTextLabels(self.footer.secondaryCaption, frame: stRect, attributedText: self.getSecondaryFooterText())
             hasFooterText = true
         }
-
+        
         if !hasFooterText {
             self.footer.removeFromSuperview()
         }
