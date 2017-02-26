@@ -312,6 +312,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         
         if let item = self.item as? FlexBaseCollectionItem, let fcv = self.flexContentView {
             fcv.headerAttributedText = item.title
+            fcv.subHeaderAttributedText = item.underTitle
             fcv.footerAttributedText = item.subTitle
             fcv.footerSecondaryAttributedText = item.secondarySubTitle
             self.applyHeaderImage(fcv: fcv, item: item)

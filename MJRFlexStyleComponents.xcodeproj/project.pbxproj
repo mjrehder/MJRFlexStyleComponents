@@ -11,6 +11,8 @@
 		5B0859E01D7EE65500484E8F /* FlexTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0859DF1D7EE65500484E8F /* FlexTextView.swift */; };
 		5B0859E11D7EE65500484E8F /* FlexTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0859DF1D7EE65500484E8F /* FlexTextView.swift */; };
 		5B0859E41D7EE84B00484E8F /* FlexTextViewDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0859E21D7EE84B00484E8F /* FlexTextViewDemoViewController.swift */; };
+		5B0D285B1E62F0D40015FFC6 /* FlexSubPrimaryLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0D285A1E62F0D40015FFC6 /* FlexSubPrimaryLabel.swift */; };
+		5B0D285C1E62F0D40015FFC6 /* FlexSubPrimaryLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0D285A1E62F0D40015FFC6 /* FlexSubPrimaryLabel.swift */; };
 		5B12A8E11D72EBE50072D1E1 /* FlexImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B12A8E01D72EBE50072D1E1 /* FlexImageView.swift */; };
 		5B12A8E21D72EBE50072D1E1 /* FlexImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B12A8E01D72EBE50072D1E1 /* FlexImageView.swift */; };
 		5B12A8E41D73066E0072D1E1 /* ImageViewDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B12A8E31D73066E0072D1E1 /* ImageViewDemoViewController.swift */; };
@@ -168,6 +170,7 @@
 		22BD3094DC054D5C1054E0DD /* Pods-MJRFlexStyleExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJRFlexStyleExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-MJRFlexStyleExamples/Pods-MJRFlexStyleExamples.release.xcconfig"; sourceTree = "<group>"; };
 		5B0859DF1D7EE65500484E8F /* FlexTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexTextView.swift; sourceTree = "<group>"; };
 		5B0859E21D7EE84B00484E8F /* FlexTextViewDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexTextViewDemoViewController.swift; sourceTree = "<group>"; };
+		5B0D285A1E62F0D40015FFC6 /* FlexSubPrimaryLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSubPrimaryLabel.swift; sourceTree = "<group>"; };
 		5B12A8E01D72EBE50072D1E1 /* FlexImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexImageView.swift; sourceTree = "<group>"; };
 		5B12A8E31D73066E0072D1E1 /* ImageViewDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewDemoViewController.swift; sourceTree = "<group>"; };
 		5B1EFC791D7047250040AD50 /* FlexViewMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexViewMenu.swift; sourceTree = "<group>"; };
@@ -315,6 +318,7 @@
 			children = (
 				5B3FF7351E15126C0077A106 /* FlexViewSupplementaryView.swift */,
 				5BAD34FF1E51B8120078FEE8 /* FlexPrimaryLabel.swift */,
+				5B0D285A1E62F0D40015FFC6 /* FlexSubPrimaryLabel.swift */,
 				5BAD34FC1E51B3C70078FEE8 /* FlexSecondaryLabel.swift */,
 				5B7234821E2CE49B0089A4E7 /* FlexHeaderView.swift */,
 				5B7234851E2CE4AC0089A4E7 /* FlexFooterView.swift */,
@@ -751,6 +755,7 @@
 				5BAD34E81E50557F0078FEE8 /* FlexCardViewCollectionViewCell.swift in Sources */,
 				5B9937121D3A9E5B0043E573 /* StyledControlDirection.swift in Sources */,
 				5BC284231DA66689004E1731 /* FlexCollectionDemoViewController.swift in Sources */,
+				5B0D285C1E62F0D40015FFC6 /* FlexSubPrimaryLabel.swift in Sources */,
 				5B1EFC7B1D7047250040AD50 /* FlexViewMenu.swift in Sources */,
 				5B72347E1E2CBFB10089A4E7 /* FlexButtonCollectionItem.swift in Sources */,
 				5BB91C991DA3955900A94D12 /* FlexCollectionView.swift in Sources */,
@@ -867,6 +872,7 @@
 				5BE448631D450DC20011E5AE /* FlexSeriesView.swift in Sources */,
 				5BD460411DA100B0001FA9B3 /* CGRectHelper.swift in Sources */,
 				5BE64CE61E4B280E00CD0271 /* FlexTextFieldCollectionItem.swift in Sources */,
+				5B0D285B1E62F0D40015FFC6 /* FlexSubPrimaryLabel.swift in Sources */,
 				5BE4486D1D478E9A0011E5AE /* FlexDoubleSlider.swift in Sources */,
 				5BB1141F1DB8CADB00719EEB /* FlexImageCollectionItem.swift in Sources */,
 				5B9F2C601D32352600B096B5 /* StyledSliderThumb.swift in Sources */,

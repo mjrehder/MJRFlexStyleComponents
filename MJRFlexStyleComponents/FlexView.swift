@@ -98,7 +98,7 @@ open class FlexView: FlexBaseControl {
     }
     
     /// The header text. Defaults to nil, which means no text.
-    @IBInspectable open dynamic var headerAttributedText: NSAttributedString? = nil {
+    @IBInspectable open var headerAttributedText: NSAttributedString? = nil {
         didSet {
             self.setNeedsLayout()
         }
@@ -118,6 +118,20 @@ open class FlexView: FlexBaseControl {
         }
     }
 
+    /// The sub header text. Defaults to nil, which means no text.
+    @IBInspectable open var subHeaderText: String? = nil {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    /// The sub header text. Defaults to nil, which means no text.
+    @IBInspectable open var subHeaderAttributedText: NSAttributedString? = nil {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
     // MARK: - Footer
     
     /// The footer text. Defaults to nil, which means no text.
@@ -181,13 +195,53 @@ open class FlexView: FlexBaseControl {
     func hasHeaderText() -> Bool {
         return self.headerText != nil || self.headerAttributedText != nil
     }
+    func getHeaderText() -> NSAttributedString {
+        if let ht = self.headerText {
+            return NSAttributedString(string: ht)
+        }
+        if let ahs = self.headerAttributedText {
+            return ahs
+        }
+        return NSAttributedString()
+    }
+    
+    func hasSubHeaderText() -> Bool {
+        return self.subHeaderText != nil || self.subHeaderAttributedText != nil
+    }
+    func getSubHeaderText() -> NSAttributedString {
+        if let ht = self.subHeaderText {
+            return NSAttributedString(string: ht)
+        }
+        if let ahs = self.subHeaderAttributedText {
+            return ahs
+        }
+        return NSAttributedString()
+    }
     
     func hasFooterText() -> Bool {
         return self.footerText != nil || self.footerAttributedText != nil
     }
+    func getFooterText() -> NSAttributedString {
+        if let ft = self.footerText {
+            return NSAttributedString(string: ft)
+        }
+        if let afs = self.footerAttributedText {
+            return afs
+        }
+        return NSAttributedString()
+    }
     
     func hasSecondaryFooterText() -> Bool {
         return self.footerSecondaryText != nil || self.footerSecondaryAttributedText != nil
+    }
+    func getSecondaryFooterText() -> NSAttributedString {
+        if let ft = self.footerSecondaryText {
+            return NSAttributedString(string: ft)
+        }
+        if let afs = self.footerSecondaryAttributedText {
+            return afs
+        }
+        return NSAttributedString()
     }
     
     open func getViewRect() -> CGRect {
@@ -257,8 +311,36 @@ open class FlexView: FlexBaseControl {
     override open func layoutComponents() {
         super.layoutComponents()
         
-        if self.hasHeaderText() {
-            self.layoutSupplementaryTextLabels(self.header, suplViewCaption: self.header.caption, frame: self.rectForHeader(), text: self.headerText, attributedText: self.headerAttributedText)
+        var rfh = self.rectForHeader()
+        var rff = self.rectForFooter()
+        for menu in self.menus {
+            self.applyMenuLocationAndSize(menu)
+            let mmf = menu.menu.frame
+            if mmf.intersects(rfh) {
+                rfh = self.calculateWidthIntersectedFrame(oFrame: rfh, interFrame: mmf)
+            }
+            else if mmf.intersects(rff) {
+                rff = self.calculateWidthIntersectedFrame(oFrame: rff, interFrame: mmf)
+            }
+        }
+        
+        if self.hasHeaderText() && self.hasSubHeaderText() {
+            self.layoutSupplementaryView(self.header, frame: rfh)
+            let ht = self.getHeaderText()
+            let sht = self.getSubHeaderText()
+            let stRect = UIEdgeInsetsInsetRect(self.header.bounds, self.header.controlInsets)
+            let hth = ht.heightWithConstrainedWidth(stRect.width)
+            let shth = sht.heightWithConstrainedWidth(stRect.width)
+            let totalHeight = hth + shth
+            let headerFrame = CGRect(x: rfh.minX, y: rfh.minY, width: rfh.width, height: (hth / totalHeight) * stRect.height)
+            let subHeaderFrame = CGRect(x: rfh.minX, y: headerFrame.maxY, width: rfh.width, height: (shth / totalHeight) * stRect.height)
+            self.layoutSupplementaryTextLabels(self.header.caption, frame: headerFrame, attributedText: self.getHeaderText())
+            self.layoutSupplementaryTextLabels(self.header.subCaption, frame: subHeaderFrame, attributedText: self.getSubHeaderText())
+        }
+        else if self.hasHeaderText() {
+            self.layoutSupplementaryView(self.header, frame: rfh)
+            let stRect = UIEdgeInsetsInsetRect(self.header.bounds, self.header.controlInsets)
+            self.layoutSupplementaryTextLabels(self.header.caption, frame: stRect, attributedText: self.getHeaderText())
         }
         else {
             self.header.removeFromSuperview()
@@ -266,41 +348,63 @@ open class FlexView: FlexBaseControl {
         
         var hasFooterText = false
         if self.hasFooterText() {
-            self.layoutSupplementaryTextLabels(self.footer, suplViewCaption: self.footer.caption, frame: self.rectForFooter(), text: self.footerText, attributedText: self.footerAttributedText)
+            self.layoutSupplementaryView(self.footer, frame: rff)
+            let stRect = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.controlInsets)
+            self.layoutSupplementaryTextLabels(self.footer.caption, frame: stRect, attributedText: self.getFooterText())
             hasFooterText = true
         }
 
         if self.hasSecondaryFooterText() {
-            self.layoutSupplementaryTextLabels(self.footer, suplViewCaption: self.footer.secondaryCaption, frame: self.rectForFooter(), text: self.footerSecondaryText, attributedText: self.footerSecondaryAttributedText)
+            self.layoutSupplementaryView(self.footer, frame: rff)
+            let stRect = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.controlInsets)
+            self.layoutSupplementaryTextLabels(self.footer.secondaryCaption, frame: stRect, attributedText: self.getSecondaryFooterText())
             hasFooterText = true
         }
 
         if !hasFooterText {
             self.footer.removeFromSuperview()
         }
-
-        for menu in self.menus {
-            self.applyMenuLocationAndSize(menu)
+    }
+    
+    open func calculateWidthIntersectedFrame(oFrame: CGRect, interFrame: CGRect) -> CGRect {
+        let hw = oFrame.midX
+        if interFrame.origin.x < hw && interFrame.maxX > hw {
+            if interFrame.origin.x < hw {
+                let nx = interFrame.maxX
+                return CGRect(x: nx, y: oFrame.origin.y, width: oFrame.size.width - (nx - oFrame.origin.x), height: oFrame.size.height)
+            }
+            else {
+                let nw = interFrame.minX - oFrame.minX
+                return CGRect(x: oFrame.origin.x, y: oFrame.origin.y, width: nw, height: oFrame.size.height)
+            }
+        }
+        else {
+            // If the menu is either to the left or the right, then still try to center the oFrame by insetting
+            if interFrame.origin.x < hw {
+                let nx = (interFrame.maxX - oFrame.minX) * 0.5
+                return oFrame.insetBy(dx: nx, dy: 0)
+            }
+            else {
+                let nx = (interFrame.minX - oFrame.minX) * 0.5
+                return oFrame.insetBy(dx: nx, dy: 0)
+            }
         }
     }
     
-    open func layoutSupplementaryTextLabels(_ suplView: FlexViewSupplementaryView, suplViewCaption: FlexLabel, frame: CGRect, text: String?, attributedText: NSAttributedString?) {
+    open func layoutSupplementaryView(_ suplView: FlexViewSupplementaryView, frame: CGRect) {
         if suplView.superview == nil {
             self.addSubview(suplView)
         }
         suplView.frame = frame
-        let footerBounds = UIEdgeInsetsInsetRect(suplView.bounds, suplView.controlInsets)
-        suplViewCaption.frame = footerBounds
+    }
+
+    open func layoutSupplementaryTextLabels(_ suplViewCaption: FlexLabel, frame: CGRect, attributedText: NSAttributedString?) {
+        suplViewCaption.frame = frame
         suplViewCaption.label.frame = suplViewCaption.bounds
         suplViewCaption.label.transform = self.getHeaderFooterRotation()
         suplViewCaption.label.frame = suplViewCaption.bounds
 
-        if text != nil {
-            suplViewCaption.label.text = text
-        }
-        else {
-            suplViewCaption.label.attributedText = attributedText
-        }
+        suplViewCaption.label.attributedText = attributedText
     }
     
     override func applyStyle(_ style: ShapeStyle) {

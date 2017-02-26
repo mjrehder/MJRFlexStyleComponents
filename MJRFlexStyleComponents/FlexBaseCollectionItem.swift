@@ -32,7 +32,12 @@ import UIKit
 open class FlexBaseCollectionItem: FlexCollectionItem {
     open var icon: UIImage?
     open var accessoryImage: UIImage?
+    
+    /// These will be shown in the header
     open var title: NSAttributedString?
+    open var underTitle: NSAttributedString?
+    
+    /// These will be shown in the footer
     open var subTitle: NSAttributedString?
     open var secondarySubTitle: NSAttributedString?
     

@@ -23,14 +23,19 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         self.demoCollectionView.flexCollectionDelegate = self
         self.demoCollectionView.defaultCellSize = CGSize(width: 250, height: 64)
         self.demoCollectionView.headerText = "Collection Demo"
+        self.demoCollectionView.subHeaderText = "Version 2.7.6"
 
         // The style for the collection view
+        self.demoCollectionView.headerSize = 30
         self.demoCollectionView.header.styleColor = UIColor.MKColor.Brown.P500
         self.demoCollectionView.header.caption.labelFont = UIFont.boldSystemFont(ofSize: 12)
         self.demoCollectionView.header.caption.labelTextAlignment = .center
         self.demoCollectionView.header.caption.labelTextColor = .white
         self.demoCollectionView.styleColor = UIColor.MKColor.Brown.P50
         self.demoCollectionView.style = FlexShapeStyle(style: .roundedFixed(cornerRadius: 5))
+        self.demoCollectionView.header.subCaption.labelFont = UIFont.boldSystemFont(ofSize: 7)
+        self.demoCollectionView.header.subCaption.labelTextAlignment = .center
+        self.demoCollectionView.header.subCaption.labelTextColor = .white
 
         /*
         Discussion:
@@ -74,7 +79,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         cellHeaderViewAppearance.styleColor = UIColor.MKColor.Brown.P500
 
         // Set the cells header title style
-        let cellHeaderAppearance = FlexLabel.appearance(whenContainedInInstancesOf: [FlexViewSupplementaryView.self, FlexCellView.self])
+        let cellHeaderAppearance = FlexPrimaryLabel.appearance(whenContainedInInstancesOf: [FlexHeaderView.self, FlexCellView.self])
         cellHeaderAppearance.labelFont = UIFont.boldSystemFont(ofSize: 10)
         cellHeaderAppearance.labelTextAlignment = .center
         cellHeaderAppearance.labelTextColor = .white
@@ -84,7 +89,12 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         textLabelAppearance.labelFont = UIFont.systemFont(ofSize: 12)
         textLabelAppearance.labelTextAlignment = .left
         textLabelAppearance.labelTextColor = .black
-
+        
+        // Sub captions when used in collection cells
+        let subCaptionApp = FlexSubPrimaryLabel.appearance()//whenContainedInInstancesOf: [FlexViewSupplementaryView.self, FlexCellView.self])
+        subCaptionApp.labelFont = UIFont.systemFont(ofSize: 6)
+        subCaptionApp.labelTextAlignment = .center
+        subCaptionApp.labelTextColor = .white
         
         // Quad Text
         let detailTextLabelAppearance = FlexBaseCollectionViewCellDetailTextLabel.appearance()
@@ -173,15 +183,11 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
 
         
         // Image view
-        let imageCellHeaderAppearance = FlexLabel.appearance(whenContainedInInstancesOf: [FlexViewSupplementaryView.self, FlexImageCollectionViewCell.self])
-        imageCellHeaderAppearance.labelFont = UIFont.boldSystemFont(ofSize: 10)
-        imageCellHeaderAppearance.labelTextAlignment = .center
-        imageCellHeaderAppearance.labelTextColor = .white
-
         let imageCellViewAppearance = FlexImageShapeView.appearance()
         imageCellViewAppearance.style = FlexShapeStyle(style: .roundedFixed(cornerRadius: 5))
 
         let imageItem = FlexImageCollectionItem(reference: "image", image: UIImage(named: "DemoImage"), title: NSAttributedString(string: "Item 5"))
+        imageItem.underTitle = NSAttributedString(string: "subtitle for demo image")
         imageItem.controlInsets = UIEdgeInsetsMake(2, 2, 2, 2)
         self.demoCollectionView.addItem(sec2Ref, item: imageItem)
         

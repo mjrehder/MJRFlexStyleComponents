@@ -37,6 +37,12 @@ open class FlexViewSupplementaryView: FlexBaseStylingControl {
             return _caption
         }
     }
+    fileprivate var _subCaption = FlexSubPrimaryLabel()
+    open var subCaption: FlexSubPrimaryLabel {
+        get {
+            return _subCaption
+        }
+    }
     fileprivate var _secondaryCaption = FlexSecondaryLabel()
     open var secondaryCaption: FlexSecondaryLabel {
         get {
@@ -75,6 +81,7 @@ open class FlexViewSupplementaryView: FlexBaseStylingControl {
 
     open func initView() {
         self.addSubview(self.caption)
+        self.addSubview(self.subCaption)
         self.addSubview(self.secondaryCaption)
         self.imageView.isHidden = true
         self.addSubview(self.imageView)
