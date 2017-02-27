@@ -30,7 +30,7 @@
 import UIKit
 
 open class FlexMenuCollectionViewCell: FlexBaseCollectionViewCell {
-    var flexMenu: FlexMenu?
+    open var flexMenu: FlexMenu?
     
     open override func initialize() {
         super.initialize()
