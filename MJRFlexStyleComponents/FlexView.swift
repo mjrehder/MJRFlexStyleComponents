@@ -51,6 +51,9 @@ open class FlexView: FlexBaseControl {
         }
     }
     
+    fileprivate var topBarView: UIView?
+    open private(set) var topBarActive: Bool = false
+
     var menus: [FlexViewMenu] = []
     
     public override init(frame: CGRect) {
@@ -71,6 +74,20 @@ open class FlexView: FlexBaseControl {
     func initView() {
         if self.styleLayer.superlayer == nil {
             self.layer.insertSublayer(self.styleLayer, at: 0)
+        }
+    }
+
+    @IBInspectable
+    open var topBar: FlexViewTopBar? = nil {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    @IBInspectable
+    open dynamic var topBarHeight: CGFloat = 22 {
+        didSet {
+            self.setNeedsLayout()
         }
     }
     
@@ -260,6 +277,10 @@ open class FlexView: FlexBaseControl {
         let margins = self.contentViewMargins
         switch headerPos {
         case .top:
+            if self.topBarActive {
+                heightReduce += self.topBarHeight
+                topOffset += self.topBarHeight
+            }
             return UIEdgeInsetsInsetRect(CGRect(x: 0, y: topOffset, width: self.bounds.size.width, height: self.bounds.size.height - heightReduce), margins)
         case .left:
             return UIEdgeInsetsInsetRect(CGRect(x: topOffset, y: 0, width: self.bounds.size.width - heightReduce, height: self.bounds.size.height), margins)
@@ -308,8 +329,19 @@ open class FlexView: FlexBaseControl {
         }
     }
     
+    open func getTopBarFrame() -> CGRect {
+        var topOffset = self.contentViewMargins.top
+        if self.hasHeaderText() {
+            topOffset += self.headerSize
+        }
+        return CGRect(x: self.contentViewMargins.left, y: topOffset, width: self.bounds.size.width - (self.contentViewMargins.left + self.contentViewMargins.right), height: self.topBarHeight)
+    }
+    
     override open func layoutComponents() {
         super.layoutComponents()
+        
+        let tbr = self.getTopBarFrame()
+        self.topBarView?.frame = tbr
         
         var rfh = self.rectForHeader()
         var rff = self.rectForFooter()
@@ -364,6 +396,12 @@ open class FlexView: FlexBaseControl {
         
         if !hasFooterText {
             self.footer.removeFromSuperview()
+        }
+        
+        if let tb = self.topBar, let tbv = self.topBarView {
+            if self.topBarActive {
+                tb.frame = tbv.bounds
+            }
         }
     }
     
@@ -512,5 +550,70 @@ open class FlexView: FlexBaseControl {
         }
         mpos = menu.menu.direction.getPosition(CGPoint(x: menu.menu.direction.principalPosition(mpos), y: npvp))
         menu.menu.frame = UIEdgeInsetsInsetRect(CGRect(x: mpos.x, y: mpos.y, width: msize.width, height: msize.height), menu.menu.controlInsets)
+    }
+    
+    // MARK: - Top Bar
+    
+    open func showTopBar(topBarUpdateHandler: ((Void) -> Void)? = nil) {
+        if self.topBarActive {
+            return
+        }
+        self.addTopBar()
+        self.topBar?.topBarUpdateHandler = topBarUpdateHandler
+        self.topBarActive = true
+        if let tbv = self.topBarView {
+            tbv.isHidden = false
+            let tbFrame = tbv.bounds
+            if let tb = self.topBar {
+                let topBarFrame = CGRect(origin: CGPoint(x: tbFrame.minX, y: -tbFrame.size.height), size: tbFrame.size)
+                let tgtTopBarFrame = CGRect(origin: CGPoint(x: tbFrame.minX, y: 0), size: tbFrame.size)
+                tb.frame = topBarFrame
+                tb.alpha = 0
+                UIView.animate(withDuration: 0.5, animations: {
+                    tb.frame = tgtTopBarFrame
+                    tb.alpha = 1
+                })
+            }
+        }
+    }
+    
+    open func hideTopBar(completionHandler: ((Void) -> Void)? = nil) {
+        if !self.topBarActive {
+            return
+        }
+        if let tbv = self.topBarView {
+            let tbFrame = tbv.bounds
+            self.topBar?.frame = tbFrame
+            self.topBar?.alpha = 1
+            UIView.animate(withDuration: 0.5, animations: {
+                self.topBar?.frame = CGRect(origin: CGPoint(x: tbFrame.minX, y: -tbFrame.size.height), size: tbFrame.size)
+                self.topBar?.alpha = 0
+            }) { _ in
+                self.topBarActive = false
+                tbv.isHidden = true
+                completionHandler?()
+            }
+        }
+    }
+    
+    private func addTopBar() {
+        if let tb = self.topBar {
+            if self.topBarView == nil {
+                self.topBarView = UIView(frame: self.getTopBarFrame())
+                self.topBarView?.backgroundColor = .clear
+                self.topBarView?.clipsToBounds = true
+            }
+            if let tbv = self.topBarView {
+                if !tbv.isDescendant(of: self) {
+                    self.addSubview(tbv)
+                }
+                if !tb.isDescendant(of: tbv) {
+                    tbv.addSubview(tb)
+                }
+            }
+            tb.topBarCancelHandler = {
+                self.hideTopBar()
+            }
+        }
     }
 }

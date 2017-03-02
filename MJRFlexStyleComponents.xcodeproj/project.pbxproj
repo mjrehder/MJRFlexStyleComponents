@@ -109,6 +109,10 @@
 		5BB2A6271DA7D2E9003D38C3 /* FlexSwitchCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2A6251DA7D2E9003D38C3 /* FlexSwitchCollectionItem.swift */; };
 		5BB366101DBA382500C26FC0 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB3660F1DBA382500C26FC0 /* StringExtension.swift */; };
 		5BB366111DBA382500C26FC0 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB3660F1DBA382500C26FC0 /* StringExtension.swift */; };
+		5BB36E4A1E66B37F00EE7EDF /* FlexViewTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB36E491E66B37F00EE7EDF /* FlexViewTopBar.swift */; };
+		5BB36E4B1E66B37F00EE7EDF /* FlexViewTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB36E491E66B37F00EE7EDF /* FlexViewTopBar.swift */; };
+		5BB36E4E1E66CCCC00EE7EDF /* FlexViewSearchTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB36E4D1E66CCCC00EE7EDF /* FlexViewSearchTopBar.swift */; };
+		5BB36E4F1E66CCCC00EE7EDF /* FlexViewSearchTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB36E4D1E66CCCC00EE7EDF /* FlexViewSearchTopBar.swift */; };
 		5BB91C901DA3955900A94D12 /* FlexCollectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91C8A1DA3955900A94D12 /* FlexCollectionSection.swift */; };
 		5BB91C911DA3955900A94D12 /* FlexCollectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91C8A1DA3955900A94D12 /* FlexCollectionSection.swift */; };
 		5BB91C921DA3955900A94D12 /* FlexCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91C8B1DA3955900A94D12 /* FlexCollectionItem.swift */; };
@@ -225,6 +229,8 @@
 		5BB2A6221DA7D296003D38C3 /* FlexSwitchCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSwitchCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BB2A6251DA7D2E9003D38C3 /* FlexSwitchCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSwitchCollectionItem.swift; sourceTree = "<group>"; };
 		5BB3660F1DBA382500C26FC0 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		5BB36E491E66B37F00EE7EDF /* FlexViewTopBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexViewTopBar.swift; sourceTree = "<group>"; };
+		5BB36E4D1E66CCCC00EE7EDF /* FlexViewSearchTopBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexViewSearchTopBar.swift; sourceTree = "<group>"; };
 		5BB91C8A1DA3955900A94D12 /* FlexCollectionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCollectionSection.swift; sourceTree = "<group>"; };
 		5BB91C8B1DA3955900A94D12 /* FlexCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCollectionItem.swift; sourceTree = "<group>"; };
 		5BB91C8C1DA3955900A94D12 /* EmptyHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -348,10 +354,20 @@
 			path = MJRFlexStyleExamples;
 			sourceTree = "<group>";
 		};
+		5BB36E4C1E66B4CF00EE7EDF /* Top Bar */ = {
+			isa = PBXGroup;
+			children = (
+				5BB36E491E66B37F00EE7EDF /* FlexViewTopBar.swift */,
+				5BB36E4D1E66CCCC00EE7EDF /* FlexViewSearchTopBar.swift */,
+			);
+			name = "Top Bar";
+			sourceTree = "<group>";
+		};
 		5BB91C891DA3952100A94D12 /* Flex Collection */ = {
 			isa = PBXGroup;
 			children = (
 				5B3FF7271E13EA7E0077A106 /* Inner Components */,
+				5BB36E4C1E66B4CF00EE7EDF /* Top Bar */,
 				5BB91CA41DA3D87E00A94D12 /* Headers */,
 				5BB91CA01DA3980E00A94D12 /* Cells */,
 				5BB91C9F1DA3980300A94D12 /* Model */,
@@ -745,6 +761,7 @@
 				5BADC33F1DACDFF7009B899E /* FlexTextViewCollectionItem.swift in Sources */,
 				5BB114201DB8CADB00719EEB /* FlexImageCollectionItem.swift in Sources */,
 				5B3FF7371E15126C0077A106 /* FlexViewSupplementaryView.swift in Sources */,
+				5BB36E4F1E66CCCC00EE7EDF /* FlexViewSearchTopBar.swift in Sources */,
 				5BE4485B1D44C71D0011E5AE /* FlexMenu.swift in Sources */,
 				5B7234A21E3395990089A4E7 /* FlexMenuCollectionViewCell.swift in Sources */,
 				5BB91CA31DA39E0F00A94D12 /* ImageShapeLayerFactory.swift in Sources */,
@@ -785,6 +802,7 @@
 				5BB91C931DA3955900A94D12 /* FlexCollectionItem.swift in Sources */,
 				5B7234841E2CE49B0089A4E7 /* FlexHeaderView.swift in Sources */,
 				5BAD35011E51B8120078FEE8 /* FlexPrimaryLabel.swift in Sources */,
+				5BB36E4B1E66B37F00EE7EDF /* FlexViewTopBar.swift in Sources */,
 				5B7234811E2CC0A60089A4E7 /* FlexButtonCollectionViewCell.swift in Sources */,
 				5BE64CE71E4B280E00CD0271 /* FlexTextFieldCollectionItem.swift in Sources */,
 				5BEAF3231D6851B600BF5D83 /* MenusDemoViewController.swift in Sources */,
@@ -840,6 +858,7 @@
 				5BE4485D1D44C8D80011E5AE /* FlexMenuItem.swift in Sources */,
 				5BADFC5C1DA8C9DA004A5D12 /* FlexSliderCollectionItem.swift in Sources */,
 				5B53D0F31D5372010068BF04 /* FlexView.swift in Sources */,
+				5BB36E4E1E66CCCC00EE7EDF /* FlexViewSearchTopBar.swift in Sources */,
 				5B7234861E2CE4AC0089A4E7 /* FlexFooterView.swift in Sources */,
 				5BE448671D474DFD0011E5AE /* BezierPathHelper.swift in Sources */,
 				5BE64CE31E4B279B00CD0271 /* FlexTextFieldCollectionViewCell.swift in Sources */,
@@ -859,6 +878,7 @@
 				5B3FF7251E13BD9A0077A106 /* FlexShapeStyle.swift in Sources */,
 				5BAD35001E51B8120078FEE8 /* FlexPrimaryLabel.swift in Sources */,
 				5BAD34F31E5069BB0078FEE8 /* FlexCardTextViewCollectionItem.swift in Sources */,
+				5BB36E4A1E66B37F00EE7EDF /* FlexViewTopBar.swift in Sources */,
 				5BAD34F01E5068840078FEE8 /* FlexCardTextViewCollectionViewCell.swift in Sources */,
 				5BADFC621DA8E151004A5D12 /* FlexControlLayoutHelper.swift in Sources */,
 				5B9936D71D3A57620043E573 /* StyledSliderThumbList.swift in Sources */,

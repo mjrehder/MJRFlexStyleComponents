@@ -37,6 +37,15 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         self.demoCollectionView.header.subCaption.labelTextAlignment = .center
         self.demoCollectionView.header.subCaption.labelTextColor = .white
 
+        // Search Bar demo
+        let sb = FlexViewSearchTopBar(frame: CGRect(x: 0, y: 0, width: 100, height: 36))
+        sb.barStyleColor = UIColor.MKColor.Brown.P500
+        sb.controlInsets = UIEdgeInsetsMake(4, 4, 4, 4)
+        self.demoCollectionView.topBar = sb
+        self.demoCollectionView.topBarHeight = 36
+        sb.filterContentForSearchText = { searchText in
+            NSLog("Should search/filter for text: \(searchText)")
+        }
         /*
         Discussion:
          Using the UIAppearance for setting the style of the collection view elements.

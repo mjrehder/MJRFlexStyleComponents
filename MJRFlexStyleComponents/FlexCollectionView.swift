@@ -56,6 +56,8 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     
     fileprivate var cellSwipeMenuActiveCell: IndexPath?
     
+    open var refreshControl: UIRefreshControl?
+    
     open var itemCollectionView: UICollectionView {
         get {
             return _itemCollectionView!
@@ -181,6 +183,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     
     func setupView() {
         self.setupCollectionView()
+        self.addRefreshControl()
     }
     
     func setupCollectionView() {
@@ -475,6 +478,40 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
                     }
                 }
             }
+        }
+    }
+    
+    // MARK: - Top Bar
+
+    func addRefreshControl() {
+        if self.refreshControl == nil {
+            self.refreshControl = UIRefreshControl()
+            self.refreshControl?.tintColor = .clear
+            self.refreshControl?.addTarget(self, action: #selector(FlexCollectionView.refreshControlAction), for: UIControlEvents.valueChanged)
+        }
+        if let rc = self.refreshControl {
+            if !rc.isDescendant(of: self.itemCollectionView) {
+                self.itemCollectionView.addSubview(rc)
+            }
+        }
+    }
+
+    func refreshControlAction(){
+        self.showTopBar {
+            self.itemCollectionView.reloadData()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+            self.refreshControl?.endRefreshing()
+            self.setNeedsLayout()
+            self.itemCollectionView.reloadData()
+        }
+    }
+    
+    open override func hideTopBar(completionHandler: ((Void) -> Void)? = nil) {
+        super.hideTopBar {
+            UIView.animate(withDuration: 0.25, animations: {
+                self.itemCollectionView.frame = UIEdgeInsetsInsetRect(self.getViewRect(), self.viewMargins)
+            })
         }
     }
 }
