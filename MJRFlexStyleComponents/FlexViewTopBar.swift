@@ -33,6 +33,8 @@ open class FlexViewTopBar: FlexView {
     open var topBarUpdateHandler: ((Void) -> Void)?
     open var topBarCancelHandler: ((Void) -> Void)?
     
+    open var topBarActivated: ((Bool) -> Void)?
+
     open func cancel() {
         // Override in sub classes
     }

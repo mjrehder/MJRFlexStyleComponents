@@ -54,6 +54,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     
     open var flexCollectionDelegate: FlexCollectionViewDelegate?
     
+    open var cellSwipeEnabled: Bool = true
     fileprivate var cellSwipeMenuActiveCell: IndexPath?
     
     open var refreshControl: UIRefreshControl?
@@ -335,14 +336,14 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     }
     
     func swipeLeftGestureAction(_ recognizer: UISwipeGestureRecognizer) {
-        if let cell = recognizer.view as? FlexCollectionViewCell {
+        if self.cellSwipeEnabled, let cell = recognizer.view as? FlexCollectionViewCell {
             cell.swipeLeft()
             self.cellSwipeMenuActiveCell = self.itemCollectionView.indexPath(for: cell)
         }
     }
     
     func swipeRightGestureAction(_ recognizer: UISwipeGestureRecognizer) {
-        if let cell = recognizer.view as? FlexCollectionViewCell {
+        if self.cellSwipeEnabled, let cell = recognizer.view as? FlexCollectionViewCell {
             cell.swipeRight()
             self.cellSwipeMenuActiveCell = self.itemCollectionView.indexPath(for: cell)
         }

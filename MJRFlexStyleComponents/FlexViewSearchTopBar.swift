@@ -76,7 +76,6 @@ open class FlexViewSearchTopBar: FlexViewTopBar, UISearchBarDelegate {
         self.searchBar?.tintColor       = self.barStyleColor
         self.searchBar?.backgroundColor = self.barBackgroundColor
         self.searchBar?.placeholder     = self.searchBarPlaceholder
-
     }
     
     open func createSearchBar() {

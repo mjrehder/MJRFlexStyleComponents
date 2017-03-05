@@ -348,11 +348,13 @@ open class FlexView: FlexBaseControl {
         for menu in self.menus {
             self.applyMenuLocationAndSize(menu)
             let mmf = menu.menu.frame
-            if mmf.intersects(rfh) {
-                rfh = self.calculateWidthIntersectedFrame(oFrame: rfh, interFrame: mmf)
-            }
-            else if mmf.intersects(rff) {
-                rff = self.calculateWidthIntersectedFrame(oFrame: rff, interFrame: mmf)
+            if menu.hPos != .fill {
+                if mmf.intersects(rfh) {
+                    rfh = self.calculateWidthIntersectedFrame(oFrame: rfh, interFrame: mmf)
+                }
+                else if mmf.intersects(rff) {
+                    rff = self.calculateWidthIntersectedFrame(oFrame: rff, interFrame: mmf)
+                }
             }
         }
         
@@ -575,6 +577,7 @@ open class FlexView: FlexBaseControl {
                 })
             }
         }
+        self.topBar?.topBarActivated?(true)
     }
     
     open func hideTopBar(completionHandler: ((Void) -> Void)? = nil) {
@@ -591,6 +594,7 @@ open class FlexView: FlexBaseControl {
             }) { _ in
                 self.topBarActive = false
                 tbv.isHidden = true
+                self.topBar?.topBarActivated?(false)
                 completionHandler?()
             }
         }
