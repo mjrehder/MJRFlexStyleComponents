@@ -468,7 +468,11 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
                     self.itemCollectionView.deselectItem(at: ip, animated: true)
                     item.itemDeselectionActionHandler?()
                 }
-                else {
+                else if item.isSelected {
+                    self.itemCollectionView.deselectItem(at: ip, animated: true)
+                    item.itemDeselectionActionHandler?()
+                }
+                else if !item.isSelected {
                     self.itemCollectionView.selectItem(at: ip, animated: true, scrollPosition: UICollectionViewScrollPosition())
                     self.flexCollectionDelegate?.onFlexCollectionItemSelected(self, item: item)
                     item.itemSelectionActionHandler?()
