@@ -36,7 +36,7 @@ public protocol FlexCollectionItemSwipeDelegate {
 
 open class FlexCollectionItem: NSObject {
     open var reference: String
-
+    
     /// Use this to refer to other content or items. The auxReference is not used or altered by the FlexCollection.
     open var auxReference: String?
     
@@ -49,13 +49,15 @@ open class FlexCollectionItem: NSObject {
     open var swipeLeftMenuItems: [FlexLabel]?
     /// Swipe right menu items. A swipe gesture will be added to the cell when the menu items are set
     open var swipeRightMenuItems: [FlexLabel]?
-
+    
     open var swipeMenuDelegate: FlexCollectionItemSwipeDelegate?
     
     open var itemSelectionActionHandler: (() -> Void)?
     open var itemDeselectionActionHandler: (() -> Void)?
-
+    
     open var autoDeselectCellAfter: DispatchTimeInterval?
+    
+    open var isSelected: Bool = false
     
     public init(reference: String, text: NSAttributedString? = nil) {
         self.reference = reference

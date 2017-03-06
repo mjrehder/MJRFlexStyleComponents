@@ -62,9 +62,15 @@ open class FlexCollectionViewCell: UICollectionViewCell {
     var swipeLeftRightState: FlexCollectionViewCellSwipeState = .none
     var swipeMenuTapRecognizer: UITapGestureRecognizer?
     
+    private var _isSelected: Bool = false
     open override var isSelected: Bool {
-        didSet {
+        set {
+            self._isSelected = newValue
             self.setNeedsLayout()
+        }
+        get {
+            let itemSelected = self._isSelected || (self._item?.isSelected ?? false)
+            return itemSelected
         }
     }
     
@@ -312,5 +318,4 @@ open class FlexCollectionViewCell: UICollectionViewCell {
             self.layer.borderWidth = 0
         }
     }
-    
 }
