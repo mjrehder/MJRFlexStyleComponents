@@ -430,7 +430,6 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     func setupMenuGestures() {
         let touchGesture = UITapGestureRecognizer(target: self, action: #selector(FlexMenu.menuTouched))
         self.addGestureRecognizer(touchGesture)
-        
     }
 
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -475,16 +474,20 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     // MARK: - GenericStyleSliderTouchDelegate
     
     open func onThumbTouchEnded(_ index: Int) {
-        self.setSelectedItem(index)
-        self.notifyValueChanged()
+        if let menuItem = self.menuDataSource?.menuItemForIndex(self, index: index), menuItem.enabled {
+            self.setSelectedItem(index)
+            self.notifyValueChanged()
+        }
     }
     
     // MARK: - GenericStyleSliderSeparatorTouchDelegate
     
     open func onSeparatorTouchEnded(_ index: Int) {
         if index > 0 {
-            self.setSelectedItem(index-1)
-            self.notifyValueChanged()
+            if let menuItem = self.menuDataSource?.menuItemForIndex(self, index: index-1), menuItem.enabled {
+                self.setSelectedItem(index-1)
+                self.notifyValueChanged()
+            }
         }
     }
     
