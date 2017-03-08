@@ -62,6 +62,7 @@ open class FlexTextFieldCollectionViewCell: FlexBaseCollectionViewCell, UITextFi
         DispatchQueue.main.async {
             if let text = item.text, let tvItem = item as? FlexTextFieldCollectionItem {
                 if let tv = self.textField {
+                    tv.keyboardType = tvItem.keyboardType ?? .default
                     tv.attributedText = text
                     tv.attributedPlaceholder = tvItem.placeholderText
                     if let textColor = self.textColor {
