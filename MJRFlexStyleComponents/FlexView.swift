@@ -387,6 +387,10 @@ open class FlexView: FlexBaseControl {
             let stRect = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.controlInsets)
             self.layoutSupplementaryTextLabels(self.footer.caption, frame: stRect, attributedText: self.getFooterText())
             hasFooterText = true
+            self.footer.caption.isHidden = false
+        }
+        else {
+            self.footer.caption.isHidden = true
         }
         
         if self.hasSecondaryFooterText() {
@@ -394,6 +398,10 @@ open class FlexView: FlexBaseControl {
             let stRect = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.controlInsets)
             self.layoutSupplementaryTextLabels(self.footer.secondaryCaption, frame: stRect, attributedText: self.getSecondaryFooterText())
             hasFooterText = true
+            self.footer.secondaryCaption.isHidden = false
+        }
+        else {
+            self.footer.secondaryCaption.isHidden = true
         }
         
         if !hasFooterText {

@@ -240,6 +240,7 @@
 		5BB91CA11DA39E0F00A94D12 /* ImageShapeLayerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageShapeLayerFactory.swift; sourceTree = "<group>"; };
 		5BB91CA51DA3D8F600A94D12 /* FlexBaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexBaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BB91CA81DA3DC3500A94D12 /* FlexBaseCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexBaseCollectionItem.swift; sourceTree = "<group>"; };
+		5BBB64B01E77F231004F3C02 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		5BC284221DA66689004E1731 /* FlexCollectionDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCollectionDemoViewController.swift; sourceTree = "<group>"; };
 		5BC4B9AF1D520E7F0000421F /* FlexBaseControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexBaseControl.swift; sourceTree = "<group>"; };
 		5BD460401DA100B0001FA9B3 /* CGRectHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectHelper.swift; sourceTree = "<group>"; };
@@ -291,6 +292,7 @@
 		30F22389316036B00125166F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5BBB64B01E77F231004F3C02 /* Security.framework */,
 				E0532D1798B2537BC02B786B /* Pods_MJRFlexStyleComponents.framework */,
 				7EB58092D6A64F2179A05BD8 /* Pods_MJRFlexStyleExamples.framework */,
 			);

@@ -44,49 +44,49 @@ open class FlexLabel: FlexBaseControl {
     /// The font of the label
     @IBInspectable dynamic open var labelFont: UIFont? {
         didSet {
-            self.applyStyle()
+            self.setNeedsLayout()
         }
     }
     
     /// The text alignment of the label
     @IBInspectable dynamic open var labelTextAlignment: NSTextAlignment = .left {
         didSet {
-            self.applyStyle()
+            self.setNeedsLayout()
         }
     }
     
     /// The text color.
     @IBInspectable dynamic open var labelTextColor: UIColor? {
         didSet {
-            self.applyStyle()
+            self.setNeedsLayout()
         }
     }
     
     /// The border color.
     @IBInspectable dynamic open var labelBorderColor: UIColor? {
         didSet {
-            self.applyStyle()
+            self.setNeedsLayout()
         }
     }
     
     /// The border width
     @IBInspectable dynamic open var labelBorderWidth: CGFloat = 1.0 {
         didSet {
-            self.applyStyle()
+            self.setNeedsLayout()
         }
     }
     
     /// Left offset
     @IBInspectable dynamic open var labelLeftOffset: CGFloat = 0.0 {
         didSet {
-            self.applyStyle()
+            self.setNeedsLayout()
         }
     }
     
     /// Right offset
     @IBInspectable dynamic open var labelRightOffset: CGFloat = 0.0 {
         didSet {
-            self.applyStyle()
+            self.setNeedsLayout()
         }
     }
     
