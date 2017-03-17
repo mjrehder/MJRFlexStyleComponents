@@ -12,14 +12,24 @@ extension NSAttributedString {
     func heightWithConstrainedWidth(_ width: CGFloat) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
         let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).integral
-        
         return boundingBox.height
     }
     
     func widthWithConstrainedHeight(_ height: CGFloat) -> CGFloat {
         let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
         let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).integral
-        
         return boundingBox.width
+    }
+    
+    func heightWithConstrainedWidthSize(_ width: CGFloat) -> CGSize {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).integral
+        return boundingBox.size
+    }
+    
+    func widthWithConstrainedHeightSize(_ height: CGFloat) -> CGSize {
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+        let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).integral
+        return boundingBox.size
     }
 }

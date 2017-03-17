@@ -38,6 +38,14 @@ open class FlexControlLayoutHelper {
         lowerControl.frame = lowerFrame
     }
     
+    open static func applyFontAndColorToString(_ font: UIFont, color: UIColor, text: String) -> NSAttributedString {
+        let attributedString = NSAttributedString(string: text, attributes:
+            [   NSFontAttributeName : font,
+                NSForegroundColorAttributeName: color
+            ])
+        return attributedString
+    }
+    
     open class func layoutFourLabelsInArea(_ upperLeft: FlexLabel, lowerLeft: FlexLabel, upperRight: FlexLabel, lowerRight: FlexLabel, area: CGRect) {
         let ciUL = upperLeft.controlInsets
         let ciUR = upperRight.controlInsets
@@ -54,28 +62,33 @@ open class FlexControlLayoutHelper {
         let llFont = lowerLeft.label.font ?? UIFont.systemFont(ofSize: 12)
         let lrFont = lowerRight.label.font ?? UIFont.systemFont(ofSize: 12)
         
-        let ulText = upperLeft.label.attributedText?.string ?? upperLeft.label.text
-        let llText = lowerLeft.label.attributedText?.string ?? upperLeft.label.text
-        let urText = upperRight.label.attributedText?.string ?? upperLeft.label.text
-        let lrText = lowerRight.label.attributedText?.string ?? upperLeft.label.text
+        let ulString = upperLeft.label.text != nil ? self.applyFontAndColorToString(ulFont, color: upperLeft.labelTextColor ?? .black, text: upperLeft.label.text!) : nil
+        let llString = lowerLeft.label.text != nil ? self.applyFontAndColorToString(llFont, color: lowerLeft.labelTextColor ?? .black, text: lowerLeft.label.text!) : nil
+        let urString = upperRight.label.text != nil ? self.applyFontAndColorToString(urFont, color: upperRight.labelTextColor ?? .black, text: upperRight.label.text!) : nil
+        let lrString = lowerRight.label.text != nil ? self.applyFontAndColorToString(lrFont, color: lowerRight.labelTextColor ?? .black, text: lowerRight.label.text!) : nil
+        
+        let ulText = upperLeft.label.attributedText ?? ulString
+        let llText = lowerLeft.label.attributedText ?? llString
+        let urText = upperRight.label.attributedText ?? urString
+        let lrText = lowerRight.label.attributedText ?? lrString
         
         // Width calculations
-        let prefSizeUL = ulText?.widthWithConstrainedHeightSize(upperLeftFrame.size.height, font: ulFont) ?? CGSize.zero
-        let prefSizeLL = llText?.widthWithConstrainedHeightSize(lowerLeftFrame.size.height, font: llFont) ?? CGSize.zero
-        let prefSizeUR = urText?.widthWithConstrainedHeightSize(upperRightFrame.size.height, font: urFont) ?? CGSize.zero
-        let prefSizeLR = lrText?.widthWithConstrainedHeightSize(lowerRightFrame.size.height, font: lrFont) ?? CGSize.zero
+        let prefSizeUL = ulText?.widthWithConstrainedHeightSize(upperLeftFrame.size.height) ?? CGSize.zero
+        let prefSizeLL = llText?.widthWithConstrainedHeightSize(lowerLeftFrame.size.height) ?? CGSize.zero
+        let prefSizeUR = urText?.widthWithConstrainedHeightSize(upperRightFrame.size.height) ?? CGSize.zero
+        let prefSizeLR = lrText?.widthWithConstrainedHeightSize(lowerRightFrame.size.height) ?? CGSize.zero
         
-        let minHeightUL = ulText?.heightWithConstrainedWidthSize(prefSizeUL.width, font: ulFont).height ?? upperLeftFrame.size.height
-        let minHeightLL = llText?.heightWithConstrainedWidthSize(prefSizeLL.width, font: llFont).height ?? lowerLeftFrame.size.height
-        let minHeightUR = urText?.heightWithConstrainedWidthSize(prefSizeUR.width, font: urFont).height ?? upperRightFrame.size.height
-        let minHeightLR = lrText?.heightWithConstrainedWidthSize(prefSizeLR.width, font: lrFont).height ?? lowerRightFrame.size.height
+        let minHeightUL = ulText?.heightWithConstrainedWidthSize(prefSizeUL.width).height ?? upperLeftFrame.size.height
+        let minHeightLL = llText?.heightWithConstrainedWidthSize(prefSizeLL.width).height ?? lowerLeftFrame.size.height
+        let minHeightUR = urText?.heightWithConstrainedWidthSize(prefSizeUR.width).height ?? upperRightFrame.size.height
+        let minHeightLR = lrText?.heightWithConstrainedWidthSize(prefSizeLR.width).height ?? lowerRightFrame.size.height
         
         let totalUpperWidth = area.size.width - (ciUR.left + ciUR.right + ciUL.left + ciUL.right)
         let totalLowerWidth = area.size.width - (ciLR.left + ciLR.right + ciLL.left + ciLL.right)
         
-        var finalULWidth = prefSizeUR.width == 0 ? totalUpperWidth : prefSizeUL.width
+        var finalULWidth = prefSizeUR.width == 0 ? totalUpperWidth : totalUpperWidth - prefSizeUR.width
         var finalURWidth = prefSizeUL.width == 0 ? totalUpperWidth : prefSizeUR.width
-        var finalLLWidth = prefSizeLR.width == 0 ? totalLowerWidth : prefSizeLL.width
+        var finalLLWidth = prefSizeLR.width == 0 ? totalLowerWidth : totalLowerWidth -  prefSizeLR.width
         var finalLRWidth = prefSizeLL.width == 0 ? totalLowerWidth : prefSizeLR.width
         
         if prefSizeUL.width + prefSizeUR.width > totalUpperWidth {
