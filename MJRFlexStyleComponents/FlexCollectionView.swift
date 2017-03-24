@@ -447,7 +447,8 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
                     
                     if (totalCellWidth < contentWidth) {
                         let padding = (contentWidth - totalCellWidth) / 2.0
-                        return UIEdgeInsetsMake(2, padding, 0, padding)
+                        let sec = self.sections[section]
+                        return UIEdgeInsetsMake(sec.insets.top, padding, sec.insets.bottom, padding)
                     }
                 }
             }
