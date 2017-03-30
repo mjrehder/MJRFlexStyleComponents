@@ -272,7 +272,9 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
     // MARK: - FlexCollectionItemSwipeDelegate
     
     func swipeMenuSelected(_ item: FlexCollectionItem, menuItem: FlexLabel) {
-        NSLog("swipe menu item selected with text \(menuItem.label.text)")
+        if let text = menuItem.label.text {
+            NSLog("swipe menu item selected with text \(text)")
+        }
     }
     
     // MARK: - FlexCollectionViewDelegate

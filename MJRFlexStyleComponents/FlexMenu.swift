@@ -278,9 +278,9 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
         case .normal:
             return 0
         case .left:
-            return CGFloat(M_PI_2)
+            return CGFloat(Double.pi / 2.0)
         case .right:
-            return -CGFloat(M_PI_2)
+            return -CGFloat(Double.pi / 2.0)
             
         }
     }

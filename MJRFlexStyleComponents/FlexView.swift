@@ -323,9 +323,9 @@ open class FlexView: FlexBaseControl {
         case .top:
             return CGAffineTransform(rotationAngle: 0)
         case .left:
-            return CGAffineTransform(rotationAngle: -CGFloat(M_PI_2))
+            return CGAffineTransform(rotationAngle: -CGFloat(Double.pi / 2.0))
         case .right:
-            return CGAffineTransform(rotationAngle: CGFloat(M_PI_2))
+            return CGAffineTransform(rotationAngle: CGFloat(Double.pi / 2.0))
         }
     }
     
