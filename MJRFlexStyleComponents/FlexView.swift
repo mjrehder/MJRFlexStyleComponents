@@ -36,7 +36,7 @@ public enum FlexViewHeaderPosition {
     case right
 }
 
-open class FlexView: FlexBaseControl {
+open class FlexView: FlexBaseControl, UITextFieldDelegate {
     fileprivate var _header = FlexHeaderView()
     open var header: FlexHeaderView {
         get {
@@ -102,6 +102,12 @@ open class FlexView: FlexBaseControl {
     
     /// The position of the header. The footer, if used, is on the opposite end of the view.
     @IBInspectable open var headerPosition: FlexViewHeaderPosition = .top {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    @IBInspectable open var isHeaderTextEditable: Bool = false {
         didSet {
             self.setNeedsLayout()
         }
@@ -193,6 +199,9 @@ open class FlexView: FlexBaseControl {
         }
     }
 
+    open var headerTextChanged: ((String) -> Void)?
+    var headerEditor: UITextField?
+    
     open func addMenu(_ menu: FlexViewMenu) {
         self.menus.append(menu)
         self.addSubview(menu.menu)
@@ -379,6 +388,11 @@ open class FlexView: FlexBaseControl {
         }
         else {
             self.header.removeFromSuperview()
+        }
+        
+        if self.isHeaderTextEditable && self.header.isDescendant(of: self) && self.headerPosition == .top {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.headerTap(_:)))
+            self.header.caption.label.addGestureRecognizer(tapGesture)
         }
         
         var hasFooterText = false
@@ -627,5 +641,36 @@ open class FlexView: FlexBaseControl {
                 self.hideTopBar()
             }
         }
+    }
+    
+    // MARK: - Header Editor
+    
+    func headerTap(_ sender: Any) {
+        if headerEditor == nil {
+            self.headerEditor = UITextField(frame: self.header.caption.frame)
+            let headerText = self.getHeaderText()
+            self.headerEditor?.text = headerText.string
+            self.headerEditor?.textAlignment = self.header.caption.labelTextAlignment
+            self.headerEditor?.backgroundColor = self.header.styleColor ?? .white
+            self.headerEditor?.textColor = self.header.caption.labelTextColor ?? .black
+            self.headerEditor?.font = self.header.caption.labelFont ?? UIFont.systemFont(ofSize: 14)
+            self.headerEditor?.tintColor = self.header.caption.labelTextColor ?? .black
+            self.header.addSubview(self.headerEditor!)
+            self.headerEditor?.delegate = self
+            self.headerEditor?.becomeFirstResponder()
+        }
+    }
+    
+    public func textFieldDidEndEditing(_ textField: UITextField) {
+        if let text = textField.text {
+            self.headerTextChanged?(text)
+        }
+    }
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        self.headerEditor?.removeFromSuperview()
+        self.headerEditor = nil
+        return true
     }
 }
