@@ -59,6 +59,12 @@ public enum FlexMenuStyle {
 open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, GenericStyleSliderDelegate, GenericStyleSliderSeparatorTouchDelegate {
     fileprivate var touchedMenuItem: Int?
     
+    open var menuItems: [FlexMenuItem]? {
+        didSet {
+            self.reloadMenu()
+        }
+    }
+    
     open var menuDataSource: FlexMenuDataSource? {
         didSet {
             self.reloadMenu()
@@ -136,7 +142,11 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     }
     
     func notifyValueChanged() {
-        self.menuDataSource?.menuItemSelected(self, index: self.selectedItem())
+        let selItem = self.selectedItem()
+        self.menuDataSource?.menuItemSelected(self, index: selItem)
+        if let menuItem = self.getMenuItemForIndex(selItem) {
+            menuItem.selectionHandler?()
+        }
     }
     
     func setupMenu() {
@@ -144,10 +154,8 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
         self.separatorTouchDelegate = self
         self.sliderDelegate = self
         var vals: [Double] = []
-        if let ds = self.menuDataSource {
-            for _ in 0..<ds.numberOfMenuItems(self) {
-                vals.append(0)
-            }
+        for _ in 0..<self.getMenuItemsCount() {
+            vals.append(0)
         }
         self.values = vals
     }
@@ -205,34 +213,30 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     
     func getEquallySpacedMenuItemFrames() -> [CGRect] {
         var rects: [CGRect] = []
-        if let ds = self.menuDataSource {
-            let numSep = ds.numberOfMenuItems(self)
-            let maxExt = self.direction.principalSize(self.bounds.size)
-            let itemExt = (maxExt - (self.menuInterItemSpacing * (CGFloat(numSep-1)))) / CGFloat(numSep)
-            let itemOffset = itemExt + self.menuInterItemSpacing
-            for i in 0..<numSep {
-                let rect: CGRect
-                if self.direction == .horizontal {
-                    rect = CGRect(x: CGFloat(i) * itemOffset, y: 0, width: itemExt, height: self.bounds.height)
-                }
-                else {
-                    rect = CGRect(x: 0, y: CGFloat(i) * itemOffset, width: self.bounds.width, height: itemExt)
-                }
-                rects.append(rect)
+        let numSep = self.getMenuItemsCount()
+        let maxExt = self.direction.principalSize(self.bounds.size)
+        let itemExt = (maxExt - (self.menuInterItemSpacing * (CGFloat(numSep-1)))) / CGFloat(numSep)
+        let itemOffset = itemExt + self.menuInterItemSpacing
+        for i in 0..<numSep {
+            let rect: CGRect
+            if self.direction == .horizontal {
+                rect = CGRect(x: CGFloat(i) * itemOffset, y: 0, width: itemExt, height: self.bounds.height)
             }
+            else {
+                rect = CGRect(x: 0, y: CGFloat(i) * itemOffset, width: self.bounds.width, height: itemExt)
+            }
+            rects.append(rect)
         }
         return rects
     }
     
     fileprivate func getTotalTextWidth() -> CGFloat {
         var totalWidth: CGFloat = 0
-        if let ds = self.menuDataSource {
-            let numSep = ds.numberOfMenuItems(self)
-            for i in 0..<numSep {
-                let sep = self.separatorForThumb(i)
-                if let tSize = self.sizeOfTextLabel(sep) {
-                    totalWidth += self.direction.principalSize(tSize)
-                }
+        let numSep = self.getMenuItemsCount()
+        for i in 0..<numSep {
+            let sep = self.separatorForThumb(i)
+            if let tSize = self.sizeOfTextLabel(sep) {
+                totalWidth += self.direction.principalSize(tSize)
             }
         }
         return totalWidth
@@ -240,35 +244,33 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     
     func getDynamicallySpacedMenuItemFrames() -> [CGRect] {
         var rects: [CGRect] = []
-        if let ds = self.menuDataSource {
-            let numSep = ds.numberOfMenuItems(self)
-            let maxExt = self.direction.principalSize(self.bounds.size)
-            let ttWidth = self.getTotalTextWidth()
-            let textScaling = ttWidth > 0 ? (maxExt - (self.menuInterItemSpacing * (CGFloat(numSep-1)))) / ttWidth : 1.0
+        let numSep = self.getMenuItemsCount()
+        let maxExt = self.direction.principalSize(self.bounds.size)
+        let ttWidth = self.getTotalTextWidth()
+        let textScaling = ttWidth > 0 ? (maxExt - (self.menuInterItemSpacing * (CGFloat(numSep-1)))) / ttWidth : 1.0
+        
+        var lastOffset: CGFloat = 0
+        for i in 0..<numSep {
+            let sep = self.separatorForThumb(i)
             
-            var lastOffset: CGFloat = 0
-            for i in 0..<numSep {
-                let sep = self.separatorForThumb(i)
-
-                let itemExt: CGFloat
-                if let tSize = self.sizeOfTextLabel(sep) {
-                    itemExt = self.direction.principalSize(tSize) * textScaling
-                }
-                else {
-                    itemExt = self.direction.principalSize(self.getThumbSize())
-                }
-                
-                let rect: CGRect
-                if self.direction == .horizontal {
-                    rect = CGRect(x: lastOffset, y: 0, width: itemExt, height: self.bounds.height)
-                }
-                else {
-                    rect = CGRect(x: 0, y: lastOffset, width: self.bounds.width, height: itemExt)
-                }
-                rects.append(rect)
-                
-                lastOffset += itemExt + self.menuInterItemSpacing
+            let itemExt: CGFloat
+            if let tSize = self.sizeOfTextLabel(sep) {
+                itemExt = self.direction.principalSize(tSize) * textScaling
             }
+            else {
+                itemExt = self.direction.principalSize(self.getThumbSize())
+            }
+            
+            let rect: CGRect
+            if self.direction == .horizontal {
+                rect = CGRect(x: lastOffset, y: 0, width: itemExt, height: self.bounds.height)
+            }
+            else {
+                rect = CGRect(x: 0, y: lastOffset, width: self.bounds.width, height: itemExt)
+            }
+            rects.append(rect)
+            
+            lastOffset += itemExt + self.menuInterItemSpacing
         }
         return rects
     }
@@ -286,21 +288,19 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     }
     
     func layoutNonCompactMenuItems(_ thumbPos: FlexMenuThumbPosition, menuItemFrames: [CGRect]) {
-        if let ds = self.menuDataSource {
-            for idx in 0..<ds.numberOfMenuItems(self) {
-                let sep = self.separatorForThumb(idx)
-                let thumb = self.thumbList.thumbs[idx]
-                let miFrame = menuItemFrames[idx]
-                
-                let ts = self.getThumbSize()
-                let tp = self.thumbPosInsideSpacedRect(thumb, targetRect: miFrame, thumbPos: thumbPos)
-                let tr = CGRect(x: tp.x, y: tp.y, width: ts.width, height: ts.height)
-                thumb.frame = tr
-                
-                let sepRect = self.separatorRectInsideSpacedRect(thumb, targetRect: miFrame, thumbPos: thumbPos)
-                sep.frame = sepRect
-                sep.rotationInRadians = self.separatorLabelRotation()
-            }
+        for idx in 0..<self.getMenuItemsCount() {
+            let sep = self.separatorForThumb(idx)
+            let thumb = self.thumbList.thumbs[idx]
+            let miFrame = menuItemFrames[idx]
+            
+            let ts = self.getThumbSize()
+            let tp = self.thumbPosInsideSpacedRect(thumb, targetRect: miFrame, thumbPos: thumbPos)
+            let tr = CGRect(x: tp.x, y: tp.y, width: ts.width, height: ts.height)
+            thumb.frame = tr
+            
+            let sepRect = self.separatorRectInsideSpacedRect(thumb, targetRect: miFrame, thumbPos: thumbPos)
+            sep.frame = sepRect
+            sep.rotationInRadians = self.separatorLabelRotation()
         }
     }
     
@@ -402,12 +402,10 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
         var rectColors: [(CGRect, UIColor)] = []
         if let menuItemFrames = self.getActiveMenuFrames() {
             // Add layer with separator background colors
-            if let ds = self.menuDataSource {
-                for idx in 0..<ds.numberOfMenuItems(self) {
-                    let miFrame = menuItemFrames[idx]
-                    let bgColor = self.colorOfSeparatorLabel(idx+1) ?? separatorBackgroundColor
-                    rectColors.append((miFrame, bgColor ?? .clear))
-                }
+            for idx in 0..<self.getMenuItemsCount() {
+                let miFrame = menuItemFrames[idx]
+                let bgColor = self.colorOfSeparatorLabel(idx+1) ?? separatorBackgroundColor
+                rectColors.append((miFrame, bgColor ?? .clear))
             }
         }
         else {
@@ -474,7 +472,7 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     // MARK: - GenericStyleSliderTouchDelegate
     
     open func onThumbTouchEnded(_ index: Int) {
-        if let menuItem = self.menuDataSource?.menuItemForIndex(self, index: index), menuItem.enabled {
+        if let menuItem = self.getMenuItemForIndex(index), menuItem.enabled {
             self.setSelectedItem(index)
             self.notifyValueChanged()
         }
@@ -484,7 +482,7 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     
     open func onSeparatorTouchEnded(_ index: Int) {
         if index > 0 {
-            if let menuItem = self.menuDataSource?.menuItemForIndex(self, index: index-1), menuItem.enabled {
+            if let menuItem = self.getMenuItemForIndex(index-1), menuItem.enabled {
                 self.setSelectedItem(index-1)
                 self.notifyValueChanged()
             }
@@ -494,27 +492,27 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     // MARK: - GenericStyleSliderDelegate
     
     open func iconOfThumb(_ index: Int) -> UIImage? {
-        return self.menuDataSource?.menuItemForIndex(self, index: index).activeThumbIcon()
+        return self.getMenuItemForIndex(index)?.activeThumbIcon()
     }
     
     open func textOfThumb(_ index: Int) -> String? {
-        return self.menuDataSource?.menuItemForIndex(self, index: index).titleShortcut
+        return self.getMenuItemForIndex(index)?.titleShortcut
     }
     
     open func textOfSeparatorLabel(_ index: Int) -> String? {
         if index > 0 {
-            return self.menuDataSource?.menuItemForIndex(self, index: index-1).title
+            return self.getMenuItemForIndex(index-1)?.title
         }
         return nil
     }
     
     open func colorOfThumb(_ index: Int) -> UIColor? {
-        return self.menuDataSource?.menuItemForIndex(self, index: index).thumbColor
+        return self.getMenuItemForIndex(index)?.thumbColor
     }
     
     open func colorOfSeparatorLabel(_ index: Int) -> UIColor? {
         if index > 0 {
-            let color = self.menuDataSource?.menuItemForIndex(self, index: index-1).color
+            let color = self.getMenuItemForIndex(index-1)?.color
             if let si = self.touchedMenuItem, si == index - 1 {
                 return color?.lighter()
             }
@@ -527,4 +525,24 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
         return index == 0 ? .fixateToLower : .snapToLowerAndHigher
     }
 
+    // MARK: - Menu Items
+    
+    open func getMenuItemForIndex(_ index: Int) -> FlexMenuItem? {
+        if let menuItems = self.menuItems {
+            if index < menuItems.count {
+                return menuItems[index]
+            }
+        }
+        return self.menuDataSource?.menuItemForIndex(self, index: index)
+    }
+    
+    open func getMenuItemsCount() -> Int {
+        if let menuItems = self.menuItems {
+            return menuItems.count
+        }
+        if let ds = self.menuDataSource {
+            return ds.numberOfMenuItems(self)
+        }
+        return 0
+    }
 }

@@ -19,7 +19,6 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
     var flexViewMenu: FlexViewMenu?
     
     var menuItems: [FlexMenuItem] = []
-    var spacedMenuItems: [FlexMenuItem] = []
     var viewMenuHPosMenuItems: [FlexMenuItem] = []
     var viewMenuVPosMenuItems: [FlexMenuItem] = []
     var viewMenuItems: [FlexMenuItem] = []
@@ -52,9 +51,19 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
         let scol1 = FlexMenuItem(title: "First", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clear, thumbIcon: ti1, disabledThumbIcon: ti1d)
         let scol2 = FlexMenuItem(title: "Second Larger", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clear, thumbIcon: ti2, disabledThumbIcon: ti2d)
         let scol3 = FlexMenuItem(title: "Third Med", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clear, thumbIcon: ti3, disabledThumbIcon: ti3d)
-        self.spacedMenuItems.append(scol1)
-        self.spacedMenuItems.append(scol2)
-        self.spacedMenuItems.append(scol3)
+        var spacedMenuItems: [FlexMenuItem] = []
+        spacedMenuItems.append(scol1)
+        spacedMenuItems.append(scol2)
+        spacedMenuItems.append(scol3)
+        scol1.selectionHandler = {
+            scol1.enabled = !scol1.enabled
+        }
+        scol2.selectionHandler = {
+            scol2.enabled = !scol2.enabled
+        }
+        scol3.selectionHandler = {
+            scol3.enabled = !scol3.enabled
+        }
 
         let ci = UIImage(named: "CenterIcon")
         let fi = UIImage(named: "FillIcon")
@@ -92,12 +101,13 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
         self.dynSpacedMenu.menuItemStyle = .rounded
         self.dynSpacedMenu.menuInterItemSpacing = 10.0
 
-        self.verticalDynSpacedMenu.menuDataSource = self
+        // The vertical DynSpacedMenu does not use the menu data source!
         self.verticalDynSpacedMenu.thumbSize = ti1?.size
         self.verticalDynSpacedMenu.menuItemStyle = .rounded
         self.verticalDynSpacedMenu.menuInterItemSpacing = 10.0
         self.verticalDynSpacedMenu.direction = .vertical
         self.verticalDynSpacedMenu.separatorFont = UIFont.systemFont(ofSize: 12)
+        self.verticalDynSpacedMenu.menuItems = spacedMenuItems
 
         self.eqSpacedMenu.menuStyle = .equallySpaces(thumbPos: .top)
         self.dynSpacedMenu.menuStyle = .dynamicallySpaces(thumbPos: .bottom)
@@ -178,9 +188,6 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
                 self.flexView.addMenu(self.flexViewMenu!)
             }
         }
-        else if menu == self.verticalDynSpacedMenu {
-            self.spacedMenuItems[index].enabled = !self.spacedMenuItems[index].enabled
-        }
     }
     
     func menuItemForIndex(_ menu: FlexMenu, index: Int) -> FlexMenuItem {
@@ -196,9 +203,8 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
         else if menu == self.dynSpacedMenu {
             return self.viewMenuVPosMenuItems[index]
         }
-        else {
-            return self.spacedMenuItems[index]
-        }
+        // dummy return
+        return FlexMenuItem(title: "", titleShortcut: "", color: .clear, thumbColor: .clear)
     }
     
     func numberOfMenuItems(_ menu: FlexMenu) -> Int {
@@ -214,8 +220,6 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
         else if menu == self.dynSpacedMenu {
             return self.viewMenuVPosMenuItems.count
         }
-        else {
-            return self.spacedMenuItems.count
-        }
+        return 0
     }
 }
