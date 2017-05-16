@@ -262,6 +262,11 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         return remainingCellArea
     }
     
+    open override func refreshLayout() {
+        self.flexContentView?.frame = self.bounds
+        super.refreshLayout()
+    }
+
     open func layoutControl(_ item: FlexBaseCollectionItem, area: CGRect) {
         if area.size.width < 0 || area.size.height < 0 {
             return
