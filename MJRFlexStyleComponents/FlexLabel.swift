@@ -108,7 +108,9 @@ open class FlexLabel: FlexBaseControl {
         if let tcolor = self.labelTextColor {
             self.label.textColor = tcolor
         }
-        self.label.font = labelFont
+        if let font = self.labelFont {
+            self.label.font = font
+        }
         self.label.textAlignment = labelTextAlignment
         
         self.label.frame = UIEdgeInsetsInsetRect(self.bounds, UIEdgeInsetsMake(0, self.labelLeftOffset, 0, self.labelRightOffset))
