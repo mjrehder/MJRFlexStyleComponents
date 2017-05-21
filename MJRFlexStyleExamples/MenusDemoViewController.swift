@@ -48,9 +48,10 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
         let ti2d = UIImage(named: "ThumbIcon2")?.tint(.gray)
         let ti3 = UIImage(named: "ThumbIcon3")
         let ti3d = UIImage(named: "ThumbIcon3")?.tint(.gray)
+        let ti3s = UIImage(named: "ThumbIcon3")?.tint(.green)
         let scol1 = FlexMenuItem(title: "First", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clear, thumbIcon: ti1, disabledThumbIcon: ti1d)
         let scol2 = FlexMenuItem(title: "Second Larger", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clear, thumbIcon: ti2, disabledThumbIcon: ti2d)
-        let scol3 = FlexMenuItem(title: "Third Med", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clear, thumbIcon: ti3, disabledThumbIcon: ti3d)
+        let scol3 = FlexMenuItem(title: "Third Med", titleShortcut: "", color: UIColor.MKColor.Grey.P200, thumbColor: UIColor.clear, thumbIcon: ti3, disabledThumbIcon: ti3d, selectedThumbIcon: ti3s)
         var spacedMenuItems: [FlexMenuItem] = []
         spacedMenuItems.append(scol1)
         spacedMenuItems.append(scol2)
@@ -62,7 +63,7 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
             scol2.enabled = !scol2.enabled
         }
         scol3.selectionHandler = {
-            scol3.enabled = !scol3.enabled
+            scol3.selected = !scol3.selected
         }
 
         let ci = UIImage(named: "CenterIcon")

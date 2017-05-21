@@ -35,20 +35,24 @@ open class FlexMenuItem {
     let color: UIColor
     let thumbColor: UIColor
     public var thumbIcon: UIImage?
+    public var selectedThumbIcon: UIImage?
     public var disabledThumbIcon: UIImage?
     public var enabled = true
+    public var selected = false
     public var selectionHandler: ((Void) -> Void)?
 
-    public init(title: String, titleShortcut: String, color: UIColor, thumbColor: UIColor, thumbIcon: UIImage? = nil, disabledThumbIcon: UIImage? = nil) {
+    public init(title: String, titleShortcut: String, color: UIColor, thumbColor: UIColor, thumbIcon: UIImage? = nil, disabledThumbIcon: UIImage? = nil, selectedThumbIcon: UIImage? = nil) {
         self.title = title
         self.titleShortcut = titleShortcut
         self.color = color
         self.thumbColor = thumbColor
         self.thumbIcon = thumbIcon
         self.disabledThumbIcon = disabledThumbIcon
+        self.selectedThumbIcon = selectedThumbIcon
     }
     
     public func activeThumbIcon() -> UIImage? {
-        return self.enabled ? self.thumbIcon : (self.disabledThumbIcon ?? self.thumbIcon)
+        let icon = self.selected ? self.selectedThumbIcon : self.thumbIcon
+        return self.enabled ? icon : (self.disabledThumbIcon ?? icon)
     }
 }
