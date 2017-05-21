@@ -39,6 +39,7 @@ open class FlexMenuItem {
     public var disabledThumbIcon: UIImage?
     public var enabled = true
     public var selected = false
+    public var hidden = false
     public var selectionHandler: ((Void) -> Void)?
 
     public init(title: String, titleShortcut: String, color: UIColor, thumbColor: UIColor, thumbIcon: UIImage? = nil, disabledThumbIcon: UIImage? = nil, selectedThumbIcon: UIImage? = nil) {

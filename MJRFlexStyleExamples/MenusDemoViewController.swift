@@ -64,6 +64,7 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
         }
         scol3.selectionHandler = {
             scol3.selected = !scol3.selected
+            scol2.hidden = scol3.selected
         }
 
         let ci = UIImage(named: "CenterIcon")

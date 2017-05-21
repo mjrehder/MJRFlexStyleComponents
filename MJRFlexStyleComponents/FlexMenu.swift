@@ -492,31 +492,59 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     // MARK: - GenericStyleSliderDelegate
     
     open func iconOfThumb(_ index: Int) -> UIImage? {
-        return self.getMenuItemForIndex(index)?.activeThumbIcon()
+        if let mi = self.getMenuItemForIndex(index) {
+            if mi.hidden {
+                return nil
+            }
+            return mi.activeThumbIcon()
+        }
+        return nil
     }
     
     open func textOfThumb(_ index: Int) -> String? {
-        return self.getMenuItemForIndex(index)?.titleShortcut
+        if let mi = self.getMenuItemForIndex(index) {
+            if mi.hidden {
+                return nil
+            }
+            return mi.titleShortcut
+        }
+        return nil
     }
     
     open func textOfSeparatorLabel(_ index: Int) -> String? {
         if index > 0 {
-            return self.getMenuItemForIndex(index-1)?.title
+            if let mi = self.getMenuItemForIndex(index-1) {
+                if mi.hidden {
+                    return nil
+                }
+                return mi.title
+            }
         }
         return nil
     }
     
     open func colorOfThumb(_ index: Int) -> UIColor? {
-        return self.getMenuItemForIndex(index)?.thumbColor
+        if let mi = self.getMenuItemForIndex(index) {
+            if mi.hidden {
+                return .clear
+            }
+            return mi.thumbColor
+        }
+        return nil
     }
     
     open func colorOfSeparatorLabel(_ index: Int) -> UIColor? {
         if index > 0 {
-            let color = self.getMenuItemForIndex(index-1)?.color
-            if let si = self.touchedMenuItem, si == index - 1 {
-                return color?.lighter()
+            if let mi = self.getMenuItemForIndex(index-1) {
+                if mi.hidden {
+                    return .clear
+                }
+                let color = mi.color
+                if let si = self.touchedMenuItem, si == index - 1 {
+                    return color.lighter()
+                }
+                return color
             }
-            return color
         }
         return nil
     }
