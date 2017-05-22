@@ -31,7 +31,7 @@
 import UIKit
 
 public protocol FlexCollectionViewCellTouchedDelegate {
-    func onFlexCollectionViewCellTouched(_ item : FlexCollectionItem?)
+    func onFlexCollectionViewCellTouched(_ item: FlexCollectionItem?, xRelPos: CGFloat, yRelPos: CGFloat)
 }
 
 enum FlexCollectionViewCellSwipeState {
@@ -287,6 +287,15 @@ open class FlexCollectionViewCell: UICollectionViewCell {
             }
         }
         self.animateSwipeReset()
+    }
+    
+    // MARK: - Gestures
+    
+    func getRelPosFromTapGesture(_ recognizer: UITapGestureRecognizer) -> CGPoint {
+        let pos = recognizer.location(in: self)
+        let relPosX = pos.x / self.bounds.size.width
+        let relPosY = pos.y / self.bounds.size.height
+        return CGPoint(x: relPosX, y: relPosY)
     }
     
     // MARK: - Layout

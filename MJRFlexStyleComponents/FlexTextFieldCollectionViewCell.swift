@@ -87,7 +87,8 @@ open class FlexTextFieldCollectionViewCell: FlexBaseCollectionViewCell, UITextFi
     
     open func cellTextAreaTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item {
-            self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item)
+            let relPos = self.getRelPosFromTapGesture(recognizer)
+            self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item, xRelPos: relPos.x, yRelPos: relPos.y)
         }
     }
     

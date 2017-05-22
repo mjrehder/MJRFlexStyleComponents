@@ -131,14 +131,16 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     
     open func cellTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item as? FlexBaseCollectionItem {
-            self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item)
+            let relPos = self.getRelPosFromTapGesture(recognizer)
+            self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item, xRelPos: relPos.x, yRelPos: relPos.y)
         }
     }
     
     open func accessoryViewTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item as? FlexBaseCollectionItem {
             if item.contentInteractionWillSelectItem {
-                self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item)
+                let relPos = self.getRelPosFromTapGesture(recognizer)
+                self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item, xRelPos: relPos.x, yRelPos: relPos.y)
             }
             item.accessoryImageActionHandler?()
         }
@@ -147,7 +149,8 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     open func imageViewTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item as? FlexBaseCollectionItem {
             if item.contentInteractionWillSelectItem {
-                self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item)
+                let relPos = self.getRelPosFromTapGesture(recognizer)
+                self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item, xRelPos: relPos.x, yRelPos: relPos.y)
             }
             item.imageViewActionHandler?()
         }

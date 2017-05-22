@@ -55,7 +55,8 @@ open class FlexButtonCollectionViewCell: FlexCollectionViewCell {
     
     open func cellTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item as? FlexButtonCollectionItem {
-            self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item)
+            let relPos = self.getRelPosFromTapGesture(recognizer)
+            self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item, xRelPos: relPos.x, yRelPos: relPos.y)
         }
     }
     

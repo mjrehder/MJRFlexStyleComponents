@@ -53,6 +53,8 @@ open class FlexCollectionItem: NSObject {
     open var swipeMenuDelegate: FlexCollectionItemSwipeDelegate?
     
     open var itemSelectionActionHandler: (() -> Void)?
+    /// This handler will return the location inside the selected cell by [0..1] for both axis
+    open var itemPrecisionSelectionActionHandler: ((CGFloat, CGFloat) -> Void)?
     open var itemDeselectionActionHandler: (() -> Void)?
     
     open var autoDeselectCellAfter: DispatchTimeInterval?
