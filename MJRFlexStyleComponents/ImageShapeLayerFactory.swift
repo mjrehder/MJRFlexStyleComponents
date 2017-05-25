@@ -32,7 +32,7 @@ import StyledLabel
 
 open class ImageShapeLayerFactory {
 
-    open static func createImageShapeInView(_ imageViewRect: CGRect, viewBounds: CGRect, image: UIImage?, viewStyle: ShapeStyle, imageStyle: ShapeStyle, imageFitting: FlexImageShapeFit) -> CALayer {
+    open static func createImageShapeInView(_ imageViewRect: CGRect, viewBounds: CGRect, image: UIImage?, viewStyle: ShapeStyle, imageStyle: ShapeStyle, imageFitting: FlexImageShapeFit, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil) -> CALayer {
         let bgLayer = CALayer()
         bgLayer.frame = imageViewRect
         let clipRect = viewBounds.offsetBy(dx: -imageViewRect.origin.x, dy: -imageViewRect.origin.y)
@@ -41,6 +41,11 @@ open class ImageShapeLayerFactory {
         
         if let img = image {
             let imgLayer = ImageShapeLayerFactory.createImageShape(imageViewRect, image: img, imageStyle: imageStyle, imageFitting: imageFitting)
+            
+            if let bw = borderWidth, bw > 0 && borderColor != nil {
+                let bLayer = StyledShapeLayer.createShape(imageStyle, bounds: imgLayer.bounds.insetBy(dx: bw * 0.5, dy: bw * 0.5), color: .clear, borderColor: borderColor ?? .clear, borderWidth: bw)
+                imgLayer.addSublayer(bLayer)
+            }
             bgLayer.addSublayer(imgLayer)
         }
         

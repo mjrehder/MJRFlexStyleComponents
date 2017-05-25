@@ -90,12 +90,14 @@ open class FlexBaseStylingControl: UIControl {
         }
     }
     
-    func createBorderLayer(_ style: ShapeStyle, layerRect: CGRect) -> CALayer? {
-        let borderWidth = self.borderWidth
-        if borderWidth > 0 && borderColor != nil {
-            let bLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: .clear, borderColor: borderColor ?? .clear, borderWidth: borderWidth)
+    func createBorderLayer(_ style: ShapeStyle, layerRect: CGRect, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil) -> CALayer? {
+        let bw = borderWidth ?? self.borderWidth
+        let bc = borderColor ?? self.borderColor
+        if bw > 0 && bc != nil {
+            let bLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: .clear, borderColor: bc ?? .clear, borderWidth: bw)
             return bLayer
         }
         return nil
     }
+
 }

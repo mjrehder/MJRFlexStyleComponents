@@ -61,6 +61,18 @@ open class FlexImageShapeView: FlexView {
         }
     }
     
+    open dynamic var imageBorderColor: UIColor? = nil {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    open dynamic var imageBorderWidth: CGFloat = 1.0 {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         self.initView()
@@ -86,10 +98,11 @@ open class FlexImageShapeView: FlexView {
         if self.backgroundShape.superlayer != nil {
             self.backgroundShape.removeFromSuperlayer()
         }
-
-        let bgLayer = ImageShapeLayerFactory.createImageShapeInView(imageViewRect, viewBounds: self.bounds, image: self.image, viewStyle: self.getStyle(), imageStyle: self.imageStyle.style, imageFitting: self.backgroundImageFit)
+        
+        let bgLayer = ImageShapeLayerFactory.createImageShapeInView(imageViewRect, viewBounds: self.bounds, image: self.image, viewStyle: self.getStyle(), imageStyle: self.imageStyle.style, imageFitting: self.backgroundImageFit, borderWidth: self.imageBorderWidth, borderColor: self.imageBorderColor)
         
         self.styleLayer.insertSublayer(bgLayer, at: 0)
         self.backgroundShape = bgLayer
     }
+
 }
