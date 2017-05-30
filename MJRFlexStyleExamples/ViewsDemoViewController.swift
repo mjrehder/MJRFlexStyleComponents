@@ -22,9 +22,13 @@ class ViewsDemoViewController: UIViewController {
     }
     
     func setupView() {
+        
+        let demoGradient = CAGradientLayer()
+        demoGradient.colors = [UIColor.MKColor.BlueGrey.P400.cgColor, UIColor.MKColor.BlueGrey.P100.cgColor]
+        
         let cpath = UIBezierPath(roundedRect: self.outerFlexView.bounds, cornerRadius: 10)
         self.outerFlexView.style = FlexShapeStyle(style: .custom(path: cpath))
-        self.outerFlexView.styleColor = UIColor.MKColor.BlueGrey.P100
+        self.outerFlexView.styleColorGradient = demoGradient
         self.outerFlexView.header.styleColor = UIColor.MKColor.BlueGrey.P500
         self.outerFlexView.header.caption.labelTextAlignment = .center
         

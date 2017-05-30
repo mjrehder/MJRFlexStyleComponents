@@ -55,6 +55,13 @@ open class FlexBaseStylingControl: UIControl {
         }
     }
     
+    /// The view’s background color gradient. If set, this overrides the styleColor
+    open dynamic var styleColorGradient: CAGradientLayer? {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
     /// The view's border color.
     @IBInspectable open dynamic var borderColor: UIColor? {
         didSet {

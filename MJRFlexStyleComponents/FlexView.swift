@@ -466,9 +466,9 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
     }
     
     override func applyStyle(_ style: ShapeStyle) {
-        let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clear
         let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
-        let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
+        let bgsLayer = self.getBackgroundLayer(style)
+        
         let style = self.getStyle()
         
         if self.hasHeaderText() {

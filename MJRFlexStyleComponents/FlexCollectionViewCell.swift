@@ -291,7 +291,7 @@ open class FlexCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Gestures
     
-    func getRelPosFromTapGesture(_ recognizer: UITapGestureRecognizer) -> CGPoint {
+    open func getRelPosFromTapGesture(_ recognizer: UITapGestureRecognizer) -> CGPoint {
         let pos = recognizer.location(in: self)
         let relPosX = pos.x / self.bounds.size.width
         let relPosY = pos.y / self.bounds.size.height

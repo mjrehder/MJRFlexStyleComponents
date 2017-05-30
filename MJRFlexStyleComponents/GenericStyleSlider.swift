@@ -435,9 +435,8 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     override func applyStyle(_ style: ShapeStyle) {
-        let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clear
         let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
-        let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
+        let bgsLayer = self.getBackgroundLayer(style)
         
         let sepLayer = self.createSeparatorLayer(layerRect)
         bgsLayer.addSublayer(sepLayer)

@@ -31,7 +31,7 @@ import UIKit
 import StyledLabel
 
 open class FlexBaseControl: FlexBaseStylingControl {
-    var styleLayer = CAShapeLayer()
+    var styleLayer = CALayer()
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -58,14 +58,35 @@ open class FlexBaseControl: FlexBaseStylingControl {
         self.applyStyle(self.getStyle())
     }
     
+    open func getBackgroundLayer(_ style: ShapeStyle) -> CALayer {
+        let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clear
+        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
+        let bgsLayer: CALayer
+        
+        if let gradientLayer = self.styleColorGradient {
+            let maskLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: .black)
+            let gradLayer = CAGradientLayer()
+            gradLayer.locations = gradientLayer.locations
+            gradLayer.colors = gradientLayer.colors
+            gradLayer.startPoint = gradientLayer.startPoint
+            gradLayer.endPoint = gradientLayer.endPoint
+            gradLayer.type = gradientLayer.type
+            bgsLayer = gradLayer
+            bgsLayer.mask = maskLayer
+        }
+        else {
+            bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
+        }
+        return bgsLayer
+    }
+    
     func applyStyle(_ style: ShapeStyle) {
         if self.styleLayer.superlayer == nil {
             self.layer.addSublayer(styleLayer)
         }
         
         let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
-        let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clear
-        let bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
+        let bgsLayer = self.getBackgroundLayer(style)
         
         // Add layer with border, if required
         if let bLayer = self.createBorderLayer(style, layerRect: layerRect) {
