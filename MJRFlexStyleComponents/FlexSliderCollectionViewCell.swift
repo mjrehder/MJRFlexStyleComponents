@@ -75,9 +75,8 @@ open class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
     }
     
     override open func applyStyles() {
+        self.applyContentViewInfo()
         if let item = self.item as? FlexSliderCollectionItem, let fcv = self.flexContentView {
-            fcv.headerAttributedText = item.title
-            self.applySelectionStyles(fcv)
             var remainingCellArea = fcv.getViewRect()
             remainingCellArea = self.layoutIconView(item, area: remainingCellArea)
             remainingCellArea = self.layoutAccessoryView(item, area: remainingCellArea)

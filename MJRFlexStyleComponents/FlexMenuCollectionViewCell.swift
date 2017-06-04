@@ -66,15 +66,13 @@ open class FlexMenuCollectionViewCell: FlexBaseCollectionViewCell {
     }
     
     override open func applyStyles() {
+        self.applyContentViewInfo()
         if let item = self.item as? FlexMenuCollectionItem, let fcv = self.flexContentView {
             if let flexMenu = self.flexMenu {
                 if flexMenu.menuDataSource == nil {
                     flexMenu.menuDataSource = item.menuDataSource
                 }
             }
-            fcv.headerAttributedText = item.title
-            fcv.headerPosition = item.headerPosition ?? .top
-            self.applySelectionStyles(fcv)
             var remainingCellArea = fcv.getViewRect()
             remainingCellArea = self.layoutIconView(item, area: remainingCellArea)
             remainingCellArea = self.layoutAccessoryView(item, area: remainingCellArea)

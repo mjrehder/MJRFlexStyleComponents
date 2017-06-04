@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MJRFlexStyleComponents'
-  s.version          = '2.8.19'
+  s.version          = '2.8.20'
   s.license          = 'MIT'
   s.summary          = 'Flexible components and views with style'
   s.homepage         = 'https://github.com/mjrehder/MJRFlexStyleComponents.git'

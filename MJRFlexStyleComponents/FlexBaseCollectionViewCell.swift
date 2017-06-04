@@ -315,9 +315,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         // Intentionally left blank
     }
     
-    override open func applyStyles() {
-        super.applyStyles()
-        
+    open func applyContentViewInfo() {
         if let item = self.item as? FlexBaseCollectionItem, let fcv = self.flexContentView {
             fcv.headerAttributedText = item.title
             fcv.subHeaderAttributedText = item.underTitle
@@ -328,7 +326,14 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
                 fcv.headerPosition = hp
             }
             self.applySelectionStyles(fcv)
-            
+        }
+    }
+    
+    override open func applyStyles() {
+        super.applyStyles()
+        
+        self.applyContentViewInfo()
+        if let item = self.item as? FlexBaseCollectionItem {
             switch self.displayMode {
             case .normal:
                 var remainingCellArea = self.getBaseViewRect()
