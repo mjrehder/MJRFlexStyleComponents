@@ -35,6 +35,9 @@ open class FlexSliderCollectionItem: FlexBaseCollectionItem {
     open var minValue: Double = 0
     open var maxValue: Double = 1
     
+    open var thumbText: String? = nil
+    open var numberFormatString: String? = nil
+    
     public init(reference: String, value: Double, text: NSAttributedString? = nil, icon: UIImage? = nil, accessoryImage: UIImage? = nil, title: NSAttributedString? = nil, valueChangedHandler: ((_ value: Double) -> Void)? = nil) {
         self.value = value
         self.valueChangedHandler = valueChangedHandler

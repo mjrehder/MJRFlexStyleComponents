@@ -183,11 +183,18 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         let flexSliderAppearance = FlexSlider.appearance(whenContainedInInstancesOf: [FlexSliderCollectionViewCell.self])
         flexSliderAppearance.thumbTintColor = UIColor.MKColor.Brown.P700
         flexSliderAppearance.minimumTrackTintColor = UIColor.MKColor.Brown.P200
-
+        flexSliderAppearance.style = FlexShapeStyle(style: .roundedFixed(cornerRadius: 10))
+        flexSliderAppearance.thumbStyle = FlexShapeStyle(style: .roundedFixed(cornerRadius: 10))
+        flexSliderAppearance.borderWidth = 0.5
+        flexSliderAppearance.borderColor = UIColor.MKColor.Brown.P500
+        
         let sliderItem = FlexSliderCollectionItem(reference: "slider", value: 0.6, text: NSAttributedString(string: "Slider"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 4")) { (value) in
             NSLog("The slider is now \(value)")
         }
         sliderItem.controlInsets = UIEdgeInsetsMake(0, 0, 8, 8)
+        sliderItem.numberFormatString = nil
+        sliderItem.thumbText = ""
+
         self.demoCollectionView.addItem(secRef, item: sliderItem)
 
         

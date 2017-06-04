@@ -259,7 +259,11 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
     }
     
     func dataChangedOfSeriesAtPoint(_ flexSeries: FlexSeriesView, series: Int, point: Int, data: Double) {
-        self.dataSeries[series][point] = data
+        if self.dataSeries.count < series {
+            if self.dataSeries[series].count < point {
+                self.dataSeries[series][point] = data
+            }
+        }
     }
     
     func numberOfSeries(_ flexSeries: FlexSeriesView) -> Int {

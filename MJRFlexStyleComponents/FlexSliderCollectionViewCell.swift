@@ -62,6 +62,8 @@ open class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
             fs.maximumValue = item.maxValue
             fs.value = item.value
             fs.controlInsets = controlInsets
+            fs.thumbText = item.thumbText
+            fs.numberFormatString = item.numberFormatString
             fs.frame = UIEdgeInsetsInsetRect(imageViewRect, controlInsets)
             let sliderTotalWidth = imageViewRect.size.width + controlInsets.left + controlInsets.right
             remainingCellArea = remainingCellArea.insetBy(dx: sliderTotalWidth*0.5, dy: 0).offsetBy(dx: -sliderTotalWidth*0.5, dy: 0)

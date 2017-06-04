@@ -31,7 +31,7 @@ import UIKit
 
 @IBDesignable
 open class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
-
+    
     public override init(frame: CGRect) {
         var targetFrame = frame
         if frame.isNull || frame.size.height == 0 || frame.size.width == 0 {
@@ -48,9 +48,15 @@ open class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
     
     open var value: Double {
         get {
+            if self.values.count == 0 {
+                self.values = [0]
+            }
             return self.values[0]
         }
         set(newValue) {
+            if self.values.count == 0 {
+                self.values = [0]
+            }
             self.values[0] = newValue
         }
     }
@@ -72,24 +78,18 @@ open class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
             self.applyStyle(self.getStyle())
         }
     }
-
+    
     @IBInspectable open var maximumTrackText: String? = nil {
         didSet {
             self.applyStyle(self.getStyle())
         }
     }
-
+    
     func setupSlider() {
         self.continuous = true
-        self.style = FlexShapeStyle(style: .tube)
-        self.thumbStyle = FlexShapeStyle(style: .tube)
-        self.separatorStyle = FlexShapeStyle(style: .box)
         self.minimumValue = 0
         self.maximumValue = 1
-        self.borderColor = UIColor.black
-        self.borderWidth = 1.0
         self.thumbSnappingBehaviour = .freeform
-        self.values = [0]
         self.sliderDelegate = self
     }
     
@@ -117,9 +117,9 @@ open class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
     open func colorOfSeparatorLabel(_ index: Int) -> UIColor? {
         return index == 0 ? self.minimumTrackTintColor ?? UIColor.red.darkened(amount: 0.2) : self.maximumTrackTintColor ?? .clear
     }
-
+    
     open func behaviourOfThumb(_ index: Int) -> StyledSliderThumbBehaviour? {
         return nil
     }
-
+    
 }
