@@ -84,6 +84,8 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
         self.styleMenuItems.append(col3)
         
         self.styleMenuSelector.menuDataSource = self
+        self.styleMenuSelector.thumbStyle = FlexShapeStyle(style: .rounded)
+        self.styleMenuSelector.style = FlexShapeStyle(style: .rounded)
     }
     
     func setupColorSelectionMenuSlider() {
@@ -97,6 +99,8 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
         self.colorMenuItems.append(col4)
         
         self.colorMenuSelectionSlider.menuDataSource = self
+        self.colorMenuSelectionSlider.thumbStyle = FlexShapeStyle(style: .rounded)
+        self.colorMenuSelectionSlider.style = FlexShapeStyle(style: .rounded)
     }
     
     func setupSliderGraphView() {
