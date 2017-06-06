@@ -57,6 +57,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     open var cellSwipeEnabled: Bool = true
     fileprivate var cellSwipeMenuActiveCell: IndexPath?
     
+    open var isRefreshControlAvailable = true
     open var refreshControl: UIRefreshControl?
     
     open var itemCollectionView: UICollectionView {
@@ -491,7 +492,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     // MARK: - Top Bar
 
     func addRefreshControl() {
-        if self.refreshControl == nil {
+        if self.refreshControl == nil && self.isRefreshControlAvailable {
             self.refreshControl = UIRefreshControl()
             self.refreshControl?.tintColor = .clear
             self.refreshControl?.addTarget(self, action: #selector(FlexCollectionView.refreshControlAction), for: UIControlEvents.valueChanged)
