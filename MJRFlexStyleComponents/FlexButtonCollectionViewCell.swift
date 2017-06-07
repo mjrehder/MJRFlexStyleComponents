@@ -99,6 +99,11 @@ open class FlexButtonCollectionViewCell: FlexCollectionViewCell {
         super.applyStyles()
         
         if let item = self.item as? FlexButtonCollectionItem, let fcv = self.flexContentView {
+            fcv.headerAttributedText = item.title
+            if let hp = item.headerPosition {
+                fcv.headerPosition = hp
+            }
+            self.applySelectionStyles(fcv)
             let remainingCellArea = fcv.getViewRect()
             let controlInsets = item.controlInsets ?? self.controlInsets
             self.layoutText(item, area: UIEdgeInsetsInsetRect(remainingCellArea, controlInsets))
