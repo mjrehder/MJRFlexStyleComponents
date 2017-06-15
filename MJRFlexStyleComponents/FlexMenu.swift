@@ -525,7 +525,7 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
             if mi.hidden {
                 return .clear
             }
-            return mi.thumbColor
+            return self.selectedItem() == index ? mi.selectedThumbColor : mi.thumbColor
         }
         return nil
     }
@@ -536,7 +536,7 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
                 if mi.hidden {
                     return .clear
                 }
-                let color = mi.color
+                let color = self.selectedItem() == index - 1 ? mi.selectedColor : mi.color
                 if let si = self.touchedMenuItem, si == index - 1 {
                     return color.lighter()
                 }

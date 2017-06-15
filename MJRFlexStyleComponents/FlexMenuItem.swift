@@ -31,9 +31,11 @@ import UIKit
 
 open class FlexMenuItem {
     public var title: String
-    let titleShortcut: String
-    let color: UIColor
-    let thumbColor: UIColor
+    public var titleShortcut: String
+    public var color: UIColor
+    public var thumbColor: UIColor
+    public var selectedColor: UIColor
+    public var selectedThumbColor: UIColor
     public var thumbIcon: UIImage?
     public var selectedThumbIcon: UIImage?
     public var disabledThumbIcon: UIImage?
@@ -46,7 +48,9 @@ open class FlexMenuItem {
         self.title = title
         self.titleShortcut = titleShortcut
         self.color = color
+        self.selectedColor = color
         self.thumbColor = thumbColor
+        self.selectedThumbColor = thumbColor
         self.thumbIcon = thumbIcon
         self.disabledThumbIcon = disabledThumbIcon
         self.selectedThumbIcon = selectedThumbIcon
