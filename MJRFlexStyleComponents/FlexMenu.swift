@@ -508,6 +508,10 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
         return nil
     }
     
+    open func attributedTextOfThumb(_ index: Int) -> NSAttributedString? {
+        return nil
+    }
+    
     open func textOfSeparatorLabel(_ index: Int) -> String? {
         if index > 0 {
             if let mi = self.getMenuItemForIndex(index-1) {
@@ -517,6 +521,10 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
                 return mi.title
             }
         }
+        return nil
+    }
+    
+    open func attributedTextOfSeparatorLabel(_ index: Int) -> NSAttributedString? {
         return nil
     }
     

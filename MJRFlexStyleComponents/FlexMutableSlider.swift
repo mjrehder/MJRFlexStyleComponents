@@ -1,10 +1,10 @@
 //
-//  FlexSwitch.swift
+//  FlexMutableSlider.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 23.07.16.
+//  Created by Martin Rehder on 18.06.2017.
 /*
- * Copyright 2016-present Martin Jacob Rehder.
+ * Copyright 2017-present Martin Jacob Rehder.
  * http://www.rehsco.com
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,75 +27,74 @@
  *
  */
 
-
 import UIKit
-import DynamicColor
 
-public protocol FlexSwitchDelegate {
-    func switchStateChanged(_ flexSwitch: FlexSwitch, on: Bool)
-}
-
-// The FlexSwitch is only supporting horizontal layout
-@IBDesignable open class FlexSwitch: GenericStyleSlider, GenericStyleSliderDelegate, GenericStyleSliderTouchDelegate {
-
-    open var switchDelegate: FlexSwitchDelegate?
+open class FlexMutableSlider: GenericStyleSlider, GenericStyleSliderDelegate {
+    private var thumbs: [MutableSliderThumbItem] = []
     
+    @IBInspectable open dynamic var minimumTrackTintColor: UIColor? {
+        didSet {
+            self.applyStyle(self.getStyle())
+        }
+    }
+
     public override init(frame: CGRect) {
         var targetFrame = frame
         if frame.isNull || frame.size.height == 0 || frame.size.width == 0 {
             targetFrame = CGRect(x: 0,y: 0,width: 90,height: 30)
         }
         super.init(frame: targetFrame)
-        self.setupSwitch()
+        self.setupSlider()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.setupSwitch()
+        self.setupSlider()
     }
-
-    func setupSwitch() {
-        self.continuous = false
+    
+    func setupSlider() {
+        self.continuous = true
         self.minimumValue = 0
         self.maximumValue = 1
-        self.thumbSnappingBehaviour = .snapToLowerAndHigher
-        self.values = [0]
+        self.thumbSnappingBehaviour = .freeform
         self.sliderDelegate = self
-        self.thumbTouchDelegate = self
-
-        self.addTarget(self, action: #selector(FlexSwitch.switchChanged), for: .valueChanged)
     }
-
-    @IBInspectable open dynamic var onTintColor: UIColor? {
-        didSet {
-            self.applySeparatorStyle(self.separatorStyle)
+    
+    // MARK: - Public interface
+    
+    open func addThumb(_ thumb: MutableSliderThumbItem) {
+        self.thumbs.append(thumb)
+        self.recreateThumbs()
+    }
+    
+    open func removeThumb(at idx: Int) {
+        self.thumbs.remove(at: idx)
+        self.recreateThumbs()
+    }
+    
+    open func getThumb(at idx: Int) -> MutableSliderThumbItem? {
+        if idx < self.thumbs.count {
+            return self.thumbs[idx]
         }
+        return nil
     }
     
-    @IBInspectable open dynamic var thumbTintColor: UIColor? {
-        didSet {
-            self.applyThumbStyle(self.thumbStyle)
+    // MARK: - Model Handling
+    
+    func recreateThumbs() {
+        var vals:[Double] = []
+        for thumb in self.thumbs {
+            vals.append(thumb.initialValue)
         }
-    }
-    
-    open var on: Bool {
-        get {
-            return self.values[0] > 0.5
-        }
-    }
-    
-    open func setOn(_ isOn: Bool) {
-        let targetValue = isOn ? 1.0 : 0.0
-        self.values = [targetValue]
-    }
-    
-    func switchChanged() {
-        self.switchDelegate?.switchStateChanged(self, on: self.on)
+        self.values = vals
     }
     
     // MARK: - GenericStyleSliderDelegate
     
     open func iconOfThumb(_ index: Int) -> UIImage? {
+        if index < self.thumbs.count {
+            return self.thumbs[index].thumbIcon
+        }
         return nil
     }
     
@@ -103,34 +102,45 @@ public protocol FlexSwitchDelegate {
         return nil
     }
     
-    open func attributedTextOfThumb(_ index: Int) -> NSAttributedString? {
-        return nil
-    }
-    
     open func textOfSeparatorLabel(_ index: Int) -> String? {
         return nil
     }
     
-    open func attributedTextOfSeparatorLabel(_ index: Int) -> NSAttributedString? {
-        return nil
-    }
-    
     open func colorOfThumb(_ index: Int) -> UIColor? {
-        return self.thumbTintColor ?? .lightGray
+        if index < self.thumbs.count {
+            return self.thumbs[index].thumbColor
+        }
+        return nil
     }
     
     open func colorOfSeparatorLabel(_ index: Int) -> UIColor? {
-        return index == 0 ? self.onTintColor ?? UIColor.red.darkened(amount: 0.2) : self.styleColor
+        if index == 0 {
+            return self.minimumTrackTintColor
+        }
+        if index-1 < self.thumbs.count {
+            return self.thumbs[index-1].separatorColor
+        }
+        return .clear
     }
     
     open func behaviourOfThumb(_ index: Int) -> StyledSliderThumbBehaviour? {
+        if index < self.thumbs.count {
+            return self.thumbs[index].behaviour
+        }
         return nil
     }
     
-    // MARK: - GenericStyleSliderTouchDelegate
+    open func attributedTextOfThumb(_ index: Int) -> NSAttributedString? {
+        if index < self.thumbs.count {
+            return self.thumbs[index].thumbText
+        }
+        return nil
+    }
     
-    open func onThumbTouchEnded(_ index: Int) {
-        self.setOn(!self.on)
-        self.switchChanged()
+    open func attributedTextOfSeparatorLabel(_ index: Int) -> NSAttributedString? {
+        if index-1 < self.thumbs.count && index > 0 {
+            return self.thumbs[index-1].separatorText
+        }
+        return nil
     }
 }

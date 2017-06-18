@@ -33,13 +33,13 @@ import DynamicColor
 
 public protocol GenericStyleSliderDelegate {
     func textOfThumb(_ index: Int) -> String?
+    func attributedTextOfThumb(_ index: Int) -> NSAttributedString?
     func colorOfThumb(_ index: Int) -> UIColor?
     func iconOfThumb(_ index: Int) -> UIImage?
     func behaviourOfThumb(_ index: Int) -> StyledSliderThumbBehaviour?
     func textOfSeparatorLabel(_ index: Int) -> String?
+    func attributedTextOfSeparatorLabel(_ index: Int) -> NSAttributedString?
     func colorOfSeparatorLabel(_ index: Int) -> UIColor?
-    
-    // TODO: Maybe support NSAttributedString?
 }
 
 public protocol GenericStyleSliderTouchDelegate {
@@ -235,6 +235,11 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     /// The thumb text to display. If the text is nil it will display the current value of the stepper. Defaults with empty string.
     /// Use the delegate to get fine grained control over each thumb
     @IBInspectable open var thumbText: String? = "" {
+        didSet {
+            self.assignThumbTexts()
+        }
+    }
+    @IBInspectable open var thumbAttributedText: NSAttributedString? = nil {
         didSet {
             self.assignThumbTexts()
         }
@@ -673,8 +678,14 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
                 hintLabel.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index)?.lighter() ?? thumbBackgroundColor?.lighter()
                 
             case .changed:
-                if thumb.behaviour == .fixateToLower || thumb.behaviour == .fixateToHigher || thumb.behaviour == .fixateToCenter {
+                switch thumb.behaviour {
+                case .fixateToLower:
+                    fallthrough
+                case .fixateToCenter:
+                    fallthrough
+                case .fixateToHigher:
                     self.thumbList.applyThumbBehaviour(thumb)
+                default:
                     break
                 }
                 let translationInView = sender.translation(in: thumb)
@@ -766,8 +777,6 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         let thumb = LabelFactory.defaultStyledThumb()
         thumb.index = self.thumbList.thumbs.count
         thumb.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index) ?? self.thumbBackgroundColor
-        thumb.font = self.thumbFont
-        thumb.textColor = self.thumbTextColor
         thumb.behaviour = self.sliderDelegate?.behaviourOfThumb(thumb.index) ?? self.thumbSnappingBehaviour
         self.thumbList.thumbs.append(thumb)
         self.addSubview(thumb)
@@ -779,13 +788,27 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         let thumb = self.thumbList.thumbs[index]
         if let delTT = self.sliderDelegate?.textOfThumb(index) {
             thumb.text = delTT
+            self.assignThumbFontAndColor(thumb)
+        }
+        else if let attrText = self.sliderDelegate?.attributedTextOfThumb(index) {
+            thumb.attributedText = attrText
         }
         else if thumbText == nil {
             thumb.text = self.valueAsText(_values[thumb.index])
+            self.assignThumbFontAndColor(thumb)
+        }
+        else if let attrText = self.thumbAttributedText {
+            thumb.attributedText = attrText
         }
         else {
             thumb.text = self.thumbText
+            self.assignThumbFontAndColor(thumb)
         }
+    }
+    
+    func assignThumbFontAndColor(_ thumb: StyledSliderThumb) {
+        thumb.font = self.thumbFont
+        thumb.textColor = self.thumbTextColor
     }
     
     func assignThumbTexts() {

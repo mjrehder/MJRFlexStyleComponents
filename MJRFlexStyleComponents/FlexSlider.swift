@@ -103,10 +103,18 @@ open class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
         return nil
     }
     
+    open func attributedTextOfThumb(_ index: Int) -> NSAttributedString? {
+        return nil
+    }
+    
     open func textOfSeparatorLabel(_ index: Int) -> String? {
         if index == self.values.count {
             return self.maximumTrackText
         }
+        return nil
+    }
+    
+    open func attributedTextOfSeparatorLabel(_ index: Int) -> NSAttributedString? {
         return nil
     }
     

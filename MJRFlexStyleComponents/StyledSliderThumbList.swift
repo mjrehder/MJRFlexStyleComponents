@@ -81,6 +81,8 @@ open class StyledSliderThumbList {
             self.updateThumbPosition(hp, thumbIndex: thumb.index)
         case .fixateToLower:
             self.updateThumbPosition(lp, thumbIndex: thumb.index)
+        case .snapToValue(let v):
+            thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosForValue(v, thumbIndex: thumb.index))
         }
     }
     

@@ -1,10 +1,10 @@
 //
-//  StyledSliderThumbBehaviour.swift
+//  MutableSliderThumbItem.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 22.07.16.
+//  Created by Martin Rehder on 18.06.2017.
 /*
- * Copyright 2016-present Martin Jacob Rehder.
+ * Copyright 2017-present Martin Jacob Rehder.
  * http://www.rehsco.com
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,16 +27,22 @@
  *
  */
 
-import Foundation
+import UIKit
 
-public enum StyledSliderThumbBehaviour {
-    case freeform
-    case snapToLower
-    case snapToHigher
-    case snapToCenter
-    case snapToLowerAndHigher
-    case fixateToLower
-    case fixateToHigher
-    case fixateToCenter
-    case snapToValue(v: Double)
+open class MutableSliderThumbItem {
+    open var behaviour: StyledSliderThumbBehaviour = .freeform
+    open var thumbText: NSAttributedString?
+    open var separatorText: NSAttributedString?
+    open var thumbColor: UIColor?
+    open var separatorColor: UIColor?
+    open var thumbIcon: UIImage?
+    open var initialValue: Double = 0
+    
+    // TODO:
+    // relativeThumbPosWhileSliding
+    // trigger values, trigger enabled, triggered
+    // minimum thumb size, size adjust for position, maximum thumb size (normal thumb size?)
+    // font and icon size adjust based on thumb size
+    
+    
 }
