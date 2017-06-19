@@ -1,8 +1,8 @@
 //
-//  MutableSliderThumbItem.swift
+//  SliderThumbSizeInfo.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 18.06.2017.
+//  Created by Martin Rehder on 19.06.2017.
 /*
  * Copyright 2017-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -29,20 +29,20 @@
 
 import UIKit
 
-open class MutableSliderThumbItem {
-    open var behaviour: StyledSliderThumbBehaviour = .freeform
-    open var thumbText: String?
-    open var thumbAttributedText: NSAttributedString?
-    open var separatorText: String?
-    open var separatorAttributedText: NSAttributedString?
-    open var thumbColor: UIColor?
-    open var separatorColor: UIColor?
-    open var thumbIcon: UIImage?
-    open var initialValue: Double = 0
+public enum ThumbSizingType {
+    case fixed
+    case relativeToSlider(min: CGFloat, max: CGFloat)
+    case relativeToSeparator(min: CGFloat, max: CGFloat)
+}
+
+open class SliderThumbSizeInfo: NSObject {
+    var sizingType: ThumbSizingType = .fixed
+    var thumbMinSize: CGSize?
+    var thumbMaxSize: CGSize?
+    var thumbSize: CGSize?
     
-    var sizeInfo: SliderThumbSizeInfo?
-    
-    // TODO:
-    // trigger values, trigger enabled, triggered
-    
+    var autoAdjustTextFontSize = false
+    var minFontSize: CGFloat = 5.0
+    var maxFontSize: CGFloat = 48.0
+    var textInsetsForAutoTextFont = UIEdgeInsetsMake(2, 2, 2, 2)
 }

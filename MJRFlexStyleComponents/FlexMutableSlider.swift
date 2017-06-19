@@ -99,10 +99,16 @@ open class FlexMutableSlider: GenericStyleSlider, GenericStyleSliderDelegate {
     }
     
     open func textOfThumb(_ index: Int) -> String? {
+        if index < self.thumbs.count {
+            return self.thumbs[index].thumbText
+        }
         return nil
     }
     
     open func textOfSeparatorLabel(_ index: Int) -> String? {
+        if index-1 < self.thumbs.count && index > 0 {
+            return self.thumbs[index-1].separatorText
+        }
         return nil
     }
     
@@ -132,14 +138,21 @@ open class FlexMutableSlider: GenericStyleSlider, GenericStyleSliderDelegate {
     
     open func attributedTextOfThumb(_ index: Int) -> NSAttributedString? {
         if index < self.thumbs.count {
-            return self.thumbs[index].thumbText
+            return self.thumbs[index].thumbAttributedText
         }
         return nil
     }
     
     open func attributedTextOfSeparatorLabel(_ index: Int) -> NSAttributedString? {
         if index-1 < self.thumbs.count && index > 0 {
-            return self.thumbs[index-1].separatorText
+            return self.thumbs[index-1].separatorAttributedText
+        }
+        return nil
+    }
+    
+    open func sizeInfoOfThumb(_ index: Int) -> SliderThumbSizeInfo? {
+        if index < self.thumbs.count {
+            return self.thumbs[index].sizeInfo
         }
         return nil
     }

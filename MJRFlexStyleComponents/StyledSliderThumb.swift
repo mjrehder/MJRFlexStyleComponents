@@ -35,6 +35,10 @@ open class StyledSliderThumb: StyledLabel {
     var behaviour: StyledSliderThumbBehaviour = .freeform
     var index = 0
     var backgroundIcon: UIImage?
+    var sizeInfo: SliderThumbSizeInfo?
+
+    // Used internally when relatively sliding
+    var tempValue: Double?
     
     fileprivate var backgroundShape = CALayer()
     

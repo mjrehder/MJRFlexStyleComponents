@@ -131,6 +131,10 @@
 		5BB91CA71DA3D8F600A94D12 /* FlexBaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91CA51DA3D8F600A94D12 /* FlexBaseCollectionViewCell.swift */; };
 		5BB91CA91DA3DC3500A94D12 /* FlexBaseCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91CA81DA3DC3500A94D12 /* FlexBaseCollectionItem.swift */; };
 		5BB91CAA1DA3DC3500A94D12 /* FlexBaseCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91CA81DA3DC3500A94D12 /* FlexBaseCollectionItem.swift */; };
+		5BC279C41EF7E74F000A2F3A /* SliderThumbSizeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC279C31EF7E74F000A2F3A /* SliderThumbSizeInfo.swift */; };
+		5BC279C51EF7E74F000A2F3A /* SliderThumbSizeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC279C31EF7E74F000A2F3A /* SliderThumbSizeInfo.swift */; };
+		5BC279C71EF800B5000A2F3A /* StyledLabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC279C61EF800B5000A2F3A /* StyledLabelExtension.swift */; };
+		5BC279C81EF800B5000A2F3A /* StyledLabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC279C61EF800B5000A2F3A /* StyledLabelExtension.swift */; };
 		5BC284231DA66689004E1731 /* FlexCollectionDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC284221DA66689004E1731 /* FlexCollectionDemoViewController.swift */; };
 		5BC4B9B01D520E7F0000421F /* FlexBaseControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC4B9AF1D520E7F0000421F /* FlexBaseControl.swift */; };
 		5BC4B9B11D520E7F0000421F /* FlexBaseControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC4B9AF1D520E7F0000421F /* FlexBaseControl.swift */; };
@@ -246,6 +250,8 @@
 		5BB91CA51DA3D8F600A94D12 /* FlexBaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexBaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BB91CA81DA3DC3500A94D12 /* FlexBaseCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexBaseCollectionItem.swift; sourceTree = "<group>"; };
 		5BBB64B01E77F231004F3C02 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		5BC279C31EF7E74F000A2F3A /* SliderThumbSizeInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderThumbSizeInfo.swift; sourceTree = "<group>"; };
+		5BC279C61EF800B5000A2F3A /* StyledLabelExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledLabelExtension.swift; sourceTree = "<group>"; };
 		5BC284221DA66689004E1731 /* FlexCollectionDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCollectionDemoViewController.swift; sourceTree = "<group>"; };
 		5BC4B9AF1D520E7F0000421F /* FlexBaseControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexBaseControl.swift; sourceTree = "<group>"; };
 		5BC9E1201EF6895E00740834 /* SliderDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderDemoViewController.swift; sourceTree = "<group>"; };
@@ -442,6 +448,7 @@
 				5BB114211DB8F7FD00719EEB /* NSAttributedStringExtension.swift */,
 				5BAD34E91E5058970078FEE8 /* UITextView+Defaults.swift */,
 				5BAD34EC1E5059470078FEE8 /* UITextView+Alignment.swift */,
+				5BC279C61EF800B5000A2F3A /* StyledLabelExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -450,6 +457,7 @@
 			isa = PBXGroup;
 			children = (
 				5BC9E1291EF6AAE700740834 /* MutableSliderThumbItem.swift */,
+				5BC279C31EF7E74F000A2F3A /* SliderThumbSizeInfo.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -774,6 +782,7 @@
 				5BB1141D1DB8CA9700719EEB /* FlexImageCollectionViewCell.swift in Sources */,
 				5B0859E41D7EE84B00484E8F /* FlexTextViewDemoViewController.swift in Sources */,
 				5BADFC631DA8E151004A5D12 /* FlexControlLayoutHelper.swift in Sources */,
+				5BC279C81EF800B5000A2F3A /* StyledLabelExtension.swift in Sources */,
 				5B3FF73A1E152C600077A106 /* FlexCellView.swift in Sources */,
 				5B99370E1D3A9E5B0043E573 /* GenericStyleSlider.swift in Sources */,
 				5BC4B9B11D520E7F0000421F /* FlexBaseControl.swift in Sources */,
@@ -835,6 +844,7 @@
 				5B0859E11D7EE65500484E8F /* FlexTextView.swift in Sources */,
 				5B3FF7231E13BC8C0077A106 /* FlexBaseStylingControl.swift in Sources */,
 				5BAD34EB1E5058970078FEE8 /* UITextView+Defaults.swift in Sources */,
+				5BC279C51EF7E74F000A2F3A /* SliderThumbSizeInfo.swift in Sources */,
 				5BB91C9B1DA3955900A94D12 /* FlexCollectionViewCell.swift in Sources */,
 				5BE4486B1D4760EE0011E5AE /* FlexSlider.swift in Sources */,
 				5B7234871E2CE4AC0089A4E7 /* FlexFooterView.swift in Sources */,
@@ -870,6 +880,7 @@
 				5B3FF7321E13EF500077A106 /* FlexBaseCollectionViewCellDetailTextLabel.swift in Sources */,
 				5BADC33E1DACDFF7009B899E /* FlexTextViewCollectionItem.swift in Sources */,
 				5BB91C901DA3955900A94D12 /* FlexCollectionSection.swift in Sources */,
+				5BC279C41EF7E74F000A2F3A /* SliderThumbSizeInfo.swift in Sources */,
 				5BE4486A1D4760EE0011E5AE /* FlexSlider.swift in Sources */,
 				5BAD34FD1E51B3C70078FEE8 /* FlexSecondaryLabel.swift in Sources */,
 				5BF702151D3116AC0011555A /* GenericStyleSlider.swift in Sources */,
@@ -905,6 +916,7 @@
 				5BAD34F31E5069BB0078FEE8 /* FlexCardTextViewCollectionItem.swift in Sources */,
 				5BB36E4A1E66B37F00EE7EDF /* FlexViewTopBar.swift in Sources */,
 				5BAD34F01E5068840078FEE8 /* FlexCardTextViewCollectionViewCell.swift in Sources */,
+				5BC279C71EF800B5000A2F3A /* StyledLabelExtension.swift in Sources */,
 				5BADFC621DA8E151004A5D12 /* FlexControlLayoutHelper.swift in Sources */,
 				5B9936D71D3A57620043E573 /* StyledSliderThumbList.swift in Sources */,
 				5B7234801E2CC0A60089A4E7 /* FlexButtonCollectionViewCell.swift in Sources */,

@@ -127,6 +127,10 @@ public protocol FlexSwitchDelegate {
         return nil
     }
     
+    open func sizeInfoOfThumb(_ index: Int) -> SliderThumbSizeInfo? {
+        return nil
+    }
+    
     // MARK: - GenericStyleSliderTouchDelegate
     
     open func onThumbTouchEnded(_ index: Int) {

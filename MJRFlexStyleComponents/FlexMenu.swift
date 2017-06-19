@@ -255,7 +255,8 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
                 itemExt = self.direction.principalSize(tSize) * textScaling
             }
             else {
-                itemExt = self.direction.principalSize(self.getThumbSize())
+                let thumb = self.thumbList.thumbs[i]
+                itemExt = self.direction.principalSize(self.getThumbSize(thumb))
             }
             
             let rect: CGRect
@@ -290,7 +291,7 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
             let thumb = self.thumbList.thumbs[idx]
             let miFrame = menuItemFrames[idx]
             
-            let ts = self.getThumbSize()
+            let ts = self.getThumbSize(thumb)
             let tp = self.thumbPosInsideSpacedRect(thumb, targetRect: miFrame, thumbPos: thumbPos)
             let tr = CGRect(x: tp.x, y: tp.y, width: ts.width, height: ts.height)
             thumb.frame = tr
@@ -303,7 +304,7 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     
     func thumbPosInsideSpacedRect(_ thumb: StyledSliderThumb, targetRect: CGRect, thumbPos: FlexMenuThumbPosition) -> CGPoint {
         var tPos = CGPoint.zero
-        let ts = self.getThumbSize()
+        let ts = self.getThumbSize(thumb)
         let sic = self.direction.principalSize(targetRect.size)
         let sicNP = self.direction.nonPrincipalSize(targetRect.size)
         let tSic = self.direction.principalSize(ts)
@@ -336,7 +337,7 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     
     func separatorRectInsideSpacedRect(_ thumb: StyledSliderThumb, targetRect: CGRect, thumbPos: FlexMenuThumbPosition) -> CGRect {
         var tRect = targetRect
-        let ts = self.getThumbSize()
+        let ts = self.getThumbSize(thumb)
         let tSic = self.direction.principalSize(ts)
         let tSicNP = self.direction.nonPrincipalSize(ts)
         if (thumb.text == nil || thumb.text == "" ) && thumb.backgroundIcon == nil {
@@ -556,6 +557,10 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     
     open func behaviourOfThumb(_ index: Int) -> StyledSliderThumbBehaviour? {
         return index == 0 ? .fixateToLower : .snapToLowerAndHigher
+    }
+    
+    open func sizeInfoOfThumb(_ index: Int) -> SliderThumbSizeInfo? {
+        return nil
     }
 
     // MARK: - Menu Items

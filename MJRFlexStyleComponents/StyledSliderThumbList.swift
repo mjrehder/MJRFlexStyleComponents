@@ -83,6 +83,8 @@ open class StyledSliderThumbList {
             self.updateThumbPosition(lp, thumbIndex: thumb.index)
         case .snapToValue(let v):
             thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosForValue(v, thumbIndex: thumb.index))
+        case .snapToValueRelative(let v):
+            thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosForValue(v, thumbIndex: thumb.index))
         }
     }
     
@@ -195,6 +197,7 @@ open class StyledSliderThumbList {
         return (self.direction.principalPosition(self.bounds.origin) + nextPos) - (nextThumbSize + thumbSize) * 0.5
     }
     
+    // Returns the delta change
     func updateThumbPosition(_ pos: CGFloat, thumbIndex: Int) {
         let thumb = self.thumbs[thumbIndex]
         var pPos = pos
@@ -222,6 +225,11 @@ open class StyledSliderThumbList {
         else {
             return CGPoint(x: thumb.center.x, y: pos)
         }
+    }
+    
+    func getThumbPos(thumbIndex: Int) -> CGPoint {
+        let v = self.getValueFromThumbPos(thumbIndex)
+        return self.getThumbPosForValue(v, thumbIndex: thumbIndex)
     }
     
     func getThumbPosForValue(_ value: Double, thumbIndex: Int) -> CGPoint {

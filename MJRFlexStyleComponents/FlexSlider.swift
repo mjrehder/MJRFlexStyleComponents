@@ -130,4 +130,8 @@ open class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
         return nil
     }
     
+    open func sizeInfoOfThumb(_ index: Int) -> SliderThumbSizeInfo? {
+        return nil
+    }
+
 }
