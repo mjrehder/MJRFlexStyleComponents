@@ -35,14 +35,9 @@ public enum ThumbSizingType {
     case relativeToSeparator(min: CGFloat, max: CGFloat)
 }
 
-open class SliderThumbSizeInfo: NSObject {
-    var sizingType: ThumbSizingType = .fixed
-    var thumbMinSize: CGSize?
-    var thumbMaxSize: CGSize?
-    var thumbSize: CGSize?
-    
-    var autoAdjustTextFontSize = false
-    var minFontSize: CGFloat = 5.0
-    var maxFontSize: CGFloat = 48.0
-    var textInsetsForAutoTextFont = UIEdgeInsetsMake(2, 2, 2, 2)
+open class SliderThumbSizeInfo: SliderItemSizeInfo {
+    open var sizingType: ThumbSizingType = .fixed
+    open var thumbMinSize: CGSize?
+    open var thumbMaxSize: CGSize?
+    open var thumbSize: CGSize?    
 }

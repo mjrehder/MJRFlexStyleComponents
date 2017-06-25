@@ -31,12 +31,7 @@ import UIKit
 
 open class FlexMutableSlider: GenericStyleSlider, GenericStyleSliderDelegate {
     private var thumbs: [MutableSliderThumbItem] = []
-    
-    @IBInspectable open dynamic var minimumTrackTintColor: UIColor? {
-        didSet {
-            self.applyStyle(self.getStyle())
-        }
-    }
+    private var separators: [MutableSliderSeparatorItem] = []
 
     public override init(frame: CGRect) {
         var targetFrame = frame
@@ -53,6 +48,9 @@ open class FlexMutableSlider: GenericStyleSlider, GenericStyleSliderDelegate {
     }
     
     func setupSlider() {
+        let sep0 = MutableSliderSeparatorItem()
+        self.separators.append(sep0)
+        
         self.continuous = true
         self.minimumValue = 0
         self.maximumValue = 1
@@ -62,19 +60,28 @@ open class FlexMutableSlider: GenericStyleSlider, GenericStyleSliderDelegate {
     
     // MARK: - Public interface
     
-    open func addThumb(_ thumb: MutableSliderThumbItem) {
+    open func addThumb(_ thumb: MutableSliderThumbItem, separator: MutableSliderSeparatorItem) {
         self.thumbs.append(thumb)
+        self.separators.append(separator)
         self.recreateThumbs()
     }
     
     open func removeThumb(at idx: Int) {
         self.thumbs.remove(at: idx)
+        self.separators.remove(at: idx+1)
         self.recreateThumbs()
     }
     
     open func getThumb(at idx: Int) -> MutableSliderThumbItem? {
         if idx < self.thumbs.count {
             return self.thumbs[idx]
+        }
+        return nil
+    }
+    
+    open func getSeparator(at idx: Int) -> MutableSliderSeparatorItem? {
+        if idx < self.separators.count {
+            return self.separators[idx]
         }
         return nil
     }
@@ -93,42 +100,53 @@ open class FlexMutableSlider: GenericStyleSlider, GenericStyleSliderDelegate {
     
     open func iconOfThumb(_ index: Int) -> UIImage? {
         if index < self.thumbs.count {
-            return self.thumbs[index].thumbIcon
+            return self.thumbs[index].icon
+        }
+        return nil
+    }
+    
+    open func iconOfSeparator(_ index: Int) -> UIImage? {
+        if index < self.separators.count {
+            return self.separators[index].icon
         }
         return nil
     }
     
     open func textOfThumb(_ index: Int) -> String? {
         if index < self.thumbs.count {
-            return self.thumbs[index].thumbText
+            return self.thumbs[index].text
         }
         return nil
     }
     
     open func textOfSeparatorLabel(_ index: Int) -> String? {
-        if index-1 < self.thumbs.count && index > 0 {
-            return self.thumbs[index-1].separatorText
+        if index < self.separators.count {
+            return self.separators[index].text
         }
         return nil
     }
     
     open func colorOfThumb(_ index: Int) -> UIColor? {
         if index < self.thumbs.count {
-            return self.thumbs[index].thumbColor
+            return self.thumbs[index].color
         }
         return nil
     }
     
     open func colorOfSeparatorLabel(_ index: Int) -> UIColor? {
-        if index == 0 {
-            return self.minimumTrackTintColor
-        }
-        if index-1 < self.thumbs.count {
-            return self.thumbs[index-1].separatorColor
+        if index < self.separators.count {
+            return self.separators[index].color
         }
         return .clear
     }
     
+    open func adaptOpacityForSeparatorLabel(_ index: Int) -> Bool {
+        if index < self.separators.count {
+            return self.separators[index].useOpacityForSizing
+        }
+        return true
+    }
+
     open func behaviourOfThumb(_ index: Int) -> StyledSliderThumbBehaviour? {
         if index < self.thumbs.count {
             return self.thumbs[index].behaviour
@@ -138,14 +156,14 @@ open class FlexMutableSlider: GenericStyleSlider, GenericStyleSliderDelegate {
     
     open func attributedTextOfThumb(_ index: Int) -> NSAttributedString? {
         if index < self.thumbs.count {
-            return self.thumbs[index].thumbAttributedText
+            return self.thumbs[index].attributedText
         }
         return nil
     }
     
     open func attributedTextOfSeparatorLabel(_ index: Int) -> NSAttributedString? {
-        if index-1 < self.thumbs.count && index > 0 {
-            return self.thumbs[index-1].separatorAttributedText
+        if index < self.separators.count {
+            return self.separators[index].attributedText
         }
         return nil
     }
@@ -155,5 +173,26 @@ open class FlexMutableSlider: GenericStyleSlider, GenericStyleSliderDelegate {
             return self.thumbs[index].sizeInfo
         }
         return nil
+    }
+    
+    open func sizeInfoOfSeparator(_ index: Int) -> SliderSeparatorSizeInfo? {
+        if index < self.separators.count {
+            return self.separators[index].sizeInfo
+        }
+        return nil
+    }
+    
+    open func triggerEventValues(_ index: Int) -> (Double?, Double?) {
+        if index < self.thumbs.count {
+            return (self.thumbs[index].triggerEventBelow, self.thumbs[index].triggerEventAbove)
+        }
+        return (nil, nil)
+    }
+    
+    open func thumbValueLimits(_ index: Int) -> (Double?, Double?) {
+        if index < self.thumbs.count {
+            return (self.thumbs[index].lowerLimit, self.thumbs[index].upperLimit)
+        }
+        return (nil, nil)
     }
 }

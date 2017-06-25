@@ -29,20 +29,15 @@
 
 import UIKit
 
-open class MutableSliderThumbItem {
+open class MutableSliderThumbItem: MutableSliderItem {
     open var behaviour: StyledSliderThumbBehaviour = .freeform
-    open var thumbText: String?
-    open var thumbAttributedText: NSAttributedString?
-    open var separatorText: String?
-    open var separatorAttributedText: NSAttributedString?
-    open var thumbColor: UIColor?
-    open var separatorColor: UIColor?
-    open var thumbIcon: UIImage?
     open var initialValue: Double = 0
     
-    var sizeInfo: SliderThumbSizeInfo?
+    open var sizeInfo: SliderThumbSizeInfo?
     
-    // TODO:
-    // trigger values, trigger enabled, triggered
-    
+    open var triggerEventAbove: Double?
+    open var triggerEventBelow: Double?
+
+    open var upperLimit: Double?
+    open var lowerLimit: Double?
 }

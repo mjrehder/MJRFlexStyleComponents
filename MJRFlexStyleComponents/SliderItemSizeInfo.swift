@@ -1,10 +1,10 @@
 //
-//  LabelFactory.swift
+//  SliderItemSizeInfo.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 22.07.16.
+//  Created by Martin Rehder on 21.06.2017.
 /*
- * Copyright 2016-present Martin Jacob Rehder.
+ * Copyright 2017-present Martin Jacob Rehder.
  * http://www.rehsco.com
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,38 +28,20 @@
  */
 
 import UIKit
-import StyledLabel
 
-final class LabelFactory {
-    static func defaultLabel() -> UILabel {
-        let label                    = UILabel()
-        label.textAlignment          = .center
-        label.isUserInteractionEnabled = true
-        
-        return label
-    }
+public enum SliderIconSizingType {
+    case relativeToSlider(minSize: CGSize)
+    case relativeToSliderItem
+}
+
+open class SliderItemSizeInfo {
+    open var autoAdjustTextFontSize = false
+    open var minFontSize: CGFloat = 5.0
+    open var maxFontSize: CGFloat = 48.0
+    open var textInsetsForAutoTextFont = UIEdgeInsetsMake(2, 2, 2, 2)
     
-    static func defaultStyledLabel() -> StyledLabel {
-        let label           = StyledLabel()
-        label.textAlignment = .center
-        label.text          = ""
-        
-        return label
-    }
-    
-    static func defaultStyledSeparator() -> StyledSliderSeparator {
-        let label = StyledSliderSeparator()
-        label.textAlignment = .center
-        label.text          = ""
-        
-        return label
-    }
-    
-    static func defaultStyledThumb() -> StyledSliderThumb {
-        let label           = StyledSliderThumb()
-        label.textAlignment = .center
-        label.text          = ""
-        
-        return label
-    }
+    open var iconSizingType: SliderIconSizingType = .relativeToSliderItem
+    open var autoAdjustIconSize = false
+    open var iconInsetsForAutoSize = UIEdgeInsetsMake(2, 2, 2, 2)
+    open var maxIconSize: CGSize?
 }

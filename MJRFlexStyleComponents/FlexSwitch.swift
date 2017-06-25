@@ -99,6 +99,10 @@ public protocol FlexSwitchDelegate {
         return nil
     }
     
+    open func iconOfSeparator(_ index: Int) -> UIImage? {
+        return nil
+    }
+    
     open func textOfThumb(_ index: Int) -> String? {
         return nil
     }
@@ -123,6 +127,10 @@ public protocol FlexSwitchDelegate {
         return index == 0 ? self.onTintColor ?? UIColor.red.darkened(amount: 0.2) : self.styleColor
     }
     
+    open func adaptOpacityForSeparatorLabel(_ index: Int) -> Bool {
+        return true
+    }
+ 
     open func behaviourOfThumb(_ index: Int) -> StyledSliderThumbBehaviour? {
         return nil
     }
@@ -131,6 +139,18 @@ public protocol FlexSwitchDelegate {
         return nil
     }
     
+    open func triggerEventValues(_ index: Int) -> (Double?, Double?) {
+        return (nil, nil)
+    }
+    
+    open func thumbValueLimits(_ index: Int) -> (Double?, Double?) {
+        return (nil, nil)
+    }
+
+    open func sizeInfoOfSeparator(_ index: Int) -> SliderSeparatorSizeInfo? {
+        return nil
+    }
+
     // MARK: - GenericStyleSliderTouchDelegate
     
     open func onThumbTouchEnded(_ index: Int) {

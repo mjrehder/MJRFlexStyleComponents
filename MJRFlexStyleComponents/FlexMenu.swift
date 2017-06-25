@@ -499,6 +499,10 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
         return nil
     }
     
+    open func iconOfSeparator(_ index: Int) -> UIImage? {
+        return nil
+    }
+    
     open func textOfThumb(_ index: Int) -> String? {
         if let mi = self.getMenuItemForIndex(index) {
             if mi.hidden {
@@ -555,6 +559,10 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
         return nil
     }
     
+    open func adaptOpacityForSeparatorLabel(_ index: Int) -> Bool {
+        return true
+    }
+
     open func behaviourOfThumb(_ index: Int) -> StyledSliderThumbBehaviour? {
         return index == 0 ? .fixateToLower : .snapToLowerAndHigher
     }
@@ -562,7 +570,19 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     open func sizeInfoOfThumb(_ index: Int) -> SliderThumbSizeInfo? {
         return nil
     }
+    
+    open func sizeInfoOfSeparator(_ index: Int) -> SliderSeparatorSizeInfo? {
+        return nil
+    }
 
+    open func triggerEventValues(_ index: Int) -> (Double?, Double?) {
+        return (nil, nil)
+    }
+    
+    open func thumbValueLimits(_ index: Int) -> (Double?, Double?) {
+        return (nil, nil)
+    }
+    
     // MARK: - Menu Items
     
     open func getMenuItemForIndex(_ index: Int) -> FlexMenuItem? {

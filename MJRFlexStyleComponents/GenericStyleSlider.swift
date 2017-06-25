@@ -36,11 +36,16 @@ public protocol GenericStyleSliderDelegate {
     func attributedTextOfThumb(_ index: Int) -> NSAttributedString?
     func colorOfThumb(_ index: Int) -> UIColor?
     func iconOfThumb(_ index: Int) -> UIImage?
+    func iconOfSeparator(_ index: Int) -> UIImage?
     func behaviourOfThumb(_ index: Int) -> StyledSliderThumbBehaviour?
     func textOfSeparatorLabel(_ index: Int) -> String?
+    func adaptOpacityForSeparatorLabel(_ index: Int) -> Bool
     func attributedTextOfSeparatorLabel(_ index: Int) -> NSAttributedString?
     func colorOfSeparatorLabel(_ index: Int) -> UIColor?
     func sizeInfoOfThumb(_ index: Int) -> SliderThumbSizeInfo?
+    func sizeInfoOfSeparator(_ index: Int) -> SliderSeparatorSizeInfo?
+    func triggerEventValues(_ index: Int) -> (Double?, Double?)
+    func thumbValueLimits(_ index: Int) -> (Double?, Double?)
 }
 
 public protocol GenericStyleSliderTouchDelegate {
@@ -68,7 +73,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     var touchesBeganPoint = CGPoint.zero
 
     var thumbList = StyledSliderThumbList()
-    var separatorLabels: Array<StyledLabel> = []
+    var separatorLabels: Array<StyledSliderSeparator> = []
     
     // Animations
     let dynamicButtonAnimator = UIDynamicAnimator()
@@ -198,6 +203,18 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         }
     }
 
+    /**
+     Trigger events can be configured, so that the event handler is called within on swipe gesture cycle.
+     Parameters are: value index and value
+     **/
+    open var eventTriggerHandler: ((Int, Double)->Void)?
+    
+    /// Calls the event handler when the value of a slider is swiped below the given threshold.
+    open var eventTriggerBelow: Double?
+    /// Calls the event handler when the value of a slider is swiped above the given threshold.
+    open var eventTriggerAbove: Double?
+    
+    
     // MARK: - Hints
 
     /// The hint's style. Default's to none, so no hint will be displayed.
@@ -486,7 +503,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     func assignSeparatorOpacity(_ idx: Int) {
         if idx > 0 {
             let sep = self.separatorLabels[idx]
-            if let tSize = self.sizeOfTextLabel(sep) {
+            if let tSize = self.sizeOfTextLabel(sep), sep.useOpacityForSizing {
                 let lp = self.direction.principalPosition(self.thumbList.thumbs[idx-1].center)
                 let hp = self.thumbList.higherPosForThumb(idx-1)
                 let tS = self.direction.principalSize(tSize) * 1.5
@@ -515,7 +532,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         }
     }
     
-    func separatorForThumb(_ thumbIndex: Int) -> StyledLabel {
+    func separatorForThumb(_ thumbIndex: Int) -> StyledSliderSeparator {
         return self.separatorLabels[thumbIndex+1]
     }
     
@@ -524,7 +541,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         
         var resSize = pSize
         
-        if let sizeInfo = thumb.sizeInfo {
+        if let sizeInfo = thumb.sizeInfo as? SliderThumbSizeInfo {
             switch sizeInfo.sizingType {
             case .fixed:
                 break
@@ -532,22 +549,14 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
                 let pos = self.thumbList.getThumbPos(thumbIndex: thumb.index)
                 let pp = self.direction.principalPosition(pos)
                 let ps = self.direction.principalSize(self.bounds.size)
-                let offRatio = Double(pp / ps) * Double.pi
-                var sizeCalc = CGFloat(sin(offRatio)) * self.direction.principalSize(pSize)
-                if sizeCalc < min {
-                    sizeCalc = min
-                }
-                if sizeCalc > max {
-                    sizeCalc = max
-                }
-                if self.direction == .horizontal {
-                    resSize = CGSize(width: sizeCalc, height: pSize.height)
-                }
-                else {
-                    resSize = CGSize(width: pSize.width, height: sizeCalc)
-                }
+                resSize = self.calculateRelativeThumbSize(prefSize: pSize, min: min, max: max, pp: pp, pDiff: ps)
             case .relativeToSeparator(let min, let max):
-                break
+                let pos = self.thumbList.getThumbPos(thumbIndex: thumb.index)
+                let prevPos = self.thumbList.lowerPosForThumb(thumb.index)
+                let nextPos = self.thumbList.higherPosForThumb(thumb.index)
+                let pp = self.direction.principalPosition(pos) - prevPos
+                let ps = nextPos - prevPos
+                resSize = self.calculateRelativeThumbSize(prefSize: pSize, min: min, max: max, pp: pp, pDiff: ps)
             }
         }
         
@@ -560,9 +569,32 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         return resSize
     }
     
+    func calculateRelativeThumbSize(prefSize: CGSize, min: CGFloat, max: CGFloat, pp: CGFloat, pDiff: CGFloat) -> CGSize {
+        var resSize = prefSize
+        var ps = pDiff
+        if ps < min {
+            ps = min + 1.0
+        }
+        let offRatio = Double(pp / ps) * Double.pi
+        var sizeCalc = CGFloat(sin(offRatio)) * self.direction.principalSize(prefSize)
+        if sizeCalc < min {
+            sizeCalc = min
+        }
+        if sizeCalc > max {
+            sizeCalc = max
+        }
+        if self.direction == .horizontal {
+            resSize = CGSize(width: sizeCalc, height: prefSize.height)
+        }
+        else {
+            resSize = CGSize(width: prefSize.width, height: sizeCalc)
+        }
+        return resSize
+    }
+    
     func getPreferredThumbSize(_ thumb: StyledSliderThumb) -> CGSize {
         // The thumbSize has precedence
-        if let ts = thumb.sizeInfo?.thumbSize ?? self.thumbSize {
+        if let si = thumb.sizeInfo as? SliderThumbSizeInfo, let ts = si.thumbSize ?? self.thumbSize {
             return ts
         }
         // Use the ratio if set
@@ -581,9 +613,12 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     
     override func layoutComponents() {
         let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
-
+        let mainSizeH = self.direction.principalSize(layerRect.size) * 0.5
+        
         self.thumbList.bounds = layerRect
         for thumb in self.thumbList.thumbs {
+            let mainThumbPos = self.direction.principalPosition(thumb.center)
+            thumb.relativeEdgeOffset = 1.0 - (abs(mainThumbPos - mainSizeH) / mainSizeH)
             let thumbSize = self.getThumbSize(thumb)
             let pos = self.thumbList.getThumbPosForValue(_values[thumb.index], thumbIndex: thumb.index)
             if self.direction == .horizontal {
@@ -607,43 +642,62 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
 
     func layoutSeparators() {
+        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
+        let mainSizeH = self.direction.principalSize(layerRect.size) * 0.5
+
         for thumb in self.thumbList.thumbs {
             let pos = self.thumbList.getThumbPosForValue(_values[thumb.index], thumbIndex: thumb.index)
+            let labelLOff = self.direction.principalSize(self.getThumbSize(thumb)) * 0.5
             let sep = self.separatorForThumb(thumb.index)
+            let mainSepPos = self.direction.principalPosition(sep.center)
+            sep.relativeEdgeOffset = 1.0 - (abs(mainSepPos - mainSizeH) / mainSizeH)
             let hp: CGFloat
+            let labelHOff: CGFloat
             if thumb.index+1 < self.thumbList.thumbs.count {
                 hp = self.direction.principalPosition(self.thumbList.getThumbPosForValue(_values[thumb.index+1], thumbIndex: thumb.index+1))
+                labelHOff = self.direction.principalSize(self.getThumbSize(self.thumbList.getNextThumb(thumb.index)!)) * 0.5
             }
             else {
                 hp = self.direction.principalSize(self.bounds.size) + self.direction.principalPosition(self.bounds.origin)
+                labelHOff = 0
             }
             if self.direction == .horizontal {
                 let sepHeight  = bounds.height * separatorRatio
                 sep.frame = CGRect(x: pos.x, y: (bounds.height - sepHeight) * 0.5 , width: hp - pos.x, height: sepHeight)
+                sep.labelBounds = CGRect(x: labelLOff, y: (bounds.height - sepHeight) * 0.5, width: (hp - pos.x) - (labelLOff + labelHOff), height: sepHeight)
             }
             else {
                 let sepHeight  = bounds.width * separatorRatio
                 sep.frame = CGRect(x: (bounds.width - sepHeight) * 0.5, y: pos.y, width: sepHeight, height: hp - pos.y)
+                sep.labelBounds = CGRect(x: (bounds.width - sepHeight) * 0.5, y: labelLOff, width: sepHeight, height: (hp - pos.y) - (labelLOff + labelHOff))
             }
         }
         // Handle first separator
         if self.separatorLabels.count > 0 {
             let sep = self.separatorLabels[0]
+            let mainSepPos = self.direction.principalPosition(sep.center)
+            sep.relativeEdgeOffset = 1.0 - (abs(mainSepPos - mainSizeH) / mainSizeH)
+
             let hp: CGFloat
+            let labelHOff: CGFloat
             if self.thumbList.thumbs.count > 0 {
                 hp = self.direction.principalPosition(self.thumbList.getThumbPosForValue(_values[0], thumbIndex: 0))
+                labelHOff = self.direction.principalSize(self.getThumbSize(self.thumbList.thumbs[0])) * 0.5
             }
             else {
                 hp = self.direction.principalSize(self.bounds.size) + self.direction.principalPosition(self.bounds.origin)
+                labelHOff = 0
             }
             let pos = self.bounds.origin
             if self.direction == .horizontal {
                 let sepHeight  = bounds.height * separatorRatio
                 sep.frame = CGRect(x: pos.x, y: (bounds.height - sepHeight) * 0.5 , width: hp - pos.x, height: sepHeight)
+                sep.labelBounds = CGRect(x: 0, y: (bounds.height - sepHeight) * 0.5, width: (hp - pos.x) - labelHOff, height: sepHeight)
             }
             else {
                 let sepHeight  = bounds.width * separatorRatio
                 sep.frame = CGRect(x: (bounds.width - sepHeight) * 0.5, y: pos.y, width: sepHeight, height: hp - pos.y)
+                sep.labelBounds = CGRect(x: (bounds.width - sepHeight) * 0.5, y: 0, width: sepHeight, height: (hp - pos.y) - labelHOff)
             }
         }
     }
@@ -725,6 +779,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
                 touchesBeganPoint = sender.location(in: self)
 
                 for oth in self.thumbList.thumbs {
+                    oth.eventTriggered = false
                     self.dynamicButtonAnimator.removeBehavior(oth.snappingBehavior)
                 }
                 
@@ -753,13 +808,21 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
                 let tb = self.direction.principalPosition(touchesBeganPoint)
                 self.thumbList.updateThumbPosition(tiv+tb, thumbIndex: thumb.index)
 
+                var v = self.thumbList.getValueFromThumbPos(thumb.index)
+                if v < thumb.lowerLimit {
+                    v = thumb.lowerLimit
+                }
+                if v > thumb.upperLimit {
+                    v = thumb.upperLimit
+                }
+                self.updateValue(thumb.index, value: v, finished: false)
+                let finalPos = self.direction.principalPosition(self.thumbList.getThumbPosForValue(v, thumbIndex: thumb.index))
+                self.thumbList.updateThumbPosition(finalPos, thumbIndex: thumb.index)
+
                 if case .none = hintStyle {} else {
                     let cp = CGPoint(x: frame.origin.x + thumb.center.x, y: (frame.origin.y - thumb.bounds.height - hintLabel.bounds.height / 2) + thumb.center.y)
                     hintLabel.center = cp
                 }
-                
-                let v = self.thumbList.getValueFromThumbPos(thumb.index)
-                self.updateValue(thumb.index, value: v, finished: false)
                 hintLabel.text = valueAsText(v)
 
                 for oth in self.thumbList.thumbs {
@@ -797,7 +860,13 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
                     athumb.snappingBehavior.action = { [weak self] in
                         if let weakSelf = self {
                             for athumb in weakSelf.thumbList.thumbs {
-                                let v = weakSelf.thumbList.getValueFromThumbPos(athumb.index)
+                                var v = weakSelf.thumbList.getValueFromThumbPos(athumb.index)
+                                if v < thumb.lowerLimit {
+                                    v = thumb.lowerLimit
+                                }
+                                if v > thumb.upperLimit {
+                                    v = thumb.upperLimit
+                                }
                                 weakSelf.updateValue(athumb.index, value: v, finished: false)
                             }
                             weakSelf.layoutSeparators()
@@ -826,10 +895,13 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     func addSeparator() {
-        let sep = LabelFactory.defaultStyledLabel()
+        let sep = LabelFactory.defaultStyledSeparator()
         sep.backgroundColor = self.sliderDelegate?.colorOfSeparatorLabel(self.separatorLabels.count) ?? self.separatorBackgroundColor
         sep.font = self.separatorFont
+        sep.backgroundIcon = self.sliderDelegate?.iconOfSeparator(self.separatorLabels.count)
+        sep.sizeInfo = self.sliderDelegate?.sizeInfoOfSeparator(self.separatorLabels.count)
         sep.textColor = self.separatorTextColor
+        sep.useOpacityForSizing = self.sliderDelegate?.adaptOpacityForSeparatorLabel(self.separatorLabels.count) ?? true
         self.separatorLabels.append(sep)
         self.addSubview(sep)
         self.setupSeparatorGesture(sep)
@@ -850,6 +922,11 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         for idx in 0..<self.separatorLabels.count {
             let sep = self.separatorLabels[idx]
             sep.text = self.sliderDelegate?.textOfSeparatorLabel(idx)
+            if let sizeInfo = sep.sizeInfo {
+                if sizeInfo.autoAdjustTextFontSize {
+                    sep.fitFontForSize(minFontSize: sizeInfo.minFontSize, maxFontSize: sizeInfo.maxFontSize, accuracy: 1.0, margins: sizeInfo.textInsetsForAutoTextFont)
+                }
+            }
         }
     }
 
@@ -859,6 +936,14 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         thumb.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index) ?? self.thumbBackgroundColor
         thumb.behaviour = self.sliderDelegate?.behaviourOfThumb(thumb.index) ?? self.thumbSnappingBehaviour
         thumb.sizeInfo = self.sliderDelegate?.sizeInfoOfThumb(thumb.index)
+        if let (bel, abo) = self.sliderDelegate?.triggerEventValues(thumb.index) {
+            thumb.triggerEventAbove = abo
+            thumb.triggerEventBelow = bel
+        }
+        if let (lo, hi) = self.sliderDelegate?.thumbValueLimits(thumb.index) {
+            thumb.lowerLimit = lo ?? -Double.infinity
+            thumb.upperLimit = hi ?? Double.infinity
+        }
         self.thumbList.thumbs.append(thumb)
         self.addSubview(thumb)
         self.thumbList.applyThumbBehaviour(thumb)
@@ -922,6 +1007,21 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         
         if (continuous || finished) && oldVal != newVal {
             self.notifyOfValueChanged(newVal, index: index)
+        }
+        if let triggerHandler = self.eventTriggerHandler {
+            let thumb = self.thumbList.thumbs[index]
+            if !thumb.eventTriggered {
+                let belowVal = thumb.triggerEventBelow ?? self.eventTriggerBelow
+                let aboveVal = thumb.triggerEventAbove ?? self.eventTriggerAbove
+                if let bv = belowVal, value < bv {
+                    thumb.eventTriggered = true
+                    triggerHandler(index, value)
+                }
+                if let av = aboveVal, value > av {
+                    thumb.eventTriggered = true
+                    triggerHandler(index, value)
+                }
+            }
         }
     }
     
