@@ -84,7 +84,7 @@ open class StyledSliderItem: StyledLabel {
             bgLayer.bounds = CGRect(x: bgOffset.x, y: bgOffset.y, width: iSize.width, height: iSize.height)
             bgLayer.position = CGPoint(x: visibleBounds.midX, y: visibleBounds.midY)
             bgLayer.contents = bgi.cgImage
-            let maskPath = StyledShapeLayer.shapePathForStyle(style, bounds: visibleBounds)
+            let maskPath = StyledShapeLayer.shapePathForStyle(style, bounds: bounds)
             let maskLayer = CAShapeLayer()
             maskLayer.path = maskPath.cgPath
             bgLayer.mask = maskLayer

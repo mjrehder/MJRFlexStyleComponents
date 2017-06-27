@@ -67,6 +67,7 @@ class SliderDemoViewController: UIViewController {
         self.utilButton?.getSeparator(at: 0)?.color = .clear
         self.utilButton?.direction = .vertical
         self.utilButton?.thumbSize = CGSize(width: 48, height: 32)
+        self.utilButton?.continuous = false
         self.view.addSubview(self.utilButton!)
         
         let sizeInfo = SliderSeparatorSizeInfo()
@@ -74,7 +75,7 @@ class SliderDemoViewController: UIViewController {
         sizeInfo.minFontSize = 8
         sizeInfo.maxFontSize = 18
         sizeInfo.maxIconSize = CGSize(width: 42, height: 42)
-        sizeInfo.iconSizingType = .relativeToSlider(minSize: CGSize(width: 12, height: 12))
+        sizeInfo.iconSizingType = .relativeToSlider(minSize: CGSize(width: 16, height: 16))
         sizeInfo.autoAdjustIconSize = true
         //        sizeInfo.textInsetsForAutoTextFont = .zero
 
@@ -102,6 +103,7 @@ class SliderDemoViewController: UIViewController {
         self.util2Button?.getSeparator(at: 0)?.color = .clear
         self.util2Button?.direction = .vertical
         self.util2Button?.thumbSize = CGSize(width: 48, height: 32)
+        self.util2Button?.continuous = false
         self.view.addSubview(self.util2Button!)
         
         let size2Info = SliderSeparatorSizeInfo()
@@ -109,7 +111,7 @@ class SliderDemoViewController: UIViewController {
         size2Info.minFontSize = 8
         size2Info.maxFontSize = 18
         size2Info.maxIconSize = CGSize(width: 42, height: 42)
-        size2Info.iconSizingType = .relativeToSlider(minSize: CGSize(width: 12, height: 12))
+        size2Info.iconSizingType = .relativeToSlider(minSize: CGSize(width: 16, height: 16))
         size2Info.autoAdjustIconSize = true
         
         let u2b = self.getUtilThumbModel(value: 0.66, snappingBehaviour: .snapToValueRelative(v: 0.66))
@@ -127,7 +129,7 @@ class SliderDemoViewController: UIViewController {
             (index, value) in
             NSLog("Event trigger for \(index) at value \(value)")
         }
-}
+    }
     
     func getThumbModel(value: Double, snappingBehaviour: StyledSliderThumbBehaviour, isRelative: Bool = false) -> MutableSliderThumbItem {
         let thumb = MutableSliderThumbItem()
