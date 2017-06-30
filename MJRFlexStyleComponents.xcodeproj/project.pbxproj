@@ -34,6 +34,8 @@
 		5B3FF7371E15126C0077A106 /* FlexViewSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FF7351E15126C0077A106 /* FlexViewSupplementaryView.swift */; };
 		5B3FF7391E152C600077A106 /* FlexCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FF7381E152C600077A106 /* FlexCellView.swift */; };
 		5B3FF73A1E152C600077A106 /* FlexCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FF7381E152C600077A106 /* FlexCellView.swift */; };
+		5B4075101F02740000C8D077 /* FlexSnapStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40750F1F02740000C8D077 /* FlexSnapStepper.swift */; };
+		5B4075111F02740000C8D077 /* FlexSnapStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40750F1F02740000C8D077 /* FlexSnapStepper.swift */; };
 		5B49AAF31D8E6CB0003C062E /* FlexLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B49AAF21D8E6CB0003C062E /* FlexLabel.swift */; };
 		5B49AAF41D8E6CB0003C062E /* FlexLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B49AAF21D8E6CB0003C062E /* FlexLabel.swift */; };
 		5B53D0F31D5372010068BF04 /* FlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B53D0F21D5372010068BF04 /* FlexView.swift */; };
@@ -208,6 +210,7 @@
 		5B3FF7311E13EF500077A106 /* FlexBaseCollectionViewCellDetailTextLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexBaseCollectionViewCellDetailTextLabel.swift; sourceTree = "<group>"; };
 		5B3FF7351E15126C0077A106 /* FlexViewSupplementaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexViewSupplementaryView.swift; sourceTree = "<group>"; };
 		5B3FF7381E152C600077A106 /* FlexCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCellView.swift; sourceTree = "<group>"; };
+		5B40750F1F02740000C8D077 /* FlexSnapStepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSnapStepper.swift; sourceTree = "<group>"; };
 		5B49AAF21D8E6CB0003C062E /* FlexLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexLabel.swift; sourceTree = "<group>"; };
 		5B53D0F21D5372010068BF04 /* FlexView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexView.swift; sourceTree = "<group>"; };
 		5B53D0F51D5393520068BF04 /* ViewsDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewsDemoViewController.swift; sourceTree = "<group>"; };
@@ -581,6 +584,7 @@
 				5BE448691D4760EE0011E5AE /* FlexSlider.swift */,
 				5BE4486C1D478E9A0011E5AE /* FlexDoubleSlider.swift */,
 				5BC9E1241EF6A7CB00740834 /* FlexMutableSlider.swift */,
+				5B40750F1F02740000C8D077 /* FlexSnapStepper.swift */,
 			);
 			name = Slider;
 			sourceTree = "<group>";
@@ -869,6 +873,7 @@
 				5BAD35011E51B8120078FEE8 /* FlexPrimaryLabel.swift in Sources */,
 				5BB36E4B1E66B37F00EE7EDF /* FlexViewTopBar.swift in Sources */,
 				5B7234811E2CC0A60089A4E7 /* FlexButtonCollectionViewCell.swift in Sources */,
+				5B4075111F02740000C8D077 /* FlexSnapStepper.swift in Sources */,
 				5BE64CE71E4B280E00CD0271 /* FlexTextFieldCollectionItem.swift in Sources */,
 				5BEAF3231D6851B600BF5D83 /* MenusDemoViewController.swift in Sources */,
 				5BB2A6271DA7D2E9003D38C3 /* FlexSwitchCollectionItem.swift in Sources */,
@@ -909,6 +914,7 @@
 				5B49AAF31D8E6CB0003C062E /* FlexLabel.swift in Sources */,
 				5BAD34E41E5055380078FEE8 /* FlexCardViewCollectionItem.swift in Sources */,
 				5BB1141C1DB8CA9700719EEB /* FlexImageCollectionViewCell.swift in Sources */,
+				5B4075101F02740000C8D077 /* FlexSnapStepper.swift in Sources */,
 				5B0859E01D7EE65500484E8F /* FlexTextView.swift in Sources */,
 				5B3FF7321E13EF500077A106 /* FlexBaseCollectionViewCellDetailTextLabel.swift in Sources */,
 				5BADC33E1DACDFF7009B899E /* FlexTextViewCollectionItem.swift in Sources */,

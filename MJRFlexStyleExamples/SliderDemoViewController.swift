@@ -9,11 +9,13 @@
 import UIKit
 
 class SliderDemoViewController: UIViewController {
-
+    
     private var horiSlider: FlexMutableSlider?
     private var vertiSlider: FlexMutableSlider?
     private var utilButton: FlexMutableSlider?
     private var util2Button: FlexMutableSlider?
+    
+    private var stepper: FlexSnapStepper?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +38,7 @@ class SliderDemoViewController: UIViewController {
         self.horiSlider?.addThumb(self.getThumbModel(value: 0.25, snappingBehaviour: .snapToValueRelative(v: 0.25)), separator: self.getSeparatorModel())
         self.horiSlider?.addThumb(self.getThumbModel(value: 0.5, snappingBehaviour: .snapToValueRelative(v: 0.5)), separator: self.getSeparatorModel())
         self.horiSlider?.addThumb(self.getThumbModel(value: 0.75, snappingBehaviour: .snapToValueRelative(v: 0.75)), separator: self.getSeparatorModel())
-
+        
         self.vertiSlider = FlexMutableSlider(frame: CGRect(x: 10, y: 50, width: 32, height: 100))
         self.vertiSlider?.minimumValue = 0
         self.vertiSlider?.maximumValue = 1
@@ -56,7 +58,7 @@ class SliderDemoViewController: UIViewController {
             (index, value) in
             NSLog("Event trigger for \(index) at value \(value)")
         }
-
+        
         self.utilButton = FlexMutableSlider(frame: CGRect(x: 10, y: 50, width: 48, height: 48))
         self.utilButton?.minimumValue = 0
         self.utilButton?.maximumValue = 1
@@ -78,7 +80,7 @@ class SliderDemoViewController: UIViewController {
         sizeInfo.iconSizingType = .relativeToSlider(minSize: CGSize(width: 16, height: 16))
         sizeInfo.autoAdjustIconSize = true
         //        sizeInfo.textInsetsForAutoTextFont = .zero
-
+        
         let u2 = self.getUtilThumbModel(value: 0.5, snappingBehaviour: .snapToValueRelative(v: 0.5))
         u2.text = "A"
         self.utilButton?.addThumb(u2, separator: self.getUtilSeparatorModel(sizeInfo: sizeInfo))
@@ -91,8 +93,8 @@ class SliderDemoViewController: UIViewController {
             (index, value) in
             NSLog("Event trigger for \(index) at value \(value)")
         }
-
-    
+        
+        
         self.util2Button = FlexMutableSlider(frame: CGRect(x: 10, y: 50, width: 48, height: 48))
         self.util2Button?.minimumValue = 0
         self.util2Button?.maximumValue = 1
@@ -129,6 +131,23 @@ class SliderDemoViewController: UIViewController {
             (index, value) in
             NSLog("Event trigger for \(index) at value \(value)")
         }
+        
+        // Snap Stepper
+        self.stepper = FlexSnapStepper(frame: .zero)
+        self.stepper?.stepValueChangeHandler = {
+            newValue in
+            NSLog("new value is \(newValue)")
+        }
+        self.stepper?.thumbFactory = { index in
+            let thumb = MutableSliderThumbItem()
+            thumb.color = .red
+            return thumb
+        }
+        self.stepper?.style = FlexShapeStyle(style: .rounded)
+        self.stepper?.borderColor = .black
+        self.stepper?.borderWidth = 1
+        
+        self.view.addSubview(self.stepper!)
     }
     
     func getThumbModel(value: Double, snappingBehaviour: StyledSliderThumbBehaviour, isRelative: Bool = false) -> MutableSliderThumbItem {
@@ -153,7 +172,7 @@ class SliderDemoViewController: UIViewController {
         sep.color = UIColor.MKColor.BlueGrey.P200
         return sep
     }
-
+    
     func getUtilThumbModel(value: Double, snappingBehaviour: StyledSliderThumbBehaviour, isRelative: Bool = false) -> MutableSliderThumbItem {
         let thumb = MutableSliderThumbItem()
         thumb.initialValue = value
@@ -198,6 +217,7 @@ class SliderDemoViewController: UIViewController {
         self.vertiSlider?.frame = CGRect(x: 10, y: 120, width: 32, height: 300)
         self.utilButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 120, width: 64, height: 64)
         self.util2Button?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64) * 2, y: 120, width: 64, height: 64)
+        self.stepper?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64) * 4, y: 120, width: 128, height: 32)
     }
     
 }

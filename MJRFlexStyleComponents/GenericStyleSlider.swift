@@ -71,6 +71,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
  */
 @IBDesignable open class GenericStyleSlider: FlexBaseControl {
     var touchesBeganPoint = CGPoint.zero
+    var userIsSliding = false
 
     var thumbList = StyledSliderThumbList()
     var separatorLabels: Array<StyledSliderSeparator> = []
@@ -87,6 +88,9 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     open var sliderDelegate: GenericStyleSliderDelegate?
     open var thumbTouchDelegate: GenericStyleSliderTouchDelegate?
     open var separatorTouchDelegate: GenericStyleSliderSeparatorTouchDelegate?
+    
+    open var thumbTouchHandler: ((Int)->Void)?
+    open var separatorTouchHandler: ((Int)->Void)?
     
     // MARK: - Deallocating position update timer
     
@@ -107,6 +111,12 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
      This is a convenient alternative to the `addTarget:Action:forControlEvents:` method of the `UIControl`.
      */
     open var valueChangedBlock: ((_ value: Double, _ index: Int) -> Void)?
+
+    /**
+     Block to be notify when the value of the slider is changed by the user.
+     This block is not called on snapping behaviour changes.
+     */
+    open var valueChangedBlockWhileSliding: ((_ value: Double, _ index: Int) -> Void)?
 
     /**
      The continuous vs. noncontinuous state of the slider.
@@ -733,10 +743,11 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     func separatorTouched(_ sender: UITapGestureRecognizer) {
-        if let separator = sender.view as? StyledLabel, let index = self.getSeparatorIndex(separator) {
+        if let separator = sender.view as? StyledSliderSeparator, let index = self.getSeparatorIndex(separator) {
             switch sender.state {
             case .ended:
                 self.separatorTouchDelegate?.onSeparatorTouchEnded(index)
+                self.separatorTouchHandler?(index)
             default:
                 break
             }
@@ -757,6 +768,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             switch sender.state {
             case .ended:
                 self.thumbTouchDelegate?.onThumbTouchEnded(thumb.index)
+                self.thumbTouchHandler?(thumb.index)
             default:
                 break
             }
@@ -790,7 +802,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
                 for oth in self.thumbList.thumbs {
                     oth.tempValue = self.values[oth.index]
                 }
-                
+                self.userIsSliding = true
             case .changed:
                 switch thumb.behaviour {
                 case .fixateToLower:
@@ -816,6 +828,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
                     v = thumb.upperLimit
                 }
                 self.updateValue(thumb.index, value: v, finished: false)
+                
                 let finalPos = self.direction.principalPosition(self.thumbList.getThumbPosForValue(v, thumbIndex: thumb.index))
                 self.thumbList.updateThumbPosition(finalPos, thumbIndex: thumb.index)
 
@@ -845,6 +858,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
                 self.assignSeparatorTextOpacities()
 
             case .ended, .failed, .cancelled:
+                self.userIsSliding = false
                 if case .none = hintStyle {} else {
                     UIView.animate(withDuration: 0.2, animations: {
                         self.hintLabel.alpha = 0.0
@@ -1008,6 +1022,9 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         if (continuous || finished) && oldVal != newVal {
             self.notifyOfValueChanged(newVal, index: index)
         }
+        if self.userIsSliding {
+            self.valueChangedBlockWhileSliding?(newVal, index)
+        }
         if let triggerHandler = self.eventTriggerHandler {
             let thumb = self.thumbList.thumbs[index]
             if !thumb.eventTriggered {
@@ -1034,10 +1051,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
 
     func notifyOfValueChanged(_ value: Double, index: Int) {
         sendActions(for: .valueChanged)
-        
-        if let _valueChangedBlock = valueChangedBlock {
-            _valueChangedBlock(value, index)
-        }
+        self.valueChangedBlock?(value, index)
     }
     
     func initComponent() {
@@ -1075,7 +1089,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         self.layoutComponents()
     }
     
-    func valueAsText(_ value: Double) -> String {
+    open func valueAsText(_ value: Double) -> String {
         if let formatStr = self.numberFormatString {
             return String(format: formatStr, value)
         }

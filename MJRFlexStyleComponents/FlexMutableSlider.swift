@@ -66,6 +66,11 @@ open class FlexMutableSlider: GenericStyleSlider, GenericStyleSliderDelegate {
         self.recreateThumbs()
     }
     
+    open func addSeparator(_ separator: MutableSliderSeparatorItem) {
+        self.separators.append(separator)
+        self.recreateThumbs()
+    }
+    
     open func removeThumb(at idx: Int) {
         self.thumbs.remove(at: idx)
         self.separators.remove(at: idx+1)
@@ -84,6 +89,11 @@ open class FlexMutableSlider: GenericStyleSlider, GenericStyleSliderDelegate {
             return self.separators[idx]
         }
         return nil
+    }
+    
+    open func removeAll() {
+        self.thumbs.removeAll()
+        self.separators.removeAll()
     }
     
     // MARK: - Model Handling
