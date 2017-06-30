@@ -31,14 +31,8 @@ import UIKit
 
 open class FlexSnapStepper: FlexMutableSlider {
 
-    var _value: Double = 0.0
     /// The value of the stepper
-    open var value: Double {
-        get {
-            return _value
-        }
-    }
-    
+    open var value: Double = 0.0
     /// The stepper min value. This is the value updated by the relative motion of the slider and pressing the minus and plus areas.
     open var minStepperValue: Double = 0
     /// The stepper max value. This is the value updated by the relative motion of the slider and pressing the minus and plus areas.
@@ -49,6 +43,18 @@ open class FlexSnapStepper: FlexMutableSlider {
     open var valueSlideFactor: Double = 10.0
     
     open var stepValueChangeHandler: ((Double)->Void)?
+    
+    @IBInspectable open dynamic var thumbTintColor: UIColor? {
+        didSet {
+            self.applyThumbStyle(self.thumbStyle)
+        }
+    }
+    
+    @IBInspectable open dynamic var separatorTintColor: UIColor? {
+        didSet {
+            self.applyStyle(self.getStyle())
+        }
+    }
     
     open var separatorFactory: ((Int)->MutableSliderSeparatorItem) = {
         index in
@@ -80,12 +86,13 @@ open class FlexSnapStepper: FlexMutableSlider {
         self.maximumValue = 0.5
         self.thumbText = nil
         self.numberFormatString = "%0.1lf"
+        self.thumbRatio = 0.5
         
         self.valueChangedBlockWhileSliding = {
             newValue, index in
             let range = (self.maxStepperValue - self.minStepperValue) / self.valueSlideFactor
             let valChange = range * newValue * abs(newValue)
-            self._value += valChange
+            self.value += valChange
             self.clampStepValue()
             self.stepValueChangeHandler?(self.value)
         }
@@ -93,7 +100,7 @@ open class FlexSnapStepper: FlexMutableSlider {
         self.separatorTouchHandler = {
             index in
             let range = (self.maxStepperValue - self.minStepperValue) / self.valueSteps
-            self._value += index == 0 ? -range : range
+            self.value += index == 0 ? -range : range
             self.clampStepValue()
             self.stepValueChangeHandler?(self.value)
         }
@@ -118,18 +125,26 @@ open class FlexSnapStepper: FlexMutableSlider {
     }
     
     func clampStepValue() {
-        if self._value < self.minStepperValue {
-            self._value = self.minStepperValue
+        if self.value < self.minStepperValue {
+            self.value = self.minStepperValue
         }
-        if self._value > self.maxStepperValue {
-            self._value = self.maxStepperValue
+        if self.value > self.maxStepperValue {
+            self.value = self.maxStepperValue
         }
     }
     
     open override func valueAsText(_ value: Double) -> String {
         if let formatStr = self.numberFormatString {
-            return String(format: formatStr, self._value)
+            return String(format: formatStr, self.value)
         }
-        return self._value.truncatingRemainder(dividingBy: 1) == 0 ? "\(Int(self._value))" : "\(self._value)"
+        return self.value.truncatingRemainder(dividingBy: 1) == 0 ? "\(Int(self.value))" : "\(self.value)"
+    }
+    
+    open override func colorOfThumb(_ index: Int) -> UIColor? {
+        return self.getThumb(at: index)?.color ?? self.thumbTintColor ?? .lightGray
+    }
+    
+    open override func colorOfSeparatorLabel(_ index: Int) -> UIColor? {
+        return self.getSeparator(at: index)?.color ?? self.separatorTintColor ?? .white
     }
 }
