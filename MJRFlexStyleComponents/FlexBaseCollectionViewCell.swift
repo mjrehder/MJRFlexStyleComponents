@@ -201,7 +201,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     open func layoutIconView(_ item: FlexBaseCollectionItem, area: CGRect) -> CGRect {
         var remainingCellArea = area
         
-        if let icon = item.icon, let iv = self.imageView {
+        if let icon = self.getIcon(item), let iv = self.imageView {
             let iconInsets = self.imageViewInsets
             let iconSize = self.imageViewSize
             
@@ -223,7 +223,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     }
     
     open func layoutIconifiedIconView(_ item: FlexBaseCollectionItem, area: CGRect) {
-        if let icon = item.icon, let iv = self.imageView {
+        if let icon = self.getIcon(item), let iv = self.imageView {
             let iconSize = self.imageViewSize
             let imageViewRect = CGRect(origin: CGPoint.zero, size: iconSize)
             let sizeFit = item.imageViewFitting ?? self.imageViewFitting
@@ -240,6 +240,24 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         else {
             self.imageView?.isHidden = true
         }
+    }
+    
+    open func getIcon(_ item: FlexBaseCollectionItem) -> UIImage? {
+        if let icon = item.icon {
+            return icon
+        }
+        if let lip = item.imageViewLazyImageProvider {
+            DispatchQueue.main.async {
+                if let icon = lip(item.reference) {
+                    item.icon = icon
+                    self.applyStyles()
+                }
+            }
+        }
+        if let placeholder = item.placeholderIcon {
+            return placeholder
+        }
+        return nil
     }
     
     open func layoutAccessoryView(_ item: FlexBaseCollectionItem, area: CGRect) -> CGRect {
@@ -269,7 +287,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         self.flexContentView?.frame = self.bounds
         super.refreshLayout()
     }
-
+    
     open func layoutControl(_ item: FlexBaseCollectionItem, area: CGRect) {
         if area.size.width < 0 || area.size.height < 0 {
             return

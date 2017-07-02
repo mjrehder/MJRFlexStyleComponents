@@ -31,6 +31,7 @@ import UIKit
 
 open class FlexBaseCollectionItem: FlexCollectionItem {
     open var icon: UIImage?
+    open var placeholderIcon: UIImage?
     open var accessoryImage: UIImage?
     
     /// These will be shown in the header
@@ -49,7 +50,7 @@ open class FlexBaseCollectionItem: FlexCollectionItem {
     
     /// This will be shown to the lower right of the cell
     open var auxText: NSAttributedString?
-
+    
     /// Set this to true in order to hide the cell when the item is not selected.
     open var showAccessoryImageOnlyWhenSelected: Bool = false
     
@@ -59,6 +60,7 @@ open class FlexBaseCollectionItem: FlexCollectionItem {
     open var accessoryImageActionHandler: (() -> Void)?
     open var imageViewActionHandler: (() -> Void)?
     open var imageViewFitting: FlexImageShapeFit?
+    open var imageViewLazyImageProvider: ((String)->UIImage?)?
     
     open var headerPosition: FlexViewHeaderPosition?
     
@@ -66,7 +68,7 @@ open class FlexBaseCollectionItem: FlexCollectionItem {
     open var controlSize: CGSize?
     
     open var controlInsets: UIEdgeInsets?
-
+    
     open var headerImage: UIImage?
     open var headerImageInsets: UIEdgeInsets?
     open var headerImagePosition: NSTextAlignment?
@@ -74,7 +76,7 @@ open class FlexBaseCollectionItem: FlexCollectionItem {
     open var headerImageMasksToBounds: Bool?
     open var headerImageBorderWidth: CGFloat?
     open var headerImageBorderColor: UIColor?
-
+    
     public init(reference: String, text: NSAttributedString? = nil, icon: UIImage? = nil, accessoryImage: UIImage? = nil, title: NSAttributedString? = nil, accessoryImageActionHandler: (() -> Void)? = nil) {
         self.icon = icon
         self.accessoryImage = accessoryImage
