@@ -246,6 +246,20 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         }
     }
     
+    open func selectAllVisibleCells() {
+        let vip = self.itemCollectionView.indexPathsForVisibleItems
+        for ip in vip {
+            self.itemCollectionView.selectItem(at: ip, animated: false, scrollPosition: [])
+        }
+    }
+    
+    open func deselectAllVisibleCells() {
+        let vip = self.itemCollectionView.indexPathsForVisibleItems
+        for ip in vip {
+            self.itemCollectionView.deselectItem(at: ip, animated: false)
+        }
+    }
+    
     open func updateCellForItem(_ itemReference: String) {
         if let indexPath = self.getIndexPathForItem(itemReference) {
             self.itemCollectionView.cellForItem(at: indexPath)?.setNeedsLayout()
