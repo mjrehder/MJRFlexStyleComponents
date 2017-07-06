@@ -85,6 +85,20 @@ open class StyledSliderThumbList {
             thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosForValue(v, thumbIndex: thumb.index))
         case .snapToValueRelative(let v):
             thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosForValue(v, thumbIndex: thumb.index))
+        case .snapToThreeState(let low, let mid, let high):
+            let currentPos = self.getValueFromThumbPos(thumb.index)
+            let ld = abs(currentPos - low)
+            let md = abs(currentPos - mid)
+            let hd = abs(currentPos - high)
+            if ld < min(md, hd) {
+                thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosForValue(low, thumbIndex: thumb.index))
+            }
+            else if md < min(ld, hd) {
+                thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosForValue(mid, thumbIndex: thumb.index))
+            }
+            else if hd < min(ld, md) {
+                thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosForValue(high, thumbIndex: thumb.index))
+            }
         }
     }
     

@@ -40,4 +40,5 @@ public enum StyledSliderThumbBehaviour {
     case fixateToCenter
     case snapToValue(v: Double)
     case snapToValueRelative(v: Double)
+    case snapToThreeState(low: Double, mid: Double, high: Double)
 }

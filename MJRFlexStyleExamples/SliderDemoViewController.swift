@@ -14,6 +14,8 @@ class SliderDemoViewController: UIViewController {
     private var vertiSlider: FlexMutableSlider?
     private var utilButton: FlexMutableSlider?
     private var util2Button: FlexMutableSlider?
+
+    private var camButton: FlexMutableSlider?
     
     private var stepper: FlexSnapStepper?
     
@@ -148,6 +150,42 @@ class SliderDemoViewController: UIViewController {
         self.stepper?.borderWidth = 1
         
         self.view.addSubview(self.stepper!)
+        
+        // Camera Button
+        self.camButton = FlexMutableSlider(frame: CGRect(x: 10, y: 50, width: 48, height: 48))
+        self.camButton?.minimumValue = 0
+        self.camButton?.maximumValue = 1
+        self.camButton?.borderColor = .black
+        self.camButton?.borderWidth = 1
+        self.camButton?.style = FlexShapeStyle(style: .thumb)
+        self.camButton?.thumbStyle = FlexShapeStyle(style: .box)
+        self.camButton?.getSeparator(at: 0)?.color = .clear
+        self.camButton?.direction = .vertical
+        self.camButton?.thumbSize = CGSize(width: 48, height: 40)
+        self.camButton?.continuous = false
+        self.view.addSubview(self.camButton!)
+
+        let camSizeInfo = SliderSeparatorSizeInfo()
+        camSizeInfo.autoAdjustTextFontSize = true
+        camSizeInfo.maxIconSize = CGSize(width: 48, height: 48)
+        camSizeInfo.iconSizingType = .relativeToSlider(minSize: CGSize(width: 20, height: 20))
+        camSizeInfo.autoAdjustIconSize = true
+        
+        let cb = self.getCamThumbModel(value: 0.66, snappingBehaviour: .snapToThreeState(low: 0.66, mid: 0.66, high: 1))
+//        let cb = self.getCamThumbModel(value: 0.66, snappingBehaviour: .snapToValueRelative(v: 0.66))
+        cb.lowerLimit = 0.66
+        self.camButton?.addThumb(cb, separator: self.getCamSeparatorModel(sizeInfo: camSizeInfo))
+        
+        self.camButton?.getSeparator(at: 0)?.sizeInfo = camSizeInfo
+        let cicon = UIImage(named: "videoCamImage_36pt")
+        self.camButton?.getSeparator(at: 0)?.icon = cicon
+        self.camButton?.recreateThumbs()
+        
+        self.camButton?.eventTriggerHandler = {
+            (index, value) in
+            NSLog("Event trigger for \(index) at value \(value)")
+        }
+
     }
     
     func getThumbModel(value: Double, snappingBehaviour: StyledSliderThumbBehaviour, isRelative: Bool = false) -> MutableSliderThumbItem {
@@ -187,10 +225,31 @@ class SliderDemoViewController: UIViewController {
         
         thumb.triggerEventAbove = 0.9
         thumb.triggerEventBelow = 0.1
+
+        return thumb
+    }
+
+    func getCamThumbModel(value: Double, snappingBehaviour: StyledSliderThumbBehaviour, isRelative: Bool = false) -> MutableSliderThumbItem {
+        let thumb = MutableSliderThumbItem()
+        thumb.initialValue = value
+        thumb.behaviour = snappingBehaviour
+        thumb.color = .clear
+        let sizeInfo = SliderThumbSizeInfo()
+        sizeInfo.sizingType = .relativeToSlider(min: 10, max: 40)
+        // Does not work to set this for thumb
+//        sizeInfo.iconSizingType = .relativeToSlider(minSize: CGSize(width: 32, height: 32))
+        sizeInfo.autoAdjustIconSize = true
+        sizeInfo.maxIconSize = CGSize(width: 54, height: 54)
+        thumb.sizeInfo = sizeInfo
+        
+        thumb.triggerEventAbove = 0.9
+        thumb.triggerEventBelow = 0.1
+
+        thumb.icon = UIImage(named: "cameraImage_36pt")
         
         return thumb
     }
-    
+
     func getUtilSeparatorModel(sizeInfo: SliderSeparatorSizeInfo) -> MutableSliderSeparatorItem {
         let sep = MutableSliderSeparatorItem()
         sep.color = .clear
@@ -211,12 +270,21 @@ class SliderDemoViewController: UIViewController {
         return sep
     }
     
+    func getCamSeparatorModel(sizeInfo: SliderSeparatorSizeInfo) -> MutableSliderSeparatorItem {
+        let sep = MutableSliderSeparatorItem()
+        sep.color = .clear
+        sep.sizeInfo = sizeInfo
+        sep.useOpacityForSizing = false
+        return sep
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.horiSlider?.frame = CGRect(x: 10, y: 80, width: self.view.bounds.size.width - 20, height: 32)
         self.vertiSlider?.frame = CGRect(x: 10, y: 120, width: 32, height: 300)
         self.utilButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 120, width: 64, height: 64)
         self.util2Button?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64) * 2, y: 120, width: 64, height: 64)
+        self.camButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 190, width: 64, height: 64)
         self.stepper?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64) * 4, y: 120, width: 128, height: 32)
     }
     
