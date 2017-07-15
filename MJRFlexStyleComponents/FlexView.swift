@@ -184,6 +184,20 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             self.setNeedsLayout()
         }
     }
+ 
+    /// The sub footer text. Defaults to nil, which means no text.
+    @IBInspectable open var footerSubText: String? = nil {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    /// The sub footer text. Defaults to nil, which means no text.
+    @IBInspectable open var footerSubAttributedText: NSAttributedString? = nil {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
 
     /// The footer size is either the height or the width of the footer, depending on the footer position.
     @IBInspectable open dynamic var footerSize: CGFloat = 18 {
@@ -265,6 +279,19 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             return NSAttributedString(string: ft)
         }
         if let afs = self.footerSecondaryAttributedText {
+            return afs
+        }
+        return NSAttributedString()
+    }
+
+    func hasSubFooterText() -> Bool {
+        return self.footerSubText != nil || self.footerSubAttributedText != nil
+    }
+    func getSubFooterText() -> NSAttributedString {
+        if let ft = self.footerSubText {
+            return NSAttributedString(string: ft)
+        }
+        if let afs = self.footerSubAttributedText {
             return afs
         }
         return NSAttributedString()
@@ -417,7 +444,18 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         else {
             self.footer.secondaryCaption.isHidden = true
         }
-        
+
+        if self.hasSubFooterText() {
+            self.layoutSupplementaryView(self.footer, frame: rff)
+            let stRect = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.controlInsets)
+            self.layoutSupplementaryTextLabels(self.footer.subCaption, frame: stRect, attributedText: self.getSubFooterText())
+            hasFooterText = true
+            self.footer.subCaption.isHidden = false
+        }
+        else {
+            self.footer.subCaption.isHidden = true
+        }
+
         if !hasFooterText {
             self.footer.removeFromSuperview()
         }
