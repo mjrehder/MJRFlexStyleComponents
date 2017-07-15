@@ -424,7 +424,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
 
         var hasFooterText = false
         if self.hasFooterText() && self.hasSubFooterText() {
-            self.layoutSupplementaryView(self.footer, frame: rfh)
+            self.layoutSupplementaryView(self.footer, frame: rff)
             let ht = self.getFooterText()
             let sht = self.getSubFooterText()
             let stRect = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.controlInsets)
