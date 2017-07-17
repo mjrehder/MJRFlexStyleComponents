@@ -184,6 +184,20 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             self.setNeedsLayout()
         }
     }
+ 
+    /// The sub footer text. Defaults to nil, which means no text.
+    @IBInspectable open var footerSubText: String? = nil {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    /// The sub footer text. Defaults to nil, which means no text.
+    @IBInspectable open var footerSubAttributedText: NSAttributedString? = nil {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
 
     /// The footer size is either the height or the width of the footer, depending on the footer position.
     @IBInspectable open dynamic var footerSize: CGFloat = 18 {
@@ -265,6 +279,19 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             return NSAttributedString(string: ft)
         }
         if let afs = self.footerSecondaryAttributedText {
+            return afs
+        }
+        return NSAttributedString()
+    }
+
+    func hasSubFooterText() -> Bool {
+        return self.footerSubText != nil || self.footerSubAttributedText != nil
+    }
+    func getSubFooterText() -> NSAttributedString {
+        if let ft = self.footerSubText {
+            return NSAttributedString(string: ft)
+        }
+        if let afs = self.footerSubAttributedText {
             return afs
         }
         return NSAttributedString()
@@ -394,17 +421,31 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.headerTap(_:)))
             self.header.caption.label.addGestureRecognizer(tapGesture)
         }
-        
+
         var hasFooterText = false
-        if self.hasFooterText() {
+        if self.hasFooterText() && self.hasSubFooterText() {
+            self.layoutSupplementaryView(self.footer, frame: rff)
+            let ht = self.getFooterText()
+            let sht = self.getSubFooterText()
+            let stRect = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.controlInsets)
+            let hth = ht.heightWithConstrainedWidth(stRect.width)
+            let shth = sht.heightWithConstrainedWidth(stRect.width)
+            let totalHeight = hth + shth
+            let footerFrame = CGRect(x: stRect.minX, y: stRect.minY, width: stRect.width, height: (hth / totalHeight) * stRect.height)
+            let subFooterFrame = CGRect(x: stRect.minX, y: footerFrame.maxY, width: stRect.width, height: (shth / totalHeight) * stRect.height)
+            self.layoutSupplementaryTextLabels(self.footer.caption, frame: footerFrame, attributedText: self.getFooterText())
+            self.layoutSupplementaryTextLabels(self.footer.subCaption, frame: subFooterFrame, attributedText: self.getSubFooterText())
+            hasFooterText = true
+            self.footer.caption.isHidden = false
+            self.footer.subCaption.isHidden = false
+        }
+        else if self.hasFooterText() {
             self.layoutSupplementaryView(self.footer, frame: rff)
             let stRect = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.controlInsets)
             self.layoutSupplementaryTextLabels(self.footer.caption, frame: stRect, attributedText: self.getFooterText())
             hasFooterText = true
             self.footer.caption.isHidden = false
-        }
-        else {
-            self.footer.caption.isHidden = true
+            self.footer.subCaption.isHidden = true
         }
         
         if self.hasSecondaryFooterText() {
@@ -417,7 +458,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         else {
             self.footer.secondaryCaption.isHidden = true
         }
-        
+
         if !hasFooterText {
             self.footer.removeFromSuperview()
         }
