@@ -12,8 +12,9 @@ class SliderDemoViewController: UIViewController {
     
     private var horiSlider: FlexMutableSlider?
     private var vertiSlider: FlexMutableSlider?
-    private var utilButton: FlexMutableSlider?
-    private var util2Button: FlexMutableSlider?
+
+    private var utilButton: FlexFlickButton?
+    private var util2Button: FlexFlickButton?
 
     private var camButton: FlexMutableSlider?
     
@@ -40,6 +41,9 @@ class SliderDemoViewController: UIViewController {
         self.horiSlider?.addThumb(self.getThumbModel(value: 0.25, snappingBehaviour: .snapToValueRelative(v: 0.25)), separator: self.getSeparatorModel())
         self.horiSlider?.addThumb(self.getThumbModel(value: 0.5, snappingBehaviour: .snapToValueRelative(v: 0.5)), separator: self.getSeparatorModel())
         self.horiSlider?.addThumb(self.getThumbModel(value: 0.75, snappingBehaviour: .snapToValueRelative(v: 0.75)), separator: self.getSeparatorModel())
+
+        // Debug
+        self.horiSlider?.continuous = false
         
         self.vertiSlider = FlexMutableSlider(frame: CGRect(x: 10, y: 50, width: 32, height: 100))
         self.vertiSlider?.minimumValue = 0
@@ -61,79 +65,31 @@ class SliderDemoViewController: UIViewController {
             NSLog("Event trigger for \(index) at value \(value)")
         }
         
-        self.utilButton = FlexMutableSlider(frame: CGRect(x: 10, y: 50, width: 48, height: 48))
-        self.utilButton?.minimumValue = 0
-        self.utilButton?.maximumValue = 1
+        // Debug
+        self.vertiSlider?.continuous = false
+
+        self.utilButton = FlexFlickButton(frame: CGRect(x: 10, y: 50, width: 48, height: 48))
         self.utilButton?.borderColor = .black
         self.utilButton?.borderWidth = 1
         self.utilButton?.style = FlexShapeStyle(style: .thumb)
         self.utilButton?.thumbStyle = FlexShapeStyle(style: .box)
-        self.utilButton?.getSeparator(at: 0)?.color = .clear
         self.utilButton?.direction = .vertical
-        self.utilButton?.thumbSize = CGSize(width: 48, height: 32)
-        self.utilButton?.continuous = false
+        self.utilButton?.upperText = "B"
+        self.utilButton?.primaryText = "A"
+        self.utilButton?.lowerText = "C"
+        self.utilButton?.upperIcon = UIImage(color: .red, size: CGSize(width: 32, height: 32))
+        self.utilButton?.primaryIcon = UIImage(color: .green, size: CGSize(width: 32, height: 32))
+        self.utilButton?.lowerIcon = UIImage(color: .blue, size: CGSize(width: 32, height: 32))
         self.view.addSubview(self.utilButton!)
         
-        let sizeInfo = SliderSeparatorSizeInfo()
-        sizeInfo.autoAdjustTextFontSize = true
-        sizeInfo.minFontSize = 8
-        sizeInfo.maxFontSize = 18
-        sizeInfo.maxIconSize = CGSize(width: 42, height: 42)
-        sizeInfo.iconSizingType = .relativeToSlider(minSize: CGSize(width: 16, height: 16))
-        sizeInfo.autoAdjustIconSize = true
-        //        sizeInfo.textInsetsForAutoTextFont = .zero
-        
-        let u2 = self.getUtilThumbModel(value: 0.5, snappingBehaviour: .snapToValueRelative(v: 0.5))
-        u2.text = "A"
-        self.utilButton?.addThumb(u2, separator: self.getUtilSeparatorModel(sizeInfo: sizeInfo))
-        
-        self.utilButton?.getSeparator(at: 0)?.text = "B"
-        self.utilButton?.getSeparator(at: 0)?.sizeInfo = sizeInfo
-        self.utilButton?.recreateThumbs()
-        
-        self.utilButton?.eventTriggerHandler = {
-            (index, value) in
-            NSLog("Event trigger for \(index) at value \(value)")
-        }
-        
-        
-        self.util2Button = FlexMutableSlider(frame: CGRect(x: 10, y: 50, width: 48, height: 48))
-        self.util2Button?.minimumValue = 0
-        self.util2Button?.maximumValue = 1
+        self.util2Button = FlexFlickButton(frame: CGRect(x: 10, y: 50, width: 48, height: 48))
         self.util2Button?.borderColor = .black
         self.util2Button?.borderWidth = 1
         self.util2Button?.style = FlexShapeStyle(style: .thumb)
         self.util2Button?.thumbStyle = FlexShapeStyle(style: .box)
-        self.util2Button?.getSeparator(at: 0)?.color = .clear
         self.util2Button?.direction = .vertical
-        self.util2Button?.thumbSize = CGSize(width: 48, height: 32)
-        self.util2Button?.continuous = false
         self.view.addSubview(self.util2Button!)
-        
-        let size2Info = SliderSeparatorSizeInfo()
-        size2Info.autoAdjustTextFontSize = true
-        size2Info.minFontSize = 8
-        size2Info.maxFontSize = 18
-        size2Info.maxIconSize = CGSize(width: 42, height: 42)
-        size2Info.iconSizingType = .relativeToSlider(minSize: CGSize(width: 16, height: 16))
-        size2Info.autoAdjustIconSize = true
-        
-        let u2b = self.getUtilThumbModel(value: 0.66, snappingBehaviour: .snapToValueRelative(v: 0.66))
-        u2b.text = "A"
-        u2b.lowerLimit = 0.66
-        self.util2Button?.addThumb(u2b, separator: self.getUtil2SeparatorModel(sizeInfo: sizeInfo))
-        
-        self.util2Button?.getSeparator(at: 0)?.text = "B"
-        self.util2Button?.getSeparator(at: 0)?.sizeInfo = sizeInfo
-        let icon = UIImage(color: .red, size: CGSize(width: 32, height: 32))
-        self.util2Button?.getSeparator(at: 0)?.icon = icon
-        self.util2Button?.recreateThumbs()
-        
-        self.util2Button?.eventTriggerHandler = {
-            (index, value) in
-            NSLog("Event trigger for \(index) at value \(value)")
-        }
-        
+
         // Snap Stepper
         self.stepper = FlexSnapStepper(frame: .zero)
         self.stepper?.stepValueChangeHandler = {
@@ -150,42 +106,6 @@ class SliderDemoViewController: UIViewController {
         self.stepper?.borderWidth = 1
         
         self.view.addSubview(self.stepper!)
-        
-        // Camera Button
-        self.camButton = FlexMutableSlider(frame: CGRect(x: 10, y: 50, width: 48, height: 48))
-        self.camButton?.minimumValue = 0
-        self.camButton?.maximumValue = 1
-        self.camButton?.borderColor = .black
-        self.camButton?.borderWidth = 1
-        self.camButton?.style = FlexShapeStyle(style: .thumb)
-        self.camButton?.thumbStyle = FlexShapeStyle(style: .box)
-        self.camButton?.getSeparator(at: 0)?.color = .clear
-        self.camButton?.direction = .vertical
-        self.camButton?.thumbSize = CGSize(width: 48, height: 40)
-        self.camButton?.continuous = false
-        self.view.addSubview(self.camButton!)
-
-        let camSizeInfo = SliderSeparatorSizeInfo()
-        camSizeInfo.autoAdjustTextFontSize = true
-        camSizeInfo.maxIconSize = CGSize(width: 48, height: 48)
-        camSizeInfo.iconSizingType = .relativeToSlider(minSize: CGSize(width: 20, height: 20))
-        camSizeInfo.autoAdjustIconSize = true
-        
-        let cb = self.getCamThumbModel(value: 0.66, snappingBehaviour: .snapToThreeState(low: 0.66, mid: 0.66, high: 1))
-//        let cb = self.getCamThumbModel(value: 0.66, snappingBehaviour: .snapToValueRelative(v: 0.66))
-        cb.lowerLimit = 0.66
-        self.camButton?.addThumb(cb, separator: self.getCamSeparatorModel(sizeInfo: camSizeInfo))
-        
-        self.camButton?.getSeparator(at: 0)?.sizeInfo = camSizeInfo
-        let cicon = UIImage(named: "videoCamImage_36pt")
-        self.camButton?.getSeparator(at: 0)?.icon = cicon
-        self.camButton?.recreateThumbs()
-        
-        self.camButton?.eventTriggerHandler = {
-            (index, value) in
-            NSLog("Event trigger for \(index) at value \(value)")
-        }
-
     }
     
     func getThumbModel(value: Double, snappingBehaviour: StyledSliderThumbBehaviour, isRelative: Bool = false) -> MutableSliderThumbItem {
@@ -196,7 +116,7 @@ class SliderDemoViewController: UIViewController {
         thumb.text = "TH"
         let sizeInfo = SliderThumbSizeInfo()
         sizeInfo.sizingType = .relativeToSlider(min: 10, max: 32)
-        sizeInfo.autoAdjustTextFontSize = true
+        sizeInfo.textSizingType = .scaleToFit
         thumb.sizeInfo = sizeInfo
         
         thumb.triggerEventAbove = 0.9
@@ -210,74 +130,7 @@ class SliderDemoViewController: UIViewController {
         sep.color = UIColor.MKColor.BlueGrey.P200
         return sep
     }
-    
-    func getUtilThumbModel(value: Double, snappingBehaviour: StyledSliderThumbBehaviour, isRelative: Bool = false) -> MutableSliderThumbItem {
-        let thumb = MutableSliderThumbItem()
-        thumb.initialValue = value
-        thumb.behaviour = snappingBehaviour
-        thumb.color = .clear
-        let sizeInfo = SliderThumbSizeInfo()
-        sizeInfo.sizingType = .relativeToSlider(min: 10, max: 32)
-        sizeInfo.autoAdjustTextFontSize = true
-        sizeInfo.minFontSize = 10
-        sizeInfo.maxFontSize = 32
-        thumb.sizeInfo = sizeInfo
-        
-        thumb.triggerEventAbove = 0.9
-        thumb.triggerEventBelow = 0.1
 
-        return thumb
-    }
-
-    func getCamThumbModel(value: Double, snappingBehaviour: StyledSliderThumbBehaviour, isRelative: Bool = false) -> MutableSliderThumbItem {
-        let thumb = MutableSliderThumbItem()
-        thumb.initialValue = value
-        thumb.behaviour = snappingBehaviour
-        thumb.color = .clear
-        let sizeInfo = SliderThumbSizeInfo()
-        sizeInfo.sizingType = .relativeToSlider(min: 10, max: 40)
-        // Does not work to set this for thumb
-//        sizeInfo.iconSizingType = .relativeToSlider(minSize: CGSize(width: 32, height: 32))
-        sizeInfo.autoAdjustIconSize = true
-        sizeInfo.maxIconSize = CGSize(width: 54, height: 54)
-        thumb.sizeInfo = sizeInfo
-        
-        thumb.triggerEventAbove = 0.9
-        thumb.triggerEventBelow = 0.1
-
-        thumb.icon = UIImage(named: "cameraImage_36pt")
-        
-        return thumb
-    }
-
-    func getUtilSeparatorModel(sizeInfo: SliderSeparatorSizeInfo) -> MutableSliderSeparatorItem {
-        let sep = MutableSliderSeparatorItem()
-        sep.color = .clear
-        sep.text = "C"
-        sep.sizeInfo = sizeInfo
-        sep.useOpacityForSizing = false
-        let icon = UIImage(color: .red, size: CGSize(width: 32, height: 32))
-        sep.icon = icon
-        
-        return sep
-    }
-    
-    func getUtil2SeparatorModel(sizeInfo: SliderSeparatorSizeInfo) -> MutableSliderSeparatorItem {
-        let sep = MutableSliderSeparatorItem()
-        sep.color = .clear
-        sep.sizeInfo = sizeInfo
-        sep.useOpacityForSizing = false
-        return sep
-    }
-    
-    func getCamSeparatorModel(sizeInfo: SliderSeparatorSizeInfo) -> MutableSliderSeparatorItem {
-        let sep = MutableSliderSeparatorItem()
-        sep.color = .clear
-        sep.sizeInfo = sizeInfo
-        sep.useOpacityForSizing = false
-        return sep
-    }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.horiSlider?.frame = CGRect(x: 10, y: 80, width: self.view.bounds.size.width - 20, height: 32)

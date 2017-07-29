@@ -937,13 +937,38 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             let sep = self.separatorLabels[idx]
             sep.text = self.sliderDelegate?.textOfSeparatorLabel(idx)
             if let sizeInfo = sep.sizeInfo {
-                if sizeInfo.autoAdjustTextFontSize {
-                    sep.fitFontForSize(minFontSize: sizeInfo.minFontSize, maxFontSize: sizeInfo.maxFontSize, accuracy: 1.0, margins: sizeInfo.textInsetsForAutoTextFont)
+                switch sizeInfo.textSizingType {
+                case .fixed:
+                    break
+                case .scaleToFit:
+                    sep.fitFontForSize(minFontSize: 5, maxFontSize: sizeInfo.maxFontSize, accuracy: 1.0, margins: sizeInfo.textInsetsForAutoTextFont)
+                case .relativeToSlider(let minSize):
+                    let pos = CGPoint(x: sep.bounds.origin.x + sep.bounds.size.width * 0.5, y: sep.bounds.origin.y + sep.bounds.size.height * 0.5)
+                    let pp = self.direction.principalPosition(pos)
+                    let ps = self.direction.principalSize(self.bounds.size)
+                    let fSize = self.calculateRelativeFontSize(min: minSize, max: sizeInfo.maxFontSize, pp: pp, pDiff: ps)
+                    sep.font = sep.font?.withSize(fSize)
                 }
             }
         }
     }
 
+    func calculateRelativeFontSize(min: CGFloat, max: CGFloat, pp: CGFloat, pDiff: CGFloat) -> CGFloat {
+        var ps = pDiff
+        if ps < min {
+            ps = min + 1.0
+        }
+        let offRatio = Double(pp / ps) * Double.pi
+        var sizeCalc = CGFloat(1 - abs(cos(offRatio))) * (max - min) + min
+        if sizeCalc < min {
+            sizeCalc = min
+        }
+        if sizeCalc > max {
+            sizeCalc = max
+        }
+        return sizeCalc
+    }
+    
     func addThumb(_ value: Double) {
         let thumb = LabelFactory.defaultStyledThumb()
         thumb.index = self.thumbList.thumbs.count
@@ -990,8 +1015,17 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         thumb.font = self.thumbFont
         thumb.textColor = self.thumbTextColor
         if let thumbSizeInfo = thumb.sizeInfo {
-            if thumbSizeInfo.autoAdjustTextFontSize {
-                thumb.fitFontForSize(minFontSize: thumbSizeInfo.minFontSize, maxFontSize: thumbSizeInfo.maxFontSize, accuracy: 1.0, margins: thumbSizeInfo.textInsetsForAutoTextFont)
+            switch thumbSizeInfo.textSizingType {
+            case .fixed:
+                break
+            case .scaleToFit:
+                thumb.fitFontForSize(minFontSize: 5, maxFontSize: thumbSizeInfo.maxFontSize, accuracy: 1.0, margins: thumbSizeInfo.textInsetsForAutoTextFont)
+            case .relativeToSlider(let minSize):
+                let pos = self.thumbList.getThumbPos(thumbIndex: thumb.index)
+                let pp = self.direction.principalPosition(pos)
+                let ps = self.direction.principalSize(self.bounds.size)
+                let fSize = self.calculateRelativeFontSize(min: minSize, max: thumbSizeInfo.maxFontSize, pp: pp, pDiff: ps)
+                thumb.font = thumb.font?.withSize(fSize)
             }
         }
     }

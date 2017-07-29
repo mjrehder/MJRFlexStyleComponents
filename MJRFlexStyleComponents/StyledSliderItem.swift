@@ -52,29 +52,26 @@ open class StyledSliderItem: StyledLabel {
         if let bgi = self.backgroundIcon {
             let iSize: CGSize
             if let si = self.sizeInfo {
-                if si.autoAdjustIconSize {
-                    switch si.iconSizingType {
-                    case .relativeToSliderItem:
-                        let minSize = CGSize(width: min(si.maxIconSize?.width ?? CGFloat.infinity, visibleBounds.size.width), height: min(si.maxIconSize?.height ?? CGFloat.infinity, visibleBounds.size.height))
-                        let maxSize = UIEdgeInsetsInsetRect(CGRect(origin: visibleBounds.origin, size: minSize), si.iconInsetsForAutoSize).size
-                        let ws = maxSize.width/bgi.size.width
-                        let hs = maxSize.height/bgi.size.height
-                        let scale = min( ws, hs)
-                        iSize = CGSize(width: bgi.size.width * scale, height: bgi.size.height * scale)
-                    case .relativeToSlider(let minSize):
-                        let iMaxSize = CGSize(width: min(si.maxIconSize?.width ?? CGFloat.infinity, visibleBounds.size.width), height: min(si.maxIconSize?.height ?? CGFloat.infinity, visibleBounds.size.height))
-                        let reo = self.relativeEdgeOffset ?? 1.0
-                        let pSize = CGSize(width: iMaxSize.width * reo, height: iMaxSize.height * reo)
-                        let iMinSize = CGSize(width: max(minSize.width, pSize.width), height: max(minSize.height, pSize.height))
-                        let maxSize = UIEdgeInsetsInsetRect(CGRect(origin: visibleBounds.origin, size: iMinSize), si.iconInsetsForAutoSize).size
-                        let ws = maxSize.width/bgi.size.width
-                        let hs = maxSize.height/bgi.size.height
-                        let scale = min( ws, hs)
-                        iSize = CGSize(width: bgi.size.width * scale, height: bgi.size.height * scale)
-                    }
-                }
-                else {
+                switch si.iconSizingType {
+                case .fixed:
                     iSize = bgi.size
+                case .relativeToSliderItem:
+                    let minSize = CGSize(width: min(si.maxIconSize?.width ?? CGFloat.infinity, visibleBounds.size.width), height: min(si.maxIconSize?.height ?? CGFloat.infinity, visibleBounds.size.height))
+                    let maxSize = UIEdgeInsetsInsetRect(CGRect(origin: visibleBounds.origin, size: minSize), si.iconInsetsForAutoSize).size
+                    let ws = maxSize.width/bgi.size.width
+                    let hs = maxSize.height/bgi.size.height
+                    let scale = min( ws, hs)
+                    iSize = CGSize(width: bgi.size.width * scale, height: bgi.size.height * scale)
+                case .relativeToSlider(let minSize):
+                    let iMaxSize = CGSize(width: min(si.maxIconSize?.width ?? CGFloat.infinity, visibleBounds.size.width), height: min(si.maxIconSize?.height ?? CGFloat.infinity, visibleBounds.size.height))
+                    let reo = self.relativeEdgeOffset ?? 1.0
+                    let pSize = CGSize(width: iMaxSize.width * reo, height: iMaxSize.height * reo)
+                    let iMinSize = CGSize(width: max(minSize.width, pSize.width), height: max(minSize.height, pSize.height))
+                    let maxSize = UIEdgeInsetsInsetRect(CGRect(origin: visibleBounds.origin, size: iMinSize), si.iconInsetsForAutoSize).size
+                    let ws = maxSize.width/bgi.size.width
+                    let hs = maxSize.height/bgi.size.height
+                    let scale = min( ws, hs)
+                    iSize = CGSize(width: bgi.size.width * scale, height: bgi.size.height * scale)
                 }
             }
             else {

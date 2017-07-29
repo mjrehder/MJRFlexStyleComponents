@@ -114,6 +114,8 @@
 		5BB36E4B1E66B37F00EE7EDF /* FlexViewTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB36E491E66B37F00EE7EDF /* FlexViewTopBar.swift */; };
 		5BB36E4E1E66CCCC00EE7EDF /* FlexViewSearchTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB36E4D1E66CCCC00EE7EDF /* FlexViewSearchTopBar.swift */; };
 		5BB36E4F1E66CCCC00EE7EDF /* FlexViewSearchTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB36E4D1E66CCCC00EE7EDF /* FlexViewSearchTopBar.swift */; };
+		5BB660461F2765F2006B0F36 /* FlexFlickButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB660451F2765F2006B0F36 /* FlexFlickButton.swift */; };
+		5BB660471F2765F2006B0F36 /* FlexFlickButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB660451F2765F2006B0F36 /* FlexFlickButton.swift */; };
 		5BB91C901DA3955900A94D12 /* FlexCollectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91C8A1DA3955900A94D12 /* FlexCollectionSection.swift */; };
 		5BB91C911DA3955900A94D12 /* FlexCollectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91C8A1DA3955900A94D12 /* FlexCollectionSection.swift */; };
 		5BB91C921DA3955900A94D12 /* FlexCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB91C8B1DA3955900A94D12 /* FlexCollectionItem.swift */; };
@@ -259,6 +261,7 @@
 		5BB3660F1DBA382500C26FC0 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		5BB36E491E66B37F00EE7EDF /* FlexViewTopBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexViewTopBar.swift; sourceTree = "<group>"; };
 		5BB36E4D1E66CCCC00EE7EDF /* FlexViewSearchTopBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexViewSearchTopBar.swift; sourceTree = "<group>"; };
+		5BB660451F2765F2006B0F36 /* FlexFlickButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexFlickButton.swift; sourceTree = "<group>"; };
 		5BB91C8A1DA3955900A94D12 /* FlexCollectionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCollectionSection.swift; sourceTree = "<group>"; };
 		5BB91C8B1DA3955900A94D12 /* FlexCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCollectionItem.swift; sourceTree = "<group>"; };
 		5BB91C8C1DA3955900A94D12 /* EmptyHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -593,6 +596,7 @@
 				5BE4486C1D478E9A0011E5AE /* FlexDoubleSlider.swift */,
 				5BC9E1241EF6A7CB00740834 /* FlexMutableSlider.swift */,
 				5B40750F1F02740000C8D077 /* FlexSnapStepper.swift */,
+				5BB660451F2765F2006B0F36 /* FlexFlickButton.swift */,
 			);
 			name = Slider;
 			sourceTree = "<group>";
@@ -874,6 +878,7 @@
 				5B9937011D3A9E210043E573 /* ViewController.swift in Sources */,
 				5BB2A61E1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift in Sources */,
 				5BE64CE41E4B279B00CD0271 /* FlexTextFieldCollectionViewCell.swift in Sources */,
+				5BB660471F2765F2006B0F36 /* FlexFlickButton.swift in Sources */,
 				5BB91C971DA3955900A94D12 /* SimpleHeaderCollectionReusableView.swift in Sources */,
 				5BC362881EFBA9B600E04C26 /* StyledSliderItem.swift in Sources */,
 				5B53D0F71D5393520068BF04 /* ViewsDemoViewController.swift in Sources */,
@@ -993,6 +998,7 @@
 				5B9F2C601D32352600B096B5 /* StyledSliderThumb.swift in Sources */,
 				5B72347D1E2CBFB10089A4E7 /* FlexButtonCollectionItem.swift in Sources */,
 				5B3FF7391E152C600077A106 /* FlexCellView.swift in Sources */,
+				5BB660461F2765F2006B0F36 /* FlexFlickButton.swift in Sources */,
 				5BB91CA91DA3DC3500A94D12 /* FlexBaseCollectionItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

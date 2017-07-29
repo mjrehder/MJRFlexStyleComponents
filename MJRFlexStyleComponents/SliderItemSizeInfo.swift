@@ -30,18 +30,23 @@
 import UIKit
 
 public enum SliderIconSizingType {
+    case fixed
     case relativeToSlider(minSize: CGSize)
     case relativeToSliderItem
 }
 
+public enum SliderFontSizingType {
+    case fixed
+    case scaleToFit
+    case relativeToSlider(minSize: CGFloat)
+}
+
 open class SliderItemSizeInfo {
-    open var autoAdjustTextFontSize = false
-    open var minFontSize: CGFloat = 5.0
-    open var maxFontSize: CGFloat = 48.0
     open var textInsetsForAutoTextFont = UIEdgeInsetsMake(2, 2, 2, 2)
+    open var textSizingType: SliderFontSizingType = .scaleToFit
+    open var maxFontSize: CGFloat = 48.0
     
-    open var iconSizingType: SliderIconSizingType = .relativeToSliderItem
-    open var autoAdjustIconSize = false
     open var iconInsetsForAutoSize = UIEdgeInsetsMake(2, 2, 2, 2)
+    open var iconSizingType: SliderIconSizingType = .relativeToSliderItem
     open var maxIconSize: CGSize?
 }
