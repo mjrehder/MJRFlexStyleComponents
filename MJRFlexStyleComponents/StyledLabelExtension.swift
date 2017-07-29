@@ -56,7 +56,6 @@ extension StyledLabel {
                     maxfs = midFontSize
                 }
             }
-            NSLog("font size now: \(minfs) of font between \(minFontSize) and \(maxFontSize) in bounds \(constrainedSize)")
             self.font = font.withSize(minfs)
             layoutIfNeeded()
         }

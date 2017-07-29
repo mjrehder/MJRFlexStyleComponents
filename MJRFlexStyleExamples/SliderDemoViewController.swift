@@ -16,6 +16,8 @@ class SliderDemoViewController: UIViewController {
     private var utilButton: FlexFlickButton?
     private var util2Button: FlexFlickButton?
 
+    private var horizUtilButton: FlexFlickButton?
+
     private var camButton: FlexMutableSlider?
     
     private var stepper: FlexSnapStepper?
@@ -82,6 +84,18 @@ class SliderDemoViewController: UIViewController {
         self.utilButton?.lowerIcon = UIImage(color: .blue, size: CGSize(width: 32, height: 32))
         self.view.addSubview(self.utilButton!)
         
+        self.utilButton?.actionActivationHandler = {
+            action in
+            switch action {
+            case .upper:
+                NSLog("upper action triggered")
+            case .primary:
+                NSLog("primary action triggered")
+            case .lower:
+                NSLog("lower action triggered")
+            }
+        }
+        
         self.util2Button = FlexFlickButton(frame: CGRect(x: 10, y: 50, width: 48, height: 48))
         self.util2Button?.borderColor = .black
         self.util2Button?.borderWidth = 1
@@ -89,6 +103,14 @@ class SliderDemoViewController: UIViewController {
         self.util2Button?.thumbStyle = FlexShapeStyle(style: .box)
         self.util2Button?.direction = .vertical
         self.view.addSubview(self.util2Button!)
+
+        self.horizUtilButton = FlexFlickButton(frame: CGRect(x: 10, y: 50, width: 48, height: 48))
+        self.horizUtilButton?.borderColor = .black
+        self.horizUtilButton?.borderWidth = 1
+        self.horizUtilButton?.style = FlexShapeStyle(style: .thumb)
+        self.horizUtilButton?.thumbStyle = FlexShapeStyle(style: .box)
+        self.horizUtilButton?.direction = .horizontal
+        self.view.addSubview(self.horizUtilButton!)
 
         // Snap Stepper
         self.stepper = FlexSnapStepper(frame: .zero)
@@ -137,6 +159,7 @@ class SliderDemoViewController: UIViewController {
         self.vertiSlider?.frame = CGRect(x: 10, y: 120, width: 32, height: 300)
         self.utilButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 120, width: 64, height: 64)
         self.util2Button?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64) * 2, y: 120, width: 64, height: 64)
+        self.horizUtilButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 120 + 80, width: 64, height: 64)
         self.camButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 190, width: 64, height: 64)
         self.stepper?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64) * 4, y: 120, width: 128, height: 32)
     }

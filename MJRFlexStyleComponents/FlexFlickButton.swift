@@ -29,6 +29,12 @@
 
 import UIKit
 
+public enum FlexFlickActionActivationType {
+    case upper
+    case primary
+    case lower
+}
+
 open class FlexFlickButton: FlexMutableSlider {
 
     open var upperIcon: UIImage? = nil {
@@ -172,6 +178,8 @@ open class FlexFlickButton: FlexMutableSlider {
         }
     }
     
+    open var actionActivationHandler: ((FlexFlickActionActivationType) -> Void)?
+    
     override func setupSlider() {
         super.setupSlider()
         
@@ -181,18 +189,29 @@ open class FlexFlickButton: FlexMutableSlider {
         self.continuous = false
 
         self.valueChangedBlockWhileSliding = {
-            newValue, index in
-
+            _, _ in
         }
         
         self.separatorTouchHandler = {
-            index in
-
+            _ in
+            self.actionActivationHandler?(.primary)
+        }
+        
+        self.thumbTouchHandler = {
+            _ in
+            self.actionActivationHandler?(.primary)
         }
         
         self.eventTriggerHandler = {
             (index, value) in
-            NSLog("Event trigger for \(index) at value \(value)")
+            if let thumb = self.getThumb(at: index), let lowerThreshold = thumb.triggerEventBelow, let upperThreshold = thumb.triggerEventAbove {
+                if value <= lowerThreshold {
+                    self.actionActivationHandler?(.lower)
+                }
+                else if value >= upperThreshold {
+                    self.actionActivationHandler?(.upper)
+                }
+            }
         }
 
         self.createItems()
