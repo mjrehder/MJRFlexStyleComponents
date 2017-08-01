@@ -32,4 +32,24 @@ import StyledLabel
 
 open class StyledSliderSeparator: StyledSliderItem {
     var useOpacityForSizing = true
+    
+    var assignedGestures: [UIGestureRecognizer] = []
+    
+    open func removeAssignedGestureRecognizers() {
+        for rec in self.assignedGestures {
+            self.removeGestureRecognizer(rec)
+        }
+    }
+    
+    open override func addGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
+        super.addGestureRecognizer(gestureRecognizer)
+        self.assignedGestures.append(gestureRecognizer)
+    }
+    
+    open override func removeGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
+        super.removeGestureRecognizer(gestureRecognizer)
+        if let idx = self.assignedGestures.index(of: gestureRecognizer) {
+            self.assignedGestures.remove(at: idx)
+        }
+    }
 }

@@ -164,14 +164,14 @@ open class FlexMutableSlider: GenericStyleSlider, GenericStyleSliderDelegate {
         return nil
     }
     
-    open func attributedTextOfThumb(_ index: Int) -> NSAttributedString? {
+    open func attributedTextOfThumb(at index: Int, rect: CGRect, relativeCenter: CGFloat) -> NSAttributedString? {
         if index < self.thumbs.count {
             return self.thumbs[index].attributedText
         }
         return nil
     }
     
-    open func attributedTextOfSeparatorLabel(_ index: Int) -> NSAttributedString? {
+    open func attributedTextOfSeparatorLabel(at index: Int, rect: CGRect, relativeCenter: CGFloat) -> NSAttributedString? {
         if index < self.separators.count {
             return self.separators[index].attributedText
         }

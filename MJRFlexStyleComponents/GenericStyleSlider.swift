@@ -33,14 +33,14 @@ import DynamicColor
 
 public protocol GenericStyleSliderDelegate {
     func textOfThumb(_ index: Int) -> String?
-    func attributedTextOfThumb(_ index: Int) -> NSAttributedString?
+    func attributedTextOfThumb(at index: Int, rect: CGRect, relativeCenter: CGFloat) -> NSAttributedString?
     func colorOfThumb(_ index: Int) -> UIColor?
     func iconOfThumb(_ index: Int) -> UIImage?
     func iconOfSeparator(_ index: Int) -> UIImage?
     func behaviourOfThumb(_ index: Int) -> StyledSliderThumbBehaviour?
     func textOfSeparatorLabel(_ index: Int) -> String?
+    func attributedTextOfSeparatorLabel(at index: Int, rect: CGRect, relativeCenter: CGFloat) -> NSAttributedString?
     func adaptOpacityForSeparatorLabel(_ index: Int) -> Bool
-    func attributedTextOfSeparatorLabel(_ index: Int) -> NSAttributedString?
     func colorOfSeparatorLabel(_ index: Int) -> UIColor?
     func sizeInfoOfThumb(_ index: Int) -> SliderThumbSizeInfo?
     func sizeInfoOfSeparator(_ index: Int) -> SliderSeparatorSizeInfo?
@@ -106,6 +106,26 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     /**
+     This function returns a relative size in the interval [0;1] for a given relative offset [0;1]. This is used when a thumb size is calculated by the thumbs offset relative to the slider size.
+     The default is: sin(offset)
+     Another example would be: 1 - abs(cos(offset))
+     Override to change the default
+     */
+    open func thumbRelativeSizeFunction(_ offset: Double) -> CGFloat {
+        return CGFloat(sin(offset))
+    }
+    
+    /**
+     This function returns a relative size in the interval [0;1] for a given relative offset [0;1]. This is used when a font size is calculated by the slider item offset relative to the slider size.
+     The default is: 1 - abs(cos(offset))
+     Another example would be: sin(offset)
+     Override to change the default
+     */
+    open func fontRelativeSizeFunction(_ offset: Double) -> CGFloat {
+        return CGFloat(1 - abs(cos(offset)))
+    }
+    
+    /**
      Block to be notify when the value of the slider change.
      
      This is a convenient alternative to the `addTarget:Action:forControlEvents:` method of the `UIControl`.
@@ -151,6 +171,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     @IBInspectable open var direction: StyledControlDirection = .horizontal {
         didSet {
             self.thumbList.direction = direction
+            self.setupSeparatorGestures()
             self.setNeedsLayout()
         }
     }
@@ -337,6 +358,13 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     // MARK: - Separators
+    
+    /// Swiping of the separator will affect the according thumb, if enabled. Default is disabled.
+    open dynamic var separatorSwipeEnabled: Bool = false {
+        didSet {
+            self.setupSeparatorGestures()
+        }
+    }
     
     /// The separator represented as a ratio of the component. Defaults to 1.
     @IBInspectable open dynamic var separatorRatio: CGFloat = 1.0 {
@@ -586,7 +614,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             ps = min + 1.0
         }
         let offRatio = Double(pp / ps) * Double.pi
-        var sizeCalc = CGFloat(sin(offRatio)) * self.direction.principalSize(prefSize)
+        var sizeCalc = self.thumbRelativeSizeFunction(offRatio) * self.direction.principalSize(prefSize)
         if sizeCalc < min {
             sizeCalc = min
         }
@@ -737,9 +765,21 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         }
     }
     
-    func setupSeparatorGesture(_ separator: StyledLabel) {
+    func setupSeparatorGestures() {
+        for sep in self.separatorLabels {
+            sep.removeAssignedGestureRecognizers()
+            self.setupSeparatorGesture(sep)
+        }
+    }
+    
+    func setupSeparatorGesture(_ separator: StyledSliderSeparator) {
         let touchGesture = UITapGestureRecognizer(target: self, action: #selector(GenericStyleSlider.separatorTouched))
         separator.addGestureRecognizer(touchGesture)
+        
+        if self.separatorSwipeEnabled {
+            let sepSwipe = UIPanGestureRecognizer(target: self, action: #selector(self.separatorSwiped(_:)))
+            separator.addGestureRecognizer(sepSwipe)
+        }
     }
     
     func separatorTouched(_ sender: UITapGestureRecognizer) {
@@ -750,6 +790,29 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
                 self.separatorTouchHandler?(index)
             default:
                 break
+            }
+        }
+    }
+
+    func separatorSwiped(_ sender: UIPanGestureRecognizer) {
+        if let sep = sender.view as? StyledSliderSeparator {
+            if sep.index == 0 {
+                if let thumb = self.thumbList.thumbs.first {
+                    self.thumbPanned(thumb, sender: sender)
+                }
+            }
+            else {
+                let translation = sender.translation(in: sep)
+                if self.direction.principalPosition(translation) < 0 {
+                    if let thumb = self.thumbList.getNextThumb(sep.index) {
+                        self.thumbPanned(thumb, sender: sender)
+                    }
+                }
+                else {
+                    if let thumb = self.thumbList.getPrevThumb(sep.index) {
+                        self.thumbPanned(thumb, sender: sender)
+                    }
+                }
             }
         }
     }
@@ -777,127 +840,131 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
 
     func sliderPanned(_ sender: UIPanGestureRecognizer) {
         if let thumb = sender.view as? StyledSliderThumb {
-            switch sender.state {
-            case .began:
-                if case .none = hintStyle {} else {
-                    hintLabel.alpha  = 0
-                    hintLabel.frame = CGRect(origin: hintLabel.frame.origin, size: self.getThumbSize(thumb))
-                    superview?.addSubview(hintLabel)
-                    
-                    UIView.animate(withDuration: 0.2) {
-                        self.hintLabel.alpha = 1.0
-                    }
-                }
-                touchesBeganPoint = sender.location(in: self)
-
-                for oth in self.thumbList.thumbs {
-                    oth.eventTriggered = false
-                    self.dynamicButtonAnimator.removeBehavior(oth.snappingBehavior)
-                }
+            self.thumbPanned(thumb, sender: sender)
+        }
+    }
+    
+    func thumbPanned(_ thumb: StyledSliderThumb, sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            if case .none = hintStyle {} else {
+                hintLabel.alpha  = 0
+                hintLabel.frame = CGRect(origin: hintLabel.frame.origin, size: self.getThumbSize(thumb))
+                superview?.addSubview(hintLabel)
                 
-                thumb.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index)?.lighter() ?? thumbBackgroundColor?.lighter()
-                hintLabel.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index)?.lighter() ?? thumbBackgroundColor?.lighter()
-                
-                // Remember original values before sliding
-                for oth in self.thumbList.thumbs {
-                    oth.tempValue = self.values[oth.index]
+                UIView.animate(withDuration: 0.2) {
+                    self.hintLabel.alpha = 1.0
                 }
-                self.userIsSliding = true
-            case .changed:
-                switch thumb.behaviour {
-                case .fixateToLower:
-                    fallthrough
-                case .fixateToCenter:
-                    fallthrough
-                case .fixateToHigher:
-                    self.thumbList.applyThumbBehaviour(thumb)
-                default:
-                    break
-                }
-                let translationInView = sender.translation(in: thumb)
-                
-                let tiv = self.direction.principalPosition(translationInView)
-                let tb = self.direction.principalPosition(touchesBeganPoint)
-                self.thumbList.updateThumbPosition(tiv+tb, thumbIndex: thumb.index)
-
-                var v = self.thumbList.getValueFromThumbPos(thumb.index)
-                if v < thumb.lowerLimit {
-                    v = thumb.lowerLimit
-                }
-                if v > thumb.upperLimit {
-                    v = thumb.upperLimit
-                }
-                self.updateValue(thumb.index, value: v, finished: false)
-                
-                let finalPos = self.direction.principalPosition(self.thumbList.getThumbPosForValue(v, thumbIndex: thumb.index))
-                self.thumbList.updateThumbPosition(finalPos, thumbIndex: thumb.index)
-
-                if case .none = hintStyle {} else {
-                    let cp = CGPoint(x: frame.origin.x + thumb.center.x, y: (frame.origin.y - thumb.bounds.height - hintLabel.bounds.height / 2) + thumb.center.y)
-                    hintLabel.center = cp
-                }
-                hintLabel.text = valueAsText(v)
-
-                for oth in self.thumbList.thumbs {
-                    if oth.index != thumb.index {
-                        if case .snapToValueRelative(_) = oth.behaviour {
-                            if let tempValue = oth.tempValue, let tVal = thumb.tempValue {
-                                
-                                // TODO: Might want to use 1 / (indexDiff + 1)
-                                
-                                let newValue = (v - tVal) * 0.5 + tempValue
-                                let newPos = self.thumbList.getThumbPosForValue(newValue, thumbIndex: oth.index)
-                                self.thumbList.updateThumbPosition(self.thumbList.direction.principalPosition(newPos), thumbIndex: oth.index)
-                                self.updateValue(oth.index, value: newValue, finished: false)
-                            }
-                        }
-                    }
-                }
-
-                self.layoutSeparators()
-                self.assignSeparatorTextOpacities()
-
-            case .ended, .failed, .cancelled:
-                self.userIsSliding = false
-                if case .none = hintStyle {} else {
-                    UIView.animate(withDuration: 0.2, animations: {
-                        self.hintLabel.alpha = 0.0
-                    }) { _ in
-                        self.hintLabel.removeFromSuperview()
-                    }
-                }
-                for athumb in self.thumbList.thumbs {
-                    self.thumbList.applyThumbBehaviour(athumb)
-                    if let oval = athumb.tempValue, athumb.index != thumb.index {
-                        self.updateValue(athumb.index, value: oval, finished: false)
-                    }
-                    athumb.snappingBehavior.action = { [weak self] in
-                        if let weakSelf = self {
-                            for athumb in weakSelf.thumbList.thumbs {
-                                var v = weakSelf.thumbList.getValueFromThumbPos(athumb.index)
-                                if v < thumb.lowerLimit {
-                                    v = thumb.lowerLimit
-                                }
-                                if v > thumb.upperLimit {
-                                    v = thumb.upperLimit
-                                }
-                                weakSelf.updateValue(athumb.index, value: v, finished: false)
-                            }
-                            weakSelf.layoutSeparators()
-                            weakSelf.assignSeparatorTextOpacities()
-                        }
-                    }
-                    self.dynamicButtonAnimator.addBehavior(athumb.snappingBehavior)
-                }
-                
-                thumb.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index) ?? thumbBackgroundColor ?? backgroundColor?.lighter()
-
-                let v = self.values[thumb.index]
-                self.notifyOfValueChanged(v, index: thumb.index)
-
-            case .possible:
+            }
+            touchesBeganPoint = sender.location(in: self)
+            
+            for oth in self.thumbList.thumbs {
+                oth.eventTriggered = false
+                self.dynamicButtonAnimator.removeBehavior(oth.snappingBehavior)
+            }
+            
+            thumb.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index)?.lighter() ?? thumbBackgroundColor?.lighter()
+            hintLabel.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index)?.lighter() ?? thumbBackgroundColor?.lighter()
+            
+            // Remember original values before sliding
+            for oth in self.thumbList.thumbs {
+                oth.tempValue = self.values[oth.index]
+            }
+            self.userIsSliding = true
+        case .changed:
+            switch thumb.behaviour {
+            case .fixateToLower:
+                fallthrough
+            case .fixateToCenter:
+                fallthrough
+            case .fixateToHigher:
+                self.thumbList.applyThumbBehaviour(thumb)
+            default:
                 break
             }
+            let translationInView = sender.translation(in: thumb)
+            
+            let tiv = self.direction.principalPosition(translationInView)
+            let tb = self.direction.principalPosition(touchesBeganPoint)
+            self.thumbList.updateThumbPosition(tiv+tb, thumbIndex: thumb.index)
+            
+            var v = self.thumbList.getValueFromThumbPos(thumb.index)
+            if v < thumb.lowerLimit {
+                v = thumb.lowerLimit
+            }
+            if v > thumb.upperLimit {
+                v = thumb.upperLimit
+            }
+            self.updateValue(thumb.index, value: v, finished: false)
+            
+            let finalPos = self.direction.principalPosition(self.thumbList.getThumbPosForValue(v, thumbIndex: thumb.index))
+            self.thumbList.updateThumbPosition(finalPos, thumbIndex: thumb.index)
+            
+            if case .none = hintStyle {} else {
+                let cp = CGPoint(x: frame.origin.x + thumb.center.x, y: (frame.origin.y - thumb.bounds.height - hintLabel.bounds.height / 2) + thumb.center.y)
+                hintLabel.center = cp
+            }
+            hintLabel.text = valueAsText(v)
+            
+            for oth in self.thumbList.thumbs {
+                if oth.index != thumb.index {
+                    if case .snapToValueRelative(_) = oth.behaviour {
+                        if let tempValue = oth.tempValue, let tVal = thumb.tempValue {
+                            
+                            // TODO: Might want to use 1 / (indexDiff + 1)
+                            
+                            let newValue = (v - tVal) * 0.5 + tempValue
+                            let newPos = self.thumbList.getThumbPosForValue(newValue, thumbIndex: oth.index)
+                            self.thumbList.updateThumbPosition(self.thumbList.direction.principalPosition(newPos), thumbIndex: oth.index)
+                            self.updateValue(oth.index, value: newValue, finished: false)
+                        }
+                    }
+                }
+            }
+            
+            self.layoutSeparators()
+            self.assignSeparatorTextOpacities()
+            
+        case .ended, .failed, .cancelled:
+            self.userIsSliding = false
+            if case .none = hintStyle {} else {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.hintLabel.alpha = 0.0
+                }) { _ in
+                    self.hintLabel.removeFromSuperview()
+                }
+            }
+            for athumb in self.thumbList.thumbs {
+                self.thumbList.applyThumbBehaviour(athumb)
+                if let oval = athumb.tempValue, athumb.index != thumb.index {
+                    self.updateValue(athumb.index, value: oval, finished: false)
+                }
+                athumb.snappingBehavior.action = { [weak self] in
+                    if let weakSelf = self {
+                        for athumb in weakSelf.thumbList.thumbs {
+                            var v = weakSelf.thumbList.getValueFromThumbPos(athumb.index)
+                            if v < thumb.lowerLimit {
+                                v = thumb.lowerLimit
+                            }
+                            if v > thumb.upperLimit {
+                                v = thumb.upperLimit
+                            }
+                            weakSelf.updateValue(athumb.index, value: v, finished: false)
+                        }
+                        weakSelf.layoutSeparators()
+                        weakSelf.assignSeparatorTextOpacities()
+                    }
+                }
+                self.dynamicButtonAnimator.addBehavior(athumb.snappingBehavior)
+            }
+            
+            thumb.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index) ?? thumbBackgroundColor ?? backgroundColor?.lighter()
+            
+            let v = self.values[thumb.index]
+            self.notifyOfValueChanged(v, index: thumb.index)
+            
+        case .possible:
+            break
         }
     }
 
@@ -934,21 +1001,36 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     
     func assignSeparatorTexts() {
         for idx in 0..<self.separatorLabels.count {
-            let sep = self.separatorLabels[idx]
-            sep.text = self.sliderDelegate?.textOfSeparatorLabel(idx)
-            if let sizeInfo = sep.sizeInfo {
-                switch sizeInfo.textSizingType {
-                case .fixed:
-                    break
-                case .scaleToFit:
-                    sep.fitFontForSize(minFontSize: 5, maxFontSize: sizeInfo.maxFontSize, accuracy: 1.0, margins: sizeInfo.textInsetsForAutoTextFont)
-                case .relativeToSlider(let minSize):
-                    let pos = CGPoint(x: sep.bounds.origin.x + sep.bounds.size.width * 0.5, y: sep.bounds.origin.y + sep.bounds.size.height * 0.5)
-                    let pp = self.direction.principalPosition(pos)
-                    let ps = self.direction.principalSize(self.bounds.size)
-                    let fSize = self.calculateRelativeFontSize(min: minSize, max: sizeInfo.maxFontSize, pp: pp, pDiff: ps)
-                    sep.font = sep.font?.withSize(fSize)
-                }
+            self.assignSeparatorText(idx)
+        }
+    }
+    
+    func assignSeparatorText(_ index: Int) {
+        let sep = self.separatorLabels[index]
+        let pos = CGPoint(x: sep.bounds.origin.x + sep.bounds.size.width * 0.5, y: sep.bounds.origin.y + sep.bounds.size.height * 0.5)
+        
+        if let delTT = self.sliderDelegate?.textOfSeparatorLabel(index) {
+            sep.text = delTT
+            self.assignSeparatorFontAndColor(sep)
+        }
+        else if let attrText = self.sliderDelegate?.attributedTextOfSeparatorLabel(at: index, rect: sep.bounds, relativeCenter: self.calculateRelativeItemPos(from: pos)) {
+            sep.attributedText = attrText
+        }
+    }
+    
+    func assignSeparatorFontAndColor(_ sep: StyledSliderSeparator) {
+        if let sizeInfo = sep.sizeInfo {
+            switch sizeInfo.textSizingType {
+            case .fixed:
+                break
+            case .scaleToFit:
+                sep.fitFontForSize(minFontSize: 5, maxFontSize: sizeInfo.maxFontSize, accuracy: 1.0, margins: sizeInfo.textInsetsForAutoTextFont)
+            case .relativeToSlider(let minSize):
+                let pos = CGPoint(x: sep.bounds.origin.x + sep.bounds.size.width * 0.5, y: sep.bounds.origin.y + sep.bounds.size.height * 0.5)
+                let pp = self.direction.principalPosition(pos)
+                let ps = self.direction.principalSize(self.bounds.size)
+                let fSize = self.calculateRelativeFontSize(min: minSize, max: sizeInfo.maxFontSize, pp: pp, pDiff: ps)
+                sep.font = sep.font?.withSize(fSize)
             }
         }
     }
@@ -959,7 +1041,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             ps = min + 1.0
         }
         let offRatio = Double(pp / ps) * Double.pi
-        var sizeCalc = CGFloat(1 - abs(cos(offRatio))) * (max - min) + min
+        var sizeCalc = self.fontRelativeSizeFunction(offRatio) * (max - min) + min
         if sizeCalc < min {
             sizeCalc = min
         }
@@ -991,11 +1073,13 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
 
     func assignThumbText(_ index: Int) {
         let thumb = self.thumbList.thumbs[index]
+        let pos = self.thumbList.getThumbPos(thumbIndex: thumb.index)
+
         if let delTT = self.sliderDelegate?.textOfThumb(index) {
             thumb.text = delTT
             self.assignThumbFontAndColor(thumb)
         }
-        else if let attrText = self.sliderDelegate?.attributedTextOfThumb(index) {
+        else if let attrText = self.sliderDelegate?.attributedTextOfThumb(at: index, rect: thumb.bounds, relativeCenter: self.calculateRelativeItemPos(from: pos)) {
             thumb.attributedText = attrText
         }
         else if thumbText == nil {
@@ -1028,6 +1112,15 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
                 thumb.font = thumb.font?.withSize(fSize)
             }
         }
+    }
+    
+    func calculateRelativeItemPos(from pos: CGPoint) -> CGFloat {
+        let pp = self.direction.principalPosition(pos)
+        let ps = self.direction.principalSize(self.bounds.size)
+        if ps == 0 {
+            return 0
+        }
+        return pp / ps
     }
     
     func assignThumbTexts() {

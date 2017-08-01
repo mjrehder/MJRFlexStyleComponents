@@ -180,9 +180,14 @@ open class FlexFlickButton: FlexMutableSlider {
     
     open var actionActivationHandler: ((FlexFlickActionActivationType) -> Void)?
     
+    open override func thumbRelativeSizeFunction(_ offset: Double) -> CGFloat {
+        return CGFloat(1 - abs(cos(offset)))
+    }
+
     override func setupSlider() {
         super.setupSlider()
         
+        self.separatorSwipeEnabled = true
         self.minimumValue = 0
         self.maximumValue = 1
         self.thumbRatio = 0.5

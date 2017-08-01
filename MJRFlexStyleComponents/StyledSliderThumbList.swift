@@ -90,11 +90,9 @@ open class StyledSliderThumbList {
             let ld = abs(currentPos - low)
             let hd = abs(currentPos - high)
             if ld < hd {
-                NSLog("Snapping to low (current: \(currentPos))")
                 thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosForValue(low, thumbIndex: thumb.index))
             }
             else {
-                NSLog("Snapping to high (current: \(currentPos))")
                 thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosForValue(high, thumbIndex: thumb.index))
             }
         case .snapToThreeState(let low, let mid, let high):
@@ -103,15 +101,12 @@ open class StyledSliderThumbList {
             let md = abs(currentPos - mid)
             let hd = abs(currentPos - high)
             if ld < min(md, hd) {
-                NSLog("Snapping to low (current: \(currentPos))")
                 thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosForValue(low, thumbIndex: thumb.index))
             }
             else if md < min(ld, hd) {
-                NSLog("Snapping to mid (current: \(currentPos))")
                 thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosForValue(mid, thumbIndex: thumb.index))
             }
             else if hd < min(ld, md) {
-                NSLog("Snapping to high (current: \(currentPos))")
                 thumb.snappingBehavior = SnappingThumbBehaviour(item: thumb, snapToPoint: self.getThumbPosForValue(high, thumbIndex: thumb.index))
             }
         }

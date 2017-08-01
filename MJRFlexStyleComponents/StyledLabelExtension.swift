@@ -38,6 +38,14 @@ extension StyledLabel {
     func fitFontForSize(minFontSize : CGFloat = 5.0, maxFontSize : CGFloat = 300.0, accuracy : CGFloat = 1.0, margins: UIEdgeInsets = UIEdgeInsetsMake(2, 2, 2, 2)) {
         assert(maxFontSize > minFontSize)
         if let text = self.text, let font = self.font {
+            self.font = font.withSize(self.fittingFontSize(text: text, minFontSize: minFontSize, maxFontSize: maxFontSize, accuracy: accuracy, margins: margins))
+            layoutIfNeeded()
+        }
+    }
+    
+    func fittingFontSize(text: String, minFontSize : CGFloat = 5.0, maxFontSize : CGFloat = 300.0, accuracy : CGFloat = 1.0, margins: UIEdgeInsets = UIEdgeInsetsMake(2, 2, 2, 2)) -> CGFloat {
+        assert(maxFontSize > minFontSize)
+        if let font = self.font {
             var tempFont = font
             var minfs = minFontSize
             var maxfs = maxFontSize
@@ -56,8 +64,8 @@ extension StyledLabel {
                     maxfs = midFontSize
                 }
             }
-            self.font = font.withSize(minfs)
-            layoutIfNeeded()
+            return minfs
         }
+        return minFontSize
     }
 }
