@@ -76,12 +76,12 @@ class SliderDemoViewController: UIViewController {
         self.utilButton?.style = FlexShapeStyle(style: .thumb)
         self.utilButton?.thumbStyle = FlexShapeStyle(style: .box)
         self.utilButton?.direction = .vertical
-        self.utilButton?.upperText = "B"
-        self.utilButton?.primaryText = "A"
-        self.utilButton?.lowerText = "C"
-        self.utilButton?.upperIcon = UIImage(color: .red, size: CGSize(width: 32, height: 32))
-        self.utilButton?.primaryIcon = UIImage(color: .green, size: CGSize(width: 32, height: 32))
-        self.utilButton?.lowerIcon = UIImage(color: .blue, size: CGSize(width: 32, height: 32))
+        self.utilButton?.upperActionItem.text = "B"
+        self.utilButton?.primaryActionItem.text = "A"
+        self.utilButton?.lowerActionItem.text = "C"
+        self.utilButton?.upperActionItem.icon = UIImage(color: .red, size: CGSize(width: 32, height: 32))
+        self.utilButton?.primaryActionItem.icon = UIImage(color: .green, size: CGSize(width: 32, height: 32))
+        self.utilButton?.lowerActionItem.icon = UIImage(color: .blue, size: CGSize(width: 32, height: 32))
         self.view.addSubview(self.utilButton!)
         
         self.utilButton?.actionActivationHandler = {
@@ -102,14 +102,25 @@ class SliderDemoViewController: UIViewController {
         self.util2Button?.style = FlexShapeStyle(style: .thumb)
         self.util2Button?.thumbStyle = FlexShapeStyle(style: .box)
         self.util2Button?.direction = .vertical
+        self.util2Button?.upperActionItem.text = "Up"
+        self.util2Button?.primaryActionItem.text = "Ver"
+        self.util2Button?.primaryActionItem.textMaxFontSize = 32
         self.view.addSubview(self.util2Button!)
 
         self.horizUtilButton = FlexFlickButton(frame: CGRect(x: 10, y: 50, width: 48, height: 48))
         self.horizUtilButton?.borderColor = .black
         self.horizUtilButton?.borderWidth = 1
-        self.horizUtilButton?.style = FlexShapeStyle(style: .thumb)
+        self.horizUtilButton?.style = FlexShapeStyle(style: .rounded)
         self.horizUtilButton?.thumbStyle = FlexShapeStyle(style: .box)
         self.horizUtilButton?.direction = .horizontal
+        self.horizUtilButton?.upperActionItem.text = "<"
+        self.horizUtilButton?.upperActionItem.textMaxFontSize = 28
+        self.horizUtilButton?.upperActionItem.textSizingType = .relativeToSlider(minSize: 8)
+        self.horizUtilButton?.primaryActionItem.text = "Cn"
+        self.horizUtilButton?.primaryActionItem.textMaxFontSize = 18
+        self.horizUtilButton?.lowerActionItem.text = ">"
+        self.horizUtilButton?.lowerActionItem.textMaxFontSize = 28
+        self.horizUtilButton?.lowerActionItem.textSizingType = .relativeToSlider(minSize: 8)
         self.view.addSubview(self.horizUtilButton!)
 
         // Snap Stepper
@@ -158,8 +169,8 @@ class SliderDemoViewController: UIViewController {
         self.horiSlider?.frame = CGRect(x: 10, y: 80, width: self.view.bounds.size.width - 20, height: 32)
         self.vertiSlider?.frame = CGRect(x: 10, y: 120, width: 32, height: 300)
         self.utilButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 120, width: 64, height: 64)
-        self.util2Button?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64) * 2, y: 120, width: 64, height: 64)
-        self.horizUtilButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 120 + 80, width: 64, height: 64)
+        self.util2Button?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 120 + 80, width: 64, height: 64)
+        self.horizUtilButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 120 + 160, width: 64, height: 64)
         self.camButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 190, width: 64, height: 64)
         self.stepper?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64) * 4, y: 120, width: 128, height: 32)
     }

@@ -36,121 +36,30 @@ public enum FlexFlickActionActivationType {
 }
 
 open class FlexFlickButton: FlexMutableSlider {
-
-    open var upperIcon: UIImage? = nil {
+    open var upperActionItem = FlexFlickActionItem() {
         didSet {
             self.createItems()
         }
     }
 
-    open var upperMaxIconSize: CGSize = CGSize(width: 42, height: 42) {
-        didSet {
-            self.createItems()
-        }
-    }
-    
-    open var upperIconSizingType: SliderIconSizingType = .relativeToSlider(minSize: CGSize(width: 16, height: 16)) {
-        didSet {
-            self.createItems()
-        }
-    }
-    
-    open var upperText: String? = "B" {
-        didSet {
-            self.createItems()
-        }
-    }
-    
-    open var upperTextMaxFontSize: CGFloat = 48 {
-        didSet {
-            self.createItems()
-        }
-    }
-    
-    open var upperTextSizingType: SliderFontSizingType = .relativeToSlider(minSize: 5) {
+    open var primaryActionItem = FlexFlickActionItem() {
         didSet {
             self.createItems()
         }
     }
 
-    open var primaryIcon: UIImage? = nil {
-        didSet {
-            self.createItems()
-        }
-    }
-    
-    open var primaryMaxIconSize: CGSize = CGSize(width: 48, height: 48) {
-        didSet {
-            self.createItems()
-        }
-    }
-    
-    open var primaryIconSizingType: SliderIconSizingType = .relativeToSlider(minSize: CGSize(width: 16, height: 16)) {
-        didSet {
-            self.createItems()
-        }
-    }
-    
-    open var primaryText: String? = "A" {
+    open var lowerActionItem = FlexFlickActionItem() {
         didSet {
             self.createItems()
         }
     }
 
-    open var primaryTextSizingType: SliderFontSizingType = .relativeToSlider(minSize: 16) {
-        didSet {
-            self.createItems()
-        }
-    }
-
-    open var primaryTextMaxFontSize: CGFloat = 32 {
+    open var sizingType: ThumbSizingType = .relativeToSlider(min: 10, max: 32) {
         didSet {
             self.createItems()
         }
     }
     
-    open var primarySizingType: ThumbSizingType = .relativeToSlider(min: 10, max: 32) {
-        didSet {
-            self.createItems()
-        }
-    }
-    
-    open var lowerIcon: UIImage? = nil {
-        didSet {
-            self.createItems()
-        }
-    }
-    
-    open var lowerMaxIconSize: CGSize = CGSize(width: 42, height: 42) {
-        didSet {
-            self.createItems()
-        }
-    }
-    
-    open var lowerIconSizingType: SliderIconSizingType = .relativeToSlider(minSize: CGSize(width: 16, height: 16)) {
-        didSet {
-            self.createItems()
-        }
-    }
-    
-    open var lowerText: String? = nil {
-        didSet {
-            self.createItems()
-        }
-    }
-    
-    open var lowerTextMaxFontSize: CGFloat = 48 {
-        didSet {
-            self.createItems()
-        }
-    }
-    
-    open var lowerTextSizingType: SliderFontSizingType = .relativeToSlider(minSize: 5) {
-        didSet {
-            self.createItems()
-        }
-    }
-
     open var separatorFactory: ((Int)->MutableSliderSeparatorItem) = {
         index in
         let sep = MutableSliderSeparatorItem()
@@ -186,6 +95,16 @@ open class FlexFlickButton: FlexMutableSlider {
 
     override func setupSlider() {
         super.setupSlider()
+        
+        self.upperActionItem.shouldUpdateActionHandler = {
+            self.createItems()
+        }
+        self.primaryActionItem.shouldUpdateActionHandler = {
+            self.createItems()
+        }
+        self.lowerActionItem.shouldUpdateActionHandler = {
+            self.createItems()
+        }
         
         self.separatorSwipeEnabled = true
         self.minimumValue = 0
@@ -225,14 +144,14 @@ open class FlexFlickButton: FlexMutableSlider {
     func createItems() {
         self.removeAll()
         
-        let hasLowerFunction = self.lowerIcon != nil || self.lowerText != nil
+        let hasLowerFunction = self.lowerActionItem.icon != nil || self.lowerActionItem.text != nil
         
         let primarySizeInfo = SliderThumbSizeInfo()
-        primarySizeInfo.sizingType = self.primarySizingType
-        primarySizeInfo.maxFontSize = self.primaryTextMaxFontSize
-        primarySizeInfo.maxIconSize = self.primaryMaxIconSize
-        primarySizeInfo.iconSizingType = self.primaryIconSizingType
-        primarySizeInfo.textSizingType = self.primaryTextSizingType
+        primarySizeInfo.sizingType = self.sizingType
+        primarySizeInfo.maxFontSize = self.primaryActionItem.textMaxFontSize
+        primarySizeInfo.maxIconSize = self.primaryActionItem.maxIconSize
+        primarySizeInfo.iconSizingType = self.primaryActionItem.iconSizingType
+        primarySizeInfo.textSizingType = self.primaryActionItem.textSizingType
 
         let thumb = self.thumbFactory(0)
         thumb.behaviour = .snapToValue(v: 0.5)
@@ -240,20 +159,20 @@ open class FlexFlickButton: FlexMutableSlider {
         if !hasLowerFunction {
             thumb.lowerLimit = 0.5
         }
-        thumb.text = self.primaryText
-        thumb.icon = self.primaryIcon
+        thumb.text = self.primaryActionItem.text
+        thumb.icon = self.primaryActionItem.icon
         thumb.sizeInfo = primarySizeInfo
         
         let upperSepSizeInfo = SliderSeparatorSizeInfo()
-        upperSepSizeInfo.maxFontSize = self.upperTextMaxFontSize
-        upperSepSizeInfo.maxIconSize = self.upperMaxIconSize
-        upperSepSizeInfo.iconSizingType = self.upperIconSizingType
-        upperSepSizeInfo.textSizingType = self.upperTextSizingType
+        upperSepSizeInfo.maxFontSize = self.upperActionItem.textMaxFontSize
+        upperSepSizeInfo.maxIconSize = self.upperActionItem.maxIconSize
+        upperSepSizeInfo.iconSizingType = self.upperActionItem.iconSizingType
+        upperSepSizeInfo.textSizingType = self.upperActionItem.textSizingType
 
         let sep0 = self.separatorFactory(0)
         sep0.useOpacityForSizing = false
-        sep0.text = self.upperText
-        sep0.icon = self.upperIcon
+        sep0.text = self.upperActionItem.text
+        sep0.icon = self.upperActionItem.icon
         sep0.sizeInfo = upperSepSizeInfo
         self.addSeparator(sep0)
 
@@ -261,13 +180,13 @@ open class FlexFlickButton: FlexMutableSlider {
         sep.useOpacityForSizing = false
         if hasLowerFunction {
             let lowerSepSizeInfo = SliderSeparatorSizeInfo()
-            lowerSepSizeInfo.maxFontSize = self.lowerTextMaxFontSize
-            lowerSepSizeInfo.maxIconSize = self.lowerMaxIconSize
-            lowerSepSizeInfo.iconSizingType = self.lowerIconSizingType
-            lowerSepSizeInfo.textSizingType = self.lowerTextSizingType
+            lowerSepSizeInfo.maxFontSize = self.lowerActionItem.textMaxFontSize
+            lowerSepSizeInfo.maxIconSize = self.lowerActionItem.maxIconSize
+            lowerSepSizeInfo.iconSizingType = self.lowerActionItem.iconSizingType
+            lowerSepSizeInfo.textSizingType = self.lowerActionItem.textSizingType
 
-            sep.text = self.lowerText
-            sep.icon = self.lowerIcon
+            sep.text = self.lowerActionItem.text
+            sep.icon = self.lowerActionItem.icon
             sep.sizeInfo = lowerSepSizeInfo
         }
         self.addThumb(thumb, separator: sep)
