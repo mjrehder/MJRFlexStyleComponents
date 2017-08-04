@@ -32,6 +32,8 @@ import UIKit
 open class FlexFlickActionItem {
     var shouldUpdateActionHandler: ((Void)->Void)?
     
+    public init() {}
+    
     open var icon: UIImage? = nil {
         didSet {
             self.shouldUpdateActionHandler?()
