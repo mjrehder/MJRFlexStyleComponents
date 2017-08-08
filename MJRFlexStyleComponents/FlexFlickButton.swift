@@ -41,19 +41,19 @@ open class FlexFlickButton: FlexMutableSlider {
             self.createItems()
         }
     }
-
+    
     open var primaryActionItem = FlexFlickActionItem() {
         didSet {
             self.createItems()
         }
     }
-
+    
     open var lowerActionItem = FlexFlickActionItem() {
         didSet {
             self.createItems()
         }
     }
-
+    
     open var sizingType: ThumbSizingType = .relativeToSlider(min: 10, max: 32) {
         didSet {
             self.createItems()
@@ -92,7 +92,7 @@ open class FlexFlickButton: FlexMutableSlider {
     open override func thumbRelativeSizeFunction(_ offset: Double) -> CGFloat {
         return CGFloat(1 - abs(cos(offset)))
     }
-
+    
     override func setupSlider() {
         super.setupSlider()
         
@@ -111,7 +111,7 @@ open class FlexFlickButton: FlexMutableSlider {
         self.maximumValue = 1
         self.thumbRatio = 0.5
         self.continuous = false
-
+        
         self.valueChangedBlockWhileSliding = {
             _, _ in
         }
@@ -137,14 +137,14 @@ open class FlexFlickButton: FlexMutableSlider {
                 }
             }
         }
-
+        
         self.createItems()
     }
     
-    func createItems() {
+    open func createItems() {
         self.removeAll()
         
-        let hasLowerFunction = self.lowerActionItem.icon != nil || self.lowerActionItem.text != nil
+        let hasLowerFunction = self.lowerActionItem.icon != nil || self.lowerActionItem.text != nil || self.attributedTextOfSeparatorLabel(at: 1, rect: self.bounds, relativeCenter: 1) != nil
         
         let primarySizeInfo = SliderThumbSizeInfo()
         primarySizeInfo.sizingType = self.sizingType
@@ -152,7 +152,7 @@ open class FlexFlickButton: FlexMutableSlider {
         primarySizeInfo.maxIconSize = self.primaryActionItem.maxIconSize
         primarySizeInfo.iconSizingType = self.primaryActionItem.iconSizingType
         primarySizeInfo.textSizingType = self.primaryActionItem.textSizingType
-
+        
         let thumb = self.thumbFactory(0)
         thumb.behaviour = .snapToValue(v: 0.5)
         thumb.initialValue = 0.5
@@ -168,14 +168,14 @@ open class FlexFlickButton: FlexMutableSlider {
         upperSepSizeInfo.maxIconSize = self.upperActionItem.maxIconSize
         upperSepSizeInfo.iconSizingType = self.upperActionItem.iconSizingType
         upperSepSizeInfo.textSizingType = self.upperActionItem.textSizingType
-
+        
         let sep0 = self.separatorFactory(0)
         sep0.useOpacityForSizing = false
         sep0.text = self.upperActionItem.text
         sep0.icon = self.upperActionItem.icon
         sep0.sizeInfo = upperSepSizeInfo
         self.addSeparator(sep0)
-
+        
         let sep = self.separatorFactory(1)
         sep.useOpacityForSizing = false
         if hasLowerFunction {
@@ -184,7 +184,7 @@ open class FlexFlickButton: FlexMutableSlider {
             lowerSepSizeInfo.maxIconSize = self.lowerActionItem.maxIconSize
             lowerSepSizeInfo.iconSizingType = self.lowerActionItem.iconSizingType
             lowerSepSizeInfo.textSizingType = self.lowerActionItem.textSizingType
-
+            
             sep.text = self.lowerActionItem.text
             sep.icon = self.lowerActionItem.icon
             sep.sizeInfo = lowerSepSizeInfo
@@ -192,5 +192,5 @@ open class FlexFlickButton: FlexMutableSlider {
         self.addThumb(thumb, separator: sep)
         self.recreateThumbs()
     }
-
+    
 }
