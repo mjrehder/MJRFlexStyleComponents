@@ -273,6 +273,25 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         item8.textIsScrollable = true
         
         self.demoCollectionView.addItem(sec2Ref, item: item8)
+        
+        
+        // Snap Stepper
+        let flexSnapAppearance = FlexSnapStepper.appearance(whenContainedInInstancesOf: [FlexSnapStepperCollectionViewCell.self])
+        flexSnapAppearance.thumbTintColor = UIColor.MKColor.Brown.P700
+        flexSnapAppearance.separatorTintColor = UIColor.MKColor.Brown.P200
+        flexSnapAppearance.style = FlexShapeStyle(style: .roundedFixed(cornerRadius: 10))
+        flexSnapAppearance.thumbStyle = FlexShapeStyle(style: .roundedFixed(cornerRadius: 10))
+        flexSnapAppearance.borderWidth = 0.5
+        flexSnapAppearance.borderColor = UIColor.MKColor.Brown.P500
+        flexSnapAppearance.thumbTextColor = UIColor.MKColor.Brown.P100
+        
+        let snapperItem = FlexSnapStepperCollectionItem(reference: "snapStepper", value: 0.0, text: NSAttributedString(string: "Snap Stepper"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 9")) { (value) in
+            NSLog("The snap stepper value is now \(value)")
+        }
+        snapperItem.controlInsets = UIEdgeInsetsMake(0, 0, 4, 60)
+        snapperItem.numberFormatString = "%0.2lf"
+        
+        self.demoCollectionView.addItem(sec2Ref, item: snapperItem)
 
     }
     

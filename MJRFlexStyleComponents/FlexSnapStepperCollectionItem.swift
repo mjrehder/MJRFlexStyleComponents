@@ -1,10 +1,10 @@
 //
-//  LabelFactory.swift
+//  FlexSnapStepperCollectionItem.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 22.07.16.
+//  Created by Martin Rehder on 30.06.2017.
 /*
- * Copyright 2016-present Martin Jacob Rehder.
+ * Copyright 2017-present Martin Jacob Rehder.
  * http://www.rehsco.com
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,39 +27,26 @@
  *
  */
 
-import UIKit
-import StyledLabel
 
-final class LabelFactory {
-    static func defaultLabel() -> UILabel {
-        let label                    = UILabel()
-        label.textAlignment          = .center
-        label.isUserInteractionEnabled = true
-        
-        return label
-    }
+import UIKit
+
+open class FlexSnapStepperCollectionItem: FlexBaseCollectionItem {
+    open var valueChangedHandler: ((_ value: Double) -> Void)?
+    open var value: Double = 0
+    open var minValue: Double = 0
+    open var maxValue: Double = 1
     
-    static func defaultStyledLabel() -> StyledLabel {
-        let label           = StyledLabel()
-        label.textAlignment = .center
-        label.text          = ""
-        
-        return label
-    }
+    open var thumbText: String? = nil
+    open var numberFormatString: String? = nil
+    open var thumbRatio: CGFloat? = 0.5
+    open var thumbSize: CGSize? = nil
+
+    open var valueSteps: Double = 10.0
+    open var valueSlideFactor: Double = 10.0
     
-    static func defaultStyledSeparator() -> StyledSliderSeparator {
-        let label = StyledSliderSeparator()
-        label.textAlignment = .center
-        label.text          = ""
-        
-        return label
-    }
-    
-    static func defaultStyledThumb() -> StyledSliderThumb {
-        let label           = StyledSliderThumb()
-        label.textAlignment = .center
-        label.text          = ""
-        
-        return label
+    public init(reference: String, value: Double, text: NSAttributedString? = nil, icon: UIImage? = nil, accessoryImage: UIImage? = nil, title: NSAttributedString? = nil, valueChangedHandler: ((_ value: Double) -> Void)? = nil) {
+        self.value = value
+        self.valueChangedHandler = valueChangedHandler
+        super.init(reference: reference, text: text, icon: icon, accessoryImage: accessoryImage, title: title, accessoryImageActionHandler: nil)
     }
 }

@@ -1,10 +1,10 @@
 //
-//  LabelFactory.swift
+//  FlexFlickActionItem.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 22.07.16.
+//  Created by Martin Rehder on 03.08.2017.
 /*
- * Copyright 2016-present Martin Jacob Rehder.
+ * Copyright 2017-present Martin Jacob Rehder.
  * http://www.rehsco.com
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,38 +28,45 @@
  */
 
 import UIKit
-import StyledLabel
 
-final class LabelFactory {
-    static func defaultLabel() -> UILabel {
-        let label                    = UILabel()
-        label.textAlignment          = .center
-        label.isUserInteractionEnabled = true
-        
-        return label
+open class FlexFlickActionItem {
+    var shouldUpdateActionHandler: ((Void)->Void)?
+    
+    public init() {}
+    
+    open var icon: UIImage? = nil {
+        didSet {
+            self.shouldUpdateActionHandler?()
+        }
     }
     
-    static func defaultStyledLabel() -> StyledLabel {
-        let label           = StyledLabel()
-        label.textAlignment = .center
-        label.text          = ""
-        
-        return label
+    open var maxIconSize: CGSize = CGSize(width: 48, height: 48) {
+        didSet {
+            self.shouldUpdateActionHandler?()
+        }
     }
     
-    static func defaultStyledSeparator() -> StyledSliderSeparator {
-        let label = StyledSliderSeparator()
-        label.textAlignment = .center
-        label.text          = ""
-        
-        return label
+    open var iconSizingType: SliderIconSizingType = .relativeToSlider(minSize: CGSize(width: 16, height: 16)) {
+        didSet {
+            self.shouldUpdateActionHandler?()
+        }
     }
     
-    static func defaultStyledThumb() -> StyledSliderThumb {
-        let label           = StyledSliderThumb()
-        label.textAlignment = .center
-        label.text          = ""
-        
-        return label
+    open var text: String? = nil {
+        didSet {
+            self.shouldUpdateActionHandler?()
+        }
+    }
+    
+    open var textMaxFontSize: CGFloat = 48 {
+        didSet {
+            self.shouldUpdateActionHandler?()
+        }
+    }
+    
+    open var textSizingType: SliderFontSizingType = .relativeToSlider(minSize: 5) {
+        didSet {
+            self.shouldUpdateActionHandler?()
+        }
     }
 }

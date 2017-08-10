@@ -99,7 +99,15 @@ open class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
         return nil
     }
     
+    open func iconOfSeparator(_ index: Int) -> UIImage? {
+        return nil
+    }
+    
     open func textOfThumb(_ index: Int) -> String? {
+        return nil
+    }
+    
+    open func attributedTextOfThumb(at index: Int, rect: CGRect, relativeCenter: CGFloat) -> NSAttributedString? {
         return nil
     }
     
@@ -107,6 +115,10 @@ open class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
         if index == self.values.count {
             return self.maximumTrackText
         }
+        return nil
+    }
+    
+    open func attributedTextOfSeparatorLabel(at index: Int, rect: CGRect, relativeCenter: CGFloat) -> NSAttributedString? {
         return nil
     }
     
@@ -118,8 +130,27 @@ open class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
         return index == 0 ? self.minimumTrackTintColor ?? UIColor.red.darkened(amount: 0.2) : self.maximumTrackTintColor ?? .clear
     }
     
+    open func adaptOpacityForSeparatorLabel(_ index: Int) -> Bool {
+        return true
+    }
+    
     open func behaviourOfThumb(_ index: Int) -> StyledSliderThumbBehaviour? {
         return nil
     }
     
+    open func sizeInfoOfThumb(_ index: Int) -> SliderThumbSizeInfo? {
+        return nil
+    }
+
+    open func sizeInfoOfSeparator(_ index: Int) -> SliderSeparatorSizeInfo? {
+        return nil
+    }
+
+    open func triggerEventValues(_ index: Int) -> (Double?, Double?) {
+        return (nil, nil)
+    }
+    
+    open func thumbValueLimits(_ index: Int) -> (Double?, Double?) {
+        return (nil, nil)
+    }
 }

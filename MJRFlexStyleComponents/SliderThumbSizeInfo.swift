@@ -1,10 +1,10 @@
 //
-//  LabelFactory.swift
+//  SliderThumbSizeInfo.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 22.07.16.
+//  Created by Martin Rehder on 19.06.2017.
 /*
- * Copyright 2016-present Martin Jacob Rehder.
+ * Copyright 2017-present Martin Jacob Rehder.
  * http://www.rehsco.com
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,38 +28,16 @@
  */
 
 import UIKit
-import StyledLabel
 
-final class LabelFactory {
-    static func defaultLabel() -> UILabel {
-        let label                    = UILabel()
-        label.textAlignment          = .center
-        label.isUserInteractionEnabled = true
-        
-        return label
-    }
-    
-    static func defaultStyledLabel() -> StyledLabel {
-        let label           = StyledLabel()
-        label.textAlignment = .center
-        label.text          = ""
-        
-        return label
-    }
-    
-    static func defaultStyledSeparator() -> StyledSliderSeparator {
-        let label = StyledSliderSeparator()
-        label.textAlignment = .center
-        label.text          = ""
-        
-        return label
-    }
-    
-    static func defaultStyledThumb() -> StyledSliderThumb {
-        let label           = StyledSliderThumb()
-        label.textAlignment = .center
-        label.text          = ""
-        
-        return label
-    }
+public enum ThumbSizingType {
+    case fixed
+    case relativeToSlider(min: CGFloat, max: CGFloat)
+    case relativeToSeparator(min: CGFloat, max: CGFloat)
+}
+
+open class SliderThumbSizeInfo: SliderItemSizeInfo {
+    open var sizingType: ThumbSizingType = .fixed
+    open var thumbMinSize: CGSize?
+    open var thumbMaxSize: CGSize?
+    open var thumbSize: CGSize?    
 }

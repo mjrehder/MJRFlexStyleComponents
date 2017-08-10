@@ -169,6 +169,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         self.registerCell(FlexColorCollectionItem.classForCoder(), cellClass: FlexColorCollectionViewCell.classForCoder())
         self.registerCell(FlexSwitchCollectionItem.classForCoder(), cellClass: FlexSwitchCollectionViewCell.classForCoder())
         self.registerCell(FlexSliderCollectionItem.classForCoder(), cellClass: FlexSliderCollectionViewCell.classForCoder())
+        self.registerCell(FlexSnapStepperCollectionItem.classForCoder(), cellClass: FlexSnapStepperCollectionViewCell.classForCoder())
         self.registerCell(FlexTextViewCollectionItem.classForCoder(), cellClass: FlexTextViewCollectionViewCell.classForCoder())
         self.registerCell(FlexTextFieldCollectionItem.classForCoder(), cellClass: FlexTextFieldCollectionViewCell.classForCoder())
         self.registerCell(FlexImageCollectionItem.classForCoder(), cellClass: FlexImageCollectionViewCell.classForCoder())
@@ -242,6 +243,20 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     open func deselectItem(_ itemReference: String) {
         if let ip = self.getIndexPathForItem(itemReference) {
             self.itemCollectionView.deselectItem(at: ip, animated: true)
+        }
+    }
+    
+    open func selectAllVisibleCells() {
+        let vip = self.itemCollectionView.indexPathsForVisibleItems
+        for ip in vip {
+            self.itemCollectionView.selectItem(at: ip, animated: false, scrollPosition: [])
+        }
+    }
+    
+    open func deselectAllVisibleCells() {
+        let vip = self.itemCollectionView.indexPathsForVisibleItems
+        for ip in vip {
+            self.itemCollectionView.deselectItem(at: ip, animated: false)
         }
     }
     
