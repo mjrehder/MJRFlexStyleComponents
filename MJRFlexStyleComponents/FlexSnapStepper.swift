@@ -37,7 +37,7 @@ open class FlexSnapStepper: FlexMutableSlider {
     open var minStepperValue: Double = 0
     /// The stepper max value. This is the value updated by the relative motion of the slider and pressing the minus and plus areas.
     open var maxStepperValue: Double = 1
-    /// Use the value steps in order to control the fractional amout of change when pressing plus and minus. For example, if you specify 10, then it will take 10 taps on the plus button to step from minStepperValue to maxStepperValue.
+    /// Use the value steps in order to control the fractional amount of change when pressing plus and minus. For example, if you specify 10, then it will take 10 taps on the plus button to step from minStepperValue to maxStepperValue.
     open var valueSteps: Double = 10
     /// Use the value slider factor in order to control the 'speed' of the value updates.
     open var valueSlideFactor: Double = 10.0

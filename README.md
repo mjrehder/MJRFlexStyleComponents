@@ -120,6 +120,87 @@ Example:
         }
 ```
 
+### FlexFlickButton
+
+The Flick Button is a special slider that acts like a button with more than one action. The button can have vertical or horizontal direction and you can assign text and images to the upper, primary and lower actions.
+
+See the following example:
+```swift
+        self.horizUtilButton = FlexFlickButton(frame: CGRect(x: 10, y: 50, width: 48, height: 48))
+        self.horizUtilButton?.borderColor = UIColor.MKColor.BlueGrey.P700
+        self.horizUtilButton?.borderWidth = 1
+        self.horizUtilButton?.style = FlexShapeStyle(style: .rounded)
+        self.horizUtilButton?.styleColor = UIColor.MKColor.BlueGrey.P100
+        self.horizUtilButton?.thumbStyle = FlexShapeStyle(style: .box)
+        self.horizUtilButton?.direction = .horizontal
+        self.horizUtilButton?.upperActionItem.text = "<"
+        self.horizUtilButton?.upperActionItem.textMaxFontSize = 28
+        self.horizUtilButton?.upperActionItem.textSizingType = .relativeToSlider(minSize: 8)
+        self.horizUtilButton?.primaryActionItem.text = "Cn"
+        self.horizUtilButton?.primaryActionItem.textMaxFontSize = 18
+        self.horizUtilButton?.lowerActionItem.text = ">"
+        self.horizUtilButton?.lowerActionItem.textMaxFontSize = 28
+        self.horizUtilButton?.lowerActionItem.textSizingType = .relativeToSlider(minSize: 8)
+        self.view.addSubview(self.horizUtilButton!)
+```
+
+The example button has 3 states and operates horizontally. The primary action has the text “Cn” and is activated by pressing the button. The upper action is “<“ and activated by swiping to the right. The lower action is “>” and is activated by swiping to the left.
+
+Actions are called by a handler:
+```swift
+        self.horizUtilButton?.actionActivationHandler = {
+            action in
+            switch action {
+            case .upper:
+                NSLog("upper action triggered")
+            case .primary:
+                NSLog("primary action triggered")
+            case .lower:
+                NSLog("lower action triggered")
+            }
+        }
+```
+
+The Flick Button utilised the slider feature of automatic text and icon sizing of the GenericStyleSlider components. As you can see in the example above, the text is sized relative to the slider components (the Flick Button size in this case) and the minimum and maximum font size is specified.
+You may want to use NSAttributed strings instead. The GenericStyleSlider delegate methods for thumb and separator texts can be used for this.
+
+### FlexSnapStepper
+
+The Snap Stepper is a stepper components based on the GenericStyleSlider. You can use the upper/left part of the stepper to count down and the lower/right part to count up. The Snap Stepper can have vertical or horizontal layout direction.
+
+Example:
+```swift
+        self.stepper = FlexSnapStepper(frame: <some size>)
+        self.stepper?.stepValueChangeHandler = {
+            newValue in
+            NSLog("new value is \(newValue)")
+        }
+        self.stepper?.thumbFactory = { index in
+            let thumb = MutableSliderThumbItem()
+            thumb.color = UIColor.MKColor.BlueGrey.P100
+            return thumb
+        }
+        self.stepper?.style = FlexShapeStyle(style: .rounded)
+        self.stepper?.borderColor = UIColor.MKColor.BlueGrey.P700
+        self.stepper?.borderWidth = 1
+```
+
+Use the thumb and separator factory to style the inner components of the stepper.
+
+The parameters of the stepper are described in the class:
+```swift
+    /// The value of the stepper
+    open var value: Double = 0.0
+    /// The stepper min value. This is the value updated by the relative motion of the slider and pressing the minus and plus areas.
+    open var minStepperValue: Double = 0
+    /// The stepper max value. This is the value updated by the relative motion of the slider and pressing the minus and plus areas.
+    open var maxStepperValue: Double = 1
+    /// Use the value steps in order to control the fractional amount of change when pressing plus and minus. For example, if you specify 10, then it will take 10 taps on the plus button to step from minStepperValue to maxStepperValue.
+    open var valueSteps: Double = 10
+    /// Use the value slider factor in order to control the 'speed' of the value updates.
+    open var valueSlideFactor: Double = 10.0
+```
+
 ### FlexMenu
 
 ![flexmenusdemo](https://cloud.githubusercontent.com/assets/476994/18223685/9608dbc6-71bf-11e6-9939-e1554d6ed890.gif)

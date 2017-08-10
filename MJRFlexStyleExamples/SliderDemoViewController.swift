@@ -18,7 +18,7 @@ class SliderDemoViewController: UIViewController {
 
     private var horizUtilButton: FlexFlickButton?
 
-    private var camButton: FlexMutableSlider?
+//    private var camButton: FlexMutableSlider?
     
     private var stepper: FlexSnapStepper?
     
@@ -50,7 +50,7 @@ class SliderDemoViewController: UIViewController {
         self.vertiSlider = FlexMutableSlider(frame: CGRect(x: 10, y: 50, width: 32, height: 100))
         self.vertiSlider?.minimumValue = 0
         self.vertiSlider?.maximumValue = 1
-        self.vertiSlider?.borderColor = .black
+        self.vertiSlider?.borderColor = UIColor.MKColor.BlueGrey.P700
         self.vertiSlider?.borderWidth = 1
         self.vertiSlider?.style = FlexShapeStyle(style: .rounded)
         self.vertiSlider?.thumbStyle = FlexShapeStyle(style: .roundedFixed(cornerRadius: 10))
@@ -71,17 +71,18 @@ class SliderDemoViewController: UIViewController {
         self.vertiSlider?.continuous = false
 
         self.utilButton = FlexFlickButton(frame: CGRect(x: 10, y: 50, width: 48, height: 48))
-        self.utilButton?.borderColor = .black
+        self.utilButton?.borderColor = UIColor.MKColor.BlueGrey.P700
         self.utilButton?.borderWidth = 1
         self.utilButton?.style = FlexShapeStyle(style: .thumb)
+        self.utilButton?.styleColor = UIColor.MKColor.BlueGrey.P100
         self.utilButton?.thumbStyle = FlexShapeStyle(style: .box)
         self.utilButton?.direction = .vertical
         self.utilButton?.upperActionItem.text = "B"
         self.utilButton?.primaryActionItem.text = "A"
         self.utilButton?.lowerActionItem.text = "C"
-        self.utilButton?.upperActionItem.icon = UIImage(color: .red, size: CGSize(width: 32, height: 32))
-        self.utilButton?.primaryActionItem.icon = UIImage(color: .green, size: CGSize(width: 32, height: 32))
-        self.utilButton?.lowerActionItem.icon = UIImage(color: .blue, size: CGSize(width: 32, height: 32))
+        self.utilButton?.upperActionItem.icon = UIImage(color: UIColor.MKColor.Red.A200, size: CGSize(width: 32, height: 32))
+        self.utilButton?.primaryActionItem.icon = UIImage(color: UIColor.MKColor.Green.A200, size: CGSize(width: 32, height: 32))
+        self.utilButton?.lowerActionItem.icon = UIImage(color: UIColor.MKColor.Blue.A200, size: CGSize(width: 32, height: 32))
         self.view.addSubview(self.utilButton!)
         
         self.utilButton?.actionActivationHandler = {
@@ -97,9 +98,10 @@ class SliderDemoViewController: UIViewController {
         }
         
         self.util2Button = FlexFlickButton(frame: CGRect(x: 10, y: 50, width: 48, height: 48))
-        self.util2Button?.borderColor = .black
+        self.util2Button?.borderColor = UIColor.MKColor.BlueGrey.P700
         self.util2Button?.borderWidth = 1
         self.util2Button?.style = FlexShapeStyle(style: .thumb)
+        self.util2Button?.styleColor = UIColor.MKColor.BlueGrey.P100
         self.util2Button?.thumbStyle = FlexShapeStyle(style: .box)
         self.util2Button?.direction = .vertical
         self.util2Button?.upperActionItem.text = "Up"
@@ -108,9 +110,10 @@ class SliderDemoViewController: UIViewController {
         self.view.addSubview(self.util2Button!)
 
         self.horizUtilButton = FlexFlickButton(frame: CGRect(x: 10, y: 50, width: 48, height: 48))
-        self.horizUtilButton?.borderColor = .black
+        self.horizUtilButton?.borderColor = UIColor.MKColor.BlueGrey.P700
         self.horizUtilButton?.borderWidth = 1
         self.horizUtilButton?.style = FlexShapeStyle(style: .rounded)
+        self.horizUtilButton?.styleColor = UIColor.MKColor.BlueGrey.P100
         self.horizUtilButton?.thumbStyle = FlexShapeStyle(style: .box)
         self.horizUtilButton?.direction = .horizontal
         self.horizUtilButton?.upperActionItem.text = "<"
@@ -131,11 +134,11 @@ class SliderDemoViewController: UIViewController {
         }
         self.stepper?.thumbFactory = { index in
             let thumb = MutableSliderThumbItem()
-            thumb.color = .red
+            thumb.color = UIColor.MKColor.BlueGrey.P100
             return thumb
         }
         self.stepper?.style = FlexShapeStyle(style: .rounded)
-        self.stepper?.borderColor = .black
+        self.stepper?.borderColor = UIColor.MKColor.BlueGrey.P700
         self.stepper?.borderWidth = 1
         
         self.view.addSubview(self.stepper!)
@@ -168,11 +171,11 @@ class SliderDemoViewController: UIViewController {
         super.viewDidLayoutSubviews()
         self.horiSlider?.frame = CGRect(x: 10, y: 80, width: self.view.bounds.size.width - 20, height: 32)
         self.vertiSlider?.frame = CGRect(x: 10, y: 120, width: 32, height: 300)
-        self.utilButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 120, width: 64, height: 64)
-        self.util2Button?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 120 + 80, width: 64, height: 64)
-        self.horizUtilButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 120 + 160, width: 64, height: 64)
-        self.camButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 190, width: 64, height: 64)
-        self.stepper?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64) * 4, y: 120, width: 128, height: 32)
+        self.utilButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 150, width: 64, height: 64)
+        self.util2Button?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 150 + 80, width: 64, height: 64)
+        self.horizUtilButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 150 + 160, width: 64, height: 64)
+//        self.camButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 190, width: 64, height: 64)
+        self.stepper?.frame = CGRect(x: (self.view.bounds.size.width - 128) * 0.5, y: 190, width: 128, height: 32)
     }
     
 }
