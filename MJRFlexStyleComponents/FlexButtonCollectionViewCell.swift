@@ -95,6 +95,11 @@ open class FlexButtonCollectionViewCell: FlexCollectionViewCell {
         // Intentionally left blank
     }
     
+    open override func refreshLayout() {
+        self.flexContentView?.frame = self.bounds
+        super.refreshLayout()
+    }
+    
     override open func applyStyles() {
         super.applyStyles()
         
