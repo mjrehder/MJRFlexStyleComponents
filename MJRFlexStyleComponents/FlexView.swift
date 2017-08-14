@@ -53,7 +53,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
     
     fileprivate var topBarView: UIView?
     open private(set) var topBarActive: Bool = false
-
+    
     var menus: [FlexViewMenu] = []
     
     public override init(frame: CGRect) {
@@ -76,7 +76,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             self.layer.insertSublayer(self.styleLayer, at: 0)
         }
     }
-
+    
     @IBInspectable
     open var topBar: FlexViewTopBar? = nil {
         didSet {
@@ -133,14 +133,14 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             self.setNeedsLayout()
         }
     }
-
+    
     /// The header will be clipped to the background shape. Defaults to true.
     @IBInspectable open dynamic var headerClipToBackgroundShape: Bool = true {
         didSet {
             self.setNeedsLayout()
         }
     }
-
+    
     /// The sub header text. Defaults to nil, which means no text.
     @IBInspectable open var subHeaderText: String? = nil {
         didSet {
@@ -170,7 +170,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             self.setNeedsLayout()
         }
     }
-
+    
     /// The secondary footer text. Defaults to nil, which means no text.
     @IBInspectable open var footerSecondaryText: String? = nil {
         didSet {
@@ -184,7 +184,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             self.setNeedsLayout()
         }
     }
- 
+    
     /// The sub footer text. Defaults to nil, which means no text.
     @IBInspectable open var footerSubText: String? = nil {
         didSet {
@@ -198,7 +198,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             self.setNeedsLayout()
         }
     }
-
+    
     /// The footer size is either the height or the width of the footer, depending on the footer position.
     @IBInspectable open dynamic var footerSize: CGFloat = 18 {
         didSet {
@@ -212,7 +212,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             self.setNeedsLayout()
         }
     }
-
+    
     open var headerTextChanged: ((String) -> Void)?
     var headerEditor: UITextField?
     
@@ -283,7 +283,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         }
         return NSAttributedString()
     }
-
+    
     func hasSubFooterText() -> Bool {
         return self.footerSubText != nil || self.footerSubAttributedText != nil
     }
@@ -326,7 +326,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
     }
     
     // MARK: - Private Style
-
+    
     open func rectForHeader() -> CGRect {
         let headerPos = self.headerPosition
         let hSize = self.headerSize
@@ -421,7 +421,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.headerTap(_:)))
             self.header.caption.label.addGestureRecognizer(tapGesture)
         }
-
+        
         var hasFooterText = false
         if self.hasFooterText() && self.hasSubFooterText() {
             self.layoutSupplementaryView(self.footer, frame: rff)
@@ -458,7 +458,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         else {
             self.footer.secondaryCaption.isHidden = true
         }
-
+        
         if !hasFooterText {
             self.footer.removeFromSuperview()
         }
@@ -496,14 +496,15 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         }
         suplView.frame = frame
     }
-
+    
     open func layoutSupplementaryTextLabels(_ suplViewCaption: FlexLabel, frame: CGRect, attributedText: NSAttributedString?) {
         suplViewCaption.frame = frame
         suplViewCaption.label.frame = suplViewCaption.bounds
         suplViewCaption.label.transform = self.getHeaderFooterRotation()
         suplViewCaption.label.frame = suplViewCaption.bounds
-
+        
         suplViewCaption.label.attributedText = attributedText
+        suplViewCaption.applyStyle()
     }
     
     override func applyStyle(_ style: ShapeStyle) {
@@ -529,7 +530,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
                 bgsLayer.addSublayer(bLayer)
             }
         }
-
+        
         // Add layer with border, if required
         if let bLayer = self.createBorderLayer(style, layerRect: layerRect) {
             bgsLayer.addSublayer(bLayer)
@@ -541,14 +542,14 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         styleLayer = bgsLayer
         styleLayer.frame = layerRect
     }
-
+    
     // MARK: - Menu Handling
     
     func applyMenuLocationAndSize(_ menu: FlexViewMenu) {
         // Make sure that the menu is on top of the subviews
         menu.menu.removeFromSuperview()
         self.addSubview(menu.menu)
-
+        
         let headerPos = self.headerPosition
         menu.menu.direction = headerPos == .top ? .horizontal : . vertical
         menu.menu.menuItemGravity = headerPos == .top ? .normal : (headerPos == .left ? .right : .left)

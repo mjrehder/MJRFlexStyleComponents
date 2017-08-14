@@ -72,6 +72,12 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         }
     }
     
+    open var forceHeaderTopWhenIconifiedDisplayMode: Bool = true {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
     @IBInspectable
     open dynamic var centerCellsHorizontally: Bool = false {
         didSet {
@@ -336,6 +342,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
                     cell.reference = item.reference
                     cell.flexCellTouchDelegate = self
                     cell.displayMode = self.cellDisplayMode
+                    cell.forceHeaderTopWhenIconifiedDisplayMode = self.forceHeaderTopWhenIconifiedDisplayMode
                     if item.swipeLeftMenuItems != nil || item.swipeRightMenuItems != nil {
                         let lswipe = UISwipeGestureRecognizer(target: self, action: #selector(self.swipeLeftGestureAction(_:)))
                         lswipe.direction = .left
@@ -505,7 +512,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     }
     
     // MARK: - Top Bar
-
+    
     func addRefreshControl() {
         if self.refreshControl == nil && self.isRefreshControlAvailable {
             self.refreshControl = UIRefreshControl()
@@ -518,7 +525,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
             }
         }
     }
-
+    
     func refreshControlAction(){
         self.showTopBar {
             self.itemCollectionView.reloadData()

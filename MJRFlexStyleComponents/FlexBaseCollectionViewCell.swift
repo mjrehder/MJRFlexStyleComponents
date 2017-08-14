@@ -288,18 +288,31 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         super.refreshLayout()
     }
     
+    func isDisplayModeNormal() -> Bool {
+        switch self.displayMode {
+        case .normal:
+            return true
+        case .iconified(_):
+            return false
+        }
+    }
+    
     open func layoutControl(_ item: FlexBaseCollectionItem, area: CGRect) {
         if area.size.width < 0 || area.size.height < 0 {
             return
         }
+        
+        self.setupAllTextLabels(item)
+        if let ul = self.textLabel, let ll = self.detailTextLabel, let ur = self.infoTextLabel, let lr = self.auxTextLabel {
+            FlexControlLayoutHelper.layoutFourLabelsInArea(ul, lowerLeft: ll, upperRight: ur, lowerRight: lr, area: area)
+        }
+    }
+    
+    func setupAllTextLabels(_ item: FlexBaseCollectionItem) {
         self.setupTextLabel(self.textLabel, text: item.text)
         self.setupTextLabel(self.detailTextLabel, text: item.detailText)
         self.setupTextLabel(self.infoTextLabel, text: item.infoText)
         self.setupTextLabel(self.auxTextLabel, text: item.auxText)
-        
-        if let ul = self.textLabel, let ll = self.detailTextLabel, let ur = self.infoTextLabel, let lr = self.auxTextLabel {
-            FlexControlLayoutHelper.layoutFourLabelsInArea(ul, lowerLeft: ll, upperRight: ur, lowerRight: lr, area: area)
-        }
     }
     
     func createTextLabel<T: FlexLabel>(label: T) -> T {
@@ -312,7 +325,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     
     func setupTextLabel(_ label: FlexLabel?, text: NSAttributedString?) {
         if let label = label {
-            if let aText = text {
+            if let aText = text, self.isDisplayModeNormal() {
                 label.isHidden = false
                 label.label.attributedText = aText
             }
@@ -337,12 +350,23 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         if let item = self.item as? FlexBaseCollectionItem, let fcv = self.flexContentView {
             fcv.headerAttributedText = item.title
             fcv.subHeaderAttributedText = item.underTitle
-            fcv.footerAttributedText = item.subTitle
+            if self.isDisplayModeNormal() {
+                fcv.footerAttributedText = item.subTitle
+                if let hp = item.headerPosition {
+                    fcv.headerPosition = hp
+                }
+            }
+            else {
+                fcv.footerAttributedText = item.subTitle ?? item.text
+                if self.forceHeaderTopWhenIconifiedDisplayMode {
+                    fcv.headerPosition = .top
+                }
+                else if let hp = item.headerPosition {
+                    fcv.headerPosition = hp
+                }
+            }
             fcv.footerSecondaryAttributedText = item.secondarySubTitle
             self.applyHeaderImage(fcv: fcv, item: item)
-            if let hp = item.headerPosition {
-                fcv.headerPosition = hp
-            }
             self.applySelectionStyles(fcv)
         }
     }
@@ -362,6 +386,8 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
                 let controlInsets = item.controlInsets ?? self.controlInsets
                 self.layoutControl(item, area: UIEdgeInsetsInsetRect(remainingCellArea, controlInsets))
             case .iconified(_):
+                self.accessoryView?.isHidden = true
+                self.setupAllTextLabels(item)
                 self.layoutIconifiedIconView(item, area: self.getBaseViewRect())
             }
         }

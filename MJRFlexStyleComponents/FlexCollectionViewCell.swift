@@ -51,6 +51,11 @@ open class FlexCollectionViewCell: UICollectionViewCell {
             self.setNeedsLayout()
         }
     }
+    open var forceHeaderTopWhenIconifiedDisplayMode: Bool = true {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
     
     var _item: FlexCollectionItem? = nil
     open var item: FlexCollectionItem? {

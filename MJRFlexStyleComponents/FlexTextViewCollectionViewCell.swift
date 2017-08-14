@@ -65,7 +65,7 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
     
     open override func layoutControl(_ item: FlexBaseCollectionItem, area: CGRect) {
         DispatchQueue.main.async {
-            if let text = item.text, let tvItem = item as? FlexTextViewCollectionItem {
+            if let text = item.text, let tvItem = item as? FlexTextViewCollectionItem, self.isDisplayModeNormal() {
                 if let tv = self.textView {
                     tv.attributedText = text
                     if let textColor = self.textColor {
@@ -92,6 +92,11 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
         }
     }
 
+    open override func layoutIconifiedIconView(_ item: FlexBaseCollectionItem, area: CGRect) {
+        super.layoutIconifiedIconView(item, area: area)
+        self.textView?.isHidden = true
+    }
+    
     open func cellTextAreaTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item {
             let relPos = self.getRelPosFromTapGesture(recognizer)
