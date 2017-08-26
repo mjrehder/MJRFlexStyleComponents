@@ -59,6 +59,13 @@ open class FlexFlickButton: FlexMutableSlider {
             self.createItems()
         }
     }
+
+    /// Snapping means the center button will snap back to the center, otherwise the button will have a center or lower switch state. The non snapping only makes sense if there is no lower action
+    open var isSnapping = true {
+        didSet {
+            self.createItems()
+        }
+    }
     
     open var separatorFactory: ((Int)->MutableSliderSeparatorItem) = {
         index in
@@ -154,7 +161,7 @@ open class FlexFlickButton: FlexMutableSlider {
         primarySizeInfo.textSizingType = self.primaryActionItem.textSizingType
         
         let thumb = self.thumbFactory(0)
-        thumb.behaviour = .snapToValue(v: 0.5)
+        thumb.behaviour = self.isSnapping ? .snapToValue(v: 0.5) : .snapToTwoState(low: 0.5, high: 1.0)
         thumb.initialValue = 0.5
         if !hasLowerFunction {
             thumb.lowerLimit = 0.5

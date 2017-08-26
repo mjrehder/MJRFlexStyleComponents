@@ -108,7 +108,7 @@ class SliderDemoViewController: UIViewController {
         self.util2Button?.primaryActionItem.text = "Ver"
         self.util2Button?.primaryActionItem.textMaxFontSize = 32
         self.view.addSubview(self.util2Button!)
-
+        
         self.horizUtilButton = FlexFlickButton(frame: CGRect(x: 10, y: 50, width: 48, height: 48))
         self.horizUtilButton?.borderColor = UIColor.MKColor.BlueGrey.P700
         self.horizUtilButton?.borderWidth = 1
@@ -174,7 +174,6 @@ class SliderDemoViewController: UIViewController {
         self.utilButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 150, width: 64, height: 64)
         self.util2Button?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 150 + 80, width: 64, height: 64)
         self.horizUtilButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 150 + 160, width: 64, height: 64)
-//        self.camButton?.frame = CGRect(x: self.view.bounds.size.width - (10 + 64), y: 190, width: 64, height: 64)
         self.stepper?.frame = CGRect(x: (self.view.bounds.size.width - 128) * 0.5, y: 190, width: 128, height: 32)
     }
     
