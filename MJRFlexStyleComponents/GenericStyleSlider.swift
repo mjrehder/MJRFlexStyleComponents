@@ -72,7 +72,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
 @IBDesignable open class GenericStyleSlider: FlexBaseControl {
     var touchesBeganPoint = CGPoint.zero
     var userIsSliding = false
-
+    
     var thumbList = StyledSliderThumbList()
     var separatorLabels: Array<StyledSliderSeparator> = []
     
@@ -82,7 +82,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     
     /// The hint label
     lazy var hintLabel: StyledLabel = LabelFactory.defaultStyledLabel()
-
+    
     var hintShapeLayer = CAShapeLayer()
     
     open var sliderDelegate: GenericStyleSliderDelegate?
@@ -101,7 +101,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     // MARK: - Laying out Subviews
     
     open override func layoutSubviews() {
-        super.layoutSubviews()        
+        super.layoutSubviews()
         self.layoutComponents()
     }
     
@@ -131,13 +131,13 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
      This is a convenient alternative to the `addTarget:Action:forControlEvents:` method of the `UIControl`.
      */
     open var valueChangedBlock: ((_ value: Double, _ index: Int) -> Void)?
-
+    
     /**
      Block to be notify when the value of the slider is changed by the user.
      This block is not called on snapping behaviour changes.
      */
     open var valueChangedBlockWhileSliding: ((_ value: Double, _ index: Int) -> Void)?
-
+    
     /**
      The continuous vs. noncontinuous state of the slider.
      
@@ -151,7 +151,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             self.initComponent()
         }
     }
-
+    
     /**
      The notification delay is the delay between each notification, if the continuous property is true
      
@@ -175,7 +175,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             self.setNeedsLayout()
         }
     }
-
+    
     /**
      The numeric values.
      
@@ -199,7 +199,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             self.assignSeparatorTexts()
         }
     }
-
+    
     /**
      The lowest possible numeric value.
      
@@ -233,7 +233,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             self.updateValues()
         }
     }
-
+    
     /**
      Trigger events can be configured, so that the event handler is called within on swipe gesture cycle.
      Parameters are: value index and value
@@ -247,7 +247,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     
     
     // MARK: - Hints
-
+    
     /// The hint's style. Default's to none, so no hint will be displayed.
     @IBInspectable open var hintStyle: ShapeStyle = .none {
         didSet {
@@ -325,7 +325,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             }
         }
     }
-
+    
     /// The thumbs text colors. Default's to black
     @IBInspectable open dynamic var thumbTextColor: UIColor = .black {
         didSet {
@@ -348,7 +348,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             self.applyThumbStyle(thumbStyle)
         }
     }
-
+    
     @IBInspectable open var thumbSnappingBehaviour: StyledSliderThumbBehaviour = .freeform {
         didSet {
             for thumb in self.thumbList.thumbs {
@@ -372,7 +372,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             self.setNeedsLayout()
         }
     }
-
+    
     /// The separator's background colors. If nil the separator color will be clear color. Defaults to nil.
     /// Use the delegate to get fine grained control over each separator
     @IBInspectable open dynamic var separatorBackgroundColor: UIColor? {
@@ -398,7 +398,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             }
         }
     }
-
+    
     @IBInspectable open var separatorStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
         didSet {
             self.applySeparatorStyle(separatorStyle)
@@ -408,7 +408,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             }
         }
     }
-
+    
     /// The separators border color.
     @IBInspectable open dynamic var separatorBorderColor: UIColor? {
         didSet {
@@ -459,7 +459,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     // MARK: - Private Style
-
+    
     func applyThumbStyle(_ style: FlexShapeStyle) {
         for thumb in self.thumbList.thumbs {
             thumb.backgroundColor = self.sliderDelegate?.colorOfThumb(thumb.index) ?? thumbBackgroundColor ?? backgroundColor?.lighter()
@@ -469,7 +469,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             thumb.backgroundIcon = self.sliderDelegate?.iconOfThumb(thumb.index)
         }
     }
-
+    
     func applySeparatorStyle(_ style: FlexShapeStyle) {
         for sep in self.separatorLabels {
             sep.style = style.style
@@ -478,8 +478,10 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             sep.borderWidth = separatorBorderWidth
         }
     }
-
+    
     func createSeparatorLayer(_ layerRect: CGRect) -> CAShapeLayer {
+        assert(layerRect.size.width > 0 && layerRect.size.height > 0)
+        
         // Add layer with separator background colors
         var rectColors: [(CGRect, UIColor)] = []
         var idx = 0
@@ -496,7 +498,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         hintLabel.style = style
         
         let sLayer = StyledShapeLayer.createHintShapeLayer(hintLabel, fillColor: thumbBackgroundColor?.lighter().cgColor)
-
+        
         if self.hintShapeLayer.superlayer != nil {
             self.hintLabel.layer.replaceSublayer(self.hintShapeLayer, with: sLayer)
         }
@@ -509,6 +511,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     
     override func applyStyle(_ style: ShapeStyle) {
         let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
+        assert(layerRect.size.width > 0 && layerRect.size.height > 0)
         let bgsLayer = self.getBackgroundLayer(style)
         
         let sepLayer = self.createSeparatorLayer(layerRect)
@@ -528,7 +531,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     // MARK: - Private View
-
+    
     func sizeOfTextLabel(_ label: StyledLabel) -> CGSize? {
         if let font = label.font, let text = label.text {
             let textString = text as NSString
@@ -601,9 +604,19 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         if let minSize = self.thumbMinimumSize {
             resSize = CGSize(width: max(minSize.width, pSize.width), height: max(minSize.height, pSize.height))
         }
+        
         if let maxSize = self.thumbMaximumSize {
             resSize = CGSize(width: min(maxSize.width, pSize.width), height: min(maxSize.height, pSize.height))
         }
+
+        if resSize.width.isNaN {
+            resSize = CGSize(width: 1, height: resSize.height)
+        }
+        if resSize.height.isNaN {
+            resSize = CGSize(width: resSize.width, height: 1)
+        }
+        assert(resSize.width > 0 && resSize.height > 0)
+        
         return resSize
     }
     
@@ -651,6 +664,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     
     override func layoutComponents() {
         let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
+        assert(layerRect.size.width > 0 && layerRect.size.height > 0)
         let mainSizeH = self.direction.principalSize(layerRect.size) * 0.5
         
         self.thumbList.bounds = layerRect
@@ -666,23 +680,24 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
                 thumb.frame = CGRect(x: (layerRect.width - thumbSize.width) / 2.0, y: pos.y - thumbSize.height / 2.0, width: thumbSize.width, height: thumbSize.height)
             }
         }
-
+        
         self.layoutSeparators()
-
+        
         applyThumbStyle(thumbStyle)
         applySeparatorStyle(separatorStyle)
         applyStyle(self.getStyle())
         applyHintStyle(hintStyle)
-
+        
         self.assignThumbTexts()
         self.assignSeparatorTexts()
         self.assignSeparatorTextOpacities()
     }
-
+    
     func layoutSeparators() {
         let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
+        assert(layerRect.size.width > 0 && layerRect.size.height > 0)
         let mainSizeH = self.direction.principalSize(layerRect.size) * 0.5
-
+        
         for thumb in self.thumbList.thumbs {
             let pos = self.thumbList.getThumbPosForValue(_values[thumb.index], thumbIndex: thumb.index)
             let labelLOff = self.direction.principalSize(self.getThumbSize(thumb)) * 0.5
@@ -715,7 +730,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             let sep = self.separatorLabels[0]
             let mainSepPos = self.direction.principalPosition(sep.center)
             sep.relativeEdgeOffset = 1.0 - (abs(mainSepPos - mainSizeH) / mainSizeH)
-
+            
             let hp: CGFloat
             let labelHOff: CGFloat
             if self.thumbList.thumbs.count > 0 {
@@ -739,9 +754,9 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             }
         }
     }
-
+    
     // MARK: - Internal
-
+    
     func startPositionUpdateNotification() {
         self.posUpdateTimer.start(self.notificationDelay) { [weak self] in
             if let weakSelf = self {
@@ -793,7 +808,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             }
         }
     }
-
+    
     func separatorSwiped(_ sender: UIPanGestureRecognizer) {
         if let sep = sender.view as? StyledSliderSeparator {
             if sep.index == 0 {
@@ -816,11 +831,11 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             }
         }
     }
-
+    
     func setupThumbGesture(_ thumb: StyledSliderThumb) {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(GenericStyleSlider.sliderPanned))
         thumb.addGestureRecognizer(panGesture)
-
+        
         let touchGesture = UITapGestureRecognizer(target: self, action: #selector(GenericStyleSlider.thumbTouched))
         touchGesture.require(toFail: panGesture)
         thumb.addGestureRecognizer(touchGesture)
@@ -837,7 +852,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             }
         }
     }
-
+    
     func sliderPanned(_ sender: UIPanGestureRecognizer) {
         if let thumb = sender.view as? StyledSliderThumb {
             self.thumbPanned(thumb, sender: sender)
@@ -967,7 +982,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             break
         }
     }
-
+    
     func removeAllSeparators() {
         for sep in self.separatorLabels {
             sep.removeFromSuperview()
@@ -1034,7 +1049,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             }
         }
     }
-
+    
     func calculateRelativeFontSize(min: CGFloat, max: CGFloat, pp: CGFloat, pDiff: CGFloat) -> CGFloat {
         var ps = pDiff
         if ps < min {
@@ -1070,11 +1085,11 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         self.thumbList.applyThumbBehaviour(thumb)
         self.setupThumbGesture(thumb)
     }
-
+    
     func assignThumbText(_ index: Int) {
         let thumb = self.thumbList.thumbs[index]
         let pos = self.thumbList.getThumbPos(thumbIndex: thumb.index)
-
+        
         if let delTT = self.sliderDelegate?.textOfThumb(index) {
             thumb.text = delTT
             self.assignThumbFontAndColor(thumb)
@@ -1128,7 +1143,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             self.assignThumbText(idx)
         }
     }
-
+    
     func clampValue(_ value: Double) -> Double {
         var newVal = value
         if newVal > maximumValue {
@@ -1175,7 +1190,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             self.updateValue(i, value: val)
         }
     }
-
+    
     func notifyOfValueChanged(_ value: Double, index: Int) {
         sendActions(for: .valueChanged)
         self.valueChangedBlock?(value, index)
@@ -1222,5 +1237,5 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         }
         return value.truncatingRemainder(dividingBy: 1) == 0 ? "\(Int(value))" : "\(value)"
     }
-
+    
 }

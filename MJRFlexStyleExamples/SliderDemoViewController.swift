@@ -18,8 +18,6 @@ class SliderDemoViewController: UIViewController {
 
     private var horizUtilButton: FlexFlickButton?
 
-//    private var camButton: FlexMutableSlider?
-    
     private var stepper: FlexSnapStepper?
     
     override func viewDidLoad() {
