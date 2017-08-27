@@ -39,5 +39,9 @@ open class SliderThumbSizeInfo: SliderItemSizeInfo {
     open var sizingType: ThumbSizingType = .fixed
     open var thumbMinSize: CGSize?
     open var thumbMaxSize: CGSize?
-    open var thumbSize: CGSize?    
+    open var thumbSize: CGSize?
+    
+    public override init() {
+        super.init()
+    }
 }

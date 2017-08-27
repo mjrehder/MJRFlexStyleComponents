@@ -32,4 +32,8 @@ import UIKit
 open class MutableSliderSeparatorItem: MutableSliderItem {
     open var sizeInfo: SliderSeparatorSizeInfo?
     open var useOpacityForSizing = true
+    
+    public override init() {
+        super.init()
+    }
 }

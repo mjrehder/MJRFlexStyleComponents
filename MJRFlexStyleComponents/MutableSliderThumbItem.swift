@@ -40,4 +40,8 @@ open class MutableSliderThumbItem: MutableSliderItem {
 
     open var upperLimit: Double?
     open var lowerLimit: Double?
+    
+    public override init() {
+        super.init()
+    }
 }

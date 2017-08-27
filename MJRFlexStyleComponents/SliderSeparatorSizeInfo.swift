@@ -30,4 +30,7 @@
 import UIKit
 
 open class SliderSeparatorSizeInfo: SliderItemSizeInfo {
+    public override init() {
+        super.init()
+    }
 }

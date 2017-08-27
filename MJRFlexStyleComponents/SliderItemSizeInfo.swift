@@ -49,4 +49,7 @@ open class SliderItemSizeInfo {
     open var iconInsetsForAutoSize = UIEdgeInsetsMake(2, 2, 2, 2)
     open var iconSizingType: SliderIconSizingType = .relativeToSliderItem
     open var maxIconSize: CGSize?
+    
+    public init() {
+    }
 }

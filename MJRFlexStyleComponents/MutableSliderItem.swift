@@ -17,4 +17,6 @@ open class MutableSliderItem {
     // TODO:
     // text colors
 
+    public init() {
+    }
 }
