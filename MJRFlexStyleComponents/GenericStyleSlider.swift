@@ -649,6 +649,9 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         if let si = thumb.sizeInfo as? SliderThumbSizeInfo, let ts = si.thumbSize ?? self.thumbSize {
             return ts
         }
+        if let ts = self.thumbSize {
+            return ts
+        }
         // Use the ratio if set
         if let ratio = self.thumbRatio {
             if self.direction == .horizontal {
