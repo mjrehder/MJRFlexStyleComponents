@@ -213,6 +213,13 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         }
     }
     
+    /// The header and footer will be adapted to menus in the header or footer. Defaults to true.
+    @IBInspectable open dynamic var headerFooterAdaptToMenu: Bool = true {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
     open var headerTextChanged: ((String) -> Void)?
     var headerEditor: UITextField?
     
@@ -383,13 +390,17 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         var rff = self.rectForFooter()
         for menu in self.menus {
             self.applyMenuLocationAndSize(menu)
-            let mmf = menu.menu.frame
-            if menu.hPos != .fill {
-                if mmf.intersects(rfh) {
-                    rfh = self.calculateWidthIntersectedFrame(oFrame: rfh, interFrame: mmf)
-                }
-                else if mmf.intersects(rff) {
-                    rff = self.calculateWidthIntersectedFrame(oFrame: rff, interFrame: mmf)
+            
+            // TODO: This should only be calculated for the text position and not the entire footer and header views
+            if self.headerFooterAdaptToMenu {
+                let mmf = menu.menu.frame
+                if menu.hPos != .fill {
+                    if mmf.intersects(rfh) {
+                        rfh = self.calculateWidthIntersectedFrame(oFrame: rfh, interFrame: mmf)
+                    }
+                    else if mmf.intersects(rff) {
+                        rff = self.calculateWidthIntersectedFrame(oFrame: rff, interFrame: mmf)
+                    }
                 }
             }
         }

@@ -476,6 +476,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             sep.backgroundColor = .clear
             sep.borderColor = separatorBorderColor
             sep.borderWidth = separatorBorderWidth
+            sep.backgroundIcon = self.sliderDelegate?.iconOfSeparator(sep.index)
         }
     }
     
@@ -608,7 +609,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         if let maxSize = self.thumbMaximumSize {
             resSize = CGSize(width: min(maxSize.width, pSize.width), height: min(maxSize.height, pSize.height))
         }
-
+        
         if resSize.width.isNaN {
             resSize = CGSize(width: 1, height: resSize.height)
         }
@@ -992,6 +993,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     
     func addSeparator() {
         let sep = LabelFactory.defaultStyledSeparator()
+        sep.index = self.separatorLabels.count
         sep.backgroundColor = self.sliderDelegate?.colorOfSeparatorLabel(self.separatorLabels.count) ?? self.separatorBackgroundColor
         sep.font = self.separatorFont
         sep.backgroundIcon = self.sliderDelegate?.iconOfSeparator(self.separatorLabels.count)
