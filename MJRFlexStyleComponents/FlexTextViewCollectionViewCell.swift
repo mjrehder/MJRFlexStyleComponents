@@ -66,6 +66,14 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
     open override func layoutControl(_ item: FlexBaseCollectionItem, area: CGRect) {
         DispatchQueue.main.async {
             if let text = item.text, let tvItem = item as? FlexTextViewCollectionItem, self.isDisplayModeNormal() {
+                self.setupTextLabel(self.textLabel, text: tvItem.textTitle)
+                var textArea = area
+                if let tt = tvItem.textTitle {
+                    let height = tt.heightWithConstrainedWidth(area.size.width)
+                    let tlf = CGRect(x: area.origin.x, y: area.origin.y, width: area.size.width, height: height)
+                    self.textLabel?.frame = tlf
+                    textArea = CGRect(x: area.origin.x, y: area.origin.y + height, width: area.size.width, height: area.size.height - height)
+                }
                 if let tv = self.textView {
                     tv.attributedText = text
                     if let textColor = self.textColor {
@@ -75,7 +83,7 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
                     tv.delegate = tvItem.textViewDelegate ?? self
                     tv.prepareDefault()
                     tv.isEditable = tvItem.textIsMutable
-                    tv.frame = area
+                    tv.frame = UIEdgeInsetsInsetRect(textArea, tvItem.textViewInsets)
                     tv.isHidden = false
                     tv.isUserInteractionEnabled = tvItem.textIsMutable || tvItem.textIsScrollable
                     tv.showsVerticalScrollIndicator = tvItem.textIsMutable || tvItem.textIsScrollable
