@@ -76,10 +76,6 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
                 }
                 if let tv = self.textView {
                     tv.frame = UIEdgeInsetsInsetRect(textArea, tvItem.textViewInsets)
-                    tv.attributedText = self.truncateTextForTextArea(item: item, string: text)
-                    if let textColor = self.textColor {
-                        tv.textColor = textColor
-                    }
                     tv.backgroundColor = self.textViewBackgroundColor
                     tv.delegate = tvItem.textViewDelegate ?? self
                     tv.prepareDefault()
@@ -92,6 +88,12 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
                         tv.applyAutoTextAlignment()
                     }
                     tv.textContainerInset = self.textContainerInsets
+                    
+                    // Calculate truncated text last, when all sizes and parameters have been set
+                    tv.attributedText = self.truncateTextForTextArea(item: item, string: text)
+                    if let textColor = self.textColor {
+                        tv.textColor = textColor
+                    }
                 }
             }
             else {
@@ -99,7 +101,7 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
             }
         }
     }
-
+    
     open func truncateTextForTextArea(item: FlexBaseCollectionItem, string: NSAttributedString) -> NSAttributedString {
         if let tvItem = item as? FlexTextViewCollectionItem, let addOnStr = tvItem.autodetectTextSizeFittingAndTruncateWithString {
             let maxLength = self.numberOfCharactersThatFitTextArea(string: string)
@@ -116,7 +118,7 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
         if let tv = self.textView {
             let frameSetterRef = CTFramesetterCreateWithAttributedString(string as CFAttributedString)
             var characterFitRange:CFRange = CFRange()
-            CTFramesetterSuggestFrameSizeWithConstraints(frameSetterRef, CFRangeMake(0, 0), nil, tv.bounds.size, &characterFitRange)
+            CTFramesetterSuggestFrameSizeWithConstraints(frameSetterRef, CFRangeMake(0, 0), nil, CGSize(width: tv.bounds.size.width, height: tv.bounds.size.height + 4), &characterFitRange)
             return characterFitRange.length
         }
         return 0
