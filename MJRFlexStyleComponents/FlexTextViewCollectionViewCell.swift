@@ -75,7 +75,7 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
                     textArea = CGRect(x: area.origin.x, y: area.origin.y + height, width: area.size.width, height: area.size.height - height)
                 }
                 if let tv = self.textView {
-                    tv.attributedText = text
+                    tv.attributedText = self.truncateTextForTextArea(item: item, string: text)
                     if let textColor = self.textColor {
                         tv.textColor = textColor
                     }
@@ -100,6 +100,28 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
         }
     }
 
+    open func truncateTextForTextArea(item: FlexBaseCollectionItem, string: NSAttributedString) -> NSAttributedString {
+        if let tvItem = item as? FlexTextViewCollectionItem, let addOnStr = tvItem.autodetectTextSizeFittingAndTruncateWithString {
+            let maxLength = self.numberOfCharactersThatFitTextArea(string: string)
+            if maxLength < string.length {
+                let compiledText = NSMutableAttributedString(attributedString: string.attributedSubstring(from: NSMakeRange(0, maxLength - addOnStr.length)))
+                compiledText.append(addOnStr)
+                return compiledText
+            }
+        }
+        return string
+    }
+    
+    open func numberOfCharactersThatFitTextArea(string: NSAttributedString) -> Int {
+        if let tv = self.textView {
+            let frameSetterRef = CTFramesetterCreateWithAttributedString(string as CFAttributedString)
+            var characterFitRange:CFRange = CFRange()
+            CTFramesetterSuggestFrameSizeWithConstraints(frameSetterRef, CFRangeMake(0, 0), nil, tv.bounds.size, &characterFitRange)
+            return characterFitRange.length
+        }
+        return 0
+    }
+    
     open override func layoutIconifiedIconView(_ item: FlexBaseCollectionItem, area: CGRect) {
         super.layoutIconifiedIconView(item, area: area)
         self.textView?.isHidden = true

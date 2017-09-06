@@ -148,6 +148,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         item2.headerPosition = .left
         item2.textIsMutable = true
         item2.textTitle = NSAttributedString(string: "Text Title")
+        item2.autodetectTextSizeFittingAndTruncateWithString = NSAttributedString(string: "...")
         item2.textViewInsets = UIEdgeInsetsMake(3, 0, 0, 0)
         self.demoCollectionView.addItem(secRef, item: item2)
         

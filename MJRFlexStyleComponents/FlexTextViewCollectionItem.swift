@@ -38,6 +38,10 @@ open class FlexTextViewCollectionItem: FlexBaseCollectionItem {
     open var textChangedHandler: ((String) -> Void)?
     open var attributedTextChangedHandler: ((NSAttributedString) -> Void)?
     open var textViewDelegate: UITextViewDelegate?
+
     /// Auto detect language and set text alignment accordingly. Default is true
     open var autodetectRTLTextAlignment: Bool = true
+
+    /// If set, auto detect the number of characters fitting the boundaries of the text view and truncate the text, then add the given string at the end.
+    open var autodetectTextSizeFittingAndTruncateWithString: NSAttributedString?
 }
