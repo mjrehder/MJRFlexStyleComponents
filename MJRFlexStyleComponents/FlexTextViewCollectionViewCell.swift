@@ -75,6 +75,7 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
                     textArea = CGRect(x: area.origin.x, y: area.origin.y + height, width: area.size.width, height: area.size.height - height)
                 }
                 if let tv = self.textView {
+                    tv.frame = UIEdgeInsetsInsetRect(textArea, tvItem.textViewInsets)
                     tv.attributedText = self.truncateTextForTextArea(item: item, string: text)
                     if let textColor = self.textColor {
                         tv.textColor = textColor
@@ -83,7 +84,6 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
                     tv.delegate = tvItem.textViewDelegate ?? self
                     tv.prepareDefault()
                     tv.isEditable = tvItem.textIsMutable
-                    tv.frame = UIEdgeInsetsInsetRect(textArea, tvItem.textViewInsets)
                     tv.isHidden = false
                     tv.isUserInteractionEnabled = tvItem.textIsMutable || tvItem.textIsScrollable
                     tv.showsVerticalScrollIndicator = tvItem.textIsMutable || tvItem.textIsScrollable
@@ -103,7 +103,7 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
     open func truncateTextForTextArea(item: FlexBaseCollectionItem, string: NSAttributedString) -> NSAttributedString {
         if let tvItem = item as? FlexTextViewCollectionItem, let addOnStr = tvItem.autodetectTextSizeFittingAndTruncateWithString {
             let maxLength = self.numberOfCharactersThatFitTextArea(string: string)
-            if maxLength < string.length {
+            if maxLength > addOnStr.length && maxLength < string.length {
                 let compiledText = NSMutableAttributedString(attributedString: string.attributedSubstring(from: NSMakeRange(0, maxLength - addOnStr.length)))
                 compiledText.append(addOnStr)
                 return compiledText
