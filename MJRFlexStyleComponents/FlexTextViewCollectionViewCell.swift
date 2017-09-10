@@ -51,6 +51,13 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
         }
     }
     
+    /// This is the max height for the text title above the TextView
+    open dynamic var textTitleHeight: CGFloat = 16 {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
     open override func initialize() {
         super.initialize()
         
@@ -69,7 +76,7 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
                 self.setupTextLabel(self.textLabel, text: tvItem.textTitle)
                 var textArea = area
                 if let tt = tvItem.textTitle {
-                    let height = tt.heightWithConstrainedWidth(area.size.width)
+                    let height = min(tt.heightWithConstrainedWidth(area.size.width), self.textTitleHeight)
                     let tlf = CGRect(x: area.origin.x, y: area.origin.y, width: area.size.width, height: height)
                     self.textLabel?.frame = tlf
                     textArea = CGRect(x: area.origin.x, y: area.origin.y + height, width: area.size.width, height: area.size.height - height)

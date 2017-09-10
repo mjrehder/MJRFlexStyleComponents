@@ -147,7 +147,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         item2.canMoveItem = false
         item2.headerPosition = .left
         item2.textIsMutable = true
-        item2.textTitle = NSAttributedString(string: "Text Title")
+        item2.textTitle = NSAttributedString(string: "Text Title Very Long in order to test the auto cut-off and layout")
         item2.autodetectTextSizeFittingAndTruncateWithString = NSAttributedString(string: "...")
         item2.textViewInsets = UIEdgeInsetsMake(3, 0, 0, 0)
         self.demoCollectionView.addItem(secRef, item: item2)
