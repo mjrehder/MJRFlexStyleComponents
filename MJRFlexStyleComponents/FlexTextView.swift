@@ -55,7 +55,7 @@ open class FlexTextView: FlexView {
         self.initView()
     }
     
-    override func initView() {
+    override open func initView() {
         super.initView()
         self._textView = UITextView()
         self.addSubview(self._textView!)

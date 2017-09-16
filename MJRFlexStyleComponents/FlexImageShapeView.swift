@@ -83,10 +83,6 @@ open class FlexImageShapeView: FlexView {
         self.initView()
     }
     
-    override func initView() {
-        super.initView()
-    }
-    
     open override func layoutSubviews() {
         super.layoutSubviews()
         self.setupImageView()

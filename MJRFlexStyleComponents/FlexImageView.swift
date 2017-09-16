@@ -50,7 +50,7 @@ open class FlexImageView: FlexView {
         self.initView()
     }
     
-    override func initView() {
+    override open func initView() {
         super.initView()
         self._imageView = UIImageView()
         self.addSubview(self._imageView!)

@@ -31,7 +31,8 @@ import UIKit
 import StyledLabel
 
 open class FlexBaseStylingControl: UIControl {
-
+    open var styleLayer = CALayer()
+    
     /// The view's style.
     @IBInspectable open dynamic var style: FlexShapeStyle = FlexShapeStyle(style: .box) {
         didSet {
@@ -97,6 +98,26 @@ open class FlexBaseStylingControl: UIControl {
         }
     }
     
+    open var layerBorders: [StyledShapeLayerBorder] = [] {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.initView()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.initView()
+    }
+    
+    open func initView() {
+        self.layer.addSublayer(self.styleLayer)
+    }
+    
     func createBorderLayer(_ style: ShapeStyle, layerRect: CGRect, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil) -> CALayer? {
         let bw = borderWidth ?? self.borderWidth
         let bc = borderColor ?? self.borderColor
@@ -105,6 +126,52 @@ open class FlexBaseStylingControl: UIControl {
             return bLayer
         }
         return nil
+    }
+
+    open func getBackgroundLayer(_ style: ShapeStyle) -> CALayer {
+        let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clear
+        let layerRect = UIEdgeInsetsInsetRect(bounds, backgroundInsets)
+        let bgsLayer: CALayer
+        
+        if let gradientLayer = self.styleColorGradient {
+            let maskLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: .black)
+            let gradLayer = CAGradientLayer()
+            gradLayer.locations = gradientLayer.locations
+            gradLayer.colors = gradientLayer.colors
+            gradLayer.startPoint = gradientLayer.startPoint
+            gradLayer.endPoint = gradientLayer.endPoint
+            gradLayer.type = gradientLayer.type
+            bgsLayer = gradLayer
+            bgsLayer.mask = maskLayer
+        }
+        else {
+            bgsLayer = StyledShapeLayer.createShape(style, bounds: layerRect, color: bgColor)
+        }
+        return bgsLayer
+    }
+
+    open func applyStyle(_ style: ShapeStyle) {
+        if self.styleLayer.superlayer == nil {
+            self.layer.addSublayer(styleLayer)
+        }
+        
+        let layerRect = UIEdgeInsetsInsetRect(bounds, backgroundInsets)
+        let bgsLayer = self.getBackgroundLayer(style)
+        
+        // Add layer with border, if required
+        if let bLayer = self.createBorderLayer(style, layerRect: layerRect) {
+            bgsLayer.addSublayer(bLayer)
+        }
+        
+        if styleLayer.superlayer != nil {
+            layer.replaceSublayer(styleLayer, with: bgsLayer)
+        }
+        styleLayer = bgsLayer
+        styleLayer.frame = layerRect
+        
+        for lBorder in self.layerBorders {
+            lBorder.apply(toLayer: styleLayer)
+        }
     }
 
 }

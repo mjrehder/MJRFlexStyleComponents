@@ -71,7 +71,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         self.layoutComponents()
     }
     
-    func initView() {
+    open override func initView() {
         if self.styleLayer.superlayer == nil {
             self.layer.insertSublayer(self.styleLayer, at: 0)
         }
@@ -527,12 +527,9 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         suplViewCaption.applyStyle()
     }
     
-    override func applyStyle(_ style: ShapeStyle) {
-        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
-        let bgsLayer = self.getBackgroundLayer(style)
-        
-        let style = self.getStyle()
-        
+    override open func applyStyle(_ style: ShapeStyle) {
+        super.applyStyle(style)
+
         if self.hasHeaderText() {
             self.header.applyStyle()
             if self.headerClipToBackgroundShape {
@@ -546,27 +543,16 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
                 self.applyMaskToSupplementaryView(self.footer, inSupplementaryRect: self.rectForFooter())
             }
         }
-        
-        // Add layer with border, if required
-        if let bLayer = self.createBorderLayer(style, layerRect: layerRect) {
-            bgsLayer.addSublayer(bLayer)
-        }
-        
-        if styleLayer.superlayer != nil {
-            layer.replaceSublayer(styleLayer, with: bgsLayer)
-        }
-        styleLayer = bgsLayer
-        styleLayer.frame = layerRect
     }
 
     func applyMaskToSupplementaryView(_ suppView: FlexViewSupplementaryView, inSupplementaryRect suppRect: CGRect) {
-        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
+        let layerRect = UIEdgeInsetsInsetRect(bounds, backgroundInsets)
         let maskShape = CAShapeLayer()
         let path = StyledShapeLayer.shapePathForStyle(self.getStyle(), bounds: layerRect)
         maskShape.path = path.cgPath
         let bb = layerRect.offsetBy(dx: -suppRect.origin.x, dy: -suppRect.origin.y)
         maskShape.frame = bb
-        suppView.shapeLayer.mask = maskShape
+        suppView.styleLayer.mask = maskShape
     }
     
     // MARK: - Menu Handling
@@ -579,7 +565,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         let headerPos = self.headerPosition
         menu.menu.direction = headerPos == .top ? .horizontal : . vertical
         menu.menu.menuItemGravity = headerPos == .top ? .normal : (headerPos == .left ? .right : .left)
-        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
+        let layerRect = UIEdgeInsetsInsetRect(bounds, backgroundInsets)
         var msize = menu.size
         var mpos = layerRect.origin
         switch menu.hPos {

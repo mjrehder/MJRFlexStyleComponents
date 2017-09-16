@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StyledLabel
 
 class MenusDemoViewController: UIViewController, FlexMenuDataSource {
     @IBOutlet weak var compactMenu: FlexMenu!

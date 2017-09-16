@@ -97,7 +97,7 @@ open class FlexLabel: FlexBaseControl {
         }
     }
     
-    override func applyStyle(_ style: ShapeStyle) {
+    override open func applyStyle(_ style: ShapeStyle) {
         if self.label.superview == nil {
             self.addSubview(self.label)
         }

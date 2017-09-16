@@ -31,8 +31,6 @@ import UIKit
 import StyledLabel
 
 open class FlexViewSupplementaryView: FlexBaseStylingControl {
-    open var shapeLayer = CAShapeLayer()
-
     fileprivate var _caption = FlexPrimaryLabel()
     open var caption: FlexPrimaryLabel {
         get {
@@ -71,18 +69,8 @@ open class FlexViewSupplementaryView: FlexBaseStylingControl {
         }
     }
 
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.initView()
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.initView()
-    }
-
-    open func initView() {
-        self.layer.addSublayer(self.shapeLayer)
+    override open func initView() {
+        super.initView()
         self.addSubview(self.caption)
         self.addSubview(self.subCaption)
         self.addSubview(self.secondaryCaption)
@@ -109,19 +97,6 @@ open class FlexViewSupplementaryView: FlexBaseStylingControl {
                 imageView.frame = CGRect(x: xOffset, y: yOffset, width: imgSize.width, height: imgSize.height)
             }
         }
-    }
-    
-    open func applyStyle(_ style: ShapeStyle) {
-        let sLayer = StyledShapeLayer.createShape(style, bounds: self.bounds, color: self.styleColor ?? .clear)
-        if let bLayer = self.createBorderLayer(style, layerRect: self.bounds) {
-            sLayer.addSublayer(bLayer)
-        }
-        
-        if self.shapeLayer.superlayer != nil {
-            self.layer.replaceSublayer(self.shapeLayer, with: sLayer)
-        }
-        
-        self.shapeLayer = sLayer
     }
     
     open func applyStyle() {

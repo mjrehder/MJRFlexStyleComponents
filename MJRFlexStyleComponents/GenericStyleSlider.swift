@@ -510,8 +510,8 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         self.hintShapeLayer = sLayer
     }
     
-    override func applyStyle(_ style: ShapeStyle) {
-        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
+    override open func applyStyle(_ style: ShapeStyle) {
+        let layerRect = UIEdgeInsetsInsetRect(bounds, backgroundInsets)
         assert(layerRect.size.width > 0 && layerRect.size.height > 0)
         let bgsLayer = self.getBackgroundLayer(style)
         
@@ -537,7 +537,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         if let font = label.font, let text = label.text {
             let textString = text as NSString
             let textAttributes = [NSFontAttributeName: font]
-            return textString.boundingRect(with: self.marginsForRect(bounds, margins: backgroundInsets).size, options: .usesLineFragmentOrigin, attributes: textAttributes, context: nil).size
+            return textString.boundingRect(with: UIEdgeInsetsInsetRect(bounds, backgroundInsets).size, options: .usesLineFragmentOrigin, attributes: textAttributes, context: nil).size
         }
         return nil
     }
@@ -667,7 +667,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     override func layoutComponents() {
-        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
+        let layerRect = UIEdgeInsetsInsetRect(bounds, backgroundInsets)
         assert(layerRect.size.width > 0 && layerRect.size.height > 0)
         let mainSizeH = self.direction.principalSize(layerRect.size) * 0.5
         
@@ -698,7 +698,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     func layoutSeparators() {
-        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
+        let layerRect = UIEdgeInsetsInsetRect(bounds, backgroundInsets)
         assert(layerRect.size.width > 0 && layerRect.size.height > 0)
         let mainSizeH = self.direction.principalSize(layerRect.size) * 0.5
         
