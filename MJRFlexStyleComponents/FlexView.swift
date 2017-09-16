@@ -391,7 +391,6 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         for menu in self.menus {
             self.applyMenuLocationAndSize(menu)
             
-            // TODO: This should only be calculated for the text position and not the entire footer and header views
             if self.headerFooterAdaptToMenu {
                 let mmf = menu.menu.frame
                 if menu.hPos != .fill {
@@ -406,10 +405,12 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         }
         
         if self.hasHeaderText() && self.hasSubHeaderText() {
-            self.layoutSupplementaryView(self.header, frame: rfh)
+            let hr = self.rectForHeader()
+            self.layoutSupplementaryView(self.header, frame: hr)
             let ht = self.getHeaderText()
             let sht = self.getSubHeaderText()
-            let stRect = UIEdgeInsetsInsetRect(self.header.bounds, self.header.controlInsets)
+            let hb = rfh.offsetBy(dx: -hr.origin.x, dy: -hr.origin.y)
+            let stRect = UIEdgeInsetsInsetRect(hb, self.header.controlInsets)
             let hth = ht.heightWithConstrainedWidth(stRect.width)
             let shth = sht.heightWithConstrainedWidth(stRect.width)
             let totalHeight = hth + shth
@@ -419,8 +420,10 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             self.layoutSupplementaryTextLabels(self.header.subCaption, frame: subHeaderFrame, attributedText: self.getSubHeaderText())
         }
         else if self.hasHeaderText() {
-            self.layoutSupplementaryView(self.header, frame: rfh)
-            let stRect = UIEdgeInsetsInsetRect(self.header.bounds, self.header.controlInsets)
+            let hr = self.rectForHeader()
+            self.layoutSupplementaryView(self.header, frame: hr)
+            let hb = rfh.offsetBy(dx: -hr.origin.x, dy: -hr.origin.y)
+            let stRect = UIEdgeInsetsInsetRect(hb, self.header.controlInsets)
             self.layoutSupplementaryTextLabels(self.header.caption, frame: stRect, attributedText: self.getHeaderText())
             self.header.subCaption.label.attributedText = nil
         }
@@ -435,10 +438,12 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         
         var hasFooterText = false
         if self.hasFooterText() && self.hasSubFooterText() {
-            self.layoutSupplementaryView(self.footer, frame: rff)
+            let fr = self.rectForFooter()
+            self.layoutSupplementaryView(self.footer, frame: fr)
             let ht = self.getFooterText()
             let sht = self.getSubFooterText()
-            let stRect = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.controlInsets)
+            let fb = rff.offsetBy(dx: -fr.origin.x, dy: -fr.origin.y)
+            let stRect = UIEdgeInsetsInsetRect(fb, self.footer.controlInsets)
             let hth = ht.heightWithConstrainedWidth(stRect.width)
             let shth = sht.heightWithConstrainedWidth(stRect.width)
             let totalHeight = hth + shth
@@ -451,8 +456,10 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             self.footer.subCaption.isHidden = false
         }
         else if self.hasFooterText() {
-            self.layoutSupplementaryView(self.footer, frame: rff)
-            let stRect = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.controlInsets)
+            let fr = self.rectForFooter()
+            self.layoutSupplementaryView(self.footer, frame: fr)
+            let fb = rff.offsetBy(dx: -fr.origin.x, dy: -fr.origin.y)
+            let stRect = UIEdgeInsetsInsetRect(fb, self.footer.controlInsets)
             self.layoutSupplementaryTextLabels(self.footer.caption, frame: stRect, attributedText: self.getFooterText())
             hasFooterText = true
             self.footer.caption.isHidden = false
@@ -460,8 +467,10 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         }
         
         if self.hasSecondaryFooterText() {
-            self.layoutSupplementaryView(self.footer, frame: rff)
-            let stRect = UIEdgeInsetsInsetRect(self.footer.bounds, self.footer.controlInsets)
+            let fr = self.rectForFooter()
+            self.layoutSupplementaryView(self.footer, frame: fr)
+            let fb = rff.offsetBy(dx: -fr.origin.x, dy: -fr.origin.y)
+            let stRect = UIEdgeInsetsInsetRect(fb, self.footer.controlInsets)
             self.layoutSupplementaryTextLabels(self.footer.secondaryCaption, frame: stRect, attributedText: self.getSecondaryFooterText())
             hasFooterText = true
             self.footer.secondaryCaption.isHidden = false
@@ -525,20 +534,16 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         let style = self.getStyle()
         
         if self.hasHeaderText() {
-            let hBounds = self.rectForHeader().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y)
-            let headerShapeLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.header.getStyle(), shapeBounds: hBounds, shapeColor: self.header.styleColor ?? .clear, maskToBounds: self.headerClipToBackgroundShape)
-            bgsLayer.addSublayer(headerShapeLayer)
-            if let bLayer = self.header.createBorderLayer(self.header.getStyle(), layerRect: hBounds) {
-                bgsLayer.addSublayer(bLayer)
+            self.header.applyStyle()
+            if self.headerClipToBackgroundShape {
+                self.applyMaskToSupplementaryView(self.header, inSupplementaryRect: self.rectForHeader())
             }
         }
         
         if self.hasFooterText() {
-            let fBounds = self.rectForFooter().offsetBy(dx: -layerRect.origin.x, dy: -layerRect.origin.y)
-            let footerShapeLayer = StyledShapeLayer.createShape(style, bounds: layerRect, shapeStyle: self.footer.getStyle(), shapeBounds: fBounds, shapeColor: self.footer.styleColor ?? .clear, maskToBounds: self.footerClipToBackgroundShape)
-            bgsLayer.addSublayer(footerShapeLayer)
-            if let bLayer = self.footer.createBorderLayer(self.header.getStyle(), layerRect: fBounds) {
-                bgsLayer.addSublayer(bLayer)
+            self.footer.applyStyle()
+            if self.footerClipToBackgroundShape {
+                self.applyMaskToSupplementaryView(self.footer, inSupplementaryRect: self.rectForFooter())
             }
         }
         
@@ -552,6 +557,16 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         }
         styleLayer = bgsLayer
         styleLayer.frame = layerRect
+    }
+
+    func applyMaskToSupplementaryView(_ suppView: FlexViewSupplementaryView, inSupplementaryRect suppRect: CGRect) {
+        let layerRect = self.marginsForRect(bounds, margins: backgroundInsets)
+        let maskShape = CAShapeLayer()
+        let path = StyledShapeLayer.shapePathForStyle(self.getStyle(), bounds: layerRect)
+        maskShape.path = path.cgPath
+        let bb = layerRect.offsetBy(dx: -suppRect.origin.x, dy: -suppRect.origin.y)
+        maskShape.frame = bb
+        suppView.shapeLayer.mask = maskShape
     }
     
     // MARK: - Menu Handling

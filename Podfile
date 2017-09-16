@@ -1,14 +1,13 @@
 platform :ios, '10.0'
 use_frameworks!
 
+pod 'DynamicColor'
+pod 'StyledLabel'
+
 target 'MJRFlexStyleComponents' do
-    pod 'DynamicColor'
-    pod 'StyledLabel'
 end
 
 target 'MJRFlexStyleExamples' do
-    pod 'DynamicColor'
-    pod 'StyledLabel'
 end
 
 post_install do |installer|

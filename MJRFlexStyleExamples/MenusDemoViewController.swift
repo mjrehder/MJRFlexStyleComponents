@@ -130,6 +130,8 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
         self.flexViewMenu = FlexViewMenu(menu: self.viewMenu!, size: CGSize(width: 100, height: 18), hPos: .fill, vPos: .footer)
         
         self.flexView.headerText = "Header"
+        self.flexView.subHeaderText = "Sub-Header"
+        self.flexView.headerSize = 26
         self.flexView.headerPosition = .top
         self.flexView.style = FlexShapeStyle(style: .roundedFixed(cornerRadius: 10.0))
         self.flexView.styleColor = UIColor.MKColor.Teal.P500
@@ -137,6 +139,9 @@ class MenusDemoViewController: UIViewController, FlexMenuDataSource {
         self.flexView.header.caption.labelFont = UIFont.boldSystemFont(ofSize: 14)
         self.flexView.header.caption.labelTextColor = UIColor.white
         self.flexView.header.caption.labelTextAlignment = .center
+        self.flexView.header.subCaption.labelFont = UIFont.boldSystemFont(ofSize: 10)
+        self.flexView.header.subCaption.labelTextColor = UIColor.white
+        self.flexView.header.subCaption.labelTextAlignment = .center
 
         self.flexView.addMenu(self.flexViewMenu!)
     }
