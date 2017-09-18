@@ -28,7 +28,6 @@
  */
 
 import UIKit
-import MJRFlexStyleComponents
 
 public typealias AttributedFlickButtonHandler = ((Int, CGRect, CGFloat)->NSAttributedString?)
 

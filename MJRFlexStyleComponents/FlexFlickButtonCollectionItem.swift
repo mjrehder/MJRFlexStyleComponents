@@ -28,7 +28,6 @@
  */
 
 import UIKit
-import MJRFlexStyleComponents
 
 open class FlexFlickButtonCollectionItem: FlexBaseCollectionItem {
     open var actionActivationHandler: ((FlexFlickActionActivationType) -> Void)?
