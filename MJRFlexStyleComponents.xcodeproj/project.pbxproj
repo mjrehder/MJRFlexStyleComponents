@@ -149,6 +149,10 @@
 		5BC284231DA66689004E1731 /* FlexCollectionDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC284221DA66689004E1731 /* FlexCollectionDemoViewController.swift */; };
 		5BC362871EFBA9B600E04C26 /* StyledSliderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC362861EFBA9B600E04C26 /* StyledSliderItem.swift */; };
 		5BC362881EFBA9B600E04C26 /* StyledSliderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC362861EFBA9B600E04C26 /* StyledSliderItem.swift */; };
+		5BC3A5061F6FCBB900B4F553 /* FlexFlickButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3A5051F6FCBB900B4F553 /* FlexFlickButtonCollectionViewCell.swift */; };
+		5BC3A5071F6FCBB900B4F553 /* FlexFlickButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3A5051F6FCBB900B4F553 /* FlexFlickButtonCollectionViewCell.swift */; };
+		5BC3A5091F6FCC0200B4F553 /* FlexFlickButtonCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3A5081F6FCC0200B4F553 /* FlexFlickButtonCollectionItem.swift */; };
+		5BC3A50A1F6FCC0200B4F553 /* FlexFlickButtonCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3A5081F6FCC0200B4F553 /* FlexFlickButtonCollectionItem.swift */; };
 		5BC4B9B01D520E7F0000421F /* FlexBaseControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC4B9AF1D520E7F0000421F /* FlexBaseControl.swift */; };
 		5BC4B9B11D520E7F0000421F /* FlexBaseControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC4B9AF1D520E7F0000421F /* FlexBaseControl.swift */; };
 		5BC87C6F1EF903970071B4C3 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC87C6E1EF903970071B4C3 /* UIImageExtensions.swift */; };
@@ -282,6 +286,8 @@
 		5BC279C61EF800B5000A2F3A /* StyledLabelExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledLabelExtension.swift; sourceTree = "<group>"; };
 		5BC284221DA66689004E1731 /* FlexCollectionDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCollectionDemoViewController.swift; sourceTree = "<group>"; };
 		5BC362861EFBA9B600E04C26 /* StyledSliderItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledSliderItem.swift; sourceTree = "<group>"; };
+		5BC3A5051F6FCBB900B4F553 /* FlexFlickButtonCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexFlickButtonCollectionViewCell.swift; sourceTree = "<group>"; };
+		5BC3A5081F6FCC0200B4F553 /* FlexFlickButtonCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexFlickButtonCollectionItem.swift; sourceTree = "<group>"; };
 		5BC4B9AF1D520E7F0000421F /* FlexBaseControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexBaseControl.swift; sourceTree = "<group>"; };
 		5BC87C6E1EF903970071B4C3 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		5BC87C711EF95BBF0071B4C3 /* MutableSliderSeparatorItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MutableSliderSeparatorItem.swift; sourceTree = "<group>"; };
@@ -420,13 +426,13 @@
 				5BB36E4C1E66B4CF00EE7EDF /* Top Bar */,
 				5BB91CA41DA3D87E00A94D12 /* Headers */,
 				5BB91CA01DA3980E00A94D12 /* Cells */,
-				5BB91C9F1DA3980300A94D12 /* Model */,
+				5BB91C9F1DA3980300A94D12 /* Items */,
 				5BB91C8E1DA3955900A94D12 /* FlexCollectionView.swift */,
 			);
 			name = "Flex Collection";
 			sourceTree = "<group>";
 		};
-		5BB91C9F1DA3980300A94D12 /* Model */ = {
+		5BB91C9F1DA3980300A94D12 /* Items */ = {
 			isa = PBXGroup;
 			children = (
 				5BB91C8A1DA3955900A94D12 /* FlexCollectionSection.swift */,
@@ -443,8 +449,9 @@
 				5B72349D1E3395990089A4E7 /* FlexMenuCollectionItem.swift */,
 				5BAD34E31E5055380078FEE8 /* FlexCardViewCollectionItem.swift */,
 				5BAD34F21E5069BB0078FEE8 /* FlexCardTextViewCollectionItem.swift */,
+				5BC3A5081F6FCC0200B4F553 /* FlexFlickButtonCollectionItem.swift */,
 			);
-			name = Model;
+			name = Items;
 			sourceTree = "<group>";
 		};
 		5BB91CA01DA3980E00A94D12 /* Cells */ = {
@@ -463,6 +470,7 @@
 				5B72349E1E3395990089A4E7 /* FlexMenuCollectionViewCell.swift */,
 				5BAD34E61E50557F0078FEE8 /* FlexCardViewCollectionViewCell.swift */,
 				5BAD34EF1E5068840078FEE8 /* FlexCardTextViewCollectionViewCell.swift */,
+				5BC3A5051F6FCBB900B4F553 /* FlexFlickButtonCollectionViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -682,7 +690,6 @@
 				TargetAttributes = {
 					5B9936FB1D3A9E210043E573 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = V7Y9TF9C7U;
 						LastSwiftMigration = 0810;
 					};
 					5BF702071D3113D50011555A = {
@@ -841,6 +848,7 @@
 				5B0859E41D7EE84B00484E8F /* FlexTextViewDemoViewController.swift in Sources */,
 				5BADFC631DA8E151004A5D12 /* FlexControlLayoutHelper.swift in Sources */,
 				5BC279C81EF800B5000A2F3A /* StyledLabelExtension.swift in Sources */,
+				5BC3A50A1F6FCC0200B4F553 /* FlexFlickButtonCollectionItem.swift in Sources */,
 				5BC14FEC1EFA845400B30350 /* SliderItemSizeInfo.swift in Sources */,
 				5BC87C761EF95C200071B4C3 /* SliderSeparatorSizeInfo.swift in Sources */,
 				5BC87C731EF95BBF0071B4C3 /* MutableSliderSeparatorItem.swift in Sources */,
@@ -874,6 +882,7 @@
 				5B9937101D3A9E5B0043E573 /* StyledSliderThumb.swift in Sources */,
 				5BD749E01F06425100A330AC /* FlexSnapStepperCollectionViewCell.swift in Sources */,
 				5BAD34F11E5068840078FEE8 /* FlexCardTextViewCollectionViewCell.swift in Sources */,
+				5BC3A5071F6FCBB900B4F553 /* FlexFlickButtonCollectionViewCell.swift in Sources */,
 				5BC9E12B1EF6AAE700740834 /* MutableSliderThumbItem.swift in Sources */,
 				5BE4485E1D44C8D80011E5AE /* FlexMenuItem.swift in Sources */,
 				5B3FF72D1E13EEF20077A106 /* FlexBaseCollectionViewCellAuxTextLabel.swift in Sources */,
@@ -959,6 +968,7 @@
 				5B3FF7291E13EDA50077A106 /* FlexBaseCollectionViewCellTextLabel.swift in Sources */,
 				5BB366101DBA382500C26FC0 /* StringExtension.swift in Sources */,
 				5BC87C721EF95BBF0071B4C3 /* MutableSliderSeparatorItem.swift in Sources */,
+				5BC3A5061F6FCBB900B4F553 /* FlexFlickButtonCollectionViewCell.swift in Sources */,
 				5BE448501D4220830011E5AE /* LabelFactory.swift in Sources */,
 				5BB91C961DA3955900A94D12 /* SimpleHeaderCollectionReusableView.swift in Sources */,
 				5BE4485A1D44C71D0011E5AE /* FlexMenu.swift in Sources */,
@@ -975,6 +985,7 @@
 				5BB91C981DA3955900A94D12 /* FlexCollectionView.swift in Sources */,
 				5BAD34E71E50557F0078FEE8 /* FlexCardViewCollectionViewCell.swift in Sources */,
 				5BB2A6261DA7D2E9003D38C3 /* FlexSwitchCollectionItem.swift in Sources */,
+				5BC3A5091F6FCC0200B4F553 /* FlexFlickButtonCollectionItem.swift in Sources */,
 				5BB114221DB8F7FD00719EEB /* NSAttributedStringExtension.swift in Sources */,
 				5BC362871EFBA9B600E04C26 /* StyledSliderItem.swift in Sources */,
 				5B72349F1E3395990089A4E7 /* FlexMenuCollectionItem.swift in Sources */,
@@ -1048,10 +1059,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = V7Y9TF9C7U;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MJRFlexStyleExamples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rehsco.MJRFlexStyleExamples;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.MJRFlexStyleExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0.1;
 			};
@@ -1063,10 +1074,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = V7Y9TF9C7U;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MJRFlexStyleExamples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rehsco.MJRFlexStyleExamples;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.MJRFlexStyleExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0.1;
 			};
