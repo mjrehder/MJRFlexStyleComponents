@@ -30,7 +30,7 @@
 import UIKit
 
 open class FlexFlickActionItem {
-    var shouldUpdateActionHandler: ((Void)->Void)?
+    var shouldUpdateActionHandler: (()->Void)?
     
     public init() {}
     

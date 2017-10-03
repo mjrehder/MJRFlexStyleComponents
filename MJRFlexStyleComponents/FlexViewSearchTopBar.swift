@@ -35,7 +35,7 @@ open class FlexViewSearchTopBar: FlexViewTopBar, UISearchBarDelegate {
 
     open var filterContentForSearchText: ((String) -> Void)?
     open var filterContentForSearchTextTyping: ((String) -> Void)?
-    open var searchEnded: ((Void) -> Void)?
+    open var searchEnded: (() -> Void)?
 
     open dynamic var barStyleColor: UIColor = .lightGray {
         didSet {

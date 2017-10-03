@@ -101,7 +101,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
     // MARK: - Header
     
     /// The position of the header. The footer, if used, is on the opposite end of the view.
-    @IBInspectable open var headerPosition: FlexViewHeaderPosition = .top {
+    open var headerPosition: FlexViewHeaderPosition = .top {
         didSet {
             self.setNeedsLayout()
         }
@@ -632,7 +632,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
     
     // MARK: - Top Bar
     
-    open func showTopBar(topBarUpdateHandler: ((Void) -> Void)? = nil) {
+    open func showTopBar(topBarUpdateHandler: (() -> Void)? = nil) {
         if self.topBarActive {
             return
         }
@@ -656,7 +656,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         self.topBar?.topBarActivated?(true)
     }
     
-    open func hideTopBar(completionHandler: ((Void) -> Void)? = nil) {
+    open func hideTopBar(completionHandler: (() -> Void)? = nil) {
         if !self.topBarActive {
             return
         }

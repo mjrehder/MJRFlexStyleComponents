@@ -74,7 +74,7 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     /*
      Set the menu style. The default is the compact style, which uses sliding thumbs to reduce the size of the menu.
      */
-    @IBInspectable open var menuStyle: FlexMenuStyle = .compact {
+    open var menuStyle: FlexMenuStyle = .compact {
         didSet {
             self.reloadMenu()
         }
@@ -83,7 +83,7 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
     /*
      Set the menu item style. The default is the Box style. This is only applied when not using the Compact menu style
      */
-    @IBInspectable open var menuItemStyle: ShapeStyle = .box {
+    open var menuItemStyle: ShapeStyle = .box {
         didSet {
             self.setNeedsLayout()
         }
@@ -102,7 +102,7 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
      Set the menu item gravity. The default value is 'normal'. This is applied when using vertical direction to rotate the labels and
      should be set to other than 'normal' when the menu is in vertical orientation.
      */
-    @IBInspectable open var menuItemGravity: FlexMenuItemGravity = .normal {
+    open var menuItemGravity: FlexMenuItemGravity = .normal {
         didSet {
             self.setNeedsLayout()
         }

@@ -537,7 +537,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         }
     }
     
-    open override func hideTopBar(completionHandler: ((Void) -> Void)? = nil) {
+    open override func hideTopBar(completionHandler: (() -> Void)? = nil) {
         super.hideTopBar {
             UIView.animate(withDuration: 0.25, animations: {
                 self.itemCollectionView.frame = UIEdgeInsetsInsetRect(self.getViewRect(), self.viewMargins)

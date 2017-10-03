@@ -130,7 +130,7 @@ open class FlexBaseStylingControl: UIControl {
 
     open func getBackgroundLayer(_ style: ShapeStyle) -> CALayer {
         let bgColor: UIColor = self.styleColor ?? backgroundColor ?? .clear
-        let layerRect = UIEdgeInsetsInsetRect(bounds, backgroundInsets)
+        let layerRect = CGRect(origin: .zero, size: UIEdgeInsetsInsetRect(bounds, backgroundInsets).size)
         let bgsLayer: CALayer
         
         if let gradientLayer = self.styleColorGradient {
@@ -155,7 +155,7 @@ open class FlexBaseStylingControl: UIControl {
             self.layer.addSublayer(styleLayer)
         }
         
-        let layerRect = UIEdgeInsetsInsetRect(bounds, backgroundInsets)
+        let layerRect = CGRect(origin: .zero, size: UIEdgeInsetsInsetRect(bounds, backgroundInsets).size)
         let bgsLayer = self.getBackgroundLayer(style)
         
         // Add layer with border, if required
@@ -167,7 +167,7 @@ open class FlexBaseStylingControl: UIControl {
             layer.replaceSublayer(styleLayer, with: bgsLayer)
         }
         styleLayer = bgsLayer
-        styleLayer.frame = layerRect
+        styleLayer.frame = bounds.offsetBy(dx: backgroundInsets.left, dy: backgroundInsets.top)
         
         for lBorder in self.layerBorders {
             lBorder.apply(toLayer: styleLayer)

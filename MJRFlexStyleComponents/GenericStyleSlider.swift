@@ -168,7 +168,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
      
      The default is horizontal
      */
-    @IBInspectable open var direction: StyledControlDirection = .horizontal {
+    open var direction: StyledControlDirection = .horizontal {
         didSet {
             self.thumbList.direction = direction
             self.setupSeparatorGestures()
@@ -178,12 +178,9 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     
     /**
      The numeric values.
-     
-     When the values change, the control sends the UIControlEventValueChanged flag to its target (see addTarget:action:forControlEvents:). Refer to the description of the continuous property for information about whether value change events are sent continuously or when user interaction ends.
-     
-     This property is clamped at its lower extreme to minimumValue and is clamped at its upper extreme to maximumValue.
+         Setting these values will recreate the view layout and components
      */
-    var values: [Double] {
+    public var values: [Double] {
         get {
             return _values
         }
@@ -249,7 +246,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     // MARK: - Hints
     
     /// The hint's style. Default's to none, so no hint will be displayed.
-    @IBInspectable open var hintStyle: ShapeStyle = .none {
+    open var hintStyle: ShapeStyle = .none {
         didSet {
             self.applyHintStyle(hintStyle)
         }
@@ -258,26 +255,26 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     // MARK: - Thumbs
     
     /// The thumb represented as a ratio of the component. For example if the width of the control is 30px and the ratio is 0.5, the thumb width will be equal to 15px when in horizontal layout. When this is not set then the thumb size will be a square using the minimum size of the control. Defaults to nil.
-    @IBInspectable open var thumbRatio: CGFloat? = nil {
+    open var thumbRatio: CGFloat? = nil {
         didSet {
             self.setNeedsLayout()
         }
     }
     
     /// The thumb represented as an absoulte size in the component. When this is not set, then the thumb size will be a square using the minimum size of the control or if thumbRatio is set, then the ratio is used. The thumbSize overrules the thumbRatio, if both are set. Defaults to nil.
-    @IBInspectable open var thumbSize: CGSize? = nil {
+    open var thumbSize: CGSize? = nil {
         didSet {
             self.setNeedsLayout()
         }
     }
     /// The minimum thumb size represented as an absoulte size in the component. The thumb size will never be smaller than this value, but ignored when nil. Defaults to nil.
-    @IBInspectable open var thumbMinimumSize: CGSize? = nil {
+    open var thumbMinimumSize: CGSize? = nil {
         didSet {
             self.setNeedsLayout()
         }
     }
     /// The maximum thumb size represented as an absoulte size in the component. The thumb size will never be larger than this value, but ignored when nil. Defaults to nil.
-    @IBInspectable open var thumbMaximumSize: CGSize? = nil {
+    open var thumbMaximumSize: CGSize? = nil {
         didSet {
             self.setNeedsLayout()
         }
@@ -349,7 +346,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         }
     }
     
-    @IBInspectable open var thumbSnappingBehaviour: StyledSliderThumbBehaviour = .freeform {
+    open var thumbSnappingBehaviour: StyledSliderThumbBehaviour = .freeform {
         didSet {
             for thumb in self.thumbList.thumbs {
                 thumb.behaviour = self.sliderDelegate?.behaviourOfThumb(thumb.index) ?? thumbSnappingBehaviour
@@ -511,7 +508,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     override open func applyStyle(_ style: ShapeStyle) {
-        let layerRect = UIEdgeInsetsInsetRect(bounds, backgroundInsets)
+        let layerRect = CGRect(origin: .zero, size: UIEdgeInsetsInsetRect(bounds, backgroundInsets).size)
         assert(layerRect.size.width > 0 && layerRect.size.height > 0)
         let bgsLayer = self.getBackgroundLayer(style)
         
@@ -528,7 +525,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         }
         
         styleLayer = bgsLayer
-        styleLayer.frame = layerRect
+        styleLayer.frame = bounds.offsetBy(dx: backgroundInsets.left, dy: backgroundInsets.top)
     }
     
     // MARK: - Private View
@@ -667,7 +664,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     override func layoutComponents() {
-        let layerRect = UIEdgeInsetsInsetRect(bounds, backgroundInsets)
+        let layerRect = bounds // UIEdgeInsetsInsetRect(bounds, backgroundInsets)
         assert(layerRect.size.width > 0 && layerRect.size.height > 0)
         let mainSizeH = self.direction.principalSize(layerRect.size) * 0.5
         
@@ -1159,12 +1156,18 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         }
         return newVal
     }
+
+    /// Use this method to change a value without notifications being triggered
+    public func updateThumbValue(atIndex index: Int, value: Double) {
+        let newVal = self.clampValue(value)
+        _values[index] = newVal
+        self.setNeedsLayout()
+    }
     
     func updateValue(_ index: Int, value: Double, finished: Bool = true) {
         let newVal = self.clampValue(value)
         let oldVal = _values[index]
         _values[index] = newVal
-        self.assignThumbText(index)
         
         if (continuous || finished) && oldVal != newVal {
             self.notifyOfValueChanged(newVal, index: index)

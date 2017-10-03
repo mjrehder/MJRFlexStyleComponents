@@ -30,8 +30,8 @@
 import UIKit
 
 open class FlexViewTopBar: FlexView {
-    open var topBarUpdateHandler: ((Void) -> Void)?
-    open var topBarCancelHandler: ((Void) -> Void)?
+    open var topBarUpdateHandler: (() -> Void)?
+    open var topBarCancelHandler: (() -> Void)?
     
     open var topBarActivated: ((Bool) -> Void)?
 

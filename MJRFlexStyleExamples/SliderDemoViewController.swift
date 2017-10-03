@@ -29,6 +29,7 @@ class SliderDemoViewController: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false
         
         self.horiSlider = FlexMutableSlider(frame: CGRect(x: 10, y: 25, width: 100, height: 32))
+        self.horiSlider?.backgroundInsets = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         self.horiSlider?.minimumValue = 0
         self.horiSlider?.maximumValue = 1
         self.horiSlider?.borderColor = .black
