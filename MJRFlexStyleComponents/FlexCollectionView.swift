@@ -294,9 +294,11 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     open func getItemForIndexPath(_ index: IndexPath) -> FlexCollectionItem? {
         let row: Int = index.row
         let section: Int = index.section
-        let sec = self.sections[section]
-        if let items = self.contentDic?[sec.reference], row < items.count {
-            return items[row]
+        if section < self.sections.count {
+            let sec = self.sections[section]
+            if let items = self.contentDic?[sec.reference], row < items.count {
+                return items[row]
+            }
         }
         return nil
     }
