@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDelegate, FlexCollectionItemSwipeDelegate {
+class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDelegate, FlexCollectionItemSwipeDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var demoCollectionView: FlexCollectionView!
 
@@ -152,6 +152,13 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         item2.textViewInsets = UIEdgeInsetsMake(3, 0, 0, 0)
         self.demoCollectionView.addItem(secRef, item: item2)
         
+        // Text Field Collection Item
+        let item21 = FlexTextFieldCollectionItem(reference: "item21ref", text: NSAttributedString(string: "This is a text field cell"), title: NSAttributedString(string: "Item 2.1"))
+        item21.canMoveItem = false
+        item21.headerPosition = .left
+        item21.textIsMutable = true
+        item21.textFieldDelegate = self
+        self.demoCollectionView.addItem(secRef, item: item21)
         
         // Color item
         let flexColorCellAppearance = FlexColorCollectionViewCell.appearance()
@@ -266,7 +273,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         cardApp.textColor = UIColor.MKColor.Grey.P800
         cardApp.textContainerInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         
-        let item8 = FlexCardTextViewCollectionItem(reference: "item7ref", text: NSAttributedString(string: "Text String"), icon: ti1, accessoryImage: nil, title: NSAttributedString(string: "Item 8"))
+        let item8 = FlexCardTextViewCollectionItem(reference: "item8ref", text: NSAttributedString(string: "Text String"), icon: ti1, accessoryImage: nil, title: NSAttributedString(string: "Item 8"))
         item8.infoText = NSAttributedString(string: "Info")
         item8.detailText = NSAttributedString(string: "Detail Text")
         item8.auxText = NSAttributedString(string: "Aux Info")
@@ -314,4 +321,12 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
     func onFlexCollectionItemSelected(_ view: FlexCollectionView, item: FlexCollectionItem) {
         NSLog("Item \(item.reference) selected")
     }
+    
+    // MARK: - TextFieldDelegate
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
+    }
+
 }

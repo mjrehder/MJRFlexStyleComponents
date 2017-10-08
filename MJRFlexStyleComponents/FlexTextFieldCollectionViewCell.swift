@@ -30,8 +30,17 @@
 import UIKit
 import StyledLabel
 
+open class FlexUITextField : UITextField {
+    override open func addGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
+        if #available(iOS 11, *) {
+            gestureRecognizer.isEnabled = false
+        }
+        super.addGestureRecognizer(gestureRecognizer)
+    }    
+}
+
 open class FlexTextFieldCollectionViewCell: FlexBaseCollectionViewCell, UITextFieldDelegate {
-    open var textField: UITextField?
+    open var textField: FlexUITextField?
     
     open dynamic var textFieldBackgroundColor: UIColor = .clear {
         didSet {
@@ -48,7 +57,7 @@ open class FlexTextFieldCollectionViewCell: FlexBaseCollectionViewCell, UITextFi
     open override func initialize() {
         super.initialize()
         
-        self.textField = UITextField()
+        self.textField = FlexUITextField()
         if let tv = self.textField, let pcv = self.flexContentView {
             tv.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
             tv.isHidden = true

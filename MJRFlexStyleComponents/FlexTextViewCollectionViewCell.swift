@@ -30,8 +30,17 @@
 import UIKit
 import StyledLabel
 
+open class FlexUITextView : UITextView {
+    override open func addGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
+        if #available(iOS 11, *) {
+            gestureRecognizer.isEnabled = false
+        }
+        super.addGestureRecognizer(gestureRecognizer)
+    }
+}
+
 open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextViewDelegate {
-    open var textView: UITextView?
+    open var textView: FlexUITextView?
 
     open dynamic var textViewBackgroundColor: UIColor = .clear {
         didSet {
@@ -61,7 +70,7 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
     open override func initialize() {
         super.initialize()
         
-        self.textView = UITextView()
+        self.textView = FlexUITextView()
         if let tv = self.textView, let pcv = self.flexContentView {
             tv.isHidden = true
             pcv.addSubview(tv)
