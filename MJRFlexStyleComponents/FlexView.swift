@@ -106,7 +106,13 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             self.setNeedsLayout()
         }
     }
-    
+
+    @IBInspectable open var headerTopOffset: CGFloat = 0 {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+
     @IBInspectable open var isHeaderTextEditable: Bool = false {
         didSet {
             self.setNeedsLayout()
@@ -157,6 +163,12 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
     
     // MARK: - Footer
     
+    @IBInspectable open var footerBottomOffset: CGFloat = 0 {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+
     /// The footer text. Defaults to nil, which means no text.
     @IBInspectable open var footerText: String? = nil {
         didSet {
@@ -309,12 +321,12 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         var topOffset: CGFloat = 0
         var bottomOffset: CGFloat = 0
         if self.hasHeaderText() {
-            heightReduce += self.headerSize
-            topOffset += self.headerSize
+            heightReduce += self.headerSize + self.headerTopOffset
+            topOffset += self.headerSize + self.headerTopOffset
         }
         if self.hasFooterText() {
-            bottomOffset += self.footerSize
-            heightReduce += self.footerSize
+            bottomOffset += self.footerSize + self.footerBottomOffset
+            heightReduce += self.footerSize + self.footerBottomOffset
         }
         let headerPos = self.headerPosition
         let margins = self.contentViewMargins
@@ -339,7 +351,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         let hSize = self.headerSize
         switch headerPos {
         case .top:
-            return CGRect(x: 0, y: 0, width: self.bounds.size.width, height: hSize)
+            return CGRect(x: 0, y: self.headerTopOffset, width: self.bounds.size.width, height: hSize)
         case .left:
             return CGRect(x: 0, y: 0, width: hSize, height: self.bounds.size.height)
         case .right:
@@ -352,11 +364,11 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         let fSize = self.footerSize
         switch headerPos {
         case .top:
-            return CGRect(x: 0, y: self.bounds.size.height - fSize, width: self.bounds.size.width, height: fSize)
+            return CGRect(x: 0, y: self.bounds.size.height - (fSize + self.footerBottomOffset) , width: self.bounds.size.width, height: fSize)
         case .left:
             return CGRect(x: self.bounds.size.width - fSize, y: 0, width: fSize, height: self.bounds.size.height)
         case .right:
-            return CGRect(x: 0, y: 0, width: fSize, height: self.bounds.size.height)
+            return CGRect(x: 0, y: fSize, width: fSize, height: self.bounds.size.height)
         }
     }
     
@@ -375,7 +387,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
     open func getTopBarFrame() -> CGRect {
         var topOffset = self.contentViewMargins.top
         if self.hasHeaderText() {
-            topOffset += self.headerSize
+            topOffset += self.headerSize + self.headerTopOffset
         }
         return CGRect(x: self.contentViewMargins.left, y: topOffset, width: self.bounds.size.width - (self.contentViewMargins.left + self.contentViewMargins.right), height: self.topBarHeight)
     }
