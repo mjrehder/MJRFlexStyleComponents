@@ -196,8 +196,9 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     }
     
     func setupCollectionView() {
-        let collectionViewRect = UIEdgeInsetsInsetRect(self.getViewRect(), self.viewMargins)
-        self.itemCollectionView.frame = collectionViewRect
+        UIView.animate(withDuration: 0.25, animations: {
+            self.itemCollectionView.frame = UIEdgeInsetsInsetRect(self.getViewRect(), self.viewMargins)
+        })
     }
     
     // MARK: - public
@@ -547,3 +548,4 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         }
     }
 }
+
