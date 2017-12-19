@@ -57,13 +57,13 @@ open class FlexViewSupplementaryView: FlexBaseStylingControl {
         }
     }
     
-    open dynamic var imageViewPosition: NSTextAlignment = .left {
+    @objc open dynamic var imageViewPosition: NSTextAlignment = .left {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var imageViewInsets: UIEdgeInsets = .zero {
+    @objc open dynamic var imageViewInsets: UIEdgeInsets = .zero {
         didSet {
             self.setNeedsLayout()
         }

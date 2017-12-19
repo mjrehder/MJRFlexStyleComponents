@@ -31,19 +31,19 @@ import UIKit
 
 open class FlexCardTextViewCollectionViewCell: FlexCardViewCollectionViewCell, UITextViewDelegate {
 
-    open dynamic var textViewBackgroundColor: UIColor = .clear {
+    @objc open dynamic var textViewBackgroundColor: UIColor = .clear {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var textColor: UIColor? {
+    @objc open dynamic var textColor: UIColor? {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var textContainerInsets: UIEdgeInsets = .zero {
+    @objc open dynamic var textContainerInsets: UIEdgeInsets = .zero {
         didSet {
             self.setNeedsLayout()
         }
@@ -61,7 +61,7 @@ open class FlexCardTextViewCollectionViewCell: FlexCardViewCollectionViewCell, U
         }
     }
     
-    open func cellTextAreaTouched(_ recognizer: UITapGestureRecognizer) {
+    @objc open func cellTextAreaTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item {
             let relPos = self.getRelPosFromTapGesture(recognizer)
             self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item, xRelPos: relPos.x, yRelPos: relPos.y)

@@ -42,26 +42,26 @@ open class FlexUITextView : UITextView {
 open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextViewDelegate {
     open var textView: FlexUITextView?
 
-    open dynamic var textViewBackgroundColor: UIColor = .clear {
+    @objc open dynamic var textViewBackgroundColor: UIColor = .clear {
         didSet {
             self.setNeedsLayout()
         }
     }
 
-    open dynamic var textColor: UIColor? {
+    @objc open dynamic var textColor: UIColor? {
         didSet {
             self.setNeedsLayout()
         }
     }
 
-    open dynamic var textContainerInsets: UIEdgeInsets = .zero {
+    @objc open dynamic var textContainerInsets: UIEdgeInsets = .zero {
         didSet {
             self.setNeedsLayout()
         }
     }
     
     /// This is the max height for the text title above the TextView
-    open dynamic var textTitleHeight: CGFloat = 16 {
+    @objc open dynamic var textTitleHeight: CGFloat = 16 {
         didSet {
             self.setNeedsLayout()
         }
@@ -145,7 +145,7 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
         self.textView?.isHidden = true
     }
     
-    open func cellTextAreaTouched(_ recognizer: UITapGestureRecognizer) {
+    @objc open func cellTextAreaTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item {
             let relPos = self.getRelPosFromTapGesture(recognizer)
             self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item, xRelPos: relPos.x, yRelPos: relPos.y)

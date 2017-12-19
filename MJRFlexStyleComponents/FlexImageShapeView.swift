@@ -51,7 +51,7 @@ open class FlexImageShapeView: FlexView {
         }
     }
 
-    open dynamic var imageStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
+    @objc open dynamic var imageStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
         didSet {
             self.setNeedsLayout()
             imageStyle.styleChangeHandler = {
@@ -61,13 +61,13 @@ open class FlexImageShapeView: FlexView {
         }
     }
     
-    open dynamic var imageBorderColor: UIColor? = nil {
+    @objc open dynamic var imageBorderColor: UIColor? = nil {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var imageBorderWidth: CGFloat = 1.0 {
+    @objc open dynamic var imageBorderWidth: CGFloat = 1.0 {
         didSet {
             self.setNeedsLayout()
         }

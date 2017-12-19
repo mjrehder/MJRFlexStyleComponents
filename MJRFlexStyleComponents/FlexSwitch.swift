@@ -89,7 +89,7 @@ public protocol FlexSwitchDelegate {
         self.values = [targetValue]
     }
     
-    func switchChanged() {
+    @objc func switchChanged() {
         self.switchDelegate?.switchStateChanged(self, on: self.on)
     }
     

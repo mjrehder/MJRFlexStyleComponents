@@ -79,7 +79,7 @@ open class FlexCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    open dynamic var style: FlexShapeStyle = FlexShapeStyle(style: .box) {
+    @objc open dynamic var style: FlexShapeStyle = FlexShapeStyle(style: .box) {
         didSet {
             self.setNeedsLayout()
             style.styleChangeHandler = {
@@ -89,43 +89,43 @@ open class FlexCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    open dynamic var styleColor: UIColor = .gray {
+    @objc open dynamic var styleColor: UIColor = .gray {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var selectedStyleColor: UIColor = .lightGray {
+    @objc open dynamic var selectedStyleColor: UIColor = .lightGray {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var selectedBackgroundColor: UIColor = .lightGray {
+    @objc open dynamic var selectedBackgroundColor: UIColor = .lightGray {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var selectedBorderColor: UIColor? {
+    @objc open dynamic var selectedBorderColor: UIColor? {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var borderColor: UIColor? {
+    @objc open dynamic var borderColor: UIColor? {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var borderWidth: CGFloat = 1.0 {
+    @objc open dynamic var borderWidth: CGFloat = 1.0 {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var selectedBorderWidth: CGFloat = 1.0 {
+    @objc open dynamic var selectedBorderWidth: CGFloat = 1.0 {
         didSet {
             self.setNeedsLayout()
         }
@@ -270,7 +270,7 @@ open class FlexCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func swipeMenuLeftTapped(_ recognizer: UITapGestureRecognizer) {
+    @objc func swipeMenuLeftTapped(_ recognizer: UITapGestureRecognizer) {
         let touchedViewPos = recognizer.location(in: self)
         if let item = self.item, let rsm = item.swipeRightMenuItems {
             for mi in rsm {
@@ -282,7 +282,7 @@ open class FlexCollectionViewCell: UICollectionViewCell {
         self.animateSwipeReset()
     }
     
-    func swipeMenuRightTapped(_ recognizer: UITapGestureRecognizer) {
+    @objc func swipeMenuRightTapped(_ recognizer: UITapGestureRecognizer) {
         let touchedViewPos = recognizer.location(in: self)
         if let item = self.item, let rsm = item.swipeLeftMenuItems {
             for mi in rsm {

@@ -357,7 +357,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     // MARK: - Separators
     
     /// Swiping of the separator will affect the according thumb, if enabled. Default is disabled.
-    open dynamic var separatorSwipeEnabled: Bool = false {
+    @objc open dynamic var separatorSwipeEnabled: Bool = false {
         didSet {
             self.setupSeparatorGestures()
         }
@@ -533,7 +533,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     func sizeOfTextLabel(_ label: StyledLabel) -> CGSize? {
         if let font = label.font, let text = label.text {
             let textString = text as NSString
-            let textAttributes = [NSFontAttributeName: font]
+            let textAttributes = [NSAttributedStringKey.font: font]
             return textString.boundingRect(with: UIEdgeInsetsInsetRect(bounds, backgroundInsets).size, options: .usesLineFragmentOrigin, attributes: textAttributes, context: nil).size
         }
         return nil
@@ -798,7 +798,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         }
     }
     
-    func separatorTouched(_ sender: UITapGestureRecognizer) {
+    @objc func separatorTouched(_ sender: UITapGestureRecognizer) {
         if let separator = sender.view as? StyledSliderSeparator, let index = self.getSeparatorIndex(separator) {
             switch sender.state {
             case .ended:
@@ -810,7 +810,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         }
     }
     
-    func separatorSwiped(_ sender: UIPanGestureRecognizer) {
+    @objc func separatorSwiped(_ sender: UIPanGestureRecognizer) {
         if let sep = sender.view as? StyledSliderSeparator {
             if sep.index == 0 {
                 if let thumb = self.thumbList.thumbs.first {
@@ -842,7 +842,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         thumb.addGestureRecognizer(touchGesture)
     }
     
-    func thumbTouched(_ sender: UITapGestureRecognizer) {
+    @objc func thumbTouched(_ sender: UITapGestureRecognizer) {
         if let thumb = sender.view as? StyledSliderThumb {
             switch sender.state {
             case .ended:
@@ -854,7 +854,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         }
     }
     
-    func sliderPanned(_ sender: UIPanGestureRecognizer) {
+    @objc func sliderPanned(_ sender: UIPanGestureRecognizer) {
         if let thumb = sender.view as? StyledSliderThumb {
             self.thumbPanned(thumb, sender: sender)
         }

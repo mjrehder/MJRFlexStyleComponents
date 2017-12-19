@@ -42,13 +42,13 @@ open class FlexUITextField : UITextField {
 open class FlexTextFieldCollectionViewCell: FlexBaseCollectionViewCell, UITextFieldDelegate {
     open var textField: FlexUITextField?
     
-    open dynamic var textFieldBackgroundColor: UIColor = .clear {
+    @objc open dynamic var textFieldBackgroundColor: UIColor = .clear {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var textColor: UIColor? {
+    @objc open dynamic var textColor: UIColor? {
         didSet {
             self.setNeedsLayout()
         }
@@ -94,7 +94,7 @@ open class FlexTextFieldCollectionViewCell: FlexBaseCollectionViewCell, UITextFi
         }
     }
     
-    open func cellTextAreaTouched(_ recognizer: UITapGestureRecognizer) {
+    @objc open func cellTextAreaTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item {
             let relPos = self.getRelPosFromTapGesture(recognizer)
             self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item, xRelPos: relPos.x, yRelPos: relPos.y)
@@ -135,7 +135,7 @@ open class FlexTextFieldCollectionViewCell: FlexBaseCollectionViewCell, UITextFi
         }
     }
     
-    open func textFieldDidChange(_ textField: UITextField) {
+    @objc open func textFieldDidChange(_ textField: UITextField) {
         if let item = self.item as? FlexTextFieldCollectionItem, let text = textField.attributedText {
             item.text = textField.attributedText
             item.textChangingHandler?(text)

@@ -37,19 +37,19 @@ open class FlexViewSearchTopBar: FlexViewTopBar, UISearchBarDelegate {
     open var filterContentForSearchTextTyping: ((String) -> Void)?
     open var searchEnded: (() -> Void)?
 
-    open dynamic var barStyleColor: UIColor = .lightGray {
+    @objc open dynamic var barStyleColor: UIColor = .lightGray {
         didSet {
             self.setNeedsLayout()
         }
     }
 
-    open dynamic var barBackgroundColor: UIColor = .clear {
+    @objc open dynamic var barBackgroundColor: UIColor = .clear {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var searchBarPlaceholder: String = "Search Text" {
+    @objc open dynamic var searchBarPlaceholder: String = "Search Text" {
         didSet {
             self.setNeedsLayout()
         }
@@ -93,7 +93,7 @@ open class FlexViewSearchTopBar: FlexViewTopBar, UISearchBarDelegate {
     // MARK: - UISearchBarDelegate
     
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.characters.count > 0 {
+        if searchText.count > 0 {
             self.searchBarActive    = true
             self.filterContentForSearchTextTyping?(searchText)
             self.topBarUpdateHandler?()

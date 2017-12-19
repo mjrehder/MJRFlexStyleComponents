@@ -40,49 +40,49 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     
     open var flexContentView: FlexCellView?
     
-    open dynamic var controlInsets: UIEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5) {
+    @objc open dynamic var controlInsets: UIEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5) {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var controlSize: CGSize = .zero {
+    @objc open dynamic var controlSize: CGSize = .zero {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var imageViewInsets: UIEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 0) {
+    @objc open dynamic var imageViewInsets: UIEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 0) {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var imageViewSize: CGSize = CGSize(width: 64, height: 64) {
+    @objc open dynamic var imageViewSize: CGSize = CGSize(width: 64, height: 64) {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var imageViewStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
+    @objc open dynamic var imageViewStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var accessoryViewInsets: UIEdgeInsets = UIEdgeInsetsMake(5, 0, 5, 5) {
+    @objc open dynamic var accessoryViewInsets: UIEdgeInsets = UIEdgeInsetsMake(5, 0, 5, 5) {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var accessoryViewSize: CGSize = CGSize(width: 32, height: 32) {
+    @objc open dynamic var accessoryViewSize: CGSize = CGSize(width: 32, height: 32) {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var accessoryViewStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
+    @objc open dynamic var accessoryViewStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
         didSet {
             self.setNeedsLayout()
         }
@@ -129,14 +129,14 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         }
     }
     
-    open func cellTouched(_ recognizer: UITapGestureRecognizer) {
+    @objc open func cellTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item as? FlexBaseCollectionItem {
             let relPos = self.getRelPosFromTapGesture(recognizer)
             self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item, xRelPos: relPos.x, yRelPos: relPos.y)
         }
     }
     
-    open func accessoryViewTouched(_ recognizer: UITapGestureRecognizer) {
+    @objc open func accessoryViewTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item as? FlexBaseCollectionItem {
             if item.contentInteractionWillSelectItem {
                 let relPos = self.getRelPosFromTapGesture(recognizer)
@@ -146,7 +146,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         }
     }
     
-    open func imageViewTouched(_ recognizer: UITapGestureRecognizer) {
+    @objc open func imageViewTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item as? FlexBaseCollectionItem {
             if item.contentInteractionWillSelectItem {
                 let relPos = self.getRelPosFromTapGesture(recognizer)

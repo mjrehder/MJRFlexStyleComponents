@@ -717,7 +717,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
     
     // MARK: - Header Editor
     
-    func headerTap(_ sender: Any) {
+    @objc func headerTap(_ sender: Any) {
         if headerEditor == nil {
             self.headerEditor = UITextField(frame: self.header.caption.frame)
             let headerText = self.getHeaderText()

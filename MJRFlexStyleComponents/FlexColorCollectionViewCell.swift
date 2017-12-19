@@ -33,19 +33,19 @@ import StyledLabel
 open class FlexColorCollectionViewCell: FlexBaseCollectionViewCell {
     var colorView: UIView?
 
-    open dynamic var controlStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
+    @objc open dynamic var controlStyle: FlexShapeStyle = FlexShapeStyle(style: .box) {
         didSet {
             self.setNeedsLayout()
         }
     }
 
-    open dynamic var controlBorderColor: UIColor? {
+    @objc open dynamic var controlBorderColor: UIColor? {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    open dynamic var controlBorderWidth: CGFloat = 1.0 {
+    @objc open dynamic var controlBorderWidth: CGFloat = 1.0 {
         didSet {
             self.setNeedsLayout()
         }
@@ -65,7 +65,7 @@ open class FlexColorCollectionViewCell: FlexBaseCollectionViewCell {
         }
     }
     
-    open func colorViewTouched(_ recognizer: UITapGestureRecognizer) {
+    @objc open func colorViewTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item as? FlexColorCollectionItem {
             item.colorActionHandler?()
         }

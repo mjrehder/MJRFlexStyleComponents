@@ -138,7 +138,7 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
         self.addTarget(self, action: #selector(FlexMenu.notifyValueChanged), for: .valueChanged)
     }
     
-    func notifyValueChanged() {
+    @objc func notifyValueChanged() {
         let selItem = self.selectedItem()
         self.menuDataSource?.menuItemSelected(self, index: selItem)
         if let menuItem = self.getMenuItemForIndex(selItem) {
@@ -448,7 +448,7 @@ open class FlexMenu: GenericStyleSlider, GenericStyleSliderTouchDelegate, Generi
         }
     }
     
-    func menuTouched(_ sender: UITapGestureRecognizer) {
+    @objc func menuTouched(_ sender: UITapGestureRecognizer) {
         if let menuFrames = self.getActiveMenuFrames() {
             let p = sender.location(in: self)
             var index = 0

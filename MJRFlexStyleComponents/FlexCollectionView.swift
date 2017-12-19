@@ -123,7 +123,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         self.createView()
     }
     
-    func handleLongGesture(_ gesture: UILongPressGestureRecognizer) {
+    @objc func handleLongGesture(_ gesture: UILongPressGestureRecognizer) {
         switch(gesture.state) {
         case UIGestureRecognizerState.began:
             guard let selectedIndexPath = self.itemCollectionView.indexPathForItem(at: gesture.location(in: self.itemCollectionView)) else {
@@ -361,14 +361,14 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         return UICollectionViewCell()
     }
     
-    func swipeLeftGestureAction(_ recognizer: UISwipeGestureRecognizer) {
+    @objc func swipeLeftGestureAction(_ recognizer: UISwipeGestureRecognizer) {
         if self.cellSwipeEnabled, let cell = recognizer.view as? FlexCollectionViewCell {
             cell.swipeLeft()
             self.cellSwipeMenuActiveCell = self.itemCollectionView.indexPath(for: cell)
         }
     }
     
-    func swipeRightGestureAction(_ recognizer: UISwipeGestureRecognizer) {
+    @objc func swipeRightGestureAction(_ recognizer: UISwipeGestureRecognizer) {
         if self.cellSwipeEnabled, let cell = recognizer.view as? FlexCollectionViewCell {
             cell.swipeRight()
             self.cellSwipeMenuActiveCell = self.itemCollectionView.indexPath(for: cell)
@@ -529,7 +529,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         }
     }
     
-    func refreshControlAction(){
+    @objc func refreshControlAction(){
         self.showTopBar {
             self.itemCollectionView.reloadData()
         }

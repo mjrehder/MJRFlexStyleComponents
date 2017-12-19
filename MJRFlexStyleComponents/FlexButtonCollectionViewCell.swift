@@ -34,7 +34,7 @@ open class FlexButtonCollectionViewCell: FlexCollectionViewCell {
     
     open var flexContentView: FlexCellView?
     
-    open dynamic var controlInsets: UIEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5) {
+    @objc open dynamic var controlInsets: UIEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5) {
         didSet {
             self.setNeedsLayout()
         }
@@ -53,7 +53,7 @@ open class FlexButtonCollectionViewCell: FlexCollectionViewCell {
         }
     }
     
-    open func cellTouched(_ recognizer: UITapGestureRecognizer) {
+    @objc open func cellTouched(_ recognizer: UITapGestureRecognizer) {
         if let item = self.item as? FlexButtonCollectionItem {
             let relPos = self.getRelPosFromTapGesture(recognizer)
             self.flexCellTouchDelegate?.onFlexCollectionViewCellTouched(item, xRelPos: relPos.x, yRelPos: relPos.y)

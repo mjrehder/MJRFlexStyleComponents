@@ -33,7 +33,7 @@ import UIKit
 open class FlexCardViewCollectionViewCell: FlexBaseCollectionViewCell {
     open var bodyView: FlexBaseControl?
     
-    open dynamic var cardHeaderHeight: CGFloat = 64 {
+    @objc open dynamic var cardHeaderHeight: CGFloat = 64 {
         didSet {
             self.setNeedsLayout()
         }
