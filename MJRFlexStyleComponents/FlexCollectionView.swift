@@ -46,6 +46,8 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     let simpleHeaderViewID = "SimpleHeaderView"
     let emptyHeaderViewID = "EmptyHeaderView"
     
+    private var justCreated = true
+    
     fileprivate var _itemCollectionView: UICollectionView?
     open var collectionItemTypeMap: [String:String] = [:]
     
@@ -196,9 +198,15 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     }
     
     func setupCollectionView() {
-        UIView.animate(withDuration: 0.25, animations: {
+        if self.justCreated {
+            self.justCreated = false
             self.itemCollectionView.frame = UIEdgeInsetsInsetRect(self.getViewRect(), self.viewMargins)
-        })
+        }
+        else {
+            UIView.animate(withDuration: 0.25, animations: {
+                self.itemCollectionView.frame = UIEdgeInsetsInsetRect(self.getViewRect(), self.viewMargins)
+            })
+        }
     }
     
     // MARK: - public
