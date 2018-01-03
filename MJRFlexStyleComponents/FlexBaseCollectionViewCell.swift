@@ -372,8 +372,6 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     }
     
     override open func applyStyles() {
-        super.applyStyles()
-        
         self.applyContentViewInfo()
         if let item = self.item as? FlexBaseCollectionItem {
             switch self.displayMode {
@@ -391,6 +389,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
                 self.layoutIconifiedIconView(item, area: self.getBaseViewRect())
             }
         }
+        super.applyStyles()
     }
     
     open func applyHeaderImage(fcv: FlexCellView, item: FlexBaseCollectionItem) {

@@ -51,6 +51,7 @@ open class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
         }
     }
 
+    @discardableResult
     open func layoutSliderView(_ item: FlexSliderCollectionItem, area: CGRect) -> CGRect {
         var remainingCellArea = area
         
@@ -82,16 +83,17 @@ open class FlexSliderCollectionViewCell: FlexBaseCollectionViewCell {
             remainingCellArea = self.layoutAccessoryView(item, area: remainingCellArea)
             // TODO: missing case for text inside slider
             if item.text != nil {
-                let _ = self.layoutSliderView(item, area: remainingCellArea)
+                self.layoutSliderView(item, area: remainingCellArea)
                 self.layoutControl(item, area: remainingCellArea)
                 if let fs = self.flexSlider, let tc = self.textLabel {
                     FlexControlLayoutHelper.horizontallyAlignTwoFlexControls(tc, lowerControl: fs, area: remainingCellArea)
                 }
             }
             else {
-                let _ = self.layoutSliderView(item, area: remainingCellArea)
+                self.layoutSliderView(item, area: remainingCellArea)
             }
         }
+        self.cellStyler?.applyStyle(toCell: self)
     }
 
 }

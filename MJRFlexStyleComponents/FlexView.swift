@@ -365,7 +365,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         case .left:
             return CGRect(x: vBounds.minX + vBounds.width - fSize, y: vBounds.minY, width: fSize, height: vBounds.height)
         case .right:
-            return CGRect(x: vBounds.minX, y: vBounds.minY + fSize, width: fSize, height: vBounds.height)
+            return CGRect(x: vBounds.minX, y: vBounds.minY, width: fSize, height: vBounds.height)
         }
     }
     

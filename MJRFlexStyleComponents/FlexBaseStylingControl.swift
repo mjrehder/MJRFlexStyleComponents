@@ -32,6 +32,7 @@ import StyledLabel
 
 open class FlexBaseStylingControl: UIControl {
     open var styleLayer = CALayer()
+    open var controlStyler: FlexControlStyler?
     
     /// The view's style.
     @IBInspectable open dynamic var style: FlexShapeStyle = FlexShapeStyle(style: .box) {
@@ -172,6 +173,8 @@ open class FlexBaseStylingControl: UIControl {
         for lBorder in self.layerBorders {
             lBorder.apply(toLayer: styleLayer)
         }
+        
+        self.controlStyler?.applyStyle(toControl: self)
     }
 
 }

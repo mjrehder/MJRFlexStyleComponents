@@ -101,8 +101,6 @@ open class FlexButtonCollectionViewCell: FlexCollectionViewCell {
     }
     
     override open func applyStyles() {
-        super.applyStyles()
-        
         if let item = self.item as? FlexButtonCollectionItem, let fcv = self.flexContentView {
             fcv.headerAttributedText = item.title
             if let hp = item.headerPosition {
@@ -113,5 +111,6 @@ open class FlexButtonCollectionViewCell: FlexCollectionViewCell {
             let controlInsets = item.controlInsets ?? self.controlInsets
             self.layoutText(item, area: UIEdgeInsetsInsetRect(remainingCellArea, controlInsets))
         }
+        super.applyStyles()
     }
 }

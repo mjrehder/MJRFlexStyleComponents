@@ -75,6 +75,7 @@ open class FlexSwitchCollectionViewCell: FlexBaseCollectionViewCell, FlexSwitchD
             remainingCellArea = self.layoutSwitchView(item, area: remainingCellArea)
             self.layoutControl(item, area: remainingCellArea)
         }
+        self.cellStyler?.applyStyle(toCell: self)
     }
     
     // MARK: - FlexSwitchDelegate

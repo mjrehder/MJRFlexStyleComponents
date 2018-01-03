@@ -95,6 +95,7 @@ open class FlexSnapStepperCollectionViewCell: FlexBaseCollectionViewCell {
                 let _ = self.layoutSliderView(item, area: remainingCellArea)
             }
         }
+        self.cellStyler?.applyStyle(toCell: self)
     }
 
 }

@@ -71,6 +71,7 @@ open class FlexFlickButtonCollectionViewCell: FlexBaseCollectionViewCell {
         }
     }
     
+    @discardableResult
     open func layoutSliderView(_ item: FlexFlickButtonCollectionItem, area: CGRect) -> CGRect {
         var remainingCellArea = area
         
@@ -105,15 +106,16 @@ open class FlexFlickButtonCollectionViewCell: FlexBaseCollectionViewCell {
             remainingCellArea = self.layoutIconView(item, area: remainingCellArea)
             remainingCellArea = self.layoutAccessoryView(item, area: remainingCellArea)
             if item.text != nil {
-                let _ = self.layoutSliderView(item, area: remainingCellArea)
+                self.layoutSliderView(item, area: remainingCellArea)
                 self.layoutControl(item, area: remainingCellArea)
                 if let fs = self.flexFlickButton, let tc = self.textLabel {
                     FlexControlLayoutHelper.horizontallyAlignTwoFlexControls(tc, lowerControl: fs, area: remainingCellArea)
                 }
             }
             else {
-                let _ = self.layoutSliderView(item, area: remainingCellArea)
+                self.layoutSliderView(item, area: remainingCellArea)
             }
         }
+        self.cellStyler?.applyStyle(toCell: self)
     }
 }

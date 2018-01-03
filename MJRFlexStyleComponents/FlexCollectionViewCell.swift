@@ -43,6 +43,7 @@ enum FlexCollectionViewCellSwipeState {
 
 open class FlexCollectionViewCell: UICollectionViewCell {
     open var reference : String?
+    open var cellStyler: FlexCellStyler?
     
     open var flexCellTouchDelegate: FlexCollectionViewCellTouchedDelegate?
     
@@ -312,14 +313,15 @@ open class FlexCollectionViewCell: UICollectionViewCell {
     
     open func refreshLayout() {
         self.assignBorderLayout()
-        self.applyStyles()
         self.backgroundView?.frame = self.bounds
+        self.applyStyles()
         if self.swipeLeftRightState != .swiping {
             self.animateSwipeReset()
         }
     }
     
     open func applyStyles() {
+        self.cellStyler?.applyStyle(toCell: self)
     }
     
     open func assignBorderLayout() {

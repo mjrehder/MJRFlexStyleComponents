@@ -108,5 +108,6 @@ open class FlexColorCollectionViewCell: FlexBaseCollectionViewCell {
             remainingCellArea = self.layoutColorView(item, area: remainingCellArea)
             self.layoutControl(item, area: remainingCellArea)
         }
+        self.cellStyler?.applyStyle(toCell: self)
     }
 }

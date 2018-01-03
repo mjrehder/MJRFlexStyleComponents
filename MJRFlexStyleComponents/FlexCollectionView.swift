@@ -237,7 +237,14 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         }
         return nil
     }
-    
+
+    open func getSection(atIndex idx: Int) -> FlexCollectionSection? {
+        if idx < self.sections.count {
+            return self.sections[idx]
+        }
+        return nil
+    }
+
     open func sectionReference(atIndex: Int) -> String? {
         if atIndex < self.sections.count {
             let sec = self.sections[atIndex]

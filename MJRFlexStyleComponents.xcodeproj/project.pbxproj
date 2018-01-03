@@ -202,6 +202,10 @@
 		5BEAF3231D6851B600BF5D83 /* MenusDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAF3221D6851B600BF5D83 /* MenusDemoViewController.swift */; };
 		5BF7020C1D3113D50011555A /* MJRFlexStyleComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BF7020B1D3113D50011555A /* MJRFlexStyleComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BF702151D3116AC0011555A /* GenericStyleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF702141D3116AC0011555A /* GenericStyleSlider.swift */; };
+		5BFA204D1FFD00EA00FB4AE5 /* FlexControlStyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFA204C1FFD00EA00FB4AE5 /* FlexControlStyler.swift */; };
+		5BFA204E1FFD00EA00FB4AE5 /* FlexControlStyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFA204C1FFD00EA00FB4AE5 /* FlexControlStyler.swift */; };
+		5BFA20501FFD038700FB4AE5 /* FlexCellStyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFA204F1FFD038700FB4AE5 /* FlexCellStyler.swift */; };
+		5BFA20511FFD038700FB4AE5 /* FlexCellStyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFA204F1FFD038700FB4AE5 /* FlexCellStyler.swift */; };
 		C3AC2488CF774B6B1EEC5265 /* Pods_MJRFlexStyleComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0532D1798B2537BC02B786B /* Pods_MJRFlexStyleComponents.framework */; };
 /* End PBXBuildFile section */
 
@@ -317,6 +321,8 @@
 		5BF7020B1D3113D50011555A /* MJRFlexStyleComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MJRFlexStyleComponents.h; sourceTree = "<group>"; };
 		5BF7020D1D3113D50011555A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BF702141D3116AC0011555A /* GenericStyleSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericStyleSlider.swift; sourceTree = "<group>"; };
+		5BFA204C1FFD00EA00FB4AE5 /* FlexControlStyler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexControlStyler.swift; sourceTree = "<group>"; };
+		5BFA204F1FFD038700FB4AE5 /* FlexCellStyler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexCellStyler.swift; sourceTree = "<group>"; };
 		7EB58092D6A64F2179A05BD8 /* Pods_MJRFlexStyleExamples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MJRFlexStyleExamples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9856108FF8086D2E71C91A8F /* Pods-MJRFlexStyleComponents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJRFlexStyleComponents.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MJRFlexStyleComponents/Pods-MJRFlexStyleComponents.debug.xcconfig"; sourceTree = "<group>"; };
 		CBA4AE8894BEEEC2FBF998DE /* Pods-MJRFlexStyleComponents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJRFlexStyleComponents.release.xcconfig"; path = "Pods/Target Support Files/Pods-MJRFlexStyleComponents/Pods-MJRFlexStyleComponents.release.xcconfig"; sourceTree = "<group>"; };
@@ -555,11 +561,9 @@
 			children = (
 				5BD460401DA100B0001FA9B3 /* CGRectHelper.swift */,
 				5BE448661D474DFD0011E5AE /* BezierPathHelper.swift */,
-				5BB91CA11DA39E0F00A94D12 /* ImageShapeLayerFactory.swift */,
 				5B9F2C5D1D31616200B096B5 /* SnappingThumbBehaviour.swift */,
 				5BE448481D41F6DB0011E5AE /* PositionUpdateTimer.swift */,
 				5BE4484F1D4220830011E5AE /* LabelFactory.swift */,
-				5BADFC611DA8E151004A5D12 /* FlexControlLayoutHelper.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -587,6 +591,7 @@
 		5BF7020A1D3113D50011555A /* MJRFlexStyleComponents */ = {
 			isa = PBXGroup;
 			children = (
+				5BFA204B1FFD003100FB4AE5 /* Styling */,
 				5BC9E1271EF6AA2700740834 /* Extensions */,
 				5BE448651D474DE20011E5AE /* Helper */,
 				5B3FF7201E13BC4E0077A106 /* BaseUI */,
@@ -611,6 +616,17 @@
 				5BB660451F2765F2006B0F36 /* FlexFlickButton.swift */,
 			);
 			name = Slider;
+			sourceTree = "<group>";
+		};
+		5BFA204B1FFD003100FB4AE5 /* Styling */ = {
+			isa = PBXGroup;
+			children = (
+				5BADFC611DA8E151004A5D12 /* FlexControlLayoutHelper.swift */,
+				5BB91CA11DA39E0F00A94D12 /* ImageShapeLayerFactory.swift */,
+				5BFA204C1FFD00EA00FB4AE5 /* FlexControlStyler.swift */,
+				5BFA204F1FFD038700FB4AE5 /* FlexCellStyler.swift */,
+			);
+			name = Styling;
 			sourceTree = "<group>";
 		};
 		DC3841E20CEE4A0AC10B1A32 /* Pods */ = {
@@ -880,6 +896,7 @@
 				5B7234A01E3395990089A4E7 /* FlexMenuCollectionItem.swift in Sources */,
 				5BAD34E51E5055380078FEE8 /* FlexCardViewCollectionItem.swift in Sources */,
 				5B9937101D3A9E5B0043E573 /* StyledSliderThumb.swift in Sources */,
+				5BFA20511FFD038700FB4AE5 /* FlexCellStyler.swift in Sources */,
 				5BD749E01F06425100A330AC /* FlexSnapStepperCollectionViewCell.swift in Sources */,
 				5BAD34F11E5068840078FEE8 /* FlexCardTextViewCollectionViewCell.swift in Sources */,
 				5BC3A5071F6FCBB900B4F553 /* FlexFlickButtonCollectionViewCell.swift in Sources */,
@@ -889,6 +906,7 @@
 				5BC14FEF1EFA84F200B30350 /* MutableSliderItem.swift in Sources */,
 				5BC9E1211EF6895E00740834 /* SliderDemoViewController.swift in Sources */,
 				5B3FF7261E13BD9A0077A106 /* FlexShapeStyle.swift in Sources */,
+				5BFA204E1FFD00EA00FB4AE5 /* FlexControlStyler.swift in Sources */,
 				5BE4484A1D41F6DB0011E5AE /* PositionUpdateTimer.swift in Sources */,
 				5BADFC5D1DA8C9DA004A5D12 /* FlexSliderCollectionItem.swift in Sources */,
 				5BD460481DA10A56001FA9B3 /* FlexImageShapeView.swift in Sources */,
@@ -955,6 +973,7 @@
 				5B49AAF31D8E6CB0003C062E /* FlexLabel.swift in Sources */,
 				5BAD34E41E5055380078FEE8 /* FlexCardViewCollectionItem.swift in Sources */,
 				5BB1141C1DB8CA9700719EEB /* FlexImageCollectionViewCell.swift in Sources */,
+				5BFA20501FFD038700FB4AE5 /* FlexCellStyler.swift in Sources */,
 				5B4075101F02740000C8D077 /* FlexSnapStepper.swift in Sources */,
 				5B0859E01D7EE65500484E8F /* FlexTextView.swift in Sources */,
 				5B3FF7321E13EF500077A106 /* FlexBaseCollectionViewCellDetailTextLabel.swift in Sources */,
@@ -967,6 +986,7 @@
 				5BC87C6F1EF903970071B4C3 /* UIImageExtensions.swift in Sources */,
 				5B3FF7291E13EDA50077A106 /* FlexBaseCollectionViewCellTextLabel.swift in Sources */,
 				5BB366101DBA382500C26FC0 /* StringExtension.swift in Sources */,
+				5BFA204D1FFD00EA00FB4AE5 /* FlexControlStyler.swift in Sources */,
 				5BC87C721EF95BBF0071B4C3 /* MutableSliderSeparatorItem.swift in Sources */,
 				5BC3A5061F6FCBB900B4F553 /* FlexFlickButtonCollectionViewCell.swift in Sources */,
 				5BE448501D4220830011E5AE /* LabelFactory.swift in Sources */,
