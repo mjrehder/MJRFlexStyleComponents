@@ -61,6 +61,8 @@ open class FlexCollectionItem: NSObject {
     
     open var isSelected: Bool = false
     
+    open var cellStyler: FlexCellStyler? = nil
+    
     public init(reference: String, text: NSAttributedString? = nil) {
         self.reference = reference
         self.text = text

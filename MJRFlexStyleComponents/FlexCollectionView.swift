@@ -357,6 +357,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
             if let cellClassStr = collectionItemTypeMap[item.classForCoder.description()] {
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellClassStr, for:indexPath) as? FlexCollectionViewCell {
                     cell._item = item
+                    cell.cellStyler = item.cellStyler
                     cell.reference = item.reference
                     cell.flexCellTouchDelegate = self
                     cell.displayMode = self.cellDisplayMode
