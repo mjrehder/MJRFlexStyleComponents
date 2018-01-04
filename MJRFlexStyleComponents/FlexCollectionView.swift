@@ -370,6 +370,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
                         rswipe.direction = .right
                         cell.addGestureRecognizer(rswipe)
                     }
+                    item.cellStyler?.prepareStyle(forCell: cell)
                     return cell
                 }
             }

@@ -30,5 +30,10 @@
 import UIKit
 
 public protocol FlexCellStyler {
+
+    // This is called once when creating the cell
+    func prepareStyle(forCell cell: FlexCollectionViewCell)
+    
+    // This is called each time a cell is re-drawn at the end of the style apply. Do not set properties that cause a setNeedsLayout, because this would result in an infinite update loop. Use prepareStyle instead.
     func applyStyle(toCell cell: FlexCollectionViewCell)
 }
