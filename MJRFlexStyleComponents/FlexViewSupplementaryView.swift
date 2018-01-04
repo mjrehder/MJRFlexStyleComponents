@@ -69,6 +69,12 @@ open class FlexViewSupplementaryView: FlexBaseStylingControl {
         }
     }
 
+    @objc open dynamic var imageViewOffset: CGPoint = .zero {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+
     override open func initView() {
         super.initView()
         self.addSubview(self.caption)
@@ -94,7 +100,7 @@ open class FlexViewSupplementaryView: FlexBaseStylingControl {
                     xOffset = totalRect.origin.x
                 }
                 let yOffset = totalRect.origin.y + (totalRect.size.height - imgSize.height) * 0.5
-                imageView.frame = CGRect(x: xOffset, y: yOffset, width: imgSize.width, height: imgSize.height)
+                imageView.frame = CGRect(x: xOffset + self.imageViewOffset.x, y: yOffset + self.imageViewOffset.y, width: imgSize.width, height: imgSize.height)
             }
         }
     }
