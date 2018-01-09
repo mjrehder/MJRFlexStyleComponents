@@ -495,12 +495,9 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
                     }
                 }
             }
-            return .zero
         }
-        else {
-            let sec = self.sections[section]
-            return sec.insets
-        }
+        let sec = self.sections[section]
+        return sec.insets
     }
     
     // MARK: - FlexCollectionViewCellTouchedDelegate

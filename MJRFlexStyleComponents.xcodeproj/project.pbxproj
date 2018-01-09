@@ -147,6 +147,8 @@
 		5BC279C71EF800B5000A2F3A /* StyledLabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC279C61EF800B5000A2F3A /* StyledLabelExtension.swift */; };
 		5BC279C81EF800B5000A2F3A /* StyledLabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC279C61EF800B5000A2F3A /* StyledLabelExtension.swift */; };
 		5BC284231DA66689004E1731 /* FlexCollectionDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC284221DA66689004E1731 /* FlexCollectionDemoViewController.swift */; };
+		5BC2CA751FFF90B9006AC6CB /* ThreadExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2CA741FFF90B9006AC6CB /* ThreadExtension.swift */; };
+		5BC2CA761FFF90B9006AC6CB /* ThreadExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2CA741FFF90B9006AC6CB /* ThreadExtension.swift */; };
 		5BC362871EFBA9B600E04C26 /* StyledSliderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC362861EFBA9B600E04C26 /* StyledSliderItem.swift */; };
 		5BC362881EFBA9B600E04C26 /* StyledSliderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC362861EFBA9B600E04C26 /* StyledSliderItem.swift */; };
 		5BC3A5061F6FCBB900B4F553 /* FlexFlickButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3A5051F6FCBB900B4F553 /* FlexFlickButtonCollectionViewCell.swift */; };
@@ -289,6 +291,7 @@
 		5BC279C31EF7E74F000A2F3A /* SliderThumbSizeInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderThumbSizeInfo.swift; sourceTree = "<group>"; };
 		5BC279C61EF800B5000A2F3A /* StyledLabelExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledLabelExtension.swift; sourceTree = "<group>"; };
 		5BC284221DA66689004E1731 /* FlexCollectionDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexCollectionDemoViewController.swift; sourceTree = "<group>"; };
+		5BC2CA741FFF90B9006AC6CB /* ThreadExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadExtension.swift; sourceTree = "<group>"; };
 		5BC362861EFBA9B600E04C26 /* StyledSliderItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledSliderItem.swift; sourceTree = "<group>"; };
 		5BC3A5051F6FCBB900B4F553 /* FlexFlickButtonCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexFlickButtonCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BC3A5081F6FCC0200B4F553 /* FlexFlickButtonCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexFlickButtonCollectionItem.swift; sourceTree = "<group>"; };
@@ -493,6 +496,7 @@
 		5BC9E1271EF6AA2700740834 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				5BC2CA741FFF90B9006AC6CB /* ThreadExtension.swift */,
 				5BC87C6E1EF903970071B4C3 /* UIImageExtensions.swift */,
 				5BB3660F1DBA382500C26FC0 /* StringExtension.swift */,
 				5BB114211DB8F7FD00719EEB /* NSAttributedStringExtension.swift */,
@@ -864,6 +868,7 @@
 				5B0859E41D7EE84B00484E8F /* FlexTextViewDemoViewController.swift in Sources */,
 				5BADFC631DA8E151004A5D12 /* FlexControlLayoutHelper.swift in Sources */,
 				5BC279C81EF800B5000A2F3A /* StyledLabelExtension.swift in Sources */,
+				5BC2CA761FFF90B9006AC6CB /* ThreadExtension.swift in Sources */,
 				5BC3A50A1F6FCC0200B4F553 /* FlexFlickButtonCollectionItem.swift in Sources */,
 				5BC14FEC1EFA845400B30350 /* SliderItemSizeInfo.swift in Sources */,
 				5BC87C761EF95C200071B4C3 /* SliderSeparatorSizeInfo.swift in Sources */,
@@ -1045,6 +1050,7 @@
 				5BD749E21F0642FC00A330AC /* FlexSnapStepperCollectionItem.swift in Sources */,
 				5B9F2C601D32352600B096B5 /* StyledSliderThumb.swift in Sources */,
 				5B72347D1E2CBFB10089A4E7 /* FlexButtonCollectionItem.swift in Sources */,
+				5BC2CA751FFF90B9006AC6CB /* ThreadExtension.swift in Sources */,
 				5B3FF7391E152C600077A106 /* FlexCellView.swift in Sources */,
 				5BB660461F2765F2006B0F36 /* FlexFlickButton.swift in Sources */,
 				5BB91CA91DA3DC3500A94D12 /* FlexBaseCollectionItem.swift in Sources */,

@@ -85,10 +85,12 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
                 self.setupTextLabel(self.textLabel, text: tvItem.textTitle)
                 var textArea = area
                 if let tt = tvItem.textTitle {
-                    let height = min(tt.heightWithConstrainedWidth(area.size.width), self.textTitleHeight)
+                    let textReqHeight = tt.heightWithConstrainedWidth(area.size.width)
+                    let height = min(textReqHeight, self.textTitleHeight)
                     let tlf = CGRect(x: area.origin.x, y: area.origin.y, width: area.size.width, height: height)
                     self.textLabel?.frame = tlf
-                    textArea = CGRect(x: area.origin.x, y: area.origin.y + height, width: area.size.width, height: area.size.height - height)
+                    let restHeight = height + (self.textTitleHeight - textReqHeight)
+                    textArea = CGRect(x: area.origin.x, y: area.origin.y + restHeight, width: area.size.width, height: area.size.height - restHeight)
                 }
                 if let tv = self.textView {
                     tv.frame = UIEdgeInsetsInsetRect(textArea, tvItem.textViewInsets)
