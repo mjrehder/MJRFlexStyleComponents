@@ -75,6 +75,13 @@ open class FlexViewSupplementaryView: FlexBaseStylingControl {
         }
     }
 
+    /// Set to override default of using image size to determince ImageView size
+    open var imageViewSize: CGSize? = nil {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+
     override open func initView() {
         super.initView()
         self.addSubview(self.caption)
@@ -88,7 +95,7 @@ open class FlexViewSupplementaryView: FlexBaseStylingControl {
         super.layoutSubviews()
         
         if !self.imageView.isHidden {
-            if let imgSize = self.imageView.image?.size {
+            if let imgSize = self.imageViewSize ?? self.imageView.image?.size {
                 let totalRect = UIEdgeInsetsInsetRect(self.bounds, self.imageViewInsets)
                 let xOffset: CGFloat
                 switch self.imageViewPosition {
