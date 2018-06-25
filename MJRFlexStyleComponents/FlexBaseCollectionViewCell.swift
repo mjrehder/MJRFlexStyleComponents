@@ -254,6 +254,16 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
                 }
             }
         }
+        if let cbip = item.imageViewCallbackImageProvider {
+            cbip.provideImage(forReference: item.reference) { icon in
+                DispatchQueue.main.async {
+                    if let icon = icon {
+                        item.icon = icon
+                        self.applyStyles()
+                    }
+                }
+            }
+        }
         if let placeholder = item.placeholderIcon {
             return placeholder
         }

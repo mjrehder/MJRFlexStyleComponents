@@ -214,6 +214,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     open func removeAllSections() {
         self.sections.removeAll()
         self.contentDic?.removeAll()
+        self.itemCollectionView.reloadData()
     }
     
     open func addSection(_ title: NSAttributedString? = nil, height: CGFloat? = nil, insets: UIEdgeInsets? = nil) -> String {

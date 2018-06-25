@@ -29,6 +29,10 @@
 
 import UIKit
 
+public protocol CallbackImageProvider {
+    func provideImage(forReference reference: String, completionHandler: @escaping (UIImage?)->Void)
+}
+
 open class FlexBaseCollectionItem: FlexCollectionItem {
     open var icon: UIImage?
     open var placeholderIcon: UIImage?
@@ -61,6 +65,7 @@ open class FlexBaseCollectionItem: FlexCollectionItem {
     open var imageViewActionHandler: (() -> Void)?
     open var imageViewFitting: FlexImageShapeFit?
     open var imageViewLazyImageProvider: ((String)->UIImage?)?
+    open var imageViewCallbackImageProvider: CallbackImageProvider?
     
     open var headerPosition: FlexViewHeaderPosition?
     
