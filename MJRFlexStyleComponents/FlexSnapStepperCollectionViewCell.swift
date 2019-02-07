@@ -67,7 +67,7 @@ open class FlexSnapStepperCollectionViewCell: FlexBaseCollectionViewCell {
             fs.numberFormatString = item.numberFormatString
             fs.thumbRatio = item.thumbRatio
             fs.thumbSize = item.thumbSize
-            fs.frame = UIEdgeInsetsInsetRect(imageViewRect, controlInsets)
+            fs.frame = imageViewRect.inset(by: controlInsets)
             let sliderTotalWidth = imageViewRect.size.width + controlInsets.left + controlInsets.right
             remainingCellArea = remainingCellArea.insetBy(dx: sliderTotalWidth*0.5, dy: 0).offsetBy(dx: -sliderTotalWidth*0.5, dy: 0)
         }

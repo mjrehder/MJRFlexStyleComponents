@@ -48,7 +48,7 @@ open class FlexViewMenu {
     let vPos: FlexViewMenuVerticalPosition
     let size: CGSize
     let menu: FlexMenu
-    open let id = UUID().uuidString
+    public let id = UUID().uuidString
     
     public init(menu: FlexMenu, size: CGSize, hPos: FlexViewMenuHorizontalPosition, vPos: FlexViewMenuVerticalPosition) {
         self.menu = menu

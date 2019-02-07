@@ -32,16 +32,16 @@ import UIKit
 open class FlexControlLayoutHelper {
     
     open class func horizontallyAlignTwoFlexControls(_ upperControl: FlexBaseControl, lowerControl: FlexBaseControl, area: CGRect) {
-        let upperFrame = UIEdgeInsetsInsetRect(CGRect(x: area.origin.x, y: area.origin.y, width: area.size.width, height: area.size.height * 0.5), upperControl.controlInsets)
-        let lowerFrame = UIEdgeInsetsInsetRect(CGRect(x: area.origin.x, y: area.origin.y + area.size.height * 0.5, width: area.size.width, height: area.size.height * 0.5), lowerControl.controlInsets)
+        let upperFrame = CGRect(x: area.origin.x, y: area.origin.y, width: area.size.width, height: area.size.height * 0.5).inset(by: upperControl.controlInsets)
+        let lowerFrame = CGRect(x: area.origin.x, y: area.origin.y + area.size.height * 0.5, width: area.size.width, height: area.size.height * 0.5).inset(by: lowerControl.controlInsets)
         upperControl.frame = upperFrame
         lowerControl.frame = lowerFrame
     }
     
-    open static func applyFontAndColorToString(_ font: UIFont, color: UIColor, text: String) -> NSAttributedString {
+    public static func applyFontAndColorToString(_ font: UIFont, color: UIColor, text: String) -> NSAttributedString {
         let attributedString = NSAttributedString(string: text, attributes:
-            [   NSAttributedStringKey.font : font,
-                NSAttributedStringKey.foregroundColor: color
+            [   NSAttributedString.Key.font : font,
+                NSAttributedString.Key.foregroundColor: color
             ])
         return attributedString
     }
@@ -52,10 +52,10 @@ open class FlexControlLayoutHelper {
         let ciLL = lowerLeft.controlInsets
         let ciLR = lowerRight.controlInsets
         
-        let upperLeftFrame = UIEdgeInsetsInsetRect(CGRect(x: area.origin.x, y: area.origin.y, width: area.size.width, height: area.size.height * 0.5), ciUL)
-        let lowerLeftFrame = UIEdgeInsetsInsetRect(CGRect(x: area.origin.x, y: area.origin.y + area.size.height * 0.5, width: area.size.width, height: area.size.height * 0.5), ciLL)
-        let upperRightFrame = UIEdgeInsetsInsetRect(CGRect(x: area.origin.x, y: area.origin.y, width: area.size.width, height: area.size.height * 0.5), ciUR)
-        let lowerRightFrame = UIEdgeInsetsInsetRect(CGRect(x: area.origin.x, y: area.origin.y + area.size.height * 0.5, width: area.size.width, height: area.size.height * 0.5), ciLR)
+        let upperLeftFrame = CGRect(x: area.origin.x, y: area.origin.y, width: area.size.width, height: area.size.height * 0.5).inset(by: ciUL)
+        let lowerLeftFrame = CGRect(x: area.origin.x, y: area.origin.y + area.size.height * 0.5, width: area.size.width, height: area.size.height * 0.5).inset(by: ciLL)
+        let upperRightFrame = CGRect(x: area.origin.x, y: area.origin.y, width: area.size.width, height: area.size.height * 0.5).inset(by: ciUR)
+        let lowerRightFrame = CGRect(x: area.origin.x, y: area.origin.y + area.size.height * 0.5, width: area.size.width, height: area.size.height * 0.5).inset(by: ciLR)
         
         let ulFont = upperLeft.label.font ?? UIFont.systemFont(ofSize: 12)
         let urFont = upperRight.label.font ?? UIFont.systemFont(ofSize: 12)

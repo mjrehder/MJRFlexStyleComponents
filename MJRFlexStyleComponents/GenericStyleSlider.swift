@@ -508,7 +508,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     override open func applyStyle(_ style: ShapeStyle) {
-        let layerRect = CGRect(origin: .zero, size: UIEdgeInsetsInsetRect(bounds, backgroundInsets).size)
+        let layerRect = CGRect(origin: .zero, size: bounds.inset(by: backgroundInsets).size)
         assert(layerRect.size.width > 0 && layerRect.size.height > 0)
         let bgsLayer = self.getBackgroundLayer(style)
         
@@ -533,8 +533,8 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     func sizeOfTextLabel(_ label: StyledLabel) -> CGSize? {
         if let font = label.font, let text = label.text {
             let textString = text as NSString
-            let textAttributes = [NSAttributedStringKey.font: font]
-            return textString.boundingRect(with: UIEdgeInsetsInsetRect(bounds, backgroundInsets).size, options: .usesLineFragmentOrigin, attributes: textAttributes, context: nil).size
+            let textAttributes = [NSAttributedString.Key.font: font]
+            return textString.boundingRect(with: bounds.inset(by: backgroundInsets).size, options: .usesLineFragmentOrigin, attributes: textAttributes, context: nil).size
         }
         return nil
     }
@@ -695,7 +695,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     }
     
     func layoutSeparators() {
-        let layerRect = UIEdgeInsetsInsetRect(bounds, backgroundInsets)
+        let layerRect = bounds.inset(by: backgroundInsets)
         assert(layerRect.size.width > 0 && layerRect.size.height > 0)
         let mainSizeH = self.direction.principalSize(layerRect.size) * 0.5
         

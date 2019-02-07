@@ -48,7 +48,7 @@ open class FlexCardViewCollectionViewCell: FlexBaseCollectionViewCell {
         let bRect = self.getBaseViewRect()
         let vRect = self.getViewRect()
         let bvInsets = self.bodyView?.controlInsets ?? .zero
-        return UIEdgeInsetsInsetRect(CGRect(x: vRect.origin.x, y: vRect.origin.y + bRect.size.height, width: vRect.size.width, height: vRect.size.height - bRect.size.height), bvInsets)
+        return CGRect(x: vRect.origin.x, y: vRect.origin.y + bRect.size.height, width: vRect.size.width, height: vRect.size.height - bRect.size.height).inset(by: bvInsets)
     }
     
     open override func getBaseViewRect() -> CGRect {

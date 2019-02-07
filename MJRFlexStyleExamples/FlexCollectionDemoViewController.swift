@@ -40,7 +40,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         // Search Bar demo
         let sb = FlexViewSearchTopBar(frame: CGRect(x: 0, y: 0, width: 100, height: 36))
         sb.barStyleColor = UIColor.MKColor.Brown.P500
-        sb.controlInsets = UIEdgeInsetsMake(4, 4, 4, 4)
+        sb.controlInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         self.demoCollectionView.topBar = sb
         self.demoCollectionView.topBarHeight = 36
         sb.filterContentForSearchText = { searchText in
@@ -58,8 +58,8 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         uiviewApp.backgroundColor = UIColor.MKColor.Brown.P50
 
         // Create sections with a title. Remember to set the height and if needed also the insets, as these parameters are otherwise 0 and .zero
-        let secRef = self.demoCollectionView.addSection(NSAttributedString(string: "Section 1"), height: 18, insets: UIEdgeInsetsMake(2, 2, 2, 2))
-        let sec2Ref = self.demoCollectionView.addSection(NSAttributedString(string: "Section 2"), height: 18, insets: UIEdgeInsetsMake(2, 2, 2, 2))
+        let secRef = self.demoCollectionView.addSection(NSAttributedString(string: "Section 1"), height: 18, insets: UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2))
+        let sec2Ref = self.demoCollectionView.addSection(NSAttributedString(string: "Section 2"), height: 18, insets: UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2))
 
         // Set overall apperance for the section headers
         let headerAppearance = FlexLabel.appearance(whenContainedInInstancesOf: [SimpleHeaderCollectionReusableView.self])
@@ -81,7 +81,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         cellBaseAppearance.imageViewSize = CGSize(width: 48,height: 32)
         cellBaseAppearance.imageViewStyle = FlexShapeStyle(style: .roundedFixed(cornerRadius: 5))
         cellBaseAppearance.accessoryViewSize = CGSize(width: 18,height: 18)
-        cellBaseAppearance.controlInsets = UIEdgeInsetsMake(5, 5, 5, 10)
+        cellBaseAppearance.controlInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 10)
 
         // Set the supplementary (header) of cells style
         let cellHeaderViewAppearance = FlexViewSupplementaryView.appearance(whenContainedInInstancesOf: [FlexCollectionViewCell.self])
@@ -149,7 +149,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         item2.textIsMutable = true
         item2.textTitle = NSAttributedString(string: "Text Title Very Long in order to test the auto cut-off and layout")
         item2.autodetectTextSizeFittingAndTruncateWithString = NSAttributedString(string: "...")
-        item2.textViewInsets = UIEdgeInsetsMake(3, 0, 0, 0)
+        item2.textViewInsets = UIEdgeInsets(top: 13, left: 0, bottom: 0, right: 0)
         self.demoCollectionView.addItem(secRef, item: item2)
         
         // Text Field Collection Item
@@ -201,7 +201,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         let sliderItem = FlexSliderCollectionItem(reference: "slider", value: 0.6, text: NSAttributedString(string: "Slider"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 4")) { (value) in
             NSLog("The slider is now \(value)")
         }
-        sliderItem.controlInsets = UIEdgeInsetsMake(0, 0, 8, 8)
+        sliderItem.controlInsets = UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 8)
         sliderItem.numberFormatString = nil
         sliderItem.thumbText = ""
 
@@ -214,7 +214,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
 
         let imageItem = FlexImageCollectionItem(reference: "image", image: UIImage(named: "DemoImage"), title: NSAttributedString(string: "Item 5"))
         imageItem.underTitle = NSAttributedString(string: "subtitle for demo image")
-        imageItem.controlInsets = UIEdgeInsetsMake(2, 2, 2, 2)
+        imageItem.controlInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
         self.demoCollectionView.addItem(sec2Ref, item: imageItem)
         
 
@@ -264,14 +264,14 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         
         // Card Text View
         let ftvApp = FlexTextView.appearance(whenContainedInInstancesOf: [FlexCardTextViewCollectionViewCell.self])
-        ftvApp.controlInsets = UIEdgeInsetsMake(0, 10, 5, 10)
+        ftvApp.controlInsets = UIEdgeInsets(top: 0, left: 10, bottom: 5, right: 10)
         ftvApp.style = FlexShapeStyle(style: .roundedFixed(cornerRadius: 10))
         ftvApp.styleColor = UIColor.MKColor.Brown.P50
-        ftvApp.contentViewMargins = UIEdgeInsetsMake(2, 0, 1, 0)
+        ftvApp.contentViewMargins = UIEdgeInsets(top: 2, left: 0, bottom: 1, right: 0)
         
         let cardApp = FlexCardTextViewCollectionViewCell.appearance()
         cardApp.textColor = UIColor.MKColor.Grey.P800
-        cardApp.textContainerInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+        cardApp.textContainerInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
         let item8 = FlexCardTextViewCollectionItem(reference: "item8ref", text: NSAttributedString(string: "Text String"), icon: ti1, accessoryImage: nil, title: NSAttributedString(string: "Item 8"))
         item8.infoText = NSAttributedString(string: "Info")
@@ -298,7 +298,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         let snapperItem = FlexSnapStepperCollectionItem(reference: "snapStepper", value: 0.0, text: NSAttributedString(string: "Snap Stepper"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 9")) { (value) in
             NSLog("The snap stepper value is now \(value)")
         }
-        snapperItem.controlInsets = UIEdgeInsetsMake(0, 0, 4, 60)
+        snapperItem.controlInsets = UIEdgeInsets(top: 0, left: 0, bottom: 4, right: 60)
         snapperItem.numberFormatString = "%0.2lf"
         
         self.demoCollectionView.addItem(sec2Ref, item: snapperItem)

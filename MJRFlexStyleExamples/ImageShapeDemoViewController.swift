@@ -68,7 +68,7 @@ class ImageShapeDemoViewController: UIViewController, FlexMenuDataSource {
         self.imageShapeView.image = UIImage(named: "DemoImage")
         self.imageShapeView.imageStyle = FlexShapeStyle(style: .roundedFixed(cornerRadius: 10.0))
         self.imageShapeView.backgroundImageFit = .scaleToFit
-        self.imageShapeView.contentViewMargins = UIEdgeInsetsMake(10, 10, 10, 10)
+        self.imageShapeView.contentViewMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     
     // MARK: - FlexMenuDataSource

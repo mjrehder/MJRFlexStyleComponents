@@ -71,15 +71,15 @@ open class FlexViewSearchTopBar: FlexViewTopBar, UISearchBarDelegate {
     }
     
     open func layoutSearchBar() {
-        self.searchBar?.frame = UIEdgeInsetsInsetRect(self.bounds, self.controlInsets)
-        self.searchBar?.searchBarStyle  = UISearchBarStyle.minimal
+        self.searchBar?.frame = self.bounds.inset(by: self.controlInsets)
+        self.searchBar?.searchBarStyle  = UISearchBar.Style.minimal
         self.searchBar?.tintColor       = self.barStyleColor
         self.searchBar?.backgroundColor = self.barBackgroundColor
         self.searchBar?.placeholder     = self.searchBarPlaceholder
     }
     
     open func createSearchBar() {
-        self.searchBar = UISearchBar(frame: UIEdgeInsetsInsetRect(self.bounds, self.controlInsets))
+        self.searchBar = UISearchBar(frame: self.bounds.inset(by: self.controlInsets))
         self.searchBar?.delegate = self
         self.addSubview(self.searchBar!)
     }

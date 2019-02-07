@@ -40,7 +40,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
     
     open var flexContentView: FlexCellView?
     
-    @objc open dynamic var controlInsets: UIEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5) {
+    @objc open dynamic var controlInsets: UIEdgeInsets = UIEdgeInsets.init(top: 5, left: 5, bottom: 5, right: 5) {
         didSet {
             self.setNeedsLayout()
         }
@@ -52,7 +52,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         }
     }
     
-    @objc open dynamic var imageViewInsets: UIEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 0) {
+    @objc open dynamic var imageViewInsets: UIEdgeInsets = UIEdgeInsets.init(top: 5, left: 5, bottom: 5, right: 0) {
         didSet {
             self.setNeedsLayout()
         }
@@ -70,7 +70,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         }
     }
     
-    @objc open dynamic var accessoryViewInsets: UIEdgeInsets = UIEdgeInsetsMake(5, 0, 5, 5) {
+    @objc open dynamic var accessoryViewInsets: UIEdgeInsets = UIEdgeInsets.init(top: 5, left: 0, bottom: 5, right: 5) {
         didSet {
             self.setNeedsLayout()
         }
@@ -392,7 +392,7 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
                 remainingCellArea = self.getControlArea()
                 
                 let controlInsets = item.controlInsets ?? self.controlInsets
-                self.layoutControl(item, area: UIEdgeInsetsInsetRect(remainingCellArea, controlInsets))
+                self.layoutControl(item, area: remainingCellArea.inset(by: controlInsets))
             case .iconified(_):
                 self.accessoryView?.isHidden = true
                 self.setupAllTextLabels(item)

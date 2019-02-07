@@ -113,7 +113,7 @@ open class FlexLabel: FlexBaseControl {
         }
         self.label.textAlignment = labelTextAlignment
         
-        self.label.frame = UIEdgeInsetsInsetRect(self.bounds, UIEdgeInsetsMake(0, self.labelLeftOffset, 0, self.labelRightOffset))
+        self.label.frame = self.bounds.inset(by: UIEdgeInsets.init(top: 0, left: self.labelLeftOffset, bottom: 0, right: self.labelRightOffset))
     }
     
     func applyStyle() {

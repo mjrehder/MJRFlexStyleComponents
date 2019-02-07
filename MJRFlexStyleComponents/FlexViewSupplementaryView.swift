@@ -96,7 +96,7 @@ open class FlexViewSupplementaryView: FlexBaseStylingControl {
         
         if !self.imageView.isHidden {
             if let imgSize = self.imageViewSize ?? self.imageView.image?.size {
-                let totalRect = UIEdgeInsetsInsetRect(self.bounds, self.imageViewInsets)
+                let totalRect = self.bounds.inset(by: self.imageViewInsets)
                 let xOffset: CGFloat
                 switch self.imageViewPosition {
                 case .center:

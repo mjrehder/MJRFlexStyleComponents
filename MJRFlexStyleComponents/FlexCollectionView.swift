@@ -127,14 +127,14 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     
     @objc func handleLongGesture(_ gesture: UILongPressGestureRecognizer) {
         switch(gesture.state) {
-        case UIGestureRecognizerState.began:
+        case UIGestureRecognizer.State.began:
             guard let selectedIndexPath = self.itemCollectionView.indexPathForItem(at: gesture.location(in: self.itemCollectionView)) else {
                 break
             }
             self.itemCollectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
-        case UIGestureRecognizerState.changed:
+        case UIGestureRecognizer.State.changed:
             self.itemCollectionView.updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
-        case UIGestureRecognizerState.ended:
+        case UIGestureRecognizer.State.ended:
             self.itemCollectionView.endInteractiveMovement()
         default:
             self.itemCollectionView.cancelInteractiveMovement()
@@ -163,8 +163,8 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         
         self.registerDefaultCells()
         
-        self.itemCollectionView.register(SimpleHeaderCollectionReusableView.classForCoder(), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: simpleHeaderViewID)
-        self.itemCollectionView.register(EmptyHeaderCollectionReusableView.classForCoder(), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: emptyHeaderViewID)
+        self.itemCollectionView.register(SimpleHeaderCollectionReusableView.classForCoder(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: simpleHeaderViewID)
+        self.itemCollectionView.register(EmptyHeaderCollectionReusableView.classForCoder(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: emptyHeaderViewID)
         
         self.itemCollectionView.allowsMultipleSelection = self.allowsMultipleSelection
         self.itemCollectionView.allowsSelection = self.allowsSelection
@@ -200,11 +200,11 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     func setupCollectionView() {
         if self.justCreated {
             self.justCreated = false
-            self.itemCollectionView.frame = UIEdgeInsetsInsetRect(self.getViewRect(), self.viewMargins)
+            self.itemCollectionView.frame = self.getViewRect().inset(by: self.viewMargins)
         }
         else {
             UIView.animate(withDuration: 0.25, animations: {
-                self.itemCollectionView.frame = UIEdgeInsetsInsetRect(self.getViewRect(), self.viewMargins)
+                self.itemCollectionView.frame = self.getViewRect().inset(by: self.viewMargins)
             })
         }
     }
@@ -260,7 +260,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     }
     
     open func selectItem(_ itemReference: String) {
-        self.itemCollectionView.selectItem(at: self.getIndexPathForItem(itemReference), animated: true, scrollPosition: UICollectionViewScrollPosition())
+        self.itemCollectionView.selectItem(at: self.getIndexPathForItem(itemReference), animated: true, scrollPosition: UICollectionView.ScrollPosition())
     }
     
     open func deselectItem(_ itemReference: String) {
@@ -430,15 +430,15 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     }
     
     open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionElementKindSectionHeader {
+        if kind == UICollectionView.elementKindSectionHeader {
             let sec = self.sections[indexPath.section]
             if let title = sec.title {
-                if let headerView = self.itemCollectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: simpleHeaderViewID, for: indexPath) as? SimpleHeaderCollectionReusableView {
+                if let headerView = self.itemCollectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: simpleHeaderViewID, for: indexPath) as? SimpleHeaderCollectionReusableView {
                     headerView.title?.label.attributedText = title
                     return headerView
                 }
             }
-            if let headerView = self.itemCollectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: emptyHeaderViewID, for: indexPath) as? EmptyHeaderCollectionReusableView {
+            if let headerView = self.itemCollectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: emptyHeaderViewID, for: indexPath) as? EmptyHeaderCollectionReusableView {
                 return headerView
             }
         }
@@ -492,7 +492,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
                     if (totalCellWidth < contentWidth) {
                         let padding = (contentWidth - totalCellWidth) / 2.0
                         let sec = self.sections[section]
-                        return UIEdgeInsetsMake(sec.insets.top, padding, sec.insets.bottom, padding)
+                        return UIEdgeInsets.init(top: sec.insets.top, left: padding, bottom: sec.insets.bottom, right: padding)
                     }
                 }
             }
@@ -515,7 +515,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
                     item.itemDeselectionActionHandler?()
                 }
                 else if !item.isSelected {
-                    self.itemCollectionView.selectItem(at: ip, animated: true, scrollPosition: UICollectionViewScrollPosition())
+                    self.itemCollectionView.selectItem(at: ip, animated: true, scrollPosition: UICollectionView.ScrollPosition())
                     self.flexCollectionDelegate?.onFlexCollectionItemSelected(self, item: item)
                     item.itemSelectionActionHandler?()
                     item.itemPrecisionSelectionActionHandler?(xRelPos, yRelPos)
@@ -535,7 +535,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
         if self.refreshControl == nil && self.isRefreshControlAvailable {
             self.refreshControl = UIRefreshControl()
             self.refreshControl?.tintColor = .clear
-            self.refreshControl?.addTarget(self, action: #selector(FlexCollectionView.refreshControlAction), for: UIControlEvents.valueChanged)
+            self.refreshControl?.addTarget(self, action: #selector(FlexCollectionView.refreshControlAction), for: UIControl.Event.valueChanged)
         }
         if let rc = self.refreshControl {
             if !rc.isDescendant(of: self.itemCollectionView) {
@@ -558,7 +558,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     open override func hideTopBar(completionHandler: (() -> Void)? = nil) {
         super.hideTopBar {
             UIView.animate(withDuration: 0.25, animations: {
-                self.itemCollectionView.frame = UIEdgeInsetsInsetRect(self.getViewRect(), self.viewMargins)
+                self.itemCollectionView.frame = self.getViewRect().inset(by: self.viewMargins)
             })
         }
     }

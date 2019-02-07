@@ -35,7 +35,7 @@ extension StyledLabel {
     /*
      Only for text, not for NSAttributedString usage in StyledLabel
      */
-    func fitFontForSize(minFontSize : CGFloat = 5.0, maxFontSize : CGFloat = 300.0, accuracy : CGFloat = 1.0, margins: UIEdgeInsets = UIEdgeInsetsMake(2, 2, 2, 2)) {
+    func fitFontForSize(minFontSize : CGFloat = 5.0, maxFontSize : CGFloat = 300.0, accuracy : CGFloat = 1.0, margins: UIEdgeInsets = UIEdgeInsets.init(top: 2, left: 2, bottom: 2, right: 2)) {
         assert(maxFontSize > minFontSize)
         if let text = self.text, let font = self.font {
             self.font = font.withSize(self.fittingFontSize(text: text, minFontSize: minFontSize, maxFontSize: maxFontSize, accuracy: accuracy, margins: margins))
@@ -43,14 +43,14 @@ extension StyledLabel {
         }
     }
     
-    func fittingFontSize(text: String, minFontSize : CGFloat = 5.0, maxFontSize : CGFloat = 300.0, accuracy : CGFloat = 1.0, margins: UIEdgeInsets = UIEdgeInsetsMake(2, 2, 2, 2)) -> CGFloat {
+    func fittingFontSize(text: String, minFontSize : CGFloat = 5.0, maxFontSize : CGFloat = 300.0, accuracy : CGFloat = 1.0, margins: UIEdgeInsets = UIEdgeInsets.init(top: 2, left: 2, bottom: 2, right: 2)) -> CGFloat {
         assert(maxFontSize > minFontSize)
         if let font = self.font {
             var tempFont = font
             var minfs = minFontSize
             var maxfs = maxFontSize
             layoutIfNeeded()
-            let constrainedSize = UIEdgeInsetsInsetRect(bounds, margins).size
+            let constrainedSize = bounds.inset(by: margins).size
             
             while maxfs - minfs > accuracy {
                 let midFontSize : CGFloat = ((minfs + maxfs) / 2)

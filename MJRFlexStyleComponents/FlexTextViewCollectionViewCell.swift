@@ -93,7 +93,7 @@ open class FlexTextViewCollectionViewCell: FlexBaseCollectionViewCell, UITextVie
                     textArea = CGRect(x: area.origin.x, y: area.origin.y + restHeight, width: area.size.width, height: area.size.height - restHeight)
                 }
                 if let tv = self.textView {
-                    tv.frame = UIEdgeInsetsInsetRect(textArea, tvItem.textViewInsets)
+                    tv.frame = textArea.inset(by: tvItem.textViewInsets)
                     tv.backgroundColor = self.textViewBackgroundColor
                     tv.delegate = tvItem.textViewDelegate ?? self
                     tv.prepareDefault()

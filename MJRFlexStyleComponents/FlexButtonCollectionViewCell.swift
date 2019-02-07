@@ -34,7 +34,7 @@ open class FlexButtonCollectionViewCell: FlexCollectionViewCell {
     
     open var flexContentView: FlexCellView?
     
-    @objc open dynamic var controlInsets: UIEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5) {
+    @objc open dynamic var controlInsets: UIEdgeInsets = UIEdgeInsets.init(top: 5, left: 5, bottom: 5, right: 5) {
         didSet {
             self.setNeedsLayout()
         }
@@ -109,7 +109,7 @@ open class FlexButtonCollectionViewCell: FlexCollectionViewCell {
             self.applySelectionStyles(fcv)
             let remainingCellArea = fcv.getViewRect()
             let controlInsets = item.controlInsets ?? self.controlInsets
-            self.layoutText(item, area: UIEdgeInsetsInsetRect(remainingCellArea, controlInsets))
+            self.layoutText(item, area: remainingCellArea.inset(by: controlInsets))
         }
         super.applyStyles()
     }

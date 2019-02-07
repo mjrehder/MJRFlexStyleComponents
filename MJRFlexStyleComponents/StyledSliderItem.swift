@@ -57,7 +57,7 @@ open class StyledSliderItem: StyledLabel {
                     iSize = bgi.size
                 case .relativeToSliderItem:
                     let minSize = CGSize(width: min(si.maxIconSize?.width ?? CGFloat.infinity, visibleBounds.size.width), height: min(si.maxIconSize?.height ?? CGFloat.infinity, visibleBounds.size.height))
-                    let maxSize = UIEdgeInsetsInsetRect(CGRect(origin: visibleBounds.origin, size: minSize), si.iconInsetsForAutoSize).size
+                    let maxSize = CGRect(origin: visibleBounds.origin, size: minSize).inset(by: si.iconInsetsForAutoSize).size
                     let ws = maxSize.width/bgi.size.width
                     let hs = maxSize.height/bgi.size.height
                     let scale = min( ws, hs)
@@ -67,7 +67,7 @@ open class StyledSliderItem: StyledLabel {
                     let reo = self.relativeEdgeOffset ?? 1.0
                     let pSize = CGSize(width: iMaxSize.width * reo, height: iMaxSize.height * reo)
                     let iMinSize = CGSize(width: max(minSize.width, pSize.width), height: max(minSize.height, pSize.height))
-                    let maxSize = UIEdgeInsetsInsetRect(CGRect(origin: visibleBounds.origin, size: iMinSize), si.iconInsetsForAutoSize).size
+                    let maxSize = CGRect(origin: visibleBounds.origin, size: iMinSize).inset(by: si.iconInsetsForAutoSize).size
                     let ws = maxSize.width/bgi.size.width
                     let hs = maxSize.height/bgi.size.height
                     let scale = min( ws, hs)

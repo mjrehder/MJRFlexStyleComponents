@@ -42,11 +42,11 @@ public enum SliderFontSizingType {
 }
 
 open class SliderItemSizeInfo {
-    open var textInsetsForAutoTextFont = UIEdgeInsetsMake(2, 2, 2, 2)
+    open var textInsetsForAutoTextFont = UIEdgeInsets.init(top: 2, left: 2, bottom: 2, right: 2)
     open var textSizingType: SliderFontSizingType = .scaleToFit
     open var maxFontSize: CGFloat = 48.0
     
-    open var iconInsetsForAutoSize = UIEdgeInsetsMake(2, 2, 2, 2)
+    open var iconInsetsForAutoSize = UIEdgeInsets.init(top: 2, left: 2, bottom: 2, right: 2)
     open var iconSizingType: SliderIconSizingType = .relativeToSliderItem
     open var maxIconSize: CGSize?
     

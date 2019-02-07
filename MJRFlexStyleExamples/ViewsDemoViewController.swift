@@ -40,7 +40,7 @@ class ViewsDemoViewController: UIViewController {
         self.outerFlexView.footer.caption.labelTextAlignment = .center
 
         leftFlexView.headerPosition = .left
-        leftFlexView.backgroundInsets = UIEdgeInsetsMake(0, 20, 0, 0)
+        leftFlexView.backgroundInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         leftFlexView.headerText = "Left"
         leftFlexView.footerText = "Left Footer"
         leftFlexView.styleColor = UIColor.MKColor.Amber.P100
@@ -57,7 +57,7 @@ class ViewsDemoViewController: UIViewController {
         leftFlexView.style = FlexShapeStyle(style: .custom(path: UIBezierPath(roundedRect: leftFlexView.bounds, cornerRadius: 10)))
         
         rightFlexView.headerPosition = .right
-        rightFlexView.backgroundInsets = UIEdgeInsetsMake(0, 15, 0, 20)
+        rightFlexView.backgroundInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 20)
         rightFlexView.headerText = "Right"
         rightFlexView.footerText = "Footer"
         rightFlexView.footerSecondaryText = "2nd Caption"

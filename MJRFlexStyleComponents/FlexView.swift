@@ -331,11 +331,11 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
                 heightReduce += self.topBarHeight
                 topOffset += self.topBarHeight
             }
-            return UIEdgeInsetsInsetRect(CGRect(x: 0, y: topOffset, width: self.bounds.size.width, height: self.bounds.size.height - heightReduce), margins)
+            return CGRect(x: 0, y: topOffset, width: self.bounds.size.width, height: self.bounds.size.height - heightReduce).inset(by: margins)
         case .left:
-            return UIEdgeInsetsInsetRect(CGRect(x: topOffset, y: 0, width: self.bounds.size.width - heightReduce, height: self.bounds.size.height), margins)
+            return CGRect(x: topOffset, y: 0, width: self.bounds.size.width - heightReduce, height: self.bounds.size.height).inset(by: margins)
         case .right:
-            return UIEdgeInsetsInsetRect(CGRect(x: bottomOffset, y: 0, width: self.bounds.size.width - heightReduce, height: self.bounds.size.height), margins)
+            return CGRect(x: bottomOffset, y: 0, width: self.bounds.size.width - heightReduce, height: self.bounds.size.height).inset(by: margins)
         }
     }
     
@@ -344,7 +344,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
     open func rectForHeader() -> CGRect {
         let headerPos = self.headerPosition
         let hSize = self.headerSize
-        let vBounds = UIEdgeInsetsInsetRect(self.bounds, self.viewElementsInsets)
+        let vBounds = self.bounds.inset(by: self.viewElementsInsets)
         switch headerPos {
         case .top:
             return CGRect(x: vBounds.minX, y: vBounds.minY, width: vBounds.size.width, height: hSize)
@@ -358,7 +358,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
     open func rectForFooter() -> CGRect {
         let headerPos = self.headerPosition
         let fSize = self.footerSize
-        let vBounds = UIEdgeInsetsInsetRect(self.bounds, self.viewElementsInsets)
+        let vBounds = self.bounds.inset(by: self.viewElementsInsets)
         switch headerPos {
         case .top:
             return CGRect(x: vBounds.minX, y: vBounds.minY + vBounds.height - fSize, width: vBounds.width, height: fSize)
@@ -418,7 +418,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             let ht = self.getHeaderText()
             let sht = self.getSubHeaderText()
             let hb = rfh.offsetBy(dx: -hr.origin.x, dy: -hr.origin.y)
-            let stRect = UIEdgeInsetsInsetRect(hb, self.header.controlInsets)
+            let stRect = hb.inset(by: self.header.controlInsets)
             let hth = ht.heightWithConstrainedWidth(stRect.width)
             let shth = sht.heightWithConstrainedWidth(stRect.width)
             let totalHeight = hth + shth
@@ -431,7 +431,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             let hr = self.rectForHeader()
             self.layoutSupplementaryView(self.header, frame: hr)
             let hb = rfh.offsetBy(dx: -hr.origin.x, dy: -hr.origin.y)
-            let stRect = UIEdgeInsetsInsetRect(hb, self.header.controlInsets)
+            let stRect = hb.inset(by: self.header.controlInsets)
             self.layoutSupplementaryTextLabels(self.header.caption, frame: stRect, attributedText: self.getHeaderText())
             self.header.subCaption.label.attributedText = nil
         }
@@ -451,7 +451,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             let ht = self.getFooterText()
             let sht = self.getSubFooterText()
             let fb = rff.offsetBy(dx: -fr.origin.x, dy: -fr.origin.y)
-            let stRect = UIEdgeInsetsInsetRect(fb, self.footer.controlInsets)
+            let stRect = fb.inset(by: self.footer.controlInsets)
             let hth = ht.heightWithConstrainedWidth(stRect.width)
             let shth = sht.heightWithConstrainedWidth(stRect.width)
             let totalHeight = hth + shth
@@ -467,7 +467,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             let fr = self.rectForFooter()
             self.layoutSupplementaryView(self.footer, frame: fr)
             let fb = rff.offsetBy(dx: -fr.origin.x, dy: -fr.origin.y)
-            let stRect = UIEdgeInsetsInsetRect(fb, self.footer.controlInsets)
+            let stRect = fb.inset(by: self.footer.controlInsets)
             self.layoutSupplementaryTextLabels(self.footer.caption, frame: stRect, attributedText: self.getFooterText())
             hasFooterText = true
             self.footer.caption.isHidden = false
@@ -478,7 +478,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             let fr = self.rectForFooter()
             self.layoutSupplementaryView(self.footer, frame: fr)
             let fb = rff.offsetBy(dx: -fr.origin.x, dy: -fr.origin.y)
-            let stRect = UIEdgeInsetsInsetRect(fb, self.footer.controlInsets)
+            let stRect = fb.inset(by: self.footer.controlInsets)
             self.layoutSupplementaryTextLabels(self.footer.secondaryCaption, frame: stRect, attributedText: self.getSecondaryFooterText())
             hasFooterText = true
             self.footer.secondaryCaption.isHidden = false
@@ -554,7 +554,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
     }
     
     func applyMaskToSupplementaryView(_ suppView: FlexViewSupplementaryView, inSupplementaryRect suppRect: CGRect) {
-        let layerRect = UIEdgeInsetsInsetRect(bounds, backgroundInsets)
+        let layerRect = bounds.inset(by: backgroundInsets)
         let maskShape = CAShapeLayer()
         let path = StyledShapeLayer.shapePathForStyle(self.getStyle(), bounds: layerRect)
         maskShape.path = path.cgPath
@@ -573,7 +573,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
         let headerPos = self.headerPosition
         menu.menu.direction = headerPos == .top ? .horizontal : . vertical
         menu.menu.menuItemGravity = headerPos == .top ? .normal : (headerPos == .left ? .right : .left)
-        let layerRect = UIEdgeInsetsInsetRect(UIEdgeInsetsInsetRect(bounds, self.backgroundInsets), self.viewElementsInsets)
+        let layerRect = bounds.inset(by: self.backgroundInsets).inset(by: self.viewElementsInsets)
         var msize = menu.size
         var mpos = layerRect.origin
         switch menu.hPos {
@@ -645,7 +645,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
             npvp = headerPos == .right ? 0 : npw - fSize
         }
         mpos = menu.menu.direction.getPosition(CGPoint(x: menu.menu.direction.principalPosition(mpos), y: npvp))
-        menu.menu.frame = UIEdgeInsetsInsetRect(CGRect(x: mpos.x + iOffset.x, y: mpos.y + iOffset.y, width: msize.width, height: msize.height), menu.menu.controlInsets)
+        menu.menu.frame = CGRect(x: mpos.x + iOffset.x, y: mpos.y + iOffset.y, width: msize.width, height: msize.height).inset(by: menu.menu.controlInsets)
     }
     
     // MARK: - Top Bar

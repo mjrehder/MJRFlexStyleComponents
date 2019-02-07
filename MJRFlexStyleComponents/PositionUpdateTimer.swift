@@ -53,7 +53,7 @@ class PositionUpdateTimer {
         
         let newTimer = Timer(timeInterval: frequency, target: self, selector: #selector(PositionUpdateTimer.repeatTick), userInfo: nil, repeats: true)
         self.timer   = newTimer
-        RunLoop.current.add(newTimer, forMode: RunLoopMode.commonModes)
+        RunLoop.current.add(newTimer, forMode: RunLoop.Mode.common)
     }
     
     @objc func repeatTick(_ sender: AnyObject?) {
