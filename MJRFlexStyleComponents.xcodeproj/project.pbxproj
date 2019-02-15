@@ -762,7 +762,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MJRFlexStyleExamples/Pods-MJRFlexStyleExamples-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-MJRFlexStyleExamples/Pods-MJRFlexStyleExamples-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/DynamicColor/DynamicColor.framework",
 				"${BUILT_PRODUCTS_DIR}/StyledLabel/StyledLabel.framework",
 			);
@@ -773,7 +773,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MJRFlexStyleExamples/Pods-MJRFlexStyleExamples-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MJRFlexStyleExamples/Pods-MJRFlexStyleExamples-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		663A2308D4E6594C2DA7D7D5 /* [CP] Check Pods Manifest.lock */ = {

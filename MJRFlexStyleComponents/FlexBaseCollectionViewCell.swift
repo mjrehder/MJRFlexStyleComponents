@@ -169,11 +169,11 @@ open class FlexBaseCollectionViewCell: FlexCollectionViewCell {
         return self.bounds
     }
     
-    /// This is the area that remains when the image view area and the accessory view area is subtracted from the total view area
+    /// This is the area that remains when the image view area and the accessory view area are subtracted from the total view area
     open func getControlArea() -> CGRect {
         if let item = self.item as? FlexBaseCollectionItem {
             var remainingCellArea = self.getBaseViewRect()
-            if item.icon != nil {
+            if item.icon != nil || item.placeholderIcon != nil {
                 let iconInsets = self.imageViewInsets
                 let iconSize = self.imageViewSize
                 let imageViewRect = CGRect(origin: CGPoint.zero, size: iconSize)
