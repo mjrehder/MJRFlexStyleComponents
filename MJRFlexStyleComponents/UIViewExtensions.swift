@@ -29,8 +29,8 @@
 
 import UIKit
 
-public extension UIView {
-    @objc func showHide(hide: Bool = false, completionHandler: (()->Void)? = nil) {
+extension UIView {
+    @objc open func showHide(hide: Bool = false, completionHandler: (()->Void)? = nil) {
         DispatchQueue.main.async {
             if self.isHidden == hide {
                 completionHandler?()
