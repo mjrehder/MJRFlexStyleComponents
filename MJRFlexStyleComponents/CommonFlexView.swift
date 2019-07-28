@@ -31,9 +31,9 @@ import UIKit
 
 open class CommonFlexView: FlexView {
     private var closeViewMenu: CommonIconViewMenu?
-    var rightViewMenu: CommonIconViewMenu?
+    public var rightViewMenu: CommonIconViewMenu?
     
-    func createBackOrCloseLeftMenu(closeHandler: @escaping ()->Void) {
+    public func createBackOrCloseLeftMenu(closeHandler: @escaping ()->Void) {
         self.closeViewMenu = CommonIconViewMenu(size: CGSize(width: 50, height: 36), hPos: .left, vPos: .header, menuIconSize: 24)
         self.closeViewMenu?.createCloseIconMenuItem()
         self.closeViewMenu?.menuSelectionHandler = {
@@ -45,7 +45,7 @@ open class CommonFlexView: FlexView {
         self.addMenu(self.closeViewMenu!)
     }
     
-    func hideViewElements(hide: Bool = false) {
+    public func hideViewElements(hide: Bool = false) {
         self.closeViewMenu?.viewMenu?.showHide(hide: hide)
     }
 }

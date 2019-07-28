@@ -180,7 +180,7 @@ public class CommonIconViewMenu: FlexViewMenu {
         return vm1
     }
     
-    func getImage(named imageName: String) -> UIImage? {
+    public func getImage(named imageName: String) -> UIImage? {
         return UIImage(named: imageName, in: Bundle(for: CommonIconViewMenu.self), compatibleWith: nil) ?? UIImage(named: imageName)
     }
 

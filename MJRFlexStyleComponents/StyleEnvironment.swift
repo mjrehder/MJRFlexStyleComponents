@@ -33,4 +33,5 @@ open class StyleEnvironment {
     public static var iconsColor = UIColor.white
     public static var disabledIconsColor = UIColor(white: 0.6, alpha: 1.0)
 
+    public init() {}
 }
