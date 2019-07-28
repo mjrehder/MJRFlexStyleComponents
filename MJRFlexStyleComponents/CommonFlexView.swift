@@ -45,7 +45,7 @@ open class CommonFlexView: FlexView {
         self.addMenu(self.closeViewMenu!)
     }
     
-    public func hideViewElements(hide: Bool = false) {
+    open func hideViewElements(hide: Bool = false) {
         self.closeViewMenu?.viewMenu?.showHide(hide: hide)
     }
 }
