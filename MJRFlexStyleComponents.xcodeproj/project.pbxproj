@@ -21,6 +21,8 @@
 		5B1112AC22EDB6DE009AD75B /* StyleEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1112AA22EDB6DE009AD75B /* StyleEnvironment.swift */; };
 		5B1112AE22EDB957009AD75B /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1112AD22EDB957009AD75B /* UIViewExtensions.swift */; };
 		5B1112AF22EDB957009AD75B /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1112AD22EDB957009AD75B /* UIViewExtensions.swift */; };
+		5B1112BD22EE0B1F009AD75B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B1112BC22EE0B1F009AD75B /* Media.xcassets */; };
+		5B1112BE22EE0B1F009AD75B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B1112BC22EE0B1F009AD75B /* Media.xcassets */; };
 		5B12A8E11D72EBE50072D1E1 /* FlexImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B12A8E01D72EBE50072D1E1 /* FlexImageView.swift */; };
 		5B12A8E21D72EBE50072D1E1 /* FlexImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B12A8E01D72EBE50072D1E1 /* FlexImageView.swift */; };
 		5B12A8E41D73066E0072D1E1 /* ImageViewDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B12A8E31D73066E0072D1E1 /* ImageViewDemoViewController.swift */; };
@@ -231,6 +233,7 @@
 		5B1112A722EDAEA6009AD75B /* CommonIconViewMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonIconViewMenu.swift; sourceTree = "<group>"; };
 		5B1112AA22EDB6DE009AD75B /* StyleEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleEnvironment.swift; sourceTree = "<group>"; };
 		5B1112AD22EDB957009AD75B /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		5B1112BC22EE0B1F009AD75B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		5B12A8E01D72EBE50072D1E1 /* FlexImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexImageView.swift; sourceTree = "<group>"; };
 		5B12A8E31D73066E0072D1E1 /* ImageViewDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewDemoViewController.swift; sourceTree = "<group>"; };
 		5B1EFC791D7047250040AD50 /* FlexViewMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexViewMenu.swift; sourceTree = "<group>"; };
@@ -594,6 +597,7 @@
 		5BF701FE1D3113D50011555A = {
 			isa = PBXGroup;
 			children = (
+				5B1112BC22EE0B1F009AD75B /* Media.xcassets */,
 				5BF7020A1D3113D50011555A /* MJRFlexStyleComponents */,
 				5B9936FD1D3A9E210043E573 /* MJRFlexStyleExamples */,
 				5BF702091D3113D50011555A /* Products */,
@@ -763,6 +767,7 @@
 			files = (
 				5B9937091D3A9E220043E573 /* LaunchScreen.storyboard in Resources */,
 				5B9937061D3A9E210043E573 /* Assets.xcassets in Resources */,
+				5B1112BE22EE0B1F009AD75B /* Media.xcassets in Resources */,
 				5B9937041D3A9E210043E573 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -771,6 +776,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B1112BD22EE0B1F009AD75B /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

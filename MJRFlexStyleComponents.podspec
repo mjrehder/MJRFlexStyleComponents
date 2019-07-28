@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MJRFlexStyleComponents'
-  s.version          = '4.2.9'
+  s.version          = '4.2.10'
   s.license          = 'MIT'
   s.summary          = 'Flexible components and views with style'
   s.homepage         = 'https://github.com/mjrehder/MJRFlexStyleComponents.git'
@@ -14,5 +14,6 @@ Pod::Spec.new do |s|
 
   s.framework    = 'UIKit'
   s.source_files = 'MJRFlexStyleComponents/*.swift'
+  s.resources    = 'MJRFlexStyleComponents/**/*.xcassets'
   s.requires_arc = true
 end
