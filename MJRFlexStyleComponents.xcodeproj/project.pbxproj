@@ -597,7 +597,6 @@
 		5BF701FE1D3113D50011555A = {
 			isa = PBXGroup;
 			children = (
-				5B1112BC22EE0B1F009AD75B /* Media.xcassets */,
 				5BF7020A1D3113D50011555A /* MJRFlexStyleComponents */,
 				5B9936FD1D3A9E210043E573 /* MJRFlexStyleExamples */,
 				5BF702091D3113D50011555A /* Products */,
@@ -625,6 +624,7 @@
 				5BD4603F1DA1004A001FA9B3 /* Flex Controls */,
 				5BD4603E1DA0FFD4001FA9B3 /* Flex Views */,
 				5BF7020B1D3113D50011555A /* MJRFlexStyleComponents.h */,
+				5B1112BC22EE0B1F009AD75B /* Media.xcassets */,
 				5BF7020D1D3113D50011555A /* Info.plist */,
 			);
 			path = MJRFlexStyleComponents;
