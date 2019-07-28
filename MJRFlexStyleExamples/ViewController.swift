@@ -8,7 +8,6 @@
 
 import UIKit
 import StyledLabel
-import MJRFlexStyleComponents
 
 class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSource, FlexSwitchDelegate {
     var colorMenuItems: [FlexMenuItem] = []

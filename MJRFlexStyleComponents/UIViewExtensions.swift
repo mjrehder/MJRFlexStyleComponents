@@ -1,8 +1,8 @@
 //
-//  UITextView+Alignment.swift
-//  MJRFlexStyleComponents
+//  UIViewExtensions.swift
+//  FlexMediaPicker
 //
-//  Created by Martin Rehder on 12.02.2017.
+//  Created by Martin Rehder on 30.09.2017.
 /*
  * Copyright 2017-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -29,32 +29,31 @@
 
 import UIKit
 
-public extension UITextView {
-    
-    /// Applies the UITextView text alignment based on detected contents language
-    func applyAutoTextAlignment() {
-        let ta: NSTextAlignment
-        if let t = self.text {
-            ta = self.alignmentForString(t as NSString)
-        }
-        else if let at = self.attributedText {
-            ta = self.alignmentForString(at.string as NSString)
-        }
-        else {
-            ta = .left
-        }
-        self.textAlignment = ta
-    }
-    
-    func alignmentForString(_ astring: NSString) -> NSTextAlignment {
-        if astring.length > 0 {
-            let rightLeftLanguages = ["ar","arc","bcc","bqi","ckb","dv","fa","glk","he","ku","mzn","pnb","ps","sd","ug","ur","yi"]
-            if let lang = CFStringTokenizerCopyBestStringLanguage(astring,CFRangeMake(0,astring.length)) {
-                if rightLeftLanguages.contains(lang as String) {
-                    return .right
-                }
+public extension UIView {
+    @objc func showHide(hide: Bool = false, completionHandler: (()->Void)? = nil) {
+        DispatchQueue.main.async {
+            if self.isHidden == hide {
+                completionHandler?()
+                return
+            }
+            if hide {
+                self.alpha = 1
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.alpha = 0
+                }, completion: { _ in
+                    self.isHidden = true
+                    completionHandler?()
+                })
+            }
+            else {
+                self.alpha = 0
+                self.isHidden = false
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.alpha = 1
+                }, completion: { _ in
+                    completionHandler?()
+                })
             }
         }
-        return .left
     }
 }

@@ -1,8 +1,8 @@
 //
-//  UITextView+Alignment.swift
+//  CommonFlexView.swift
 //  MJRFlexStyleComponents
 //
-//  Created by Martin Rehder on 12.02.2017.
+//  Created by Martin Rehder on 30.10.2017.
 /*
  * Copyright 2017-present Martin Jacob Rehder.
  * http://www.rehsco.com
@@ -29,32 +29,23 @@
 
 import UIKit
 
-public extension UITextView {
+open class CommonFlexView: FlexView {
+    private var closeViewMenu: CommonIconViewMenu?
+    var rightViewMenu: CommonIconViewMenu?
     
-    /// Applies the UITextView text alignment based on detected contents language
-    func applyAutoTextAlignment() {
-        let ta: NSTextAlignment
-        if let t = self.text {
-            ta = self.alignmentForString(t as NSString)
-        }
-        else if let at = self.attributedText {
-            ta = self.alignmentForString(at.string as NSString)
-        }
-        else {
-            ta = .left
-        }
-        self.textAlignment = ta
-    }
-    
-    func alignmentForString(_ astring: NSString) -> NSTextAlignment {
-        if astring.length > 0 {
-            let rightLeftLanguages = ["ar","arc","bcc","bqi","ckb","dv","fa","glk","he","ku","mzn","pnb","ps","sd","ug","ur","yi"]
-            if let lang = CFStringTokenizerCopyBestStringLanguage(astring,CFRangeMake(0,astring.length)) {
-                if rightLeftLanguages.contains(lang as String) {
-                    return .right
-                }
+    func createBackOrCloseLeftMenu(closeHandler: @escaping ()->Void) {
+        self.closeViewMenu = CommonIconViewMenu(size: CGSize(width: 50, height: 36), hPos: .left, vPos: .header, menuIconSize: 24)
+        self.closeViewMenu?.createCloseIconMenuItem()
+        self.closeViewMenu?.menuSelectionHandler = {
+            type in
+            if type == .close {
+                closeHandler()
             }
         }
-        return .left
+        self.addMenu(self.closeViewMenu!)
+    }
+    
+    func hideViewElements(hide: Bool = false) {
+        self.closeViewMenu?.viewMenu?.showHide(hide: hide)
     }
 }

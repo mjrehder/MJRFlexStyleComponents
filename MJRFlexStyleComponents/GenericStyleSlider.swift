@@ -157,7 +157,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
      
      Default value is 0.1s
      */
-    @IBInspectable open var notificationDelay: TimeInterval = 0.1  {
+    @IBInspectable open var notificationDelay: TimeInterval = 1.1  {
         didSet {
             self.initComponent()
         }
@@ -761,14 +761,19 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
     func startPositionUpdateNotification() {
         self.posUpdateTimer.start(self.notificationDelay) { [weak self] in
             if let weakSelf = self {
+                var updatesPending = false
                 for thumb in weakSelf.thumbList.thumbs {
                     let v = weakSelf.thumbList.getValueFromThumbPos(thumb.index)
                     if !v.isNaN && !v.isInfinite {
-                        weakSelf.updateValue(thumb.index, value: v, finished: false)
+                        if weakSelf.updateValue(thumb.index, value: v, finished: false) {
+                            updatesPending = true
+                        }
                     }
                 }
-                weakSelf.layoutSeparators()
-                weakSelf.assignSeparatorTextOpacities()
+                if updatesPending {
+                    weakSelf.layoutSeparators()
+                    weakSelf.assignSeparatorTextOpacities()
+                }
             }
         }
     }
@@ -1164,13 +1169,17 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
         self.setNeedsLayout()
     }
     
-    func updateValue(_ index: Int, value: Double, finished: Bool = true) {
+    @discardableResult
+    func updateValue(_ index: Int, value: Double, finished: Bool = true) -> Bool {
         let newVal = self.clampValue(value)
         let oldVal = _values[index]
         _values[index] = newVal
         
+        var valueUpdated = false
+        
         if (continuous || finished) && oldVal != newVal {
             self.notifyOfValueChanged(newVal, index: index)
+            valueUpdated = true
         }
         if self.userIsSliding {
             self.valueChangedBlockWhileSliding?(newVal, index)
@@ -1190,6 +1199,7 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
                 }
             }
         }
+        return valueUpdated
     }
     
     func updateValues() {

@@ -31,7 +31,7 @@ import UIKit
 
 public extension UITextView {
 
-    public func prepareDefault() {
+    func prepareDefault() {
         self.isEditable = false
         self.isSelectable = true
         self.isUserInteractionEnabled = true

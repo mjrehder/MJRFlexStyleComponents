@@ -30,21 +30,21 @@
 import UIKit
 
 public extension FlexCollectionView {
-    public func getHorizontalSpacing() -> CGFloat {
+    func getHorizontalSpacing() -> CGFloat {
         if let layout = itemCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             return layout.scrollDirection == .vertical ? layout.minimumInteritemSpacing : layout.minimumLineSpacing
         }
         return 0
     }
     
-    public func getVerticalSpacing() -> CGFloat {
+    func getVerticalSpacing() -> CGFloat {
         if let layout = itemCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             return layout.scrollDirection == .vertical ? layout.minimumLineSpacing : layout.minimumInteritemSpacing
         }
         return 0
     }
     
-    public func getHorizontalSectionInset(forSection sectionIdx: Int) -> CGFloat {
+    func getHorizontalSectionInset(forSection sectionIdx: Int) -> CGFloat {
         if let layout = itemCollectionView.collectionViewLayout as? UICollectionViewFlowLayout, let section = getSection(atIndex: sectionIdx) {
             let inset = layout.sectionInset
             let sInset = section.insets
@@ -53,7 +53,7 @@ public extension FlexCollectionView {
         return 0
     }
     
-    public func getVerticalSectionInset(forSection sectionIdx: Int) -> CGFloat {
+    func getVerticalSectionInset(forSection sectionIdx: Int) -> CGFloat {
         if let layout = itemCollectionView.collectionViewLayout as? UICollectionViewFlowLayout, let section = getSection(atIndex: sectionIdx) {
             let inset = layout.sectionInset
             let sInset = section.insets

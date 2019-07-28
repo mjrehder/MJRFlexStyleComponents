@@ -13,6 +13,14 @@
 		5B0859E41D7EE84B00484E8F /* FlexTextViewDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0859E21D7EE84B00484E8F /* FlexTextViewDemoViewController.swift */; };
 		5B0D285B1E62F0D40015FFC6 /* FlexSubPrimaryLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0D285A1E62F0D40015FFC6 /* FlexSubPrimaryLabel.swift */; };
 		5B0D285C1E62F0D40015FFC6 /* FlexSubPrimaryLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0D285A1E62F0D40015FFC6 /* FlexSubPrimaryLabel.swift */; };
+		5B1112A522EDADD8009AD75B /* CommonFlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1112A422EDADD8009AD75B /* CommonFlexView.swift */; };
+		5B1112A622EDADD8009AD75B /* CommonFlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1112A422EDADD8009AD75B /* CommonFlexView.swift */; };
+		5B1112A822EDAEA6009AD75B /* CommonIconViewMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1112A722EDAEA6009AD75B /* CommonIconViewMenu.swift */; };
+		5B1112A922EDAEA6009AD75B /* CommonIconViewMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1112A722EDAEA6009AD75B /* CommonIconViewMenu.swift */; };
+		5B1112AB22EDB6DE009AD75B /* StyleEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1112AA22EDB6DE009AD75B /* StyleEnvironment.swift */; };
+		5B1112AC22EDB6DE009AD75B /* StyleEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1112AA22EDB6DE009AD75B /* StyleEnvironment.swift */; };
+		5B1112AE22EDB957009AD75B /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1112AD22EDB957009AD75B /* UIViewExtensions.swift */; };
+		5B1112AF22EDB957009AD75B /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1112AD22EDB957009AD75B /* UIViewExtensions.swift */; };
 		5B12A8E11D72EBE50072D1E1 /* FlexImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B12A8E01D72EBE50072D1E1 /* FlexImageView.swift */; };
 		5B12A8E21D72EBE50072D1E1 /* FlexImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B12A8E01D72EBE50072D1E1 /* FlexImageView.swift */; };
 		5B12A8E41D73066E0072D1E1 /* ImageViewDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B12A8E31D73066E0072D1E1 /* ImageViewDemoViewController.swift */; };
@@ -219,6 +227,10 @@
 		5B0859DF1D7EE65500484E8F /* FlexTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexTextView.swift; sourceTree = "<group>"; };
 		5B0859E21D7EE84B00484E8F /* FlexTextViewDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexTextViewDemoViewController.swift; sourceTree = "<group>"; };
 		5B0D285A1E62F0D40015FFC6 /* FlexSubPrimaryLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexSubPrimaryLabel.swift; sourceTree = "<group>"; };
+		5B1112A422EDADD8009AD75B /* CommonFlexView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonFlexView.swift; sourceTree = "<group>"; };
+		5B1112A722EDAEA6009AD75B /* CommonIconViewMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonIconViewMenu.swift; sourceTree = "<group>"; };
+		5B1112AA22EDB6DE009AD75B /* StyleEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleEnvironment.swift; sourceTree = "<group>"; };
+		5B1112AD22EDB957009AD75B /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		5B12A8E01D72EBE50072D1E1 /* FlexImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexImageView.swift; sourceTree = "<group>"; };
 		5B12A8E31D73066E0072D1E1 /* ImageViewDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewDemoViewController.swift; sourceTree = "<group>"; };
 		5B1EFC791D7047250040AD50 /* FlexViewMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexViewMenu.swift; sourceTree = "<group>"; };
@@ -371,6 +383,8 @@
 				5B3FF7241E13BD9A0077A106 /* FlexShapeStyle.swift */,
 				5B3FF7211E13BC8C0077A106 /* FlexBaseStylingControl.swift */,
 				5BC4B9AF1D520E7F0000421F /* FlexBaseControl.swift */,
+				5B1112A422EDADD8009AD75B /* CommonFlexView.swift */,
+				5B1112A722EDAEA6009AD75B /* CommonIconViewMenu.swift */,
 			);
 			name = BaseUI;
 			sourceTree = "<group>";
@@ -500,6 +514,7 @@
 			isa = PBXGroup;
 			children = (
 				5BC2CA741FFF90B9006AC6CB /* ThreadExtension.swift */,
+				5B1112AD22EDB957009AD75B /* UIViewExtensions.swift */,
 				5BC87C6E1EF903970071B4C3 /* UIImageExtensions.swift */,
 				5BB3660F1DBA382500C26FC0 /* StringExtension.swift */,
 				5BB114211DB8F7FD00719EEB /* NSAttributedStringExtension.swift */,
@@ -633,6 +648,7 @@
 				5BB91CA11DA39E0F00A94D12 /* ImageShapeLayerFactory.swift */,
 				5BFA204C1FFD00EA00FB4AE5 /* FlexControlStyler.swift */,
 				5BFA204F1FFD038700FB4AE5 /* FlexCellStyler.swift */,
+				5B1112AA22EDB6DE009AD75B /* StyleEnvironment.swift */,
 			);
 			name = Styling;
 			sourceTree = "<group>";
@@ -707,11 +723,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Martin Rehder";
 				TargetAttributes = {
 					5B9936FB1D3A9E210043E573 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = V7Y9TF9C7U;
 						LastSwiftMigration = 0810;
 					};
 					5BF702071D3113D50011555A = {
@@ -722,7 +739,7 @@
 			};
 			buildConfigurationList = 5BF702021D3113D50011555A /* Build configuration list for PBXProject "MJRFlexStyleComponents" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -858,6 +875,7 @@
 				5B7234A21E3395990089A4E7 /* FlexMenuCollectionViewCell.swift in Sources */,
 				5BB91CA31DA39E0F00A94D12 /* ImageShapeLayerFactory.swift in Sources */,
 				5B9937111D3A9E5B0043E573 /* StyledSliderThumbList.swift in Sources */,
+				5B1112A622EDADD8009AD75B /* CommonFlexView.swift in Sources */,
 				5B12A8E41D73066E0072D1E1 /* ImageViewDemoViewController.swift in Sources */,
 				5BB91CA71DA3D8F600A94D12 /* FlexBaseCollectionViewCell.swift in Sources */,
 				5BB91C951DA3955900A94D12 /* EmptyHeaderCollectionReusableView.swift in Sources */,
@@ -892,6 +910,7 @@
 				5BADFC601DA8CA33004A5D12 /* FlexSliderCollectionViewCell.swift in Sources */,
 				5BC14FC31EFA455000B30350 /* StyledSliderSeparator.swift in Sources */,
 				5BC9E1261EF6A7CB00740834 /* FlexMutableSlider.swift in Sources */,
+				5B1112AF22EDB957009AD75B /* UIViewExtensions.swift in Sources */,
 				5BAD34EE1E5059470078FEE8 /* UITextView+Alignment.swift in Sources */,
 				5BB2A6241DA7D296003D38C3 /* FlexSwitchCollectionViewCell.swift in Sources */,
 				5BE448511D4220830011E5AE /* LabelFactory.swift in Sources */,
@@ -899,9 +918,11 @@
 				5BB2A61E1DA7A72E003D38C3 /* FlexColorCollectionViewCell.swift in Sources */,
 				5BE64CE41E4B279B00CD0271 /* FlexTextFieldCollectionViewCell.swift in Sources */,
 				5BB660471F2765F2006B0F36 /* FlexFlickButton.swift in Sources */,
+				5B1112A922EDAEA6009AD75B /* CommonIconViewMenu.swift in Sources */,
 				5BB91C971DA3955900A94D12 /* SimpleHeaderCollectionReusableView.swift in Sources */,
 				5BC362881EFBA9B600E04C26 /* StyledSliderItem.swift in Sources */,
 				5B53D0F71D5393520068BF04 /* ViewsDemoViewController.swift in Sources */,
+				5B1112AC22EDB6DE009AD75B /* StyleEnvironment.swift in Sources */,
 				5BB91C931DA3955900A94D12 /* FlexCollectionItem.swift in Sources */,
 				5B7234841E2CE49B0089A4E7 /* FlexHeaderView.swift in Sources */,
 				5BC87C701EF903970071B4C3 /* UIImageExtensions.swift in Sources */,
@@ -964,6 +985,7 @@
 				5BC87C6F1EF903970071B4C3 /* UIImageExtensions.swift in Sources */,
 				5B3FF7291E13EDA50077A106 /* FlexBaseCollectionViewCellTextLabel.swift in Sources */,
 				5BB366101DBA382500C26FC0 /* StringExtension.swift in Sources */,
+				5B1112A522EDADD8009AD75B /* CommonFlexView.swift in Sources */,
 				5BFA204D1FFD00EA00FB4AE5 /* FlexControlStyler.swift in Sources */,
 				5BC87C721EF95BBF0071B4C3 /* MutableSliderSeparatorItem.swift in Sources */,
 				5BC3A5061F6FCBB900B4F553 /* FlexFlickButtonCollectionViewCell.swift in Sources */,
@@ -986,6 +1008,7 @@
 				5BC3A5091F6FCC0200B4F553 /* FlexFlickButtonCollectionItem.swift in Sources */,
 				5BB114221DB8F7FD00719EEB /* NSAttributedStringExtension.swift in Sources */,
 				5BC362871EFBA9B600E04C26 /* StyledSliderItem.swift in Sources */,
+				5B1112A822EDAEA6009AD75B /* CommonIconViewMenu.swift in Sources */,
 				5B72349F1E3395990089A4E7 /* FlexMenuCollectionItem.swift in Sources */,
 				5B3FF72C1E13EEF20077A106 /* FlexBaseCollectionViewCellAuxTextLabel.swift in Sources */,
 				5BB91C9A1DA3955900A94D12 /* FlexCollectionViewCell.swift in Sources */,
@@ -1010,6 +1033,7 @@
 				5B7234801E2CC0A60089A4E7 /* FlexButtonCollectionViewCell.swift in Sources */,
 				5BC9E12A1EF6AAE700740834 /* MutableSliderThumbItem.swift in Sources */,
 				5BB91CA21DA39E0F00A94D12 /* ImageShapeLayerFactory.swift in Sources */,
+				5B1112AE22EDB957009AD75B /* UIViewExtensions.swift in Sources */,
 				5BB2A6231DA7D296003D38C3 /* FlexSwitchCollectionViewCell.swift in Sources */,
 				5B3FF7221E13BC8C0077A106 /* FlexBaseStylingControl.swift in Sources */,
 				5BAD34EA1E5058970078FEE8 /* UITextView+Defaults.swift in Sources */,
@@ -1027,6 +1051,7 @@
 				5BC2CA751FFF90B9006AC6CB /* ThreadExtension.swift in Sources */,
 				5B3FF7391E152C600077A106 /* FlexCellView.swift in Sources */,
 				5BB660461F2765F2006B0F36 /* FlexFlickButton.swift in Sources */,
+				5B1112AB22EDB6DE009AD75B /* StyleEnvironment.swift in Sources */,
 				5BB91CA91DA3DC3500A94D12 /* FlexBaseCollectionItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1059,7 +1084,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V7Y9TF9C7U;
 				INFOPLIST_FILE = MJRFlexStyleExamples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.MJRFlexStyleExamples;
@@ -1074,7 +1099,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V7Y9TF9C7U;
 				INFOPLIST_FILE = MJRFlexStyleExamples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.MJRFlexStyleExamples;

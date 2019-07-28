@@ -30,7 +30,7 @@
 import Foundation
 
 public extension Thread {
-    public static func ensureOnAsyncMainThread(_ execute: @escaping (()->Void)) {
+    static func ensureOnAsyncMainThread(_ execute: @escaping (()->Void)) {
         if Thread.isMainThread {
             execute()
         }
