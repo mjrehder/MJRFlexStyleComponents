@@ -127,7 +127,7 @@ open class FlexSlider: GenericStyleSlider, GenericStyleSliderDelegate {
     }
     
     open func colorOfSeparatorLabel(_ index: Int) -> UIColor? {
-        return index == 0 ? self.minimumTrackTintColor ?? UIColor.red.darkened(amount: 0.2) : self.maximumTrackTintColor ?? .clear
+        return index == 0 ? self.minimumTrackTintColor ?? UIColor.red.darker(by: 0.2) : self.maximumTrackTintColor ?? .clear
     }
     
     open func adaptOpacityForSeparatorLabel(_ index: Int) -> Bool {

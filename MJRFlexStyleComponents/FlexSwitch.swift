@@ -29,7 +29,6 @@
 
 
 import UIKit
-import DynamicColor
 
 public protocol FlexSwitchDelegate {
     func switchStateChanged(_ flexSwitch: FlexSwitch, on: Bool)
@@ -124,7 +123,7 @@ public protocol FlexSwitchDelegate {
     }
     
     open func colorOfSeparatorLabel(_ index: Int) -> UIColor? {
-        return index == 0 ? self.onTintColor ?? UIColor.red.darkened(amount: 0.2) : self.styleColor
+        return index == 0 ? self.onTintColor ?? UIColor.red.darker(by: 0.2) : self.styleColor
     }
     
     open func adaptOpacityForSeparatorLabel(_ index: Int) -> Bool {

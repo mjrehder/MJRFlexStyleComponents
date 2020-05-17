@@ -29,7 +29,6 @@
 
 import UIKit
 import StyledLabel
-import DynamicColor
 
 public protocol GenericStyleSliderDelegate {
     func textOfThumb(_ index: Int) -> String?
@@ -985,6 +984,8 @@ public protocol GenericStyleSliderSeparatorTouchDelegate {
             self.notifyOfValueChanged(v, index: thumb.index)
             
         case .possible:
+            break
+        @unknown default:
             break
         }
     }

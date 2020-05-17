@@ -48,7 +48,7 @@ open class StyledSliderSeparator: StyledSliderItem {
     
     open override func removeGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
         super.removeGestureRecognizer(gestureRecognizer)
-        if let idx = self.assignedGestures.index(of: gestureRecognizer) {
+        if let idx = self.assignedGestures.firstIndex(of: gestureRecognizer) {
             self.assignedGestures.remove(at: idx)
         }
     }

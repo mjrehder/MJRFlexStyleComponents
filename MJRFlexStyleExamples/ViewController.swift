@@ -175,17 +175,17 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
     }
     
     func applyColorToDemoControls() {
-        self.dataPointSelector.minimumTrackTintColor = self.selectedColor.darkened()
+        self.dataPointSelector.minimumTrackTintColor = self.selectedColor.darker()
         self.dataPointSelector.maximumTrackTintColor = UIColor.clear
         self.dataPointSelector.thumbTintColor = self.selectedThumbColor
-        self.numSeriesSelector.minimumTrackTintColor = self.selectedColor.darkened()
+        self.numSeriesSelector.minimumTrackTintColor = self.selectedColor.darker()
         self.numSeriesSelector.maximumTrackTintColor = UIColor.clear
         self.numSeriesSelector.thumbTintColor = self.selectedThumbColor
         self.vhSwitch.thumbTintColor = self.selectedThumbColor
         self.vhSwitch.onTintColor = self.selectedColor
         self.vhSwitch.borderColor = .black
         self.vhSwitch.borderWidth = 0.5
-        self.maxMinDataSlider.minimumTrackTintColor = self.selectedColor.darkened()
+        self.maxMinDataSlider.minimumTrackTintColor = self.selectedColor.darker()
         self.maxMinDataSlider.middleTrackTintColor = self.selectedColor
         self.maxMinDataSlider.maximumTrackTintColor = UIColor.clear
         self.maxMinDataSlider.thumbTintColor = self.selectedThumbColor
@@ -280,7 +280,7 @@ class ViewController: UIViewController, FlexMenuDataSource, FlexSeriesViewDataSo
     func colorOfSeries(_ flexSeries: FlexSeriesView, series: Int) -> UIColor {
         var color = self.selectedColor
         for _ in 0..<series {
-            color = color.lighter(amount: 0.1)
+            color = color.lighter(by: 0.1)
         }
         return color
     }

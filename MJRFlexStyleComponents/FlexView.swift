@@ -237,7 +237,7 @@ open class FlexView: FlexBaseControl, UITextFieldDelegate {
     }
     
     open func removeMenu(_ menu: FlexViewMenu) {
-        if let idx = self.menus.index(where: { (vmenu) -> Bool in
+        if let idx = self.menus.firstIndex(where: { (vmenu) -> Bool in
             menu.id == vmenu.id
         }) {
             self.menus.remove(at: idx)

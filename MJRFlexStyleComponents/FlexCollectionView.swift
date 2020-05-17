@@ -335,7 +335,7 @@ open class FlexCollectionView: FlexView, UICollectionViewDataSource, UICollectio
     
     open func removeItem(_ item: FlexCollectionItem) {
         if let items = self.contentDic?[item.sectionReference!] {
-            if let idx = items.index(of: item) {
+            if let idx = items.firstIndex(of: item) {
                 self.contentDic?[item.sectionReference!]?.remove(at: idx)
             }
         }
