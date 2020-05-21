@@ -16,7 +16,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         super.viewDidLoad()
         self.setupView()
     }
-    
+      
     func setupView() {
         self.automaticallyAdjustsScrollViewInsets = false
 
@@ -46,6 +46,35 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         sb.filterContentForSearchText = { searchText in
             NSLog("Should search/filter for text: \(searchText)")
         }
+
+        // Create sections with a title. Remember to set the height and if needed also the insets, as these parameters are otherwise 0 and .zero
+        let secRef = self.demoCollectionView.addSection(NSAttributedString(string: "Section 1"), height: 18, insets: UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2))
+        let sec2Ref = self.demoCollectionView.addSection(NSAttributedString(string: "Section 2"), height: 18, insets: UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2))
+
+        setupAppearances()
+
+        // Section 1
+        
+        createQuadLabelItem(secRef)
+        createSimpleImageTextAccItem(secRef)
+        createTextViewItem(secRef)
+        createTextViewItemWithImage(secRef)
+        createTextFieldItem(secRef)
+        createColorItem(secRef)
+        createSwitchItem(secRef)
+        createSliderItem(secRef)
+
+        // Section 2
+        
+        createImageView(sec2Ref)
+        createDoubleTextWithMenu(sec2Ref)
+        createButtonCell(sec2Ref)
+        createCardTextView(sec2Ref)
+        createSnapStepperItem(sec2Ref)
+
+    }
+    
+    fileprivate func setupAppearances() {
         /*
         Discussion:
          Using the UIAppearance for setting the style of the collection view elements.
@@ -56,10 +85,6 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         uiviewApp.contentScaleFactor = UIScreen().scale + 1.5
         uiviewApp.contentMode = .center
         uiviewApp.backgroundColor = UIColor.MKColor.Brown.P50
-
-        // Create sections with a title. Remember to set the height and if needed also the insets, as these parameters are otherwise 0 and .zero
-        let secRef = self.demoCollectionView.addSection(NSAttributedString(string: "Section 1"), height: 18, insets: UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2))
-        let sec2Ref = self.demoCollectionView.addSection(NSAttributedString(string: "Section 2"), height: 18, insets: UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2))
 
         // Set overall apperance for the section headers
         let headerAppearance = FlexLabel.appearance(whenContainedInInstancesOf: [SimpleHeaderCollectionReusableView.self])
@@ -72,7 +97,7 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         // Set the overall cell appearance
         let cellAppearance = FlexCollectionViewCell.appearance()
         cellAppearance.styleColor = UIColor.MKColor.Brown.P100
-
+        
         // Set the appearance of complex cells, such as image, color, text area cells
         let cellViewAppearance = FlexCellView.appearance()
         cellViewAppearance.style = FlexShapeStyle(style: .roundedFixed(cornerRadius: 5))
@@ -82,11 +107,11 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         cellBaseAppearance.imageViewStyle = FlexShapeStyle(style: .roundedFixed(cornerRadius: 5))
         cellBaseAppearance.accessoryViewSize = CGSize(width: 18,height: 18)
         cellBaseAppearance.controlInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 10)
-
+        
         // Set the supplementary (header) of cells style
         let cellHeaderViewAppearance = FlexViewSupplementaryView.appearance(whenContainedInInstancesOf: [FlexCollectionViewCell.self])
         cellHeaderViewAppearance.styleColor = UIColor.MKColor.Brown.P500
-
+        
         // Set the cells header title style
         let cellHeaderAppearance = FlexPrimaryLabel.appearance(whenContainedInInstancesOf: [FlexHeaderView.self, FlexCellView.self])
         cellHeaderAppearance.labelFont = UIFont.boldSystemFont(ofSize: 10)
@@ -120,14 +145,17 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         auxTextLabelAppearance.labelFont = UIFont.systemFont(ofSize: 8)
         auxTextLabelAppearance.labelTextAlignment = .right
         auxTextLabelAppearance.labelTextColor = .black
-
+    }
+    
+    fileprivate func createQuadLabelItem(_ secRef: String) {
         let item0 = FlexBaseCollectionItem(reference: "item0ref", text: NSAttributedString(string: "Text String"), icon: nil, accessoryImage: nil, title: NSAttributedString(string: "Item 0"))
         item0.infoText = NSAttributedString(string: "Info")
         item0.detailText = NSAttributedString(string: "Detail Text")
         item0.auxText = NSAttributedString(string: "Aux Info")
-        
         self.demoCollectionView.addItem(secRef, item: item0)
-        
+    }
+    
+    fileprivate func createSimpleImageTextAccItem(_ secRef: String) {
         // Simple Image,Text,Accessory Item. Accessory will only show on selection. Selection is triggered also for pressing icon and accessory image in this cell.
         let ti1 = UIImage(named: "DemoImage2")
         let ti2 = UIImage(named: "ThumbIcon3")
@@ -140,27 +168,47 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         item1.showAccessoryImageOnlyWhenSelected = true
         item1.contentInteractionWillSelectItem = true
         self.demoCollectionView.addItem(secRef, item: item1)
+    }
 
-        
-        // Text View Collection Item
+    fileprivate func createTextViewItem(_ secRef: String) {
         let item2 = FlexTextViewCollectionItem(reference: "item2ref", text: NSAttributedString(string: "This is a longer text in order to test the TextView"), title: NSAttributedString(string: "Item 1.1"))
         item2.canMoveItem = false
         item2.headerPosition = .left
         item2.textIsMutable = true
         item2.textTitle = NSAttributedString(string: "Text Title Very Long in order to test the auto cut-off and layout")
         item2.autodetectTextSizeFittingAndTruncateWithString = NSAttributedString(string: "...")
-        item2.textViewInsets = UIEdgeInsets(top: 13, left: 0, bottom: 0, right: 0)
+        item2.textViewInsets = UIEdgeInsets.zero
         self.demoCollectionView.addItem(secRef, item: item2)
-        
-        // Text Field Collection Item
+    }
+    
+    fileprivate func createTextViewItemWithImage(_ secRef: String) {
+        let ti1img = UIImage(named: "DemoImage2")
+        let textTitleStr = applyFontAndColorToString(UIFont.boldSystemFont(ofSize: 16), color: .black, text: "Text Title Very Long in order to test the auto cut-off and layout")
+        let contentStr = applyFontAndColorToString(UIFont.systemFont(ofSize: 12), color: .black, text: "This is a longer text\nin order to test the TextView")
+        let item2Img = FlexTextViewCollectionItem(reference: "item12ref", text: contentStr, icon: ti1img, title: NSAttributedString(string: "Item 1.2"))
+        item2Img.canMoveItem = false
+        item2Img.headerPosition = .left
+        item2Img.textIsMutable = true
+        item2Img.textTitle = textTitleStr
+        item2Img.autodetectTextSizeFittingAndTruncateWithString = NSAttributedString(string: "...")
+        item2Img.textViewInsets = UIEdgeInsets.zero
+        item2Img.preferredCellSize = CGSize(width: 250, height: 50)
+        self.demoCollectionView.addItem(secRef, item: item2Img)
+    }
+    
+    fileprivate func createTextFieldItem(_ secRef: String) {
         let item21 = FlexTextFieldCollectionItem(reference: "item21ref", text: NSAttributedString(string: "This is a text field cell"), title: NSAttributedString(string: "Item 2.1"))
         item21.canMoveItem = false
         item21.headerPosition = .left
         item21.textIsMutable = true
         item21.textFieldDelegate = self
         self.demoCollectionView.addItem(secRef, item: item21)
-        
-        // Color item
+    }
+    
+    fileprivate func createColorItem(_ secRef: String) {
+        let ti1 = UIImage(named: "DemoImage2")
+        let ti2 = UIImage(named: "ThumbIcon3")
+
         let flexColorCellAppearance = FlexColorCollectionViewCell.appearance()
         flexColorCellAppearance.controlBorderColor = .black
         flexColorCellAppearance.controlBorderWidth = 0.5
@@ -171,9 +219,12 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         }
         colItem.controlSize = CGSize(width: 32, height: 32)
         self.demoCollectionView.addItem(secRef, item: colItem)
+    }
+    
+    fileprivate func createSwitchItem(_ secRef: String) {
+        let ti1 = UIImage(named: "DemoImage2")
+        let ti2 = UIImage(named: "ThumbIcon3")
 
-        
-        // Switch value
         let flexSwitchAppearance = FlexSwitch.appearance(whenContainedInInstancesOf: [FlexSwitchCollectionViewCell.self])
         flexSwitchAppearance.thumbTintColor = UIColor.MKColor.Brown.P700
         flexSwitchAppearance.onTintColor = UIColor.MKColor.Brown.P200
@@ -181,15 +232,18 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         flexSwitchAppearance.borderColor = .black
         flexSwitchAppearance.style = FlexShapeStyle(style: .roundedFixed(cornerRadius: 5))
         flexSwitchAppearance.thumbStyle = FlexShapeStyle(style: .roundedFixed(cornerRadius: 5))
-
+        
         let switchItem = FlexSwitchCollectionItem(reference: "switch", value: true, text: NSAttributedString(string: "Switch"), icon: ti1, accessoryImage: ti2, title: NSAttributedString(string: "Item 3")) { (value) in
             NSLog("The switch is now \(value)")
         }
         switchItem.controlSize = CGSize(width: 32,height: 22)
         self.demoCollectionView.addItem(secRef, item: switchItem)
-        
-        
-        // Slider value
+    }
+    
+    fileprivate func createSliderItem(_ secRef: String) {
+        let ti1 = UIImage(named: "DemoImage2")
+        let ti2 = UIImage(named: "ThumbIcon3")
+
         let flexSliderAppearance = FlexSlider.appearance(whenContainedInInstancesOf: [FlexSliderCollectionViewCell.self])
         flexSliderAppearance.thumbTintColor = UIColor.MKColor.Brown.P700
         flexSliderAppearance.minimumTrackTintColor = UIColor.MKColor.Brown.P200
@@ -204,24 +258,24 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         sliderItem.controlInsets = UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 8)
         sliderItem.numberFormatString = nil
         sliderItem.thumbText = ""
-
-        self.demoCollectionView.addItem(secRef, item: sliderItem)
-
         
-        // Image view
+        self.demoCollectionView.addItem(secRef, item: sliderItem)
+    }
+    
+    fileprivate func createImageView(_ sec2Ref: String) {
         let imageCellViewAppearance = FlexImageShapeView.appearance()
         imageCellViewAppearance.style = FlexShapeStyle(style: .roundedFixed(cornerRadius: 5))
-
+        
         let imageItem = FlexImageCollectionItem(reference: "image", image: UIImage(named: "DemoImage"), title: NSAttributedString(string: "Item 5"))
         imageItem.underTitle = NSAttributedString(string: "subtitle for demo image")
         imageItem.controlInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
         self.demoCollectionView.addItem(sec2Ref, item: imageItem)
-        
-
-        // Double Text
+    }
+    
+    fileprivate func createDoubleTextWithMenu(_ sec2Ref: String) {
         let item6 = FlexBaseCollectionItem(reference: "item6ref", text: NSAttributedString(string: "Text String"), icon: nil, accessoryImage: nil, title: NSAttributedString(string: "Item 6"))
         item6.infoText = NSAttributedString(string: "Info Text")
-
+        
         let lsi = FlexLabel(frame: CGRect.zero)
         lsi.label.text = "Menu"
         lsi.style = FlexShapeStyle(style: .rounded)
@@ -243,26 +297,29 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         lsi3.labelTextColor = .white
         lsi3.labelTextAlignment = .center
         item6.swipeRightMenuItems = [lsi3]
-
+        
         item6.swipeMenuDelegate = self
         
         self.demoCollectionView.addItem(sec2Ref, item: item6)
-        
-        
+    }
+    
+    fileprivate func createButtonCell(_ sec2Ref: String) {
         // Button cell
         let buttonCellLabelAppearance = FlexLabel.appearance(whenContainedInInstancesOf: [FlexButtonCollectionViewCell.self])
         buttonCellLabelAppearance.labelFont = UIFont.boldSystemFont(ofSize: 14)
         buttonCellLabelAppearance.labelTextAlignment = .center
-
+        
         let item7 = FlexButtonCollectionItem(reference: "item7ref", text: NSAttributedString(string: "Press Me"))
         item7.itemSelectionActionHandler = {
             NSLog("Cell button pressed!")
         }
         item7.preferredCellSize = CGSize(width: 250, height: 30)
         self.demoCollectionView.addItem(sec2Ref, item: item7)
-        
-        
-        // Card Text View
+    }
+    
+    fileprivate func createCardTextView(_ sec2Ref: String) {
+        let ti1 = UIImage(named: "DemoImage2")
+
         let ftvApp = FlexTextView.appearance(whenContainedInInstancesOf: [FlexCardTextViewCollectionViewCell.self])
         ftvApp.controlInsets = UIEdgeInsets(top: 0, left: 10, bottom: 5, right: 10)
         ftvApp.style = FlexShapeStyle(style: .roundedFixed(cornerRadius: 10))
@@ -283,9 +340,12 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         item8.textIsScrollable = true
         
         self.demoCollectionView.addItem(sec2Ref, item: item8)
-        
-        
-        // Snap Stepper
+    }
+    
+    fileprivate func createSnapStepperItem(_ sec2Ref: String) {
+        let ti1 = UIImage(named: "DemoImage2")
+        let ti2 = UIImage(named: "ThumbIcon3")
+
         let flexSnapAppearance = FlexSnapStepper.appearance(whenContainedInInstancesOf: [FlexSnapStepperCollectionViewCell.self])
         flexSnapAppearance.thumbTintColor = UIColor.MKColor.Brown.P700
         flexSnapAppearance.separatorTintColor = UIColor.MKColor.Brown.P200
@@ -302,7 +362,6 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         snapperItem.numberFormatString = "%0.2lf"
         
         self.demoCollectionView.addItem(sec2Ref, item: snapperItem)
-
     }
     
     // MARK: - FlexCollectionItemSwipeDelegate
@@ -329,4 +388,11 @@ class FlexCollectionDemoViewController: UIViewController, FlexCollectionViewDele
         return false
     }
 
+    func applyFontAndColorToString(_ font: UIFont, color: UIColor, text: String) -> NSAttributedString {
+        let attributedString = NSAttributedString(string: text, attributes:
+            [   NSAttributedString.Key.font : font,
+                NSAttributedString.Key.foregroundColor: color
+            ])
+        return attributedString
+    }
 }
